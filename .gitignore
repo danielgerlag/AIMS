@@ -1,0 +1,16 @@
+/packages
+/.vs
+/AIMS.API/bin
+/AIMS.API/obj
+/AIMS.DomainModel/bin
+/AIMS.DomainModel/obj
+/AIMS.DomainModel.Abstractions/bin
+/AIMS.DomainModel.Abstractions/obj
+/AIMS.DomainModel.Interface/bin
+/AIMS.DomainModel.Interface/obj
+/AIMS.Services.Indexer/bin
+/AIMS.Services.Indexer/obj
+/AIMS.Services.Indexer.Interface/bin
+/AIMS.Services.Indexer.Interface/obj
+/AIMS.Services.IoC/bin
+/AIMS.Services.IoC/obj
