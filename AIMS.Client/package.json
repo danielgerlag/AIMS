@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "name": "ASP.NET",
+  "private": true,
+  "dependencies": {
+    "angular2": "2.0.0-beta.1",
+    "breeze-client": "^1.5.5",
+    "core-decorators": "^0.9.0",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "0.33.3",
+    "filesaver.js": "^0.2.0",
+    "ng2-bootstrap": "1.0.1-beta.0",
+    "ng2-file-upload": "^0.46.0",
+    "ng2-translate": "1.2.4",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.0",
+    "systemjs": "0.19.10",
+    "toastr": "^2.1.2",
+    "traceur-runtime": "0.0.59",
+    "tsd": "^0.6.5",
+    "zone.js": "0.5.10"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "bower": "^1.6.5"
+  }
+}

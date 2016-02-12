@@ -1,0 +1,28 @@
+﻿<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fa fa-sign-in fa-fw"></i>&nbsp; {{ 'LOGIN' | translate }}</h4>
+                <!--<h6 class="card-subtitle text-muted">Support card subtitle</h6>-->
+            </div>
+
+            <form (submit)="submit()" [ngFormModel]="form" class="form-horizontal card-block" role="form">
+
+                <form-input [form]="form" name="Username" title="{{ 'USERNAME' | translate }}">
+                    <input ngControl="Username" [(ngModel)]="model.Username" type="email" placeholder="{{ 'USERNAME' | translate }}" class="form-control">
+                </form-input>
+
+                <div class="form-group" [class.has-danger]="!form.find('Password').valid && form.find('Password').touched">
+                    <label class="control-label" for="Password">{{ 'PASSWORD' | translate }}</label>
+                    <input ng-control="Password" [(ngModel)]="model.Password" type="password" placeholder="{{ 'PASSWORD' | translate }}" class="form-control">
+                </div>
+                                
+                <error-summary [errors]="errorContainer" [form]="form"></error-summary>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{{ 'LOGIN' | translate }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

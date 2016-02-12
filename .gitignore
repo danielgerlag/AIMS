@@ -14,3 +14,6 @@
 /AIMS.Services.Indexer.Interface/obj
 /AIMS.Services.IoC/bin
 /AIMS.Services.IoC/obj
+/AIMS.Client/bin
+/AIMS.Client/node_modules
+/AIMS.Client/obj
