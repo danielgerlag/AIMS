@@ -26,8 +26,8 @@ namespace AIMS.DomainModel.Entities
         [StringLength(50)]
         public string AL3Element { get; set; }
 
-        [Required]
-        public AttributeType AttributeType { get; set; }
+        public int AttributeDataTypeID { get; set; }
+        public virtual AttributeDataType AttributeDataType { get; set; }
 
         public int? DecimalPlaces { get; set; }
 

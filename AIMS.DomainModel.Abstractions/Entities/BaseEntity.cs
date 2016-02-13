@@ -11,23 +11,7 @@ namespace AIMS.DomainModel.Abstractions.Entities
     public abstract class BaseEntity : IDomainEntity
     {
         [Key]
-        public int ID { get; set; }
-
-        private bool _deleted = false;
-
-        //[NotMapped]
-        public bool Deleted
-        {
-            get
-            {
-                return _deleted;
-            }
-
-            set
-            {
-                _deleted = value;
-            }
-        }
+        public int ID { get; set; }                
 
         [Timestamp]
         [ConcurrencyCheck]

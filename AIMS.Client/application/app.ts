@@ -3,8 +3,7 @@ import {Inject, Component, View, provide} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {HTTP_PROVIDERS} from './core/xhr_backend';
 import {Home} from './home/home';
-import {LoginController} from './account/login'
-import {DocumentCategoryController, DocumentTemplateController, DocumentDefinitionController, ContentFragmentController, DocumentBuilder, DocumentArchiver} from './forms'
+//import {LoginController} from './account/login'
 import {ROUTER_DIRECTIVES, RouteConfig, Location,ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, Route, AsyncRoute, Router} from 'angular2/router';
 import {FormBuilder, Validators, ControlGroup } from 'angular2/common';
 import {Typeahead} from '../node_modules/ng2-bootstrap/ng2-bootstrap';
@@ -18,6 +17,8 @@ import {IDataService, DataService} from './services/dataService';
 
 import {dto} from './core/dto';
 
+import {Components} from './components';
+
 import {enableProdMode} from "angular2/core";
 
 enableProdMode();
@@ -26,35 +27,28 @@ declare var System:any;
 
 @Component(
 {
-    selector: 'westdoc-app',
+    selector: 'aims-app',
     templateUrl: './application/app.html',  
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, FORM_DIRECTIVES],
     pipes: []
 })
      
 @RouteConfig([
-    new Route({ path: '/', component: Home, name: 'Home' }),    
+        new Route({ path: '/', component: Home, name: 'Home' }),
 
-    new Route({ path: '/DocumentCategory', component: DocumentCategoryController, name: 'DocumentCategory' }),    
-    new Route({ path: '/DocumentCategory/:Id', component: DocumentCategoryController, name: 'DocumentCategory' }),    
+        new Route({ path: '/ListOperatorType', component: Components.ListOperatorType, name: 'ListOperatorType' }),
+        new Route({ path: '/EditOperatorType', component: Components.EditOperatorType, name: 'EditOperatorType' }),
+        new Route({ path: '/EditOperatorType/:Id', component: Components.EditOperatorType, name: 'EditOperatorType' }),
 
-    new Route({ path: '/DocumentTemplate', component: DocumentTemplateController, name: 'DocumentTemplate' }),
-    new Route({ path: '/DocumentTemplate/:Id', component: DocumentTemplateController, name: 'DocumentTemplate' }),    
-
-    new Route({ path: '/DocumentDefinition', component: DocumentDefinitionController, name: 'DocumentDefinition' }),
-    new Route({ path: '/DocumentDefinition/:Id', component: DocumentDefinitionController, name: 'DocumentDefinition' }),    
-
-    new Route({ path: '/ContentFragment', component: ContentFragmentController, name: 'ContentFragment' }),
-    new Route({ path: '/ContentFragment/:Id', component: ContentFragmentController, name: 'ContentFragment' }),    
-
-    new Route({ path: '/DocumentBuilder', component: DocumentBuilder, name: 'DocumentBuilder' }),
-    new Route({ path: '/DocumentArchiver', component: DocumentArchiver, name: 'DocumentArchiver' }),       
-            
+        new Route({ path: '/ListInsurableItemClass', component: Components.ListInsurableItemClass, name: 'ListInsurableItemClass' }),
+        new Route({ path: '/EditInsurableItemClass', component: Components.EditInsurableItemClass, name: 'EditInsurableItemClass' }),    
+        new Route({ path: '/EditInsurableItemClass/:Id', component: Components.EditInsurableItemClass, name: 'EditInsurableItemClass' })
+                    
         
-    new Route({ path: '/Login', component: LoginController, name: 'Login' })
+    //new Route({ path: '/Login', component: LoginController, name: 'Login' })
 ])
  
-class WestDocApp {
+class AIMSApp {
 
     router: Router;
     location: Location;
@@ -87,7 +81,7 @@ class WestDocApp {
     }
         
 
-    private onLogoutResponse(sender: WestDocApp, data: any, status: number): any {
+    private onLogoutResponse(sender: AIMSApp, data: any, status: number): any {
         sender.router.navigate(["Home"]);
         sender.shellService.toastInfo("LOGOUT_TITLE", "LOGOUT_TEXT");
     }
@@ -115,7 +109,7 @@ class ComponentHelper{
     }
 }
 
-bootstrap(WestDocApp, [
+bootstrap(AIMSApp, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,    
     FormBuilder,    

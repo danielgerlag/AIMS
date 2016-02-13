@@ -17,6 +17,27 @@ namespace AIMS.DomainModel.Context
             //var globalArea = new DataArea() { Name = "Global" };
             //context.DataAreas.Add(globalArea);
 
+            AttributeDataType dtText = new AttributeDataType() { Description = "Text" };
+            AttributeDataType dtWholeNumber = new AttributeDataType() { Description = "WholeNumber" };
+            AttributeDataType dtDecimal = new AttributeDataType() { Description = "Decimal" };
+            AttributeDataType dtPercentage = new AttributeDataType() { Description = "Percentage" };
+            AttributeDataType dtDate = new AttributeDataType() { Description = "Date" };
+            AttributeDataType dtList = new AttributeDataType() { Description = "List" };
+            AttributeDataType dtYear = new AttributeDataType() { Description = "Year" };
+            AttributeDataType dtBoolean = new AttributeDataType() { Description = "Boolean" };
+            AttributeDataType dtCSIOList = new AttributeDataType() { Description = "CSIOList" };
+
+            context.AttributeDataTypes.Add(dtText);
+            context.AttributeDataTypes.Add(dtWholeNumber);
+            context.AttributeDataTypes.Add(dtDecimal);
+            context.AttributeDataTypes.Add(dtPercentage);
+            context.AttributeDataTypes.Add(dtDate);
+            context.AttributeDataTypes.Add(dtList);
+            context.AttributeDataTypes.Add(dtYear);
+            context.AttributeDataTypes.Add(dtBoolean);
+            context.AttributeDataTypes.Add(dtCSIOList);
+
+
             context.BusinessLines.Add(new BusinessLine() { Name = "Private Passenger Auto", CSIOCode = "AUTO" });
             context.BusinessLines.Add(new BusinessLine() { Name = "Commercial Autos Fleets Trucks", CSIOCode = "CAUTO" });
             context.BusinessLines.Add(new BusinessLine() { Name = "Miscellaneous Commercial Lines", CSIOCode = "COMM" });
@@ -30,12 +51,12 @@ namespace AIMS.DomainModel.Context
             //context.AttributeLookupLists
 
             InsurableItemClass standardAuto = new InsurableItemClass() { Name = "Standard Auto" };
-            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "Make", AttributeType = AttributeType.List });
-            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "VIN", AttributeType = AttributeType.Text });
+            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "Make", AttributeDataType = dtList });
+            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "VIN", AttributeDataType = dtText });
             context.InsurableItemClasses.Add(standardAuto);
 
 
-            //LoadSeedCodes(context);
+            LoadSeedCodes(context);
 
             base.Seed(context);
         }

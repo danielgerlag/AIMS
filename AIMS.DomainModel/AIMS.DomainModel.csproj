@@ -60,7 +60,7 @@
     <Compile Include="Entities\AttributeLookupItem.cs" />
     <Compile Include="Entities\AttributeLookupList.cs" />
     <Compile Include="Entities\AttributeLookupSubList.cs" />
-    <Compile Include="Entities\AttributeType.cs" />
+    <Compile Include="Entities\AttributeDataType.cs" />
     <Compile Include="Entities\Broker.cs" />
     <Compile Include="Entities\Brokerage.cs" />
     <Compile Include="Entities\BrokerageBranch.cs" />

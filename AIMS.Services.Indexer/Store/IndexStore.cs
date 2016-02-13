@@ -11,8 +11,8 @@ namespace AIMS.Services.Indexer.Store
 {
     public partial class IndexStore : DbContext, IIndexStore
     {
-        public IndexStore(string connectionString)
-            : base(connectionString)
+        public IndexStore()
+            : base("name=DB")
         {
             Database.SetInitializer<IndexStore>(new IndexDBInit());
 

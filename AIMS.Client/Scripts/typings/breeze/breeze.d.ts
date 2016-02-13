@@ -1053,7 +1053,7 @@ declare module breeze.config {
     Set the promise implementation, if Q.js is not found.
     @param q - implementation of promise.  @see http://wiki.commonjs.org/wiki/Promises/A
     */
-    export function setQ(q: breeze.promises.IPromiseService): void;
+    export function setQ(q): void;
     var stringifyPad: string;
     var typeRegistry: Object;
 

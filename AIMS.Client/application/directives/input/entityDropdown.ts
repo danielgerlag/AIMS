@@ -6,12 +6,13 @@ import {ODataWrapper} from '../../core/interfaces'
 
 @Component({
     selector: 'entity-dropdown',    
-    inputs: ['value', 'name', 'query', 'keyField', 'displayField'],
+    inputs: ['value', 'name', 'query', 'keyField', 'displayField', 'nullable'],
     outputs: ['valueChange']
 })
 @View({
     template: `    
-    <select type="text" class="form-control"  [ngModel]="value" (change)="changeValue($event.target.value)" >        
+    <select type="text" class="form-control"  [ngModel]="value" (change)="changeValue($event.target.value)" >
+        <option *ngIf="nullable" value="">(None)</option>
         <option *ngFor="#o of selectList" [value]="o.key">{{o.name}}</option>
     </select>
   `,
@@ -20,12 +21,13 @@ import {ODataWrapper} from '../../core/interfaces'
 export class EntityDropdown implements OnInit {
 
     private remoteService: IRemoteService;
-
+    private nullValue: any;
     private entityId: number;
     private name: string;
     private query: string;
     private keyField: string;
     private displayField: string;
+    private nullable: boolean;
     public valueChange: EventEmitter<any> = new EventEmitter();
 
     private selectList: Array<any> = [];
@@ -70,9 +72,11 @@ export class EntityDropdown implements OnInit {
                 }
             });
             if (!sender.value) {
-                //firefox select bug workaround
-                if (sender.selectList.length > 0)
-                    sender.value = sender.selectList[0].key;
+                if (!sender.nullable) {
+                    //firefox select bug workaround
+                    if (sender.selectList.length > 0)
+                        sender.value = sender.selectList[0].key;
+                }
             }
         }
     }

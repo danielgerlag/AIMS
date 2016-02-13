@@ -21,7 +21,8 @@ export abstract class CRUDController extends BaseController {
     protected params: RouteParams;
     protected router: Router;
     protected location: Location;    
-    protected authService: IAuthService;    
+    protected authService: IAuthService;
+    protected title: string;
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
         super(shellService);

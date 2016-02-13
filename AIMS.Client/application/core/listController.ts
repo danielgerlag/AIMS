@@ -1,55 +1,63 @@
 ﻿import {Component, View, provide} from 'angular2/core';
-import {FormBuilder, Validators, ControlGroup, Control, NgClass} from 'angular2/common';
+import {ROUTER_DIRECTIVES, RouteConfig, Location, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, Route, AsyncRoute, Router} from 'angular2/router';
 import {IShellService} from '../services/shellService';
-import {IRemoteService} from '../services/remoteService';
+import {IDataService} from '../services/dataService';
 import {IValidatable} from './interfaces';
 import {ModelErrorContainer} from './interfaces';
 import {BaseController} from './baseController'
 
-
-export abstract class ListController<T> extends BaseController {
+export abstract class ListController extends BaseController {
         
-    protected remoteService: IRemoteService;
-    
-    public data: any;
+    protected dataService: IDataService;
+    protected router: Router;
 
-    constructor(shellService: IShellService, remoteService: IRemoteService) {
+    public data: breeze.Entity[];
+    public columns: any;
+
+    constructor(shellService: IShellService, dataService: IDataService, router: Router) {
         super(shellService);
-        this.remoteService = remoteService;
+        this.dataService = dataService;
+        this.router = router;
         this.data = [];
-
+        this.columns = this.getColumns();
         this.loadData();
     }
         
-    protected abstract getPath(): string;
+    protected abstract setName(): string;
+    protected abstract getColumns(): any;
+    protected abstract itemRoute(): string;
 
     protected expandFields(): string[] {
         return [];
     }
 
     protected loadData() {
-        var oDataPath = this.getPath();
-        var expandList = this.expandFields();
-        var expandQuery = "";
 
-        if (expandList.length > 0) {
-            expandQuery = "?$expand=";
-            var first = true;
-            expandList.forEach(function (navPath) {
-                if (!first)
-                    expandQuery = expandQuery + ",";
-                expandQuery = expandQuery + navPath;
-                first = false;
-            });
-        }
-        this.remoteService.get(this, oDataPath + expandQuery, this.onLoadResponse);
+        var query = breeze.EntityQuery.from(this.setName());        
+        var expandList = this.expandFields();        
+
+        if (expandList.length > 0)
+            query = query.expand(expandList);
+
+        this.dataService.query(this, query, this.onLoadSuccess, this.onLoadFailure);
+    }
+        
+    protected onLoadSuccess(sender: ListController, data: breeze.QueryResult): any {
+        sender.shellService.hideLoader();
+        sender.data = data.results;
     }
 
-    protected onLoadResponse(sender: ListController<T>, data: any, status: number): any {
-                
-        if (status = 200) {
-            sender.data = data.value;
-        }
+    protected onLoadFailure(sender: ListController, data: any): any {
+        sender.shellService.hideLoader();
+        //
+    }
+
+    protected selectItem(id) {
+        this.router.navigateByUrl(this.itemRoute() + "/" + id);
+    }
+
+    protected addItem() {
+        this.router.navigateByUrl(this.itemRoute());
     }
 
 }

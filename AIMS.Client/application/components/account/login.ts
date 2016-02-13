@@ -1,4 +1,5 @@
-﻿import {Component, View, provide} from 'angular2/core';
+﻿/*
+import {Component, View, provide} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {FormBuilder, Validators, ControlGroup, Control, NgClass} from 'angular2/common';
 import {FormInput} from '../directives/input/formInput';
@@ -54,5 +55,5 @@ export class LoginController extends FormController<Account.LoginRequest> {
     }        
 
 }
-
+*/
 

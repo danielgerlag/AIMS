@@ -13,16 +13,16 @@ namespace AIMS.Services.Indexer.Store
     public class IndexRegister : IIndexRegister
     {
         private readonly IIndexStore _indexStore;
-        private readonly IServiceProvider _serviceProvider;
+        //private readonly IServiceProvider _serviceProvider;
 
         private List<string> _processedAssemblies = new List<string>();
         private Dictionary<string, Type> _entityTypes = new Dictionary<string, Type>();
         private Dictionary<Type, Type> _indexers = new Dictionary<Type, Type>();
 
-        public IndexRegister(IIndexStore store, IServiceProvider serviceProvider)
+        public IndexRegister(IIndexStore store)
         {
             _indexStore = store;
-            _serviceProvider = serviceProvider;
+            //_serviceProvider = serviceProvider;
         }
 
         public void RegisterEntityTypes(Assembly assembly)
@@ -65,7 +65,7 @@ namespace AIMS.Services.Indexer.Store
 
         public IEntityIndexer GetIndexer(Type entityType)
         {
-            object indexer = _serviceProvider.GetService(_indexers[entityType]);
+            object indexer = Services.IoC.Container.Resolve(_indexers[entityType]); //_serviceProvider.GetService(_indexers[entityType]);
             return (indexer as IEntityIndexer);
         }
 

@@ -25,8 +25,8 @@ namespace AIMS.DomainModel.Abstractions
             _indexRegistry = null;
         }
 
-        public BaseContext(string connectionString, IIndexQueue indexQueue, IIndexRegister indexRegistry)
-            : base(connectionString)
+        public BaseContext(IIndexQueue indexQueue, IIndexRegister indexRegistry)
+            : base("name=DB")
         {
             _indexQueue = indexQueue;
             _indexRegistry = indexRegistry;

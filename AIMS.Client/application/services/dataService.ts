@@ -28,6 +28,7 @@ export abstract class IDataService {
     abstract createEntity(entityType, initialValues): any;
     abstract saveChanges(sender: any, success: (sender: any, data: breeze.SaveResult) => any, failure: (sender: any, data: any) => any);
     abstract detachEntity(entity);
+    abstract query(sender: any, query: breeze.EntityQuery, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
 }
 
 @Injectable()
@@ -80,6 +81,16 @@ export class DataService implements IDataService {
 
     detachEntity(entity) {
         this.manager.detachEntity(entity);
+    }
+
+    query(sender: any, query: breeze.EntityQuery, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any) {
+        query.noTracking().using(this.manager).execute()
+            .then(function (data) {
+                success(sender, data);
+            })
+            .catch((reason) => {
+                failure(sender, reason);
+            });
     }
 
     saveChanges(sender: any, success: (sender: any, data: breeze.SaveResult) => any, failure: (sender: any, data: any) => any) {

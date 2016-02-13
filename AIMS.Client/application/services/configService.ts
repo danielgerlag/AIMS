@@ -11,7 +11,7 @@ export class ConfigService implements IConfigService {
     settings: any;    
 
     constructor() {
-        this.settings = { api: "../api2/"};
+        this.settings = { api: "../api/"};
     }
 
 

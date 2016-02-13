@@ -3,12 +3,6 @@ import {BaseRequestOptions, Http, Headers, Response} from 'angular2/http';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {IConfigService, ConfigService} from './configService';
 
-import {Q} from './q';
-
-breeze.config.setQ(Q);
-
-//var OData;
-
 
 export abstract class IRemoteService {
     abstract post(sender: any, url: string, data: any, callback: (sender: any, data: any, status: number) => any): Subscription<any>;

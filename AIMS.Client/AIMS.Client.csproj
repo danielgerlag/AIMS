@@ -11,7 +11,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -23,14 +23,24 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.css" />
+    <Content Include="application\components\account\login.html" />
+    <Content Include="application\app.css" />
+    <Content Include="application\app.html" />
+    <Content Include="application\components\operatorType\editOperatorType.html" />
+    <Content Include="application\components\insurableItemClass\editInsurableItemClass.html" />
+    <Content Include="application\core\listController.html" />
+    <Content Include="application\home\home.html" />
     <Content Include="index.html" />
+    <Content Include="Scripts\datajs-1.1.3.js" />
+    <Content Include="Scripts\datajs-1.1.3.min.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="package.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+    <Content Include="application\Web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -38,6 +48,45 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="application\components.ts" />
+    <TypeScriptCompile Include="application\components\account\login.ts" />
+    <TypeScriptCompile Include="application\app.ts" />
+    <TypeScriptCompile Include="application\components\operatorType\editOperatorType.ts" />
+    <TypeScriptCompile Include="application\components\operatorType\listOperatorType.ts" />
+    <TypeScriptCompile Include="application\components\insurableItemClass\editInsurableItemClass.ts" />
+    <TypeScriptCompile Include="application\components\insurableItemClass\listInsurableItemClass2.ts" />
+    <TypeScriptCompile Include="application\core\baseController.ts" />
+    <TypeScriptCompile Include="application\core\crudController.ts" />
+    <TypeScriptCompile Include="application\core\dto.ts" />
+    <TypeScriptCompile Include="application\core\interfaces.ts" />
+    <TypeScriptCompile Include="application\core\listController.ts" />
+    <TypeScriptCompile Include="application\core\models.ts" />
+    <TypeScriptCompile Include="application\core\validation.ts" />
+    <TypeScriptCompile Include="application\core\xhr_backend.ts" />
+    <TypeScriptCompile Include="application\directives\input\documentFragmentSelector.ts" />
+    <TypeScriptCompile Include="application\directives\input\entityDropdown.ts" />
+    <TypeScriptCompile Include="application\directives\input\entitySummary.ts" />
+    <TypeScriptCompile Include="application\directives\input\fileSelect.ts" />
+    <TypeScriptCompile Include="application\directives\input\formInput.ts" />
+    <TypeScriptCompile Include="application\directives\input\formSummary.ts" />
+    <TypeScriptCompile Include="application\directives\input\inputFileReader.ts" />
+    <TypeScriptCompile Include="application\directives\input\potentialFragmentSelector.ts" />
+    <TypeScriptCompile Include="application\home\home.ts" />
+    <TypeScriptCompile Include="application\services\authService.ts" />
+    <TypeScriptCompile Include="application\services\configService.ts" />
+    <TypeScriptCompile Include="application\services\dataService.ts" />
+    <TypeScriptCompile Include="application\services\q.ts" />
+    <TypeScriptCompile Include="application\services\remoteService.ts" />
+    <TypeScriptCompile Include="application\services\searchService.ts" />
+    <TypeScriptCompile Include="application\services\shellService.ts" />
+    <TypeScriptCompile Include="Scripts\typings\breeze\breeze.d.ts" />
+    <TypeScriptCompile Include="typings\angular2\angular2.d.ts" />
+    <TypeScriptCompile Include="typings\rx\rx-lite.d.ts" />
+    <TypeScriptCompile Include="typings\rx\rx.d.ts" />
+    <TypeScriptCompile Include="typings\toastr\toastr.d.ts" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
@@ -54,7 +103,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56351</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56351/</IISUrl>
+          <IISUrl>http://localhost/AIMS/client</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

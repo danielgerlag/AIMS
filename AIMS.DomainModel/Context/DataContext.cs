@@ -15,6 +15,7 @@ namespace AIMS.DomainModel.Context
 
         //public virtual DbSet<DataArea> DataAreas { get; set; }
 
+        public virtual DbSet<AttributeDataType> AttributeDataTypes { get; set; }
         public virtual DbSet<AttributeLookupItem> AttributeLookupItems { get; set; }
         public virtual DbSet<AttributeLookupList> AttributeLookupLists { get; set; }
         public virtual DbSet<Entities.AttributeLookupSubList> AttributeLookupSubLists { get; set; }
@@ -59,8 +60,8 @@ namespace AIMS.DomainModel.Context
             Database.SetInitializer<DataContext>(new DatabaseInit());
         }
 
-        public DataContext(string connectionString, IIndexQueue indexQueue, IIndexRegister indexStoreInit)
-            : base(connectionString, indexQueue, indexStoreInit)
+        public DataContext(IIndexQueue indexQueue, IIndexRegister indexStoreInit)
+            : base(indexQueue, indexStoreInit)
         {
             Database.SetInitializer<DataContext>(new DatabaseInit());
         }

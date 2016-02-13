@@ -8,6 +8,7 @@ namespace AIMS.DomainModel.Context
     {
         //DbSet<DataArea> DataAreas { get; set; }
 
+        DbSet<AttributeDataType> AttributeDataTypes { get; set; }
         DbSet<AttributeLookupItem> AttributeLookupItems { get; set; }
         DbSet<AttributeLookupList> AttributeLookupLists { get; set; }
         DbSet<Entities.AttributeLookupSubList> AttributeLookupSubLists { get; set; }
