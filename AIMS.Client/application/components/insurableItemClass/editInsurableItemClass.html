@@ -13,7 +13,7 @@
                             <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                         </form-input>
 
-                        <form-input [form]="form" name="OperatorTypeID" title="Operator Type">
+                        <form-input [entity]="entity" name="OperatorTypeID" title="Operator Type">
                             <entity-dropdown class="form-control"
                                              [(value)]="entity.OperatorTypeID"
                                              name="OperatorTypeID"
@@ -23,6 +23,40 @@
                                              nullable="true">
                             </entity-dropdown>
                         </form-input>
+
+                        <div>
+                            <div>Attributes</div>
+                            <button type="button" (click)="addAttribute()">Add</button>
+                            <table>
+                                <tr>
+                                    <th>Name</th>
+                                    <th></th>
+                                    <th>Type</th>
+                                </tr>
+                                <tr *ngFor="#attribute of entity.Attributes">
+                                    <td>
+                                        <input type="text" class="form-control" name="Name" [(ngModel)]="attribute.Name">
+                                    </td>
+
+                                    <td>
+                                        <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="attribute.DisplayOrder">
+                                    </td>
+
+                                    <td>
+                                        <entity-dropdown class="form-control"
+                                                         [(value)]="attribute.AttributeDataTypeID"
+                                                         name="AttributeDataTypeID"
+                                                         query="AttributeDataTypes"
+                                                         keyField="ID"
+                                                         displayField="Description"
+                                                         nullable="false">
+                                        </entity-dropdown>
+                                    </td>
+
+                                </tr>
+                            </table>
+                            
+                        </div>
 
                     </div>
                 </div>

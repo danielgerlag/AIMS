@@ -39,4 +39,19 @@ export class EditInsurableItemClass extends CRUDController {
         sender.router.navigate(["Home"]);
     }
 
+    protected expandFields(): string[] {
+        var result = super.expandFields();
+        result.push("Attributes");
+        return result;
+    }
+
+    protected addAttribute() {
+        var item = this.dataService.createEntity("InsurableItemClassAttribute", {});
+        this.entity.Attributes.push(item);
+    }
+
+    protected removeAttribute(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
 }
