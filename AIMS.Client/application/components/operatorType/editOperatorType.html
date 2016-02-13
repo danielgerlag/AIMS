@@ -1,23 +1,76 @@
 ﻿<form (submit)="save()" [hidden]="complete">
+    <h4>{{ title }}</h4>
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{ title }}</h4>
-                    <!--<h6 class="card-subtitle text-muted">Support card subtitle</h6>-->
-                </div>
+        <tabset>
+            <tab heading="General">
+                <form-input [entity]="entity" name="Name" title="Name">
+                    <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
+                </form-input>
+                                
+            </tab>
+            <tab heading="Attributes">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Prompt</th>
+                        <th>AL3 Group</th>
+                        <th>AL3 Element</th>
+                        <th>Order</th>
+                        <th>Type</th>
+                        <th>Decimal Places</th>
+                        <th>Lookup</th>
+                        <th>
+                            <button type="button" class="btn" (click)="addAttribute()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#attribute of entity.Attributes">
+                        <td>
+                            <input type="text" class="form-control" name="Name" [(ngModel)]="attribute.Name">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Prompt" [(ngModel)]="attribute.Prompt">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="AL3Group" [(ngModel)]="attribute.AL3Group">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="AL3Element" [(ngModel)]="attribute.AL3Element">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="attribute.DisplayOrder">
+                        </td>
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="attribute.AttributeDataTypeID"
+                                             name="AttributeDataTypeID"
+                                             query="AttributeDataTypes"
+                                             keyField="ID"
+                                             displayField="Description"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="DecimalPlaces" [(ngModel)]="attribute.DecimalPlaces">
+                        </td>
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="attribute.AttributeLookupListID"
+                                             name="AttributeLookupListID"
+                                             query="AttributeLookupLists"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
 
-                <div class="card-block">
-                    <div>
-                        <form-input [entity]="entity" name="Name" title="Name">
-                            <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
-                        </form-input>
-                    </div>
-                </div>
+                    </tr>
+                </table>
+            </tab>
+        </tabset>
 
-            </div>
-
-        </div>
     </div>
 
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
