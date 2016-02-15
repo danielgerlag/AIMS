@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class InsurableParty : BaseEntity
+    public class PolicyHolder : BaseEntity
     {
-        public InsurableParty()
+        public PolicyHolder()
         {            
         }
 
-        public int PartyID { get; set; }
-        public virtual Party Party { get; set; }
+        public int PublicID { get; set; }
+        public virtual Public Public { get; set; }
 
-        public int BrokerageBranchID { get; set; }
-        public virtual BrokerageBranch BrokerageBranch { get; set; }
-                
+        public int PolicyID { get; set; }
+        public virtual Policy Policy { get; set; }
+
 
     }
 

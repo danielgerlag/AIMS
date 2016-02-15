@@ -1,4 +1,5 @@
 ﻿using AIMS.DomainModel.Abstractions.Entities;
+using AIMS.DomainModel.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,22 +9,17 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class PolicyRiskUnitOperator : BaseEntity
+    public class OperatorAttribute : BaseEntity
     {
-
-        public PolicyRiskUnitOperator()
-        {
-        }
-
-        [Index]
-        public int PolicyRiskUnitID { get; set; }
-        public virtual PolicyRiskUnit PolicyRiskUnit { get; set; }
-
         [Index]
         public int OperatorID { get; set; }
         public virtual Operator Operator { get; set; }
-                
-        public decimal? Percentage { get; set; }
 
+        [Index]
+        public int OperatorTypeAttributeID { get; set; }
+        public virtual OperatorTypeAttribute OperatorTypeAttribute { get; set; }
+
+        [MaxLength(500)]
+        public string Value { get; set; }
     }
 }

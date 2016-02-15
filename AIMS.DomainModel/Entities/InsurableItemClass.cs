@@ -10,11 +10,7 @@ using System.Threading.Tasks;
 namespace AIMS.DomainModel.Entities
 {
     public class InsurableItemClass : BaseEntity
-    {
-        public InsurableItemClass()
-        {
-            Attributes = new HashSet<InsurableItemClassAttribute>();
-        }
+    {        
 
         [Required]
         [StringLength(200)]
@@ -23,11 +19,10 @@ namespace AIMS.DomainModel.Entities
         [Index]
         public int? ParentInsurableItemClassID { get; set; }
         public virtual InsurableItemClass ParentInsurableItemClass { get; set; }
-                
-        public int? OperatorTypeID { get; set; }
-        public virtual OperatorType OperatorType { get; set; }
 
-        public virtual ICollection<InsurableItemClassAttribute> Attributes { get; set; }
+        public virtual ICollection<InsurableItemClassOperatorType> OperatorTypes { get; set; } = new HashSet<InsurableItemClassOperatorType>();
+
+        public virtual ICollection<InsurableItemClassAttribute> Attributes { get; set; } = new HashSet<InsurableItemClassAttribute>();
 
         public override string GetLookupText()
         {

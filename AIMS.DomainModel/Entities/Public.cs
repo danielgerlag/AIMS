@@ -1,24 +1,15 @@
 ﻿using AIMS.DomainModel.Abstractions.Entities;
-using AIMS.DomainModel.Entities;
-using AIMS.Services.Indexer.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    [Table("Party")]
-    public class Party : BaseEntity
+    public class Public : BaseEntity
     {
-
-        public Party()
-        {
-            ContactDetails = new HashSet<PartyContactDetail>();
-        }
-
 
         [Required]
         [StringLength(200)]
@@ -30,9 +21,6 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [StringLength(1)]
         public string PartyType { get; set; }
-
-        public virtual ICollection<PartyContactDetail> ContactDetails { get; set; }
-
         
 
         public override string GetLookupText()
@@ -47,6 +35,10 @@ namespace AIMS.DomainModel.Entities
             return Name;
         }
 
-        
+        public virtual ICollection<BankAccount> BankAccounts { get; set; } = new HashSet<BankAccount>();
+
+        public virtual ICollection<Journal> Journals { get; set; } = new HashSet<Journal>();
+
+        public virtual ICollection<ContactDetail> ContactDetails { get; set; } = new HashSet<ContactDetail>();
     }
 }

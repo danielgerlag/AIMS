@@ -10,12 +10,18 @@ namespace AIMS.DomainModel.Entities
     public class Operator : BaseEntity
     {
         [Index]
-        public int InsurablePartyID { get; set; }
-        public virtual InsurableParty InsurableParty { get; set; }
+        public int InsurableItemID { get; set; }
+        public virtual InsurableItem InsurableItem { get; set; }
 
         [Index]
-        public int OperatorPartyID { get; set; }
-        public virtual Party OperatorParty { get; set; }
+        public int OperatorPublicID { get; set; }
+        public virtual Public OperatorPublic { get; set; }
+
+        [Index]
+        public int OperatorTypeID { get; set; }
+        public virtual OperatorType OperatorType { get; set; }
+
+        public virtual ICollection<OperatorAttribute> Attributes { get; set; } = new HashSet<OperatorAttribute>();
 
     }
 }

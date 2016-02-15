@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    [Table("PartyContactDetail")]
-    public class PartyContactDetail : BaseEntity
+    public class ContactDetail : BaseEntity
     {
 
         [Index]
-        public int PartyID { get; set; }
+        public int PublicID { get; set; }
 
-        public virtual Party Party { get; set; }
+        public virtual Public Public { get; set; }
 
         [StringLength(500)]
         public string Data { get; set; }
-
-
-        //public PartyType Type { get; set; }
+        
 
     }
 }

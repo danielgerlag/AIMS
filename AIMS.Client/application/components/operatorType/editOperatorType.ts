@@ -3,7 +3,7 @@ import {FormBuilder, Validators, ControlGroup, Control, NgClass, FORM_BINDINGS, 
 import {RouteParams} from 'angular2/router';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Component, View} from 'angular2/core';
-
+import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 
@@ -14,7 +14,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/operatorType/editOperatorType.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, TAB_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES],
     pipes: [JsonPipe]
 })
 export class EditOperatorType extends CRUDController {

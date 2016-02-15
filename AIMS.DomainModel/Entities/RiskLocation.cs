@@ -17,21 +17,21 @@ namespace AIMS.DomainModel.Entities
             //ContactDetails = new HashSet<PartyContactDetail>();
         }
 
-        [Index]
-        public int InsurablePartyID { get; set; }
-        public virtual InsurableParty InsurableParty { get; set; }
-
+        
 
         [Required]
-        [StringLength(100)]
+        [StringLength(200)]
         public string StreetAddressLine1 { get; set; }
                 
-        [StringLength(100)]
+        [StringLength(200)]
         public string StreetAddressLine2 { get; set; }
 
+        [StringLength(200)]
+        public string City { get; set; }
 
-        //public virtual ICollection<PartyContactDetail> ContactDetails { get; set; }
-
+        [StringLength(20)]
+        public string PostalCode { get; set; }
+        
 
 
         public override string GetLookupText()

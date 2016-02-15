@@ -14,15 +14,15 @@ namespace AIMS.DomainModel.Entities
         public InsurableItem()
         {
         
-        }
-
-        [Index]
-        public int InsurablePartyID { get; set; }
-        public virtual InsurableParty InsurableParty { get; set; }
+        }                
         
         [Index]
         public int InsurableItemClassID { get; set; }
         public virtual InsurableItemClass InsurableItemClass { get; set; }
+
+        [Index]
+        public int PolicyRiskLocationID { get; set; }
+        public virtual PolicyRiskLocation PolicyRiskLocation { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -31,6 +31,11 @@ namespace AIMS.DomainModel.Entities
         [StringLength(200)]
         public string SerialNo { get; set; }
 
+        public virtual ICollection<InsurableItemAttribute> Attributes { get; set; } = new HashSet<InsurableItemAttribute>();
+
+        public virtual ICollection<Operator> Operators { get; set; } = new HashSet<Operator>();
+
+        public virtual ICollection<PolicyCoverage> PolicyCoverages { get; set; } = new HashSet<PolicyCoverage>();
 
         public override string GetLookupText()
         {

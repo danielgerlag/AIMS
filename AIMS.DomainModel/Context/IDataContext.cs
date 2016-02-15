@@ -14,7 +14,7 @@ namespace AIMS.DomainModel.Context
         DbSet<Entities.AttributeLookupSubList> AttributeLookupSubLists { get; set; }
 
         DbSet<Brokerage> Brokerages { get; set; }
-        DbSet<BrokerageBranch> BrokerageBranches { get; set; }        
+        DbSet<ReportingEntityBranch> BrokerageBranches { get; set; }        
         DbSet<Broker> Brokers { get; set; }
         DbSet<BrokerDataArea> BrokerDataAreas { get; set; }
 
@@ -30,7 +30,7 @@ namespace AIMS.DomainModel.Context
         DbSet<OperatorTypeAttribute> OperatorTypeAttributes { get; set; }
 
         DbSet<Party> Parties { get; set; }
-        DbSet<PartyContactDetail> PartyContactDetails { get; set; }
+        DbSet<ContactDetail> PartyContactDetails { get; set; }
 
         DbSet<Policy> Policies { get; set; }
         DbSet<PolicyRiskLocation> PolicyRiskLocations { get; set; }

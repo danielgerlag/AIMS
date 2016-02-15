@@ -21,7 +21,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<Entities.AttributeLookupSubList> AttributeLookupSubLists { get; set; }
 
         public virtual DbSet<Brokerage> Brokerages { get; set; }
-        public virtual DbSet<BrokerageBranch> BrokerageBranches { get; set; }
+        public virtual DbSet<ReportingEntityBranch> BrokerageBranches { get; set; }
         public virtual DbSet<Broker> Brokers { get; set; }
         public virtual DbSet<BrokerDataArea> BrokerDataAreas { get; set; }
 
@@ -37,7 +37,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<OperatorTypeAttribute> OperatorTypeAttributes { get; set; }
 
         public virtual DbSet<Party> Parties { get; set; }
-        public virtual DbSet<PartyContactDetail> PartyContactDetails { get; set; }
+        public virtual DbSet<ContactDetail> PartyContactDetails { get; set; }
 
         public virtual DbSet<Policy> Policies { get; set; }
         public virtual DbSet<PolicyRiskLocation> PolicyRiskLocations { get; set; }

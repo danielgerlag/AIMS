@@ -12,8 +12,7 @@ namespace AIMS.DomainModel.Entities
     {
 
         public PolicyRiskLocation()
-        {
-            //ContactDetails = new HashSet<PartyContactDetail>();
+        {            
         }
 
 
@@ -25,7 +24,7 @@ namespace AIMS.DomainModel.Entities
         public int RiskLocationID { get; set; }
         public virtual RiskLocation RiskLocation { get; set; }
 
-
+        public virtual ICollection<InsurableItem> InsurableItems { get; set; } = new HashSet<InsurableItem>();
     }
 
 }
