@@ -36,6 +36,11 @@ declare var System:any;
 @RouteConfig([
         new Route({ path: '/', component: Home, name: 'Home' }),
 
+
+        new Route({ path: '/ListReportingEntityProfile', component: Components.ListReportingEntityProfile, name: 'ListReportingEntityProfile' }),
+        new Route({ path: '/EditReportingEntityProfile', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),
+        new Route({ path: '/EditReportingEntityProfile/:Id', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),
+
         new Route({ path: '/ListOperatorType', component: Components.ListOperatorType, name: 'ListOperatorType' }),
         new Route({ path: '/EditOperatorType', component: Components.EditOperatorType, name: 'EditOperatorType' }),
         new Route({ path: '/EditOperatorType/:Id', component: Components.EditOperatorType, name: 'EditOperatorType' }),

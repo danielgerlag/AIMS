@@ -28,6 +28,6 @@ namespace AIMS.DomainModel.Entities
         public virtual AgentType AgentType { get; set; }
 
 
-
+        public virtual ICollection<JournalTemplateTxnPosting> Postings { get; set; } = new HashSet<JournalTemplateTxnPosting>();
     }
 }

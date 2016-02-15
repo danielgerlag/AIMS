@@ -14,5 +14,15 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        public bool IsGeneral { get; set; }
+
+        [Required]
+        public bool IsInvoice { get; set; }
+
+        [Required]
+        public bool IsPayment { get; set; }
+
     }
 }

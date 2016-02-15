@@ -63,6 +63,13 @@
     <Compile Include="Entities\AttributeDataType.cs" />
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\AgentType.cs" />
+    <Compile Include="Entities\InsurableItemAttribute.cs" />
+    <Compile Include="Entities\InsurableItemClassOperatorType.cs" />
+    <Compile Include="Entities\OperatorAttribute.cs" />
+    <Compile Include="Entities\PolicyReportingEntity.cs" />
+    <Compile Include="Entities\PolicyAgent.cs" />
+    <Compile Include="Entities\PolicySubType.cs" />
+    <Compile Include="Entities\PolicyTypeAgentRequirement.cs" />
     <Compile Include="Entities\ReportingEntityBranch.cs" />
     <Compile Include="Entities\BusinessLine.cs" />
     <Compile Include="Entities\ContextParameter.cs" />
@@ -72,7 +79,7 @@
     <Compile Include="Entities\InsurableItem.cs" />
     <Compile Include="Entities\InsurableItemClass.cs" />
     <Compile Include="Entities\InsurableItemClassAttribute.cs" />
-    <Compile Include="Entities\InsurableParty.cs" />
+    <Compile Include="Entities\PolicyHolder.cs" />
     <Compile Include="Entities\Journal.cs" />
     <Compile Include="Entities\JournalTemplate.cs" />
     <Compile Include="Entities\JournalTemplateInput.cs" />
@@ -90,11 +97,7 @@
     <Compile Include="Entities\ContactDetail.cs" />
     <Compile Include="Entities\Policy.cs" />
     <Compile Include="Entities\PolicyCoverage.cs" />
-    <Compile Include="Entities\PolicyItem.cs" />
     <Compile Include="Entities\PolicyRiskLocation.cs" />
-    <Compile Include="Entities\PolicyRiskUnit.cs" />
-    <Compile Include="Entities\PolicyRiskUnitAttribute.cs" />
-    <Compile Include="Entities\PolicyRiskUnitOperator.cs" />
     <Compile Include="Entities\PolicyServiceProvider.cs" />
     <Compile Include="Entities\PolicyStatus.cs" />
     <Compile Include="Entities\PolicyType.cs" />
@@ -111,6 +114,8 @@
     <Compile Include="Entities\Agent.cs" />
     <Compile Include="Entities\ServiceProvider.cs" />
     <Compile Include="Entities\ServiceProviderType.cs" />
+    <Compile Include="Entities\TransactionTriggerStatus.cs" />
+    <Compile Include="Entities\TransactionTriggerFrequency.cs" />
     <Compile Include="Entities\TransactionTrigger.cs" />
     <Compile Include="Entities\TransactionTriggerInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

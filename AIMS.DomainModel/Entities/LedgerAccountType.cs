@@ -16,6 +16,9 @@ namespace AIMS.DomainModel.Entities
         public string Name { get; set; }
 
         [Required]
+        public bool IsCurrent { get; set; }
+
+        [Required]
         public bool IsAsset { get; set; }
 
         [Required]

@@ -6,7 +6,7 @@ import {ODataWrapper} from '../../core/interfaces'
 
 @Component({
     selector: 'entity-dropdown',    
-    inputs: ['value', 'name', 'query', 'keyField', 'displayField', 'nullable'],
+    inputs: ['value', 'name', 'query', 'boundList', 'keyField', 'displayField', 'nullable'],
     outputs: ['valueChange']
 })
 @View({
@@ -29,7 +29,8 @@ export class EntityDropdown implements OnInit {
     private displayField: string;
     private nullable: boolean;
     public valueChange: EventEmitter<any> = new EventEmitter();
-
+        
+    private _boundList: Array<any> = [];
     private selectList: Array<any> = [];
     
     constructor(remoteService: IRemoteService) {     
@@ -37,7 +38,11 @@ export class EntityDropdown implements OnInit {
     }
 
     ngOnInit() {
-        this.remoteService.get(this, 'Data.svc/' + this.query, this.onLoadResponse);
+        if (this.query) {
+            this.remoteService.get(this, 'Data.svc/' + this.query, this.onLoadResponse);
+        } else {
+            this.loadBoundList();
+        }
     }
 
     onInit() {
@@ -53,6 +58,14 @@ export class EntityDropdown implements OnInit {
         this.onEntityChanged();
     }
 
+    public get boundList() {
+        return this._boundList;
+    }
+    public set boundList(value) {                
+        this._boundList = value;
+        this.loadBoundList();
+    }
+
     public changeValue(value) {
         this.value = value;
     }
@@ -61,6 +74,18 @@ export class EntityDropdown implements OnInit {
         //console.log('firing valueChange: ' + this.entityId);
         this.valueChange.next(this.entityId);
     }        
+
+    protected loadBoundList() {
+        var self = this;
+        if ((!self.query) && (self._boundList) && (self.keyField) && (self.displayField)) {
+            self.selectList = self._boundList.map(function (x) {
+                return {
+                    //key: self.drillObject(x, self.keyField), name: self.drillObject(x, self.displayField)
+                    key: x[self.keyField], name: x[self.displayField]
+                }
+            });
+        }
+    }
 
     protected onLoadResponse(sender: EntityDropdown, data: ODataWrapper<Array<any>>, status: number): any {
         //sender.shellService.hideLoader();

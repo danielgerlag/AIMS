@@ -37,6 +37,62 @@ namespace AIMS.DomainModel.Context
             context.AttributeDataTypes.Add(dtBoolean);
             context.AttributeDataTypes.Add(dtCSIOList);
 
+            Region britishColumbia = new Region() { Name = "British Columbia" };
+            Region alberta = new Region() { Name = "Alberta" };
+            context.Regions.Add(britishColumbia);
+            context.Regions.Add(alberta);
+
+            context.AgentTypes.Add(new AgentType() { Name = "Broker" });
+            context.AgentTypes.Add(new AgentType() { Name = "Underwriter" });
+
+            context.CoverageTypes.Add(new CoverageType() { Name = "Accident Benefits", Code = "AB", Region = britishColumbia });
+            context.CoverageTypes.Add(new CoverageType() { Name = "Accident Benefits (Occ. Driver)", Code = "ABOD", Region = britishColumbia });
+            context.CoverageTypes.Add(new CoverageType() { Name = "Physical Damage to Insured Vehicle - Comprehensive", Code = "CMP", Region = britishColumbia });
+            context.CoverageTypes.Add(new CoverageType() { Name = "Physical Damage to Insured Vehicle - Collision or Upset", Code = "COL", Region = britishColumbia });
+
+
+            context.JournalTxnClasses.Add(new JournalTxnClass() { Description = "Defined Amount", IsDailyCalc = false, IsDefinedAmount = true, IsPercentage = false, OfContextParameter = false, OfCoveragePremium = false, OfLedgerAccount = false });
+            context.JournalTxnClasses.Add(new JournalTxnClass() { Description = "% of Coverage Premium", IsDailyCalc = false, IsDefinedAmount = false, IsPercentage = true, OfContextParameter = false, OfCoveragePremium = true, OfLedgerAccount = false });
+            context.JournalTxnClasses.Add(new JournalTxnClass() { Description = "% of Ledger Account", IsDailyCalc = false, IsDefinedAmount = false, IsPercentage = true, OfContextParameter = false, OfCoveragePremium = false, OfLedgerAccount = true });
+            context.JournalTxnClasses.Add(new JournalTxnClass() { Description = "% of Contextual Parameter", IsDailyCalc = false, IsDefinedAmount = false, IsPercentage = true, OfContextParameter = true, OfCoveragePremium = false, OfLedgerAccount = false });
+
+            context.JournalTypes.Add(new JournalType() { Name = "General", IsGeneral = true });
+            context.JournalTypes.Add(new JournalType() { Name = "Invoice", IsInvoice = true });
+            context.JournalTypes.Add(new JournalType() { Name = "Payment", IsPayment = true });
+
+
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Current Asset", IsAsset = true, IsCurrent = true, CreditPositive = false });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Non-Current Asset", IsAsset = true, IsCurrent = false, CreditPositive = false });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Current Liability", IsLiability = true, IsCurrent = true, CreditPositive = true });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Non-Current Liability", IsLiability = true, IsCurrent = false, CreditPositive = true });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Expense", IsExpense = true, IsCurrent = true, CreditPositive = false });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Income", IsIncome = true, IsCurrent = true, CreditPositive = true });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Debtors", IsAsset = true, IsDebtor = true, IsCurrent = true, CreditPositive = false });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Creditors", IsLiability = true, IsCredior = true, IsCurrent = true, CreditPositive = true });
+            context.LedgerAccountTypes.Add(new LedgerAccountType() { Name = "Equity", IsEquity = true, CreditPositive = true });
+
+
+            context.PublicRequirements.Add(new PublicRequirement() { Name = "Agent", IsAgent = true });
+            context.PublicRequirements.Add(new PublicRequirement() { Name = "Policy Holder", IsPolicyHolder = true });
+            context.PublicRequirements.Add(new PublicRequirement() { Name = "Service Provider", IsServiceProvider = true });
+
+            context.SequenceNumbers.Add(new SequenceNumber() { Name = "General Number", NextValue = 1, FormatMask = "G{0:00000}" });
+
+            context.ServiceProviderTypes.Add(new ServiceProviderType() { Name = "Brokerage" });
+            context.ServiceProviderTypes.Add(new ServiceProviderType() { Name = "Insurer" });
+            context.ServiceProviderTypes.Add(new ServiceProviderType() { Name = "MGA" });
+            context.ServiceProviderTypes.Add(new ServiceProviderType() { Name = "Reinsurer" });
+
+            context.TransactionTriggerFrequencies.Add(new TransactionTriggerFrequency() { Name = "Once off", Code = "O" });
+            context.TransactionTriggerFrequencies.Add(new TransactionTriggerFrequency() { Name = "Daily", Code = "D" });
+            context.TransactionTriggerFrequencies.Add(new TransactionTriggerFrequency() { Name = "Bi-weekly", Code = "BW" });
+            context.TransactionTriggerFrequencies.Add(new TransactionTriggerFrequency() { Name = "Monthly", Code = "M" });
+            context.TransactionTriggerFrequencies.Add(new TransactionTriggerFrequency() { Name = "Annually", Code = "A" });
+
+            context.TransactionTriggerStatuses.Add(new TransactionTriggerStatus() { Name = "Pending Approval", Code = "P" });
+            context.TransactionTriggerStatuses.Add(new TransactionTriggerStatus() { Name = "Approved", Code = "A" });
+            context.TransactionTriggerStatuses.Add(new TransactionTriggerStatus() { Name = "Suspended", Code = "S" });
+
 
             context.BusinessLines.Add(new BusinessLine() { Name = "Private Passenger Auto", CSIOCode = "AUTO" });
             context.BusinessLines.Add(new BusinessLine() { Name = "Commercial Autos Fleets Trucks", CSIOCode = "CAUTO" });
@@ -48,6 +104,8 @@ namespace AIMS.DomainModel.Context
             context.BusinessLines.Add(new BusinessLine() { Name = "Personal Lines Umbrella", CSIOCode = "PUMB" });
 
 
+            /////////////////////////////////
+
             //context.AttributeLookupLists
 
             InsurableItemClass standardAuto = new InsurableItemClass() { Name = "Standard Auto" };
@@ -56,7 +114,7 @@ namespace AIMS.DomainModel.Context
             context.InsurableItemClasses.Add(standardAuto);
 
 
-            LoadSeedCodes(context);
+            //LoadSeedCodes(context);
 
             base.Seed(context);
         }

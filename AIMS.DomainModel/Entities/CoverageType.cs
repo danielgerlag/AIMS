@@ -12,11 +12,14 @@ namespace AIMS.DomainModel.Entities
     {                
 
         [Required]
-        [MaxLength(300)]
+        [MaxLength(500)]
         public string Name { get; set; }
 
         [MaxLength(200)]
         public string Code { get; set; }
-                
+
+        public int RegionID { get; set; }
+        public virtual Region Region { get; set; }
+
     }
 }
