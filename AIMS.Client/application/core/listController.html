@@ -8,7 +8,7 @@
         </thead>
         <tbody>
             <tr *ngFor="#item of data" (click)="selectItem(item.ID)">
-                <td *ngFor="#col of columns">{{ item[col.Name] }}</td>
+                <td *ngFor="#col of columns">{{ drillObject(item, col.Name) }}</td>
             </tr>
         </tbody>
     </table>

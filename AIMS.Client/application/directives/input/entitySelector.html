@@ -1,0 +1,46 @@
+﻿<div class="input-group">
+    <input type="text" class="form-control" value="{{ lookupText }}" readonly />
+
+    <div class="input-group-btn">
+        <div class="btn-group" role="group">
+            <div class="dropdown dropdown-lg">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-search"></span></button>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="input-group">
+                            <input type="text" placeholder="Search"
+                                   [(ngModel)]="searchQuery"
+                                   [typeahead]="suggest()"
+                                   [typeaheadWaitMs]="300"
+                                   class="form-control">
+                            <div class="input-group-btn">
+                                <div class="btn-group" role="group">
+                                    <button type="submit" class="btn btn-default" (click)="search()">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <table class="table table-hover">
+                        <tr>
+                            <th *ngFor="#col of columns">{{ col.Title }}</th>
+                        </tr>
+                        <tbody>
+                            <tr *ngFor="#item of searchResult" (click)="select(item.ID)">
+                                <td *ngFor="#col of columns">{{ drillObject(item, col.Name) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
+        </div>
+    </div>
+
+
+</div>

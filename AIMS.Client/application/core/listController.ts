@@ -60,4 +60,15 @@ export abstract class ListController extends BaseController {
         this.router.navigateByUrl(this.itemRoute());
     }
 
+    protected drillObject(data: any, path: string): any {
+        var delimeter = path.indexOf(".");
+        if (delimeter == -1) {
+            return data[path];
+        }
+        else {
+            var newPath = path.slice(delimeter + 1);
+            var newData = data[path.slice(0, delimeter)];
+            return this.drillObject(newData, newPath);
+        }
+    }
 }
