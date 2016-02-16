@@ -118,6 +118,7 @@
     <Compile Include="Entities\TransactionTriggerFrequency.cs" />
     <Compile Include="Entities\TransactionTrigger.cs" />
     <Compile Include="Entities\TransactionTriggerInput.cs" />
+    <Compile Include="Indexers\PublicIndexer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

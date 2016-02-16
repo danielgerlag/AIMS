@@ -27,6 +27,7 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\public\editPublic.html" />
     <Content Include="application\components\region\editRegion.html" />
     <Content Include="application\components\agentType\editAgentType.html" />
     <Content Include="application\components\serviceProviderType\editServiceProviderType.html" />
@@ -36,6 +37,7 @@
     <Content Include="application\components\policyType\editPolicyType.html" />
     <Content Include="application\components\reportingEntityProfile\editReportingEntityProfile.html" />
     <Content Include="application\core\listController.html" />
+    <Content Include="application\directives\public\publicEditor.html" />
     <Content Include="application\home\home.html" />
     <Content Include="index.html" />
     <Content Include="Scripts\datajs-1.1.3.js" />
@@ -61,6 +63,7 @@
     <TypeScriptCompile Include="application\app.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\editAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
+    <TypeScriptCompile Include="application\components\public\editPublic.ts" />
     <TypeScriptCompile Include="application\components\region\editRegion.ts" />
     <TypeScriptCompile Include="application\components\region\listRegion.ts" />
     <TypeScriptCompile Include="application\components\agentType\editAgentType.ts" />
@@ -85,14 +88,13 @@
     <TypeScriptCompile Include="application\core\models.ts" />
     <TypeScriptCompile Include="application\core\validation.ts" />
     <TypeScriptCompile Include="application\core\xhr_backend.ts" />
-    <TypeScriptCompile Include="application\directives\input\documentFragmentSelector.ts" />
     <TypeScriptCompile Include="application\directives\input\entityDropdown.ts" />
     <TypeScriptCompile Include="application\directives\input\entitySummary.ts" />
     <TypeScriptCompile Include="application\directives\input\fileSelect.ts" />
     <TypeScriptCompile Include="application\directives\input\formInput.ts" />
     <TypeScriptCompile Include="application\directives\input\formSummary.ts" />
     <TypeScriptCompile Include="application\directives\input\inputFileReader.ts" />
-    <TypeScriptCompile Include="application\directives\input\potentialFragmentSelector.ts" />
+    <TypeScriptCompile Include="application\directives\public\publicEditor.ts" />
     <TypeScriptCompile Include="application\home\home.ts" />
     <TypeScriptCompile Include="application\services\authService.ts" />
     <TypeScriptCompile Include="application\services\configService.ts" />

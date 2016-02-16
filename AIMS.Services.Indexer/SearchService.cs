@@ -22,7 +22,7 @@ namespace AIMS.Services.Indexer
         }
 
 
-        public List<SearchResult> Search(string searchString, IDbContext dataContext, int? dataAreaID = null)
+        public List<SearchResult> Search(string searchString, string searchType, string entityNamespace, IDbContext dataContext)
         {
             List<SearchResult> result = new List<SearchResult>();
             string[] keywords = new string[0];
@@ -40,13 +40,17 @@ namespace AIMS.Services.Indexer
             {
                 IQueryable<EntityIndex> query = _store.EntityIndexes.AsQueryable();
 
-                if (dataAreaID != null)
+                if (!String.IsNullOrEmpty(searchType))
                 {
-                    query = query.Where(x => x.DataAreaID == dataAreaID);
+                    string searchTypeName = entityNamespace + "." + searchType;
+                    query = query.Where(idx => idx.EntityType.Name == searchTypeName);
                 }
 
-                foreach (string keyword in keywords)
-                    query = query.Where(idx => idx.Keywords.Count(kw => kw.Keyword.StartsWith(keyword)) > 0);
+                if (searchString != "*")
+                {
+                    foreach (string keyword in keywords)
+                        query = query.Where(idx => idx.Keywords.Count(kw => kw.Keyword.StartsWith(keyword)) > 0);
+                }
 
                 var queryResult = query.ToList();
 
@@ -55,7 +59,7 @@ namespace AIMS.Services.Indexer
                     Type entityType = _register.LookupEntityType(item.EntityType.Name);
                     IEntityIndexer indexer = _register.GetIndexer(entityType);
                     object entity = dataContext.Set(entityType).Find(item.EntityKey);
-                    
+
                     if ((entity != null) && (indexer != null))
                     {
                         var resultLine = indexer.GetSearchResult(entity as IDomainEntity);

@@ -50,23 +50,13 @@ export class SearchService implements ISearchService {
     }
 
     public selectResult(item: dto.SearchResponseLine) {
-
         switch (item.EntityType) {
-            case "DocumentCategory":
-                this.router.navigateByUrl("DocumentCategory/" + item.ID);
+            case "Public":
+                this.router.navigateByUrl("EditPublic/" + item.ID);
                 break;
-            case "DocumentTemplate":
-                this.router.navigateByUrl("DocumentTemplate/" + item.ID);
-                break;        
-            case "DocumentDefinition":
-                this.router.navigateByUrl("DocumentDefinition/" + item.ID);
-                break;        
-            case "ContentFragment":
-                this.router.navigateByUrl("ContentFragment/" + item.ID);
-                break;        
-            case "Document":
-                this.router.navigateByUrl("Document/" + item.ID);
-                break;        
+            case "Policy":
+                this.router.navigateByUrl("EditPolicy/" + item.ID);
+                break;
         }
     }
 

@@ -37,6 +37,9 @@ declare var System:any;
         new Route({ path: '/', component: Home, name: 'Home' }),
 
 
+        new Route({ path: '/EditPublic', component: Components.EditPublic, name: 'EditPublic' }),
+        new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),
+
         new Route({ path: '/ListReportingEntityProfile', component: Components.ListReportingEntityProfile, name: 'ListReportingEntityProfile' }),
         new Route({ path: '/EditReportingEntityProfile', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),
         new Route({ path: '/EditReportingEntityProfile/:Id', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),

@@ -30,7 +30,7 @@ namespace AIMS.DomainModel.Abstractions
         {
             _indexQueue = indexQueue;
             _indexRegistry = indexRegistry;
-            indexRegistry.RegisterEntityTypes(GetType().Assembly);
+            //indexRegistry.RegisterEntityTypes(GetType().Assembly);
         }
 
         public BaseContext(DbConnection connection, IIndexQueue indexQueue, IIndexRegister indexRegistry)
@@ -165,6 +165,8 @@ namespace AIMS.DomainModel.Abstractions
                         if (_indexRegistry.CanIndex(entity))
                         {
                             Type type = entity.GetType();
+                            if (type.FullName.StartsWith("System.Data.Entity.DynamicProxies"))
+                                type = type.BaseType;
                             _indexQueue.QueueIndexWork(type, entity.ID, true, GetInterfaceType());
                         }
                     }

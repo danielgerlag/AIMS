@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="AIMS.API.Search" CodeBehind="Search.svc.cs" %>

@@ -94,13 +94,14 @@ namespace AIMS.DomainModel.Context
         public DataContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer<DataContext>(new DatabaseInit());
+            Database.SetInitializer<DataContext>(new DatabaseInit());                        
         }
 
         public DataContext(IIndexQueue indexQueue, IIndexRegister indexStoreInit)
             : base(indexQueue, indexStoreInit)
         {
             Database.SetInitializer<DataContext>(new DatabaseInit());
+            indexStoreInit.RegisterEntityTypes(typeof(DataContext).Assembly);
         }
 
 

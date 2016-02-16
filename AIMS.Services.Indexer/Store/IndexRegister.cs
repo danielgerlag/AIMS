@@ -71,7 +71,12 @@ namespace AIMS.Services.Indexer.Store
 
         public bool CanIndex(IDomainEntity entity)
         {
-            return _indexers.ContainsKey(entity.GetType());
+            var type = entity.GetType();
+
+            if (type.FullName.StartsWith("System.Data.Entity.DynamicProxies"))
+                type = type.BaseType;
+
+            return _indexers.ContainsKey(type);
         }
 
         private Type GetEntityTypeFromIndexer(Type indexerType)

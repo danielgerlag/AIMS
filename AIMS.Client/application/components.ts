@@ -11,7 +11,12 @@ import {EditReportingEntityProfile} from './components/reportingEntityProfile/ed
 import {ListPolicyType} from './components/policyType/listPolicyType'
 import {EditPolicyType} from './components/policyType/editPolicyType'
 
+
+import {EditPublic} from './components/public/editPublic'
+
 var Components = {
+
+    EditPublic: EditPublic,
 
     ListPolicyType: ListPolicyType,
     EditPolicyType: EditPolicyType,
