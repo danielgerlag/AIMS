@@ -15,9 +15,6 @@ namespace AIMS.DomainModel.Entities
         [MaxLength(300)]
         public string Name { get; set; }                
 
-        public int RegionID { get; set; }
-        public virtual Region Region { get; set; }
-
         public virtual ICollection<PolicyTypeEntityRequirement> EntityRequirements { get; set; } = new HashSet<PolicyTypeEntityRequirement>();
 
         public virtual ICollection<PolicyTypeAgentRequirement> AgentRequirements { get; set; } = new HashSet<PolicyTypeAgentRequirement>();

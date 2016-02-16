@@ -7,11 +7,11 @@
                     <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                 </form-input>
 
-                <form-input [entity]="entity" name="OperatorTypeID" title="Operator Type">
+                <form-input [entity]="entity" name="ParentInsurableItemClassID" title="Parent Class">
                     <entity-dropdown class="form-control"
-                                     [(value)]="entity.OperatorTypeID"
-                                     name="OperatorTypeID"
-                                     query="OperatorTypes"
+                                     [(value)]="entity.ParentInsurableItemClassID"
+                                     name="ParentInsurableItemClassID"
+                                     query="InsurableItemClasses"
                                      keyField="ID"
                                      displayField="Name"
                                      nullable="true">
@@ -74,6 +74,32 @@
                         </td>
                         <td>
                             <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+
+                    </tr>
+                </table>
+            </tab>
+            <tab heading="Operator Types">
+                <table>
+                    <tr>
+                        <th>Type</th>                        
+                        <th>
+                            <button type="button" class="btn" (click)="addOperatorType()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#opType of entity.OperatorTypes">                        
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="opType.OperatorTypeID"
+                                             name="OperatorTypeID"
+                                             query="OperatorTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeOperatorType(opType)"><i class="fa fa-trash fa-fw"></i></button>
                         </td>
 
                     </tr>

@@ -28,6 +28,7 @@
     <Content Include="application\app.html" />
     <Content Include="application\components\operatorType\editOperatorType.html" />
     <Content Include="application\components\insurableItemClass\editInsurableItemClass.html" />
+    <Content Include="application\components\policyType\editPolicyType.html" />
     <Content Include="application\components\reportingEntityProfile\editReportingEntityProfile.html" />
     <Content Include="application\core\listController.html" />
     <Content Include="application\home\home.html" />
@@ -57,6 +58,8 @@
     <TypeScriptCompile Include="application\components\operatorType\listOperatorType.ts" />
     <TypeScriptCompile Include="application\components\insurableItemClass\editInsurableItemClass.ts" />
     <TypeScriptCompile Include="application\components\insurableItemClass\listInsurableItemClass2.ts" />
+    <TypeScriptCompile Include="application\components\policyType\editPolicyType.ts" />
+    <TypeScriptCompile Include="application\components\policyType\listPolicyType.ts" />
     <TypeScriptCompile Include="application\components\reportingEntityProfile\editReportingEntityProfile.ts" />
     <TypeScriptCompile Include="application\components\reportingEntityProfile\listReportingEntityProfile.ts" />
     <TypeScriptCompile Include="application\core\baseController.ts" />

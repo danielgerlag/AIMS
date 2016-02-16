@@ -41,6 +41,10 @@ declare var System:any;
         new Route({ path: '/EditReportingEntityProfile', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),
         new Route({ path: '/EditReportingEntityProfile/:Id', component: Components.EditReportingEntityProfile, name: 'EditReportingEntityProfile' }),
 
+        new Route({ path: '/ListPolicyType', component: Components.ListPolicyType, name: 'ListPolicyType' }),
+        new Route({ path: '/EditPolicyType', component: Components.EditPolicyType, name: 'EditPolicyType' }),
+        new Route({ path: '/EditPolicyType/:Id', component: Components.EditPolicyType, name: 'EditPolicyType' }),
+
         new Route({ path: '/ListOperatorType', component: Components.ListOperatorType, name: 'ListOperatorType' }),
         new Route({ path: '/EditOperatorType', component: Components.EditOperatorType, name: 'EditOperatorType' }),
         new Route({ path: '/EditOperatorType/:Id', component: Components.EditOperatorType, name: 'EditOperatorType' }),

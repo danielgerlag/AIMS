@@ -1,0 +1,167 @@
+﻿<form (submit)="save()" [hidden]="complete">
+    <h4>{{ title }}</h4>
+    <div class="row">
+        <tabset>
+            <tab heading="General">
+                <form-input [entity]="entity" name="Name" title="Name">
+                    <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
+                </form-input>
+                                
+
+            </tab>
+            <tab heading="Entity Requirements">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Profile</th>
+                        <th>Default</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addEntityRequirement()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#entityReq of entity.EntityRequirements">
+                        <td>
+                            <input type="text" class="form-control" name="Name" [(ngModel)]="entityReq.Name">
+                        </td>
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="entityReq.ReportingEntityProfileID"
+                                             name="ReportingEntityProfileID"
+                                             query="ReportingEntityProfiles"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <!-- default -->
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeEntityRequirement(entityReq)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+
+                    </tr>
+                </table>
+            </tab>
+
+            <tab heading="Agent Requirements">
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addAgentRequirement()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#agentReq of entity.AgentRequirements">                        
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="agentReq.AgentTypeID"
+                                             name="AgentTypeID"
+                                             query="AgentTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Required" [(ngModel)]="agentReq.Required">
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeAgentRequirement(agentReq)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+
+                    </tr>
+                </table>
+            </tab>
+
+        
+            <tab heading="Service Providers">
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addServiceProvider()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#sp of entity.ServiceProviders">
+                        <td>
+                            <entity-dropdown class="form-control"
+                                             [(value)]="sp.ServiceProviderTypeID"
+                                             name="ServiceProviderTypeID"
+                                             query="ServiceProviderTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <!-- default -->
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeServiceProvider(sp)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+
+                    </tr>
+                </table>
+            </tab>
+
+            <tab heading="Policy Sub Types">
+
+                <button type="button" class="btn" (click)="addPolicySubType()">Add</button>
+
+                <tabset>
+                    <tab *ngFor="#subType of entity.PolicySubTypes" heading="{{ subType.Name }}">
+
+                        <tabset>
+                            <tab heading="General">
+                                <form-input [entity]="subType" name="Name" title="Name">
+                                    <input type="text" class="form-control" name="Name" [(ngModel)]="subType.Name">
+                                </form-input>
+
+                                <form-input [entity]="subType" name="SequenceNumber" title="Sequence Number">
+                                    <entity-dropdown class="form-control"
+                                                     [(value)]="subType.SequenceNumberID"
+                                                     name="SequenceNumberID"
+                                                     query="SequenceNumbers"
+                                                     keyField="ID"
+                                                     displayField="Name"
+                                                     nullable="false">
+                                    </entity-dropdown>
+                                </form-input>
+
+                                <form-input [entity]="subType" name="Region" title="Region">
+                                    <entity-dropdown class="form-control"
+                                                     [(value)]="subType.RegionID"
+                                                     name="RegionID"
+                                                     query="Regions"
+                                                     keyField="ID"
+                                                     displayField="Name"
+                                                     nullable="false">
+                                    </entity-dropdown>
+                                </form-input>
+
+                            </tab>
+                        </tabset>
+                    </tab>
+                </tabset>
+            </tab>
+        </tabset>
+
+    </div>
+
+    <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+
+</form>
