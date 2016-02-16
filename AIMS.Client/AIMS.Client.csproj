@@ -23,9 +23,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="application\app.html" />
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
-    <Content Include="application\app.html" />
+    <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\region\editRegion.html" />
+    <Content Include="application\components\agentType\editAgentType.html" />
+    <Content Include="application\components\serviceProviderType\editServiceProviderType.html" />
+    <Content Include="application\components\sequenceNumber\editSequenceNumber.html" />
     <Content Include="application\components\operatorType\editOperatorType.html" />
     <Content Include="application\components\insurableItemClass\editInsurableItemClass.html" />
     <Content Include="application\components\policyType\editPolicyType.html" />
@@ -54,6 +59,16 @@
     <TypeScriptCompile Include="application\components.ts" />
     <TypeScriptCompile Include="application\components\account\login.ts" />
     <TypeScriptCompile Include="application\app.ts" />
+    <TypeScriptCompile Include="application\components\attributeLookupList\editAttributeLookupList.ts" />
+    <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
+    <TypeScriptCompile Include="application\components\region\editRegion.ts" />
+    <TypeScriptCompile Include="application\components\region\listRegion.ts" />
+    <TypeScriptCompile Include="application\components\agentType\editAgentType.ts" />
+    <TypeScriptCompile Include="application\components\agentType\listAgentType.ts" />
+    <TypeScriptCompile Include="application\components\serviceProviderType\editServiceProviderType.ts" />
+    <TypeScriptCompile Include="application\components\serviceProviderType\listServiceProviderType.ts" />
+    <TypeScriptCompile Include="application\components\sequenceNumber\editSequenceNumber.ts" />
+    <TypeScriptCompile Include="application\components\sequenceNumber\listSequenceNumber.ts" />
     <TypeScriptCompile Include="application\components\operatorType\editOperatorType.ts" />
     <TypeScriptCompile Include="application\components\operatorType\listOperatorType.ts" />
     <TypeScriptCompile Include="application\components\insurableItemClass\editInsurableItemClass.ts" />
