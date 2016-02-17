@@ -5,17 +5,12 @@
             <tab heading="General">
 
                 <form-input [entity]="entity" name="PublicID" title="Public">
-                    <entity-selector class="form-control"
-                                     [(value)]="entity.PublicID"
-                                     name="PublicID"
-                                     path="Publics"
-                                     [columns]="[{ Title: 'Name', Name: 'Name' }, { Title: 'First Name', Name: 'FirstName' }]">
-                    </entity-selector>
+                    <publicSelector [(value)]="entity.Public" [dataService]="dataService"></publicSelector>
                 </form-input>
 
 
                 <form-input [entity]="entity" name="ReportingEntityProfileID" title="Configuration Profile">
-                    <entity-dropdown class="form-control"
+                    <entity-dropdown 
                                      [(value)]="entity.ReportingEntityProfileID"
                                      name="ReportingEntityProfileID"
                                      query="ReportingEntityProfiles"

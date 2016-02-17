@@ -1,9 +1,15 @@
 ﻿<form (submit)="save()" [hidden]="complete">
     <h4>{{ title }}</h4>
-    <div class="row">
-        <public-editor [(value)]="entity"></public-editor>
-    </div>
-
+    
+    <tabset>
+        <tab heading="General">            
+            <publicGeneral [(value)]="entity" [dataService]="dataService"></publicGeneral>
+        </tab>
+        <tab heading="Contact Details">
+            <publicContactDetails [(value)]="entity" [dataService]="dataService"></publicContactDetails>
+        </tab>
+    </tabset>
+    
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 
     <div class="modal-footer">

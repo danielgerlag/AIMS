@@ -4,25 +4,25 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {IRemoteService} from '../../services/remoteService';
+import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
 
 
 @Component({
-    selector: 'public-editor',    
-    inputs: ['value'],
+    selector: 'publicGeneral',
+    inputs: ['value', 'dataService'],
     outputs: ['valueChange']
 })
 @View({
-    templateUrl: './application/directives/public/publicEditor.html',
+    templateUrl: './application/directives/public/publicGeneral.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput]
 })
-export class PublicEditor implements OnInit {
+export class PublicGeneral implements OnInit {
 
     private remoteService: IRemoteService;
+    private dataService: IDataService;
     private entity: any;
-    public valueChange: EventEmitter<any> = new EventEmitter();
-        
-    
+    public valueChange: EventEmitter<any> = new EventEmitter();    
     
     constructor(remoteService: IRemoteService) {     
         this.remoteService = remoteService;   
@@ -42,7 +42,6 @@ export class PublicEditor implements OnInit {
         this.entity = value;
         this.onEntityChanged();
     }
-
     
     public changeValue(value) {
         this.value = value;
@@ -50,10 +49,7 @@ export class PublicEditor implements OnInit {
 
     onEntityChanged() {        
         this.valueChange.next(this.entity);
-    }        
-        
-    
-
+    }
     
 }
 

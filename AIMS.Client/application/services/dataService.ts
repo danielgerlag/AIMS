@@ -30,6 +30,7 @@ export abstract class IDataService {
     abstract saveChanges(sender: any, success: (sender: any, data: breeze.SaveResult) => any, failure: (sender: any, data: any) => any);
     abstract detachEntity(entity);
     abstract query(sender: any, query: breeze.EntityQuery, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
+    abstract reset();
 }
 
 @Injectable()
@@ -37,24 +38,23 @@ export class DataService implements IDataService {
 
         
     private servicePath: string;
+    private rootManager: breeze.EntityManager;
     private manager: breeze.EntityManager;
 
     constructor(        
         @Inject(IConfigService) configService: IConfigService,
         @Inject(IRemoteService) remoteService: IRemoteService
     ) {
-                
-        //this.apiPath = config.api;  //"../api/";
-        //this.apiPath = configService.getSettings().api;
-
+        var self = this;
         this.servicePath = configService.getSettings().api + "Data.svc"; 
-        this.manager = new breeze.EntityManager(this.servicePath);
-        this.manager.fetchMetadata();
-                
+        this.rootManager = new breeze.EntityManager(this.servicePath);
+        this.rootManager.fetchMetadata().then((value) => { self.manager = self.rootManager.createEmptyCopy(); }, (reason) => { });
+        
     }
-
     
-
+    reset() {
+        this.manager = this.rootManager.createEmptyCopy();
+    }
 
     getEntity(sender: any, setName: string, id: number, expand: string, clearCache: boolean, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any) {
         var query = breeze.EntityQuery.from(setName)

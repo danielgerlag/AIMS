@@ -26,6 +26,7 @@ export abstract class CRUDController extends BaseController {
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
         super(shellService);
+        dataService.reset();
         this.dataService = dataService;
         this.showErrorSummary = false;
         this.serverState = { modelState: {} };

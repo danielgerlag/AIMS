@@ -2,7 +2,6 @@
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ControlGroup} from 'angular2/common';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
-import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
 import {IRemoteService} from '../../services/remoteService';
 import {IDataService} from '../../services/dataService';
@@ -10,21 +9,20 @@ import {ODataWrapper} from '../../core/interfaces'
 
 
 @Component({
-    selector: 'policyServiceProviders',    
+    selector: 'publicContactDetails',
     inputs: ['value', 'dataService'],
     outputs: ['valueChange']
 })
 @View({
-    templateUrl: './application/directives/policy/policyServiceProviders.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, LookupText]
+    templateUrl: './application/directives/public/publicContactDetails.html',
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput]
 })
-export class PolicyServiceProviders implements OnInit {
+export class PublicContactDetails implements OnInit {
 
-    private dataService: IDataService;
     private remoteService: IRemoteService;
-    private policy: any;
-    public valueChange: EventEmitter<any> = new EventEmitter();        
-    
+    private dataService: IDataService;
+    private entity: any;
+    public valueChange: EventEmitter<any> = new EventEmitter();    
     
     constructor(remoteService: IRemoteService) {     
         this.remoteService = remoteService;   
@@ -38,20 +36,20 @@ export class PolicyServiceProviders implements OnInit {
     }
 
     public get value() {
-        return this.policy;
+        return this.entity;
     }
     public set value(value) {        
-        this.policy = value;
+        this.entity = value;
         this.onEntityChanged();
-    }       
+    }
     
+    public changeValue(value) {
+        this.value = value;
+    }
 
     onEntityChanged() {        
-        this.valueChange.next(this.policy);
-    }        
-        
-    
-
+        this.valueChange.next(this.entity);
+    }
     
 }
 

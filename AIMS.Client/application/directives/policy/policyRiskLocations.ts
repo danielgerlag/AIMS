@@ -10,7 +10,7 @@ import {ODataWrapper} from '../../core/interfaces'
 
 @Component({
     selector: 'policyRiskLocations',    
-    inputs: ['value'],
+    inputs: ['value', 'dataService'],
     outputs: ['valueChange']
 })
 @View({
@@ -24,8 +24,7 @@ export class PolicyRiskLocations implements OnInit {
     public valueChange: EventEmitter<any> = new EventEmitter();        
     
     
-    constructor(dataService: IDataService) {     
-        this.dataService = dataService;   
+    constructor() {        
     }
 
     ngOnInit() {        

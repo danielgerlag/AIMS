@@ -3,6 +3,10 @@ import {Inject, Component, View, provide} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {HTTP_PROVIDERS} from './core/xhr_backend';
 import {Home} from './home/home';
+
+
+import {Modal, ModalConfig} from 'angular2-modal/angular2-modal';
+
 //import {LoginController} from './account/login'
 import {ROUTER_DIRECTIVES, RouteConfig, Location,ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, Route, AsyncRoute, Router} from 'angular2/router';
 import {FormBuilder, Validators, ControlGroup } from 'angular2/common';
@@ -39,6 +43,7 @@ declare var System:any;
 
         new Route({ path: '/NewPolicy', component: Components.NewPolicy, name: 'NewPolicy' }),
 
+        new Route({ path: '/NewPublic', component: Components.NewPublic, name: 'NewPublic' }),
         new Route({ path: '/EditPublic', component: Components.EditPublic, name: 'EditPublic' }),
         new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),
 
@@ -141,5 +146,6 @@ bootstrap(AIMSApp, [
     provide(IAuthService, { useClass: AuthService }),
     provide(IShellService, { useClass: ShellService }),
     provide(ISearchService, { useClass: SearchService }),
-    provide(LocationStrategy, { useClass: HashLocationStrategy })
+    provide(LocationStrategy, { useClass: HashLocationStrategy }),
+    provide(ModalConfig, { useValue: new ModalConfig('lg', true, 81) })
 ]);

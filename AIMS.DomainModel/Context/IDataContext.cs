@@ -26,6 +26,7 @@ namespace AIMS.DomainModel.Context
         DbSet<InsurableItemClassAttribute> InsurableItemClassAttributes { get; set; }
         DbSet<InsurableItemClassAttributeGroup> InsurableItemClassAttributeGroups { get; set; }
         DbSet<InsurableItemClassOperatorType> InsurableItemClassOperatorTypes { get; set; }
+        DbSet<InsurableItemOperator> InsurableItemOperators { get; set; }
 
         DbSet<Journal> Journals { get; set; }
         DbSet<JournalTemplate> JournalTemplates { get; set; }

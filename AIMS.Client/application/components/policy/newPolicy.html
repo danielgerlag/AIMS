@@ -27,7 +27,7 @@
     <div class="panel panel-default" *ngIf="step == 3">
         <div class="panel-heading">Step {{step}} - Service Providers</div>
         <div class="panel-body">
-            <policyServiceProviders [(value)]="entity"></policyServiceProviders>
+            <policyServiceProviders [(value)]="entity" [dataService]="dataService"></policyServiceProviders>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
     <div class="panel panel-default" *ngIf="step == 5">
         <div class="panel-heading">Step {{step}} - Risk Locations</div>
         <div class="panel-body">
-            <policyRiskLocations [(value)]="entity"></policyRiskLocations>
+            <policyRiskLocations [(value)]="entity" [dataService]="dataService"></policyRiskLocations>
         </div>
     </div>
 

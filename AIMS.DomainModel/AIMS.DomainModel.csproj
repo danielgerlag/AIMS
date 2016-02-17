@@ -63,6 +63,7 @@
     <Compile Include="Entities\AttributeDataType.cs" />
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\AgentType.cs" />
+    <Compile Include="Entities\InsurableItemOperator.cs" />
     <Compile Include="Entities\InsurableItemAttribute.cs" />
     <Compile Include="Entities\InsurableItemClassAttributeGroup.cs" />
     <Compile Include="Entities\InsurableItemClassOperatorType.cs" />
@@ -129,6 +130,10 @@
     <Compile Include="Migrations\201602170350014_m1.Designer.cs">
       <DependentUpon>201602170350014_m1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602171706364_m2.cs" />
+    <Compile Include="Migrations\201602171706364_m2.Designer.cs">
+      <DependentUpon>201602171706364_m2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -162,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602170350014_m1.resx">
       <DependentUpon>201602170350014_m1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602171706364_m2.resx">
+      <DependentUpon>201602171706364_m2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

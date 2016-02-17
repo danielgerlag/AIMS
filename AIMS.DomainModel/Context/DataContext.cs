@@ -32,6 +32,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<InsurableItemClassAttribute> InsurableItemClassAttributes { get; set; }
         public virtual DbSet<InsurableItemClassAttributeGroup> InsurableItemClassAttributeGroups { get; set; }
         public virtual DbSet<InsurableItemClassOperatorType> InsurableItemClassOperatorTypes { get; set; }
+        public virtual DbSet<InsurableItemOperator> InsurableItemOperators { get; set; }
 
         public virtual DbSet<Journal> Journals { get; set; }
         public virtual DbSet<JournalTemplate> JournalTemplates { get; set; }

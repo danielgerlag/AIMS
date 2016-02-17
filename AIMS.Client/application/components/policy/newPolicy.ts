@@ -60,7 +60,7 @@ export class NewPolicy extends CRUDController {
 
     protected initPolicy(policySubTypeID: number) {
 
-        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders", false, this.onLoadConfig, this.onConfigFailure);
+        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses", false, this.onLoadConfig, this.onConfigFailure);
 
     }
 

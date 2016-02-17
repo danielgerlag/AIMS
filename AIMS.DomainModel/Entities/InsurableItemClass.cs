@@ -15,7 +15,10 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [StringLength(200)]
         public string Name { get; set; }
-        
+
+        [StringLength(200)]
+        public string DisplayName { get; set; }
+
         [Index]
         public int? ParentInsurableItemClassID { get; set; }
         public virtual InsurableItemClass ParentInsurableItemClass { get; set; }

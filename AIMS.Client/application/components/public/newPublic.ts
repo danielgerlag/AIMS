@@ -4,9 +4,9 @@ import {RouteParams} from 'angular2/router';
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
-import {PublicSelector} from '../../directives/public/publicSelector';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
+import {PublicWizard} from '../../directives/public/publicWizard';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -14,33 +14,27 @@ import {IDataService} from '../../services/dataService';
 import {CRUDController} from '../../core/crudController';
 
 @Component({    
-    templateUrl: './application/components/reportingEntity/editReportingEntity.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector],
+    template: '<publicWizard [(value)]="entity" [dataService]="dataService" (onFinish)="save()"></publicWizard>',
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicWizard],
     pipes: [JsonPipe]
 })
-export class EditReportingEntity extends CRUDController {
+export class NewPublic extends CRUDController {
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
         super(params, router, location, dataService, shellService, authService, fb);
-        this.title = "Reporting Entity";
+        this.title = "Public";
     }
 
     protected typeName(): string {
-        return "ReportingEntity";
+        return "Public";
     }
 
     protected setName(): string {
-        return "ReportingEntities";
-    }
-
-    protected expandFields(): string[] {
-        var result = super.expandFields();
-        result.push("Public");        
-        return result;
+        return "Publics";
     }
 
 
-    protected afterSave(sender: EditReportingEntity, data: any) {
+    protected afterSave(sender: NewPublic, data: any) {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
     }

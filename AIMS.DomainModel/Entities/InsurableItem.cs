@@ -33,7 +33,7 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<InsurableItemAttribute> Attributes { get; set; } = new HashSet<InsurableItemAttribute>();
 
-        public virtual ICollection<Operator> Operators { get; set; } = new HashSet<Operator>();
+        public virtual ICollection<InsurableItemOperator> Operators { get; set; } = new HashSet<InsurableItemOperator>();
 
         public virtual ICollection<PolicyCoverage> PolicyCoverages { get; set; } = new HashSet<PolicyCoverage>();
 

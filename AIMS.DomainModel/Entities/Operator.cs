@@ -18,8 +18,8 @@ namespace AIMS.DomainModel.Entities
         public virtual Public OperatorPublic { get; set; }
 
         [Index]
-        public int OperatorTypeID { get; set; }
-        public virtual OperatorType OperatorType { get; set; }
+        public int PolicyID { get; set; }
+        public virtual Policy Policy { get; set; }
 
         public virtual ICollection<OperatorAttribute> Attributes { get; set; } = new HashSet<OperatorAttribute>();
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "angular2": "2.0.0-beta.1",
+    "angular2-modal": "0.0.3",
     "breeze-client": "^1.5.5",
     "core-decorators": "^0.9.0",
     "es6-promise": "^3.0.2",

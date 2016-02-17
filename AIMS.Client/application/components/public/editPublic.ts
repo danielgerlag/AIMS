@@ -6,7 +6,8 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
-import {PublicEditor} from '../../directives/public/publicEditor';
+import {PublicGeneral} from '../../directives/public/publicGeneral';
+import {PublicContactDetails} from '../../directives/public/publicContactDetails';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -14,7 +15,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/public/editPublic.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicEditor],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicGeneral, PublicContactDetails],
     pipes: [JsonPipe]
 })
 export class EditPublic extends CRUDController {

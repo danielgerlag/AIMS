@@ -19,6 +19,7 @@ import {EditServiceProvider} from './components/serviceProvider/editServiceProvi
 
 
 import {EditPublic} from './components/public/editPublic'
+import {NewPublic} from './components/public/newPublic'
 
 import {NewPolicy} from './components/policy/newPolicy'
 
@@ -32,6 +33,7 @@ var Components = {
     ListServiceProvider: ListServiceProvider,
     EditServiceProvider: EditServiceProvider,
 
+    NewPublic: NewPublic,
     EditPublic: EditPublic,
 
     ListPolicyType: ListPolicyType,
