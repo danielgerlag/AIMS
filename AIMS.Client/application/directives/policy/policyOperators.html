@@ -1,0 +1,23 @@
+﻿<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Name</th>        
+        <th>
+            <span *ngFor="#itemClass of policy.PolicySubType.PolicyType.ItemClasses">                
+                <button *ngFor="#opType of itemClass.InsurableItemClass.OperatorTypes" type="button" class="btn" (click)="add(opType.OperatorType)">Add {{ opType.OperatorType.Name }}</button>
+            </span>
+            
+        </th>
+    </tr>
+    <tr *ngFor="#op of policy.Operators">
+        <td>
+            {{ op.OperatorType.Name }}
+        </td>
+        <td>
+            {{ op.OperatorPublic['Name'] }}, {{ op.OperatorPublic['FirstName'] }}
+        </td>        
+        <td>
+            <button type="button" class="btn" (click)="remove(op)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+    </tr>
+</table>

@@ -10,6 +10,7 @@ import {EntitySummary} from '../../directives/input/entitySummary';
 import {PolicyReportingEntities} from '../../directives/policy/policyReportingEntities';
 import {PolicyServiceProviders} from '../../directives/policy/policyServiceProviders';
 import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
+import {PolicyOperators} from '../../directives/policy/policyOperators';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -18,7 +19,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({
     templateUrl: './application/components/policy/newPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators],
     pipes: [JsonPipe]
 })
 export class NewPolicy extends CRUDController {
@@ -56,12 +57,11 @@ export class NewPolicy extends CRUDController {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
     }
-
+    
 
     protected initPolicy(policySubTypeID: number) {
 
-        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses", false, this.onLoadConfig, this.onConfigFailure);
-
+        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses, PolicyType.ItemClasses.InsurableItemClass, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType", false, this.onLoadConfig, this.onConfigFailure);
     }
 
     protected onLoadConfig(sender: NewPolicy, data: breeze.QueryResult): any {

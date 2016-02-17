@@ -1,0 +1,38 @@
+﻿
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+        <h4 class="modal-title">{{ entity.OperatorType.Name }}</h4>
+    </div>
+    <div class="modal-body">
+        <div>
+            <form-input [entity]="entity" name="OperatorPublicID" title="Public">
+                <publicSelector [(value)]="entity.OperatorPublic" [dataService]="dataService"></publicSelector>
+            </form-input>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="save()">OK</button>
+    </div>
+</div>
+
+
+
+
+<!--
+<div class="panel panel-default" >
+    <div class="panel-heading">Step {{step}} - Summary</div>
+    <div class="panel-body">
+        Summary
+
+        <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
+    </div>
+</div>
+-->
+
+
+
+

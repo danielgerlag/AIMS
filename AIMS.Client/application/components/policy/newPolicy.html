@@ -45,6 +45,13 @@
         </div>
     </div>
 
+    <div class="panel panel-default" *ngIf="step == 6">
+        <div class="panel-heading">Step {{step}} - Operators</div>
+        <div class="panel-body">
+            <policyOperators [(value)]="entity" [dataService]="dataService" [policySubType]="policySubType"></policyOperators>
+        </div>
+    </div>
+
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 
     <div class="modal-footer">

@@ -27,6 +27,7 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\operator\editOperator.html" />
     <Content Include="application\components\policy\newPolicy.html" />
     <Content Include="application\components\policy\editPolicy.html" />
     <Content Include="application\components\public\editPublic.html" />
@@ -42,6 +43,7 @@
     <Content Include="application\components\serviceProvider\editServiceProvider.html" />
     <Content Include="application\core\listController.html" />
     <Content Include="application\directives\input\entitySelector.html" />
+    <Content Include="application\directives\policy\policyOperators.html" />
     <Content Include="application\directives\policy\policyRiskLocations.html" />
     <Content Include="application\directives\policy\policyServiceProviders.html" />
     <Content Include="application\directives\policy\policyReportingEntities.html" />
@@ -74,8 +76,10 @@
     <TypeScriptCompile Include="application\app.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\editAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
+    <TypeScriptCompile Include="application\components\operator\editOperator.ts" />
     <TypeScriptCompile Include="application\components\policy\newPolicy.ts" />
     <TypeScriptCompile Include="application\components\policy\editPolicy.ts" />
+    <TypeScriptCompile Include="application\directives\policy\policyOperators.ts" />
     <TypeScriptCompile Include="application\directives\public\newPublicWizard.ts" />
     <TypeScriptCompile Include="application\components\public\newPublic.ts" />
     <TypeScriptCompile Include="application\components\public\editPublic.ts" />

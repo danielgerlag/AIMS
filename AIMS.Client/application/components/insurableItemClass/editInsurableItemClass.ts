@@ -58,7 +58,7 @@ export class EditInsurableItemClass extends CRUDController {
     }
 
     protected addOperatorType() {
-        var item = this.dataService.createEntity("OperatorType", {});
+        var item = this.dataService.createEntity("InsurableItemClassOperatorType", {});
         this.entity.OperatorTypes.push(item);
     }
 

@@ -11,7 +11,7 @@ namespace AIMS.DomainModel.Entities
 {
     public class InsurableItemOperator : BaseEntity
     {        
-        
+        [Index]
         public int InsurableItemID { get; set; }
         public virtual InsurableItem InsurableItem { get; set; }        
 
