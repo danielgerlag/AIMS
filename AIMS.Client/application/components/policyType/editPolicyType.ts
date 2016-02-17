@@ -44,6 +44,7 @@ export class EditPolicyType extends CRUDController {
         result.push("AgentRequirements");
         result.push("ServiceProviders");
         result.push("PolicySubTypes");
+        result.push("ItemClasses");
         
         return result;
     }
@@ -67,9 +68,11 @@ export class EditPolicyType extends CRUDController {
         var item = this.dataService.createEntity("PolicySubType", {});
         this.entity.PolicySubTypes.push(item);
     }
-       
-    
-    
+
+    protected addItemClass() {
+        var item = this.dataService.createEntity("PolicyTypeItemClass", {});
+        this.entity.ItemClasses.push(item);
+    }    
 
     protected removeEntityRequirement(item: breeze.Entity) {
         item.entityAspect.setDeleted();
@@ -80,6 +83,10 @@ export class EditPolicyType extends CRUDController {
     }
 
     protected removeServiceProvider(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeItemClass(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }
 }

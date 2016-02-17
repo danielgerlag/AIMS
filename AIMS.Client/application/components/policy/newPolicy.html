@@ -1,26 +1,48 @@
 ﻿<form (submit)="save()" [hidden]="complete">
     <h4>{{ title }}</h4>
-    <div class="row" *ngIf="step == 1">
 
-        <form-input [entity]="entity" name="PolicySubTypeID" title="Policy Type">
-            <entity-dropdown class="form-control"
-                             [(value)]="entity.PolicySubTypeID"
-                             name="PolicySubTypeID"
-                             query="PolicySubTypes"
-                             keyField="ID"
-                             displayField="Name"
-                             nullable="false">
-            </entity-dropdown>
-        </form-input>
 
+    <div class="panel panel-default" *ngIf="step == 1">
+        <div class="panel-heading">Step {{step}} - Policy Type</div>
+        <div class="panel-body">
+            <form-input [entity]="entity" name="PolicySubTypeID" title="Policy Type">
+                <entity-dropdown [(value)]="entity.PolicySubTypeID"
+                                 name="PolicySubTypeID"
+                                 query="PolicySubTypes"
+                                 keyField="ID"
+                                 displayField="Name"
+                                 nullable="false">
+                </entity-dropdown>
+            </form-input>
+        </div>
     </div>
 
-    <div class="row" *ngIf="step == 2">
-        <policyReportingEntities [(value)]="entity"></policyReportingEntities>
+    <div class="panel panel-default" *ngIf="step == 2">
+        <div class="panel-heading">Step {{step}} - Entities</div>
+        <div class="panel-body">
+            <policyReportingEntities [(value)]="entity"></policyReportingEntities>
+        </div>
     </div>
 
-    <div class="row" *ngIf="step == 3">
-        <policyServiceProviders [(value)]="entity"></policyServiceProviders>
+    <div class="panel panel-default" *ngIf="step == 3">
+        <div class="panel-heading">Step {{step}} - Service Providers</div>
+        <div class="panel-body">
+            <policyServiceProviders [(value)]="entity"></policyServiceProviders>
+        </div>
+    </div>
+
+    <div class="panel panel-default" *ngIf="step == 4">
+        <div class="panel-heading">Step {{step}} - Agents</div>
+        <div class="panel-body">
+            agents
+        </div>
+    </div>
+
+    <div class="panel panel-default" *ngIf="step == 5">
+        <div class="panel-heading">Step {{step}} - Risk Locations</div>
+        <div class="panel-body">
+            <policyRiskLocations [(value)]="entity"></policyRiskLocations>
+        </div>
     </div>
 
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>

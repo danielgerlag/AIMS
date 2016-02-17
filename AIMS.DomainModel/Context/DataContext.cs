@@ -73,8 +73,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<ReportingEntityBankAccount> ReportingEntityBankAccounts { get; set; }
         public virtual DbSet<ReportingEntityBranch> ReportingEntityBranches { get; set; }
         public virtual DbSet<ReportingEntityProfile> ReportingEntityProfiles { get; set; }
-        public virtual DbSet<RiskLocation> RiskLocations { get; set; }
-
+        
         public virtual DbSet<SequenceNumber> SequenceNumbers { get; set; }
         public virtual DbSet<ServiceProvider> ServiceProviders { get; set; }
         public virtual DbSet<ServiceProviderType> ServiceProviderTypes { get; set; }
@@ -97,6 +96,12 @@ namespace AIMS.DomainModel.Context
             : base(connectionString)
         {
             Database.SetInitializer<DataContext>(new DatabaseInit());                        
+        }
+
+        public DataContext()
+            : base("name=DB")
+        {
+            Database.SetInitializer<DataContext>(new DatabaseInit());
         }
 
         public DataContext(IIndexQueue indexQueue, IIndexRegister indexStoreInit)

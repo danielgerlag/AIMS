@@ -8,7 +8,7 @@
             <lookupText set="ServiceProviderTypes" [key]="sp.ServiceProviderTypeID"></lookupText>            
         </td>
         <td>
-            <entity-dropdown class="form-control"
+            <entity-dropdown 
                              [(value)]="sp.ServiceProviderID"
                              name="ServiceProviderID"
                              query="ServiceProviders?$filter=ServiceProviderTypeID eq {{sp.ServiceProviderTypeID}}&$expand=Public"

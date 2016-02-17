@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "toastr": "~2.1.2",
-    "bootstrap": "4.0",
+    "bootstrap": "3.3.6",
     "font-awesome": "~4.4.0",
     "tether": "~1.1.1"
   }

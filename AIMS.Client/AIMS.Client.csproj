@@ -42,6 +42,7 @@
     <Content Include="application\components\serviceProvider\editServiceProvider.html" />
     <Content Include="application\core\listController.html" />
     <Content Include="application\directives\input\entitySelector.html" />
+    <Content Include="application\directives\policy\policyRiskLocations.html" />
     <Content Include="application\directives\policy\policyServiceProviders.html" />
     <Content Include="application\directives\policy\policyReportingEntities.html" />
     <Content Include="application\directives\public\publicEditor.html" />
@@ -109,6 +110,7 @@
     <TypeScriptCompile Include="application\directives\input\formInput.ts" />
     <TypeScriptCompile Include="application\directives\input\formSummary.ts" />
     <TypeScriptCompile Include="application\directives\input\inputFileReader.ts" />
+    <TypeScriptCompile Include="application\directives\policy\policyRiskLocations.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyServiceProviders.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyReportingEntities.ts" />
     <TypeScriptCompile Include="application\directives\public\publicEditor.ts" />

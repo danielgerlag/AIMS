@@ -67,8 +67,7 @@ namespace AIMS.DomainModel.Context
         DbSet<ReportingEntityBankAccount> ReportingEntityBankAccounts { get; set; }
         DbSet<ReportingEntityBranch> ReportingEntityBranches { get; set; }
         DbSet<ReportingEntityProfile> ReportingEntityProfiles { get; set; }
-        DbSet<RiskLocation> RiskLocations { get; set; }
-
+        
         DbSet<SequenceNumber> SequenceNumbers { get; set; }
         DbSet<ServiceProvider> ServiceProviders { get; set; }
         DbSet<ServiceProviderType> ServiceProviderTypes { get; set; }

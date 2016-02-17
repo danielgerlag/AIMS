@@ -8,7 +8,7 @@
             {{ rep.PolicyTypeEntityRequirement.Name }}
         </td>
         <td>
-            <entity-dropdown class="form-control"
+            <entity-dropdown 
                              [(value)]="rep.ReportingEntityID"
                              name="ReportingEntityID"
                              query="ReportingEntities?$expand=Public"

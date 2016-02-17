@@ -1,0 +1,24 @@
+﻿<table class="table">
+    <tr>
+        <th>Line 1</th>
+        <th>Line 2</th>
+        <th>City</th>
+        <th>Postal Code</th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
+    </tr>
+    <tr *ngFor="#location of policy.RiskLocations">
+        <td>
+            <input type="text" class="form-control" name="StreetAddressLine1" [(ngModel)]="location.StreetAddressLine1">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="StreetAddressLine2" [(ngModel)]="location.StreetAddressLine2">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="City" [(ngModel)]="location.City">
+        </td>
+        <td>
+            <input type="text" class="form-control" name="PostalCode" [(ngModel)]="location.PostalCode">
+        </td>
+        
+    </tr>
+</table>

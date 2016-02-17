@@ -22,5 +22,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<PolicyTypeServiceProvider> ServiceProviders { get; set; } = new HashSet<PolicyTypeServiceProvider>();
 
         public virtual ICollection<PolicySubType> PolicySubTypes { get; set; } = new HashSet<PolicySubType>();
+
+        public virtual ICollection<PolicyTypeItemClass> ItemClasses { get; set; } = new HashSet<PolicyTypeItemClass>();
     }
 }

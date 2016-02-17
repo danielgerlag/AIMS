@@ -72,6 +72,7 @@
     <Compile Include="Entities\PolicyAgent.cs" />
     <Compile Include="Entities\PolicySubType.cs" />
     <Compile Include="Entities\PolicyTypeAgentRequirement.cs" />
+    <Compile Include="Entities\PolicyTypeItemClass.cs" />
     <Compile Include="Entities\ReportingEntityBranch.cs" />
     <Compile Include="Entities\BusinessLine.cs" />
     <Compile Include="Entities\ContextParameter.cs" />
@@ -111,7 +112,6 @@
     <Compile Include="Entities\ReportingEntity.cs" />
     <Compile Include="Entities\ReportingEntityBankAccount.cs" />
     <Compile Include="Entities\ReportingEntityProfile.cs" />
-    <Compile Include="Entities\RiskLocation.cs" />
     <Compile Include="Entities\SequenceNumber.cs" />
     <Compile Include="Entities\Agent.cs" />
     <Compile Include="Entities\ServiceProvider.cs" />
@@ -121,6 +121,15 @@
     <Compile Include="Entities\TransactionTrigger.cs" />
     <Compile Include="Entities\TransactionTriggerInput.cs" />
     <Compile Include="Indexers\PublicIndexer.cs" />
+    <Compile Include="Migrations\201602170057404_InitialCreate.cs" />
+    <Compile Include="Migrations\201602170057404_InitialCreate.Designer.cs">
+      <DependentUpon>201602170057404_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602170350014_m1.cs" />
+    <Compile Include="Migrations\201602170350014_m1.Designer.cs">
+      <DependentUpon>201602170350014_m1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -148,6 +157,12 @@
     <None Include="Resources\AL3Codes.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602170057404_InitialCreate.resx">
+      <DependentUpon>201602170057404_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602170350014_m1.resx">
+      <DependentUpon>201602170350014_m1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

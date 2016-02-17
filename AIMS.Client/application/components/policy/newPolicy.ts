@@ -9,6 +9,7 @@ import {EntitySummary} from '../../directives/input/entitySummary';
 
 import {PolicyReportingEntities} from '../../directives/policy/policyReportingEntities';
 import {PolicyServiceProviders} from '../../directives/policy/policyServiceProviders';
+import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -17,7 +18,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({
     templateUrl: './application/components/policy/newPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations],
     pipes: [JsonPipe]
 })
 export class NewPolicy extends CRUDController {

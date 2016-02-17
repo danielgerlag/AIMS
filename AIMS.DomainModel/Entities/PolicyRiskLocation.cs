@@ -18,13 +18,27 @@ namespace AIMS.DomainModel.Entities
 
         [Index]
         public int PolicyID { get; set; }
-        public virtual Policy Policy { get; set; }
-
-        [Index]
-        public int RiskLocationID { get; set; }
-        public virtual RiskLocation RiskLocation { get; set; }
+        public virtual Policy Policy { get; set; }                
 
         public virtual ICollection<InsurableItem> InsurableItems { get; set; } = new HashSet<InsurableItem>();
+
+        [Required]
+        [StringLength(200)]
+        public string StreetAddressLine1 { get; set; }
+
+        [StringLength(200)]
+        public string StreetAddressLine2 { get; set; }
+
+        [StringLength(200)]
+        public string City { get; set; }
+
+        [StringLength(20)]
+        public string PostalCode { get; set; }
+        
+        public override string GetLookupText()
+        {
+            return StreetAddressLine1;
+        }
     }
 
 }

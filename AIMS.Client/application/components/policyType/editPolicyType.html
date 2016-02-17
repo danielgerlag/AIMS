@@ -25,7 +25,7 @@
                             <input type="text" class="form-control" name="Name" [(ngModel)]="entityReq.Name">
                         </td>
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="entityReq.ReportingEntityProfileID"
                                              name="ReportingEntityProfileID"
                                              query="ReportingEntityProfiles"
@@ -35,7 +35,7 @@
                             </entity-dropdown>
                         </td>
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="entityReq.DefaultReportingEntityID"
                                              name="DefaultReportingEntityID"
                                              query="ReportingEntities?$expand=Public"
@@ -65,7 +65,7 @@
                     </tr>
                     <tr *ngFor="#agentReq of entity.AgentRequirements">                        
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="agentReq.AgentTypeID"
                                              name="AgentTypeID"
                                              query="AgentTypes"
@@ -99,7 +99,7 @@
                     </tr>
                     <tr *ngFor="#sp of entity.ServiceProviders">
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="sp.ServiceProviderTypeID"
                                              name="ServiceProviderTypeID"
                                              query="ServiceProviderTypes"
@@ -120,6 +120,34 @@
                 </table>
             </tab>
 
+            <tab heading="Insurable Item Classes">
+                <table>
+                    <tr>
+                        <th>Item</th>                        
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addItemClass()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#item of entity.ItemClasses">
+                        <td>
+                            <entity-dropdown [(value)]="item.InsurableItemClassID"
+                                             name="InsurableItemClassID"
+                                             query="InsurableItemClasses"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>                        
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeItemClass(sp)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+
+                    </tr>
+                </table>
+            </tab>
+
             <tab heading="Policy Sub Types">
 
                 <button type="button" class="btn" (click)="addPolicySubType()">Add</button>
@@ -134,7 +162,7 @@
                                 </form-input>
 
                                 <form-input [entity]="subType" name="SequenceNumber" title="Sequence Number">
-                                    <entity-dropdown class="form-control"
+                                    <entity-dropdown 
                                                      [(value)]="subType.SequenceNumberID"
                                                      name="SequenceNumberID"
                                                      query="SequenceNumbers"
@@ -145,7 +173,7 @@
                                 </form-input>
 
                                 <form-input [entity]="subType" name="Region" title="Region">
-                                    <entity-dropdown class="form-control"
+                                    <entity-dropdown 
                                                      [(value)]="subType.RegionID"
                                                      name="RegionID"
                                                      query="Regions"
