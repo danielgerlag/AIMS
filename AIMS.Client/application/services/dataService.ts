@@ -25,6 +25,7 @@ OData.defaultHttpClient = {
 export abstract class IDataService {
 
     abstract getEntity(sender: any, setName: string, id: number, expand: string, clearCache: boolean, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
+    abstract getDetached(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract createEntity(entityType, initialValues): any;
     abstract saveChanges(sender: any, success: (sender: any, data: breeze.SaveResult) => any, failure: (sender: any, data: any) => any);
     abstract detachEntity(entity);
@@ -66,6 +67,22 @@ export class DataService implements IDataService {
             this.manager.clear();
 
         query.using(this.manager).execute()
+            .then(function (data) {
+                success(sender, data);
+            })
+            .catch((reason) => {
+                failure(sender, reason);
+            });
+    }
+
+    getDetached(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any) {
+        var query = breeze.EntityQuery.from(setName)
+            .where('ID', 'eq', id);
+
+        if (expand)
+            query = query.expand(expand);                
+
+        query.noTracking().using(this.manager).execute()
             .then(function (data) {
                 success(sender, data);
             })

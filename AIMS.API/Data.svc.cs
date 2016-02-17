@@ -59,6 +59,9 @@ namespace AIMS.API
                 case "Publics":
                     dbset = CurrentDataSource.Publics;
                     break;
+                case "ServiceProviderTypes":
+                    dbset = CurrentDataSource.ServiceProviderTypes;
+                    break;
             }
 
             object entity = dbset.Find(id);

@@ -11,17 +11,13 @@ namespace AIMS.DomainModel.Entities
 {
     public class OperatorType : BaseEntity
     {
-        public OperatorType()
-        {
-            Attributes = new HashSet<OperatorTypeAttribute>();
-        }
-
+        
         [Required]
         [StringLength(200)]
         public string Name { get; set; }
                 
 
-        public virtual ICollection<OperatorTypeAttribute> Attributes { get; set; }
+        public virtual ICollection<OperatorTypeAttributeGroup> Groups { get; set; } = new HashSet<OperatorTypeAttributeGroup>();
 
         public override string GetLookupText()
         {

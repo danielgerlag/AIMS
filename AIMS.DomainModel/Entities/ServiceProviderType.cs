@@ -14,5 +14,10 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [MaxLength(300)]
         public string Name { get; set; }
+
+        public override string GetLookupText()
+        {
+            return Name;
+        }
     }
 }

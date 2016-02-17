@@ -30,6 +30,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<InsurableItemAttribute> InsurableItemAttributes { get; set; }
         public virtual DbSet<InsurableItemClass> InsurableItemClasses { get; set; }
         public virtual DbSet<InsurableItemClassAttribute> InsurableItemClassAttributes { get; set; }
+        public virtual DbSet<InsurableItemClassAttributeGroup> InsurableItemClassAttributeGroups { get; set; }
         public virtual DbSet<InsurableItemClassOperatorType> InsurableItemClassOperatorTypes { get; set; }
 
         public virtual DbSet<Journal> Journals { get; set; }
@@ -49,6 +50,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<OperatorType> OperatorTypes { get; set; }
         public virtual DbSet<OperatorTypeAttribute> OperatorTypeAttributes { get; set; }
         public virtual DbSet<OperatorAttribute> OperatorAttributes { get; set; }
+        public virtual DbSet<OperatorTypeAttributeGroup> OperatorTypeAttributeGroups { get; set; }
         public virtual DbSet<PolicyAgent> PolicyAgents { get; set; }
         public virtual DbSet<PolicyCoverage> PolicyCoverages { get; set; }
         public virtual DbSet<Policy> Policies { get; set; }
@@ -108,9 +110,7 @@ namespace AIMS.DomainModel.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //modelBuilder.Entity<Entities.Party>().Ignore<bool>(x => x.Deleted);
-            //modelBuilder.Entity<Entities.PartyContactDetail>().Ignore<bool>(x => x.Deleted);
+            
         }
 
     }

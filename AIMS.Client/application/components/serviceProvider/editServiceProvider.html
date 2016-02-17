@@ -1,0 +1,39 @@
+﻿<form (submit)="save()" [hidden]="complete">
+    <h4>{{ title }}</h4>
+    <div class="row">
+        <tabset>
+            <tab heading="General">
+
+                <form-input [entity]="entity" name="ServiceProviderTypeID" title="Type">
+                    <entity-dropdown class="form-control"
+                                     [(value)]="entity.ServiceProviderTypeID"
+                                     name="ServiceProviderTypeID"
+                                     query="ServiceProviderTypes"
+                                     keyField="ID"
+                                     displayField="Name"
+                                     nullable="false">
+                    </entity-dropdown>
+                </form-input>
+
+                <form-input [entity]="entity" name="PublicID" title="Public">
+                    <entity-selector class="form-control"
+                                     [(value)]="entity.PublicID"
+                                     name="PublicID"
+                                     path="Publics"
+                                     [columns]="[{ Title: 'Name', Name: 'Name' }, { Title: 'First Name', Name: 'FirstName' }]">
+                    </entity-selector>
+                </form-input>   
+                                
+            </tab>            
+        </tabset>
+
+    </div>
+
+    <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+
+</form>

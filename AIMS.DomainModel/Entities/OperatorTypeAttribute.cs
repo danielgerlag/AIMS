@@ -31,9 +31,13 @@ namespace AIMS.DomainModel.Entities
 
         public int? DecimalPlaces { get; set; }
 
+        public bool Required { get; set; }
+
+        public bool IndexField { get; set; }
+
         [Index]
-        public int OperatorTypeID { get; set; }
-        public virtual OperatorType OperatorType { get; set; }
+        public int OperatorTypeAttributeGroupID { get; set; }
+        public virtual OperatorTypeAttributeGroup OperatorTypeAttributeGroup { get; set; }
                 
         public int? AttributeLookupListID { get; set; }
         public virtual AttributeLookupList AttributeLookupList { get; set; }

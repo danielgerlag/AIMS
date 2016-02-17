@@ -9,65 +9,89 @@
                                 
             </tab>
             <tab heading="Attributes">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>Prompt</th>
-                        <th>AL3 Group</th>
-                        <th>AL3 Element</th>
-                        <th>Order</th>
-                        <th>Type</th>
-                        <th>Decimal Places</th>
-                        <th>Lookup</th>
-                        <th>
-                            <button type="button" class="btn" (click)="addAttribute()">Add</button>
-                        </th>
-                    </tr>
-                    <tr *ngFor="#attribute of entity.Attributes">
-                        <td>
-                            <input type="text" class="form-control" name="Name" [(ngModel)]="attribute.Name">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="Prompt" [(ngModel)]="attribute.Prompt">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="AL3Group" [(ngModel)]="attribute.AL3Group">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" name="AL3Element" [(ngModel)]="attribute.AL3Element">
-                        </td>
-                        <td>
-                            <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="attribute.DisplayOrder">
-                        </td>
-                        <td>
-                            <entity-dropdown class="form-control"
-                                             [(value)]="attribute.AttributeDataTypeID"
-                                             name="AttributeDataTypeID"
-                                             query="AttributeDataTypes"
-                                             keyField="ID"
-                                             displayField="Description"
-                                             nullable="false">
-                            </entity-dropdown>
-                        </td>
-                        <td>
-                            <input type="number" class="form-control" name="DecimalPlaces" [(ngModel)]="attribute.DecimalPlaces">
-                        </td>
-                        <td>
-                            <entity-dropdown class="form-control"
-                                             [(value)]="attribute.AttributeLookupListID"
-                                             name="AttributeLookupListID"
-                                             query="AttributeLookupLists"
-                                             keyField="ID"
-                                             displayField="Name"
-                                             nullable="true">
-                            </entity-dropdown>
-                        </td>
-                        <td>
-                            <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>
-                        </td>
+                <button type="button" class="btn" (click)="addGroup()">Add Group</button>
+                <tabset>
+                    <tab *ngFor="#group of entity.Groups" heading="{{group.Name}}">
 
-                    </tr>
-                </table>
+                        <form-input [entity]="group" name="Name" title="Name">
+                            <input type="text" class="form-control" name="Name" [(ngModel)]="group.Name">
+                        </form-input>
+
+                        <form-input [entity]="group" name="Prompt" title="Prompt">
+                            <input type="text" class="form-control" name="Prompt" [(ngModel)]="group.Prompt">
+                        </form-input>
+
+                        <form-input [entity]="group" name="DisplayOrder" title="Display Order">
+                            <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="group.DisplayOrder">
+                        </form-input>
+
+                        <table class="table">
+                            <tr>
+                                <th>Name</th>
+                                <th>Prompt</th>
+                                <th>AL3 Group</th>
+                                <th>AL3 Element</th>
+                                <th>Order</th>
+                                <th>Type</th>
+                                <th>Decimal Places</th>
+                                <th>Lookup</th>
+                                <th>Required</th>
+                                <th>
+                                    <button type="button" class="btn" (click)="addAttribute(group)">Add</button>
+                                </th>
+                            </tr>
+                            <tr *ngFor="#attribute of group.Attributes">
+                                <td>
+                                    <input type="text" class="form-control" name="Name" [(ngModel)]="attribute.Name">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="Prompt" [(ngModel)]="attribute.Prompt">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="AL3Group" [(ngModel)]="attribute.AL3Group">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="AL3Element" [(ngModel)]="attribute.AL3Element">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="attribute.DisplayOrder">
+                                </td>
+                                <td>
+                                    <entity-dropdown class="form-control"
+                                                     [(value)]="attribute.AttributeDataTypeID"
+                                                     name="AttributeDataTypeID"
+                                                     query="AttributeDataTypes"
+                                                     keyField="ID"
+                                                     displayField="Description"
+                                                     nullable="false">
+                                    </entity-dropdown>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="DecimalPlaces" [(ngModel)]="attribute.DecimalPlaces">
+                                </td>
+                                <td>
+                                    <entity-dropdown class="form-control"
+                                                     [(value)]="attribute.AttributeLookupListID"
+                                                     name="AttributeLookupListID"
+                                                     query="AttributeLookupLists"
+                                                     keyField="ID"
+                                                     displayField="Name"
+                                                     nullable="true">
+                                    </entity-dropdown>
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="form-control" name="Required" [(checked)]="attribute.Required">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </tab>
+                </tabset>
+
+
             </tab>
         </tabset>
 

@@ -41,14 +41,20 @@ export class EditInsurableItemClass extends CRUDController {
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        result.push("Attributes");
+        result.push("Groups");
+        result.push("Groups.Attributes");
         result.push("OperatorTypes");
         return result;
     }
 
-    protected addAttribute() {
+    protected addGroup() {
+        var item = this.dataService.createEntity("InsurableItemClassAttributeGroup", {});
+        this.entity.Groups.push(item);
+    }
+
+    protected addAttribute(group) {
         var item = this.dataService.createEntity("InsurableItemClassAttribute", {});
-        this.entity.Attributes.push(item);
+        group.Attributes.push(item);
     }
 
     protected addOperatorType() {

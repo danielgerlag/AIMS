@@ -27,6 +27,8 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\policy\newPolicy.html" />
+    <Content Include="application\components\policy\editPolicy.html" />
     <Content Include="application\components\public\editPublic.html" />
     <Content Include="application\components\region\editRegion.html" />
     <Content Include="application\components\agentType\editAgentType.html" />
@@ -37,8 +39,11 @@
     <Content Include="application\components\insurableItemClass\editInsurableItemClass.html" />
     <Content Include="application\components\policyType\editPolicyType.html" />
     <Content Include="application\components\reportingEntityProfile\editReportingEntityProfile.html" />
+    <Content Include="application\components\serviceProvider\editServiceProvider.html" />
     <Content Include="application\core\listController.html" />
     <Content Include="application\directives\input\entitySelector.html" />
+    <Content Include="application\directives\policy\policyServiceProviders.html" />
+    <Content Include="application\directives\policy\policyReportingEntities.html" />
     <Content Include="application\directives\public\publicEditor.html" />
     <Content Include="application\home\home.html" />
     <Content Include="index.html" />
@@ -65,6 +70,8 @@
     <TypeScriptCompile Include="application\app.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\editAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
+    <TypeScriptCompile Include="application\components\policy\newPolicy.ts" />
+    <TypeScriptCompile Include="application\components\policy\editPolicy.ts" />
     <TypeScriptCompile Include="application\components\public\editPublic.ts" />
     <TypeScriptCompile Include="application\components\region\editRegion.ts" />
     <TypeScriptCompile Include="application\components\region\listRegion.ts" />
@@ -84,6 +91,8 @@
     <TypeScriptCompile Include="application\components\policyType\listPolicyType.ts" />
     <TypeScriptCompile Include="application\components\reportingEntityProfile\editReportingEntityProfile.ts" />
     <TypeScriptCompile Include="application\components\reportingEntityProfile\listReportingEntityProfile.ts" />
+    <TypeScriptCompile Include="application\components\serviceProvider\editServiceProvider.ts" />
+    <TypeScriptCompile Include="application\components\serviceProvider\listServiceProvider.ts" />
     <TypeScriptCompile Include="application\core\baseController.ts" />
     <TypeScriptCompile Include="application\core\crudController.ts" />
     <TypeScriptCompile Include="application\core\dto.ts" />
@@ -93,12 +102,15 @@
     <TypeScriptCompile Include="application\core\validation.ts" />
     <TypeScriptCompile Include="application\core\xhr_backend.ts" />
     <TypeScriptCompile Include="application\directives\input\entityDropdown.ts" />
+    <TypeScriptCompile Include="application\directives\input\lookupText.ts" />
     <TypeScriptCompile Include="application\directives\input\entitySelector.ts" />
     <TypeScriptCompile Include="application\directives\input\entitySummary.ts" />
     <TypeScriptCompile Include="application\directives\input\fileSelect.ts" />
     <TypeScriptCompile Include="application\directives\input\formInput.ts" />
     <TypeScriptCompile Include="application\directives\input\formSummary.ts" />
     <TypeScriptCompile Include="application\directives\input\inputFileReader.ts" />
+    <TypeScriptCompile Include="application\directives\policy\policyServiceProviders.ts" />
+    <TypeScriptCompile Include="application\directives\policy\policyReportingEntities.ts" />
     <TypeScriptCompile Include="application\directives\public\publicEditor.ts" />
     <TypeScriptCompile Include="application\home\home.ts" />
     <TypeScriptCompile Include="application\services\authService.ts" />

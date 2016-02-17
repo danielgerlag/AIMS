@@ -31,9 +31,15 @@ namespace AIMS.DomainModel.Entities
 
         public int? DecimalPlaces { get; set; }
 
+        public bool Required { get; set; }
+
+        public bool IndexField { get; set; }
+
+        public bool Key { get; set; }
+
         [Index]
-        public int InsurableItemClassID { get; set; }
-        public virtual InsurableItemClass InsurableItemClass { get; set; }
+        public int InsurableItemClassAttributeGroupID { get; set; }
+        public virtual InsurableItemClassAttributeGroup InsurableItemClassAttributeGroup { get; set; }
                 
         public int? AttributeLookupListID { get; set; }
         public virtual AttributeLookupList AttributeLookupList { get; set; }

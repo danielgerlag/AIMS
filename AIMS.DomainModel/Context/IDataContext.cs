@@ -24,6 +24,7 @@ namespace AIMS.DomainModel.Context
         DbSet<InsurableItemAttribute> InsurableItemAttributes { get; set; }
         DbSet<InsurableItemClass> InsurableItemClasses { get; set; }
         DbSet<InsurableItemClassAttribute> InsurableItemClassAttributes { get; set; }
+        DbSet<InsurableItemClassAttributeGroup> InsurableItemClassAttributeGroups { get; set; }
         DbSet<InsurableItemClassOperatorType> InsurableItemClassOperatorTypes { get; set; }
 
         DbSet<Journal> Journals { get; set; }
@@ -43,6 +44,7 @@ namespace AIMS.DomainModel.Context
         DbSet<OperatorType> OperatorTypes { get; set; }
         DbSet<OperatorTypeAttribute> OperatorTypeAttributes { get; set; }
         DbSet<OperatorAttribute> OperatorAttributes { get; set; }
+        DbSet<OperatorTypeAttributeGroup> OperatorTypeAttributeGroups { get; set; }
         DbSet<PolicyAgent> PolicyAgents { get; set; }
         DbSet<PolicyCoverage> PolicyCoverages { get; set; }                
         DbSet<Policy> Policies { get; set; }

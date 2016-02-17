@@ -14,13 +14,23 @@ import {EditPolicyType} from './components/policyType/editPolicyType'
 import {ListReportingEntity} from './components/reportingEntity/listReportingEntity'
 import {EditReportingEntity} from './components/reportingEntity/editReportingEntity'
 
+import {ListServiceProvider} from './components/serviceProvider/listServiceProvider'
+import {EditServiceProvider} from './components/serviceProvider/editServiceProvider'
+
 
 import {EditPublic} from './components/public/editPublic'
 
+import {NewPolicy} from './components/policy/newPolicy'
+
 var Components = {
+
+    NewPolicy: NewPolicy,
 
     ListReportingEntity: ListReportingEntity,
     EditReportingEntity: EditReportingEntity,
+
+    ListServiceProvider: ListServiceProvider,
+    EditServiceProvider: EditServiceProvider,
 
     EditPublic: EditPublic,
 

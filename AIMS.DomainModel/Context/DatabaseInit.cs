@@ -109,8 +109,10 @@ namespace AIMS.DomainModel.Context
             //context.AttributeLookupLists
 
             InsurableItemClass standardAuto = new InsurableItemClass() { Name = "Standard Auto" };
-            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "Make", AttributeDataType = dtList });
-            standardAuto.Attributes.Add(new InsurableItemClassAttribute() { Name = "VIN", AttributeDataType = dtText });
+            InsurableItemClassAttributeGroup standardAutoGroup = new InsurableItemClassAttributeGroup() { Name = "General", Prompt = "General" };
+            standardAuto.Groups.Add(standardAutoGroup);
+            standardAutoGroup.Attributes.Add(new InsurableItemClassAttribute() { Name = "Make", AttributeDataType = dtList });
+            standardAutoGroup.Attributes.Add(new InsurableItemClassAttribute() { Name = "VIN", AttributeDataType = dtText, Key = true });
             context.InsurableItemClasses.Add(standardAuto);
 
 

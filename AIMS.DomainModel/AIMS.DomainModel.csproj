@@ -64,8 +64,10 @@
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\AgentType.cs" />
     <Compile Include="Entities\InsurableItemAttribute.cs" />
+    <Compile Include="Entities\InsurableItemClassAttributeGroup.cs" />
     <Compile Include="Entities\InsurableItemClassOperatorType.cs" />
     <Compile Include="Entities\OperatorAttribute.cs" />
+    <Compile Include="Entities\OperatorTypeAttributeGroup.cs" />
     <Compile Include="Entities\PolicyReportingEntity.cs" />
     <Compile Include="Entities\PolicyAgent.cs" />
     <Compile Include="Entities\PolicySubType.cs" />

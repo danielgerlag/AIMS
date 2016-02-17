@@ -1,0 +1,24 @@
+﻿<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Entity</th>
+    </tr>
+    <tr *ngFor="#sp of policy.ServiceProviders">
+        <td>
+            <lookupText set="ServiceProviderTypes" [key]="sp.ServiceProviderTypeID"></lookupText>            
+        </td>
+        <td>
+            <entity-dropdown class="form-control"
+                             [(value)]="sp.ServiceProviderID"
+                             name="ServiceProviderID"
+                             query="ServiceProviders?$filter=ServiceProviderTypeID eq {{sp.ServiceProviderTypeID}}&$expand=Public"
+                             keyField="ID"
+                             displayField="Public.Name"
+                             nullable="false">
+            </entity-dropdown>
+        </td>
+        <td>
+            <input type="number" class="form-control" name="Percentage" [(ngModel)]="sp.Percentage">
+        </td>
+    </tr>
+</table>

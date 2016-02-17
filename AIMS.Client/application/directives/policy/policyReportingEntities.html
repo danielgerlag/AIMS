@@ -1,0 +1,21 @@
+﻿<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Entity</th>
+    </tr>
+    <tr *ngFor="#rep of policy.ReportingEntities">
+        <td>
+            {{ rep.PolicyTypeEntityRequirement.Name }}
+        </td>
+        <td>
+            <entity-dropdown class="form-control"
+                             [(value)]="rep.ReportingEntityID"
+                             name="ReportingEntityID"
+                             query="ReportingEntities?$expand=Public"
+                             keyField="ID"
+                             displayField="Public.Name"
+                             nullable="false">
+            </entity-dropdown>
+        </td>
+    </tr>
+</table>

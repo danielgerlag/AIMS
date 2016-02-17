@@ -13,49 +13,73 @@ import {IDataService} from '../../services/dataService';
 import {CRUDController} from '../../core/crudController';
 
 @Component({    
-    templateUrl: './application/components/operatorType/editOperatorType.html',
+    templateUrl: './application/components/policy/editPolicy.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES],
     pipes: [JsonPipe]
 })
-export class EditOperatorType extends CRUDController {
+export class EditPolicy extends CRUDController {
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
         super(params, router, location, dataService, shellService, authService, fb);
-        this.title = "Operator Type";
+        this.title = "Policy";
     }
 
     protected typeName(): string {
-        return "OperatorType";
+        return "Policy";
     }
 
     protected setName(): string {
-        return "OperatorTypes";
+        return "Policies";
     }
 
 
-    protected afterSave(sender: EditOperatorType, data: any) {
+    protected afterSave(sender: EditPolicy, data: any) {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
     }
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        result.push("Groups");
-        result.push("Groups.Attributes");
+        result.push("EntityRequirements");
+        result.push("AgentRequirements");
+        result.push("ServiceProviders");
+        result.push("PolicySubTypes");
+        
         return result;
     }
 
-    protected addGroup() {
-        var item = this.dataService.createEntity("OperatorTypeAttributeGroup", {});
-        this.entity.Groups.push(item);
+    protected addEntityRequirement() {
+        var item = this.dataService.createEntity("PolicyTypeEntityRequirement", {});
+        this.entity.EntityRequirements.push(item);
     }
 
-    protected addAttribute(group) {
-        var item = this.dataService.createEntity("OperatorTypeAttribute", {});
-        group.Attributes.push(item);
+    protected addAgentRequirement() {
+        var item = this.dataService.createEntity("PolicyTypeAgentRequirement", {});
+        this.entity.AgentRequirements.push(item);
     }
 
-    protected removeAttribute(item: breeze.Entity) {
+    protected addServiceProvider() {
+        var item = this.dataService.createEntity("PolicyTypeServiceProvider", {});
+        this.entity.ServiceProviders.push(item);
+    }
+
+    protected addPolicySubType() {
+        var item = this.dataService.createEntity("PolicySubType", {});
+        this.entity.PolicySubTypes.push(item);
+    }
+       
+    
+    
+
+    protected removeEntityRequirement(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeAgentRequirement(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeServiceProvider(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }
 }

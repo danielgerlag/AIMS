@@ -9,20 +9,23 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class InsurableItemClass : BaseEntity
-    {        
-
+    public class InsurableItemClassAttributeGroup : BaseEntity
+    {
         [Required]
         [StringLength(200)]
         public string Name { get; set; }
-        
-        [Index]
-        public int? ParentInsurableItemClassID { get; set; }
-        public virtual InsurableItemClass ParentInsurableItemClass { get; set; }
-                
-        public virtual ICollection<InsurableItemClassOperatorType> OperatorTypes { get; set; } = new HashSet<InsurableItemClassOperatorType>();
 
-        public virtual ICollection<InsurableItemClassAttributeGroup> Groups { get; set; } = new HashSet<InsurableItemClassAttributeGroup>();
+        [StringLength(200)]
+        public string Prompt { get; set; }
+
+        public int DisplayOrder { get; set; }
+        
+
+        [Index]
+        public int InsurableItemClassID { get; set; }
+        public virtual InsurableItemClass InsurableItemClass { get; set; }
+
+        public virtual ICollection<InsurableItemClassAttribute> Attributes { get; set; } = new HashSet<InsurableItemClassAttribute>();
 
         public override string GetLookupText()
         {
