@@ -184,6 +184,31 @@
                                 </form-input>
 
                             </tab>
+                            <tab heading="Coverages">
+                                <table class="table">
+                                    <tr>
+                                        <th>Coverage</th>                                        
+                                        <th>
+                                            <button type="button" class="btn" (click)="addPolicySubTypeCoverage(subType)">Add</button>
+                                        </th>
+                                    </tr>
+                                    <tr *ngFor="#cov of subType.Coverages">
+                                        <td>
+                                            <entity-dropdown [(value)]="cov.CoverageTypeID"
+                                                             name="CoverageTypeID"
+                                                             query="CoverageTypes"
+                                                             keyField="ID"
+                                                             displayField="Name"
+                                                             nullable="false">
+                                            </entity-dropdown>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <button type="button" class="btn" (click)="removePolicySubTypeCoverage(cov)"><i class="fa fa-trash fa-fw"></i></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </tab>
                         </tabset>
                     </tab>
                 </tabset>

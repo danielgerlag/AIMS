@@ -20,6 +20,10 @@ namespace AIMS.DomainModel.Entities
         public int? InsurableItemID { get; set; }
         public virtual InsurableItem InsurableItem { get; set; }
 
+        public decimal? Limit { get; set; }
+
+        public decimal? Deductible { get; set; }
+
         public decimal? Premium { get; set; }
 
 

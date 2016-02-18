@@ -23,6 +23,6 @@ namespace AIMS.DomainModel.Entities
         public int RegionID { get; set; }
         public virtual Region Region { get; set; }
 
-        
+        public virtual ICollection<PolicySubTypeCoverage> Coverages { get; set; } = new HashSet<PolicySubTypeCoverage>();
     }
 }

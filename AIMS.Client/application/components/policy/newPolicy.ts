@@ -12,6 +12,7 @@ import {PolicyServiceProviders} from '../../directives/policy/policyServiceProvi
 import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
 import {PolicyOperators} from '../../directives/policy/policyOperators';
 import {PolicyInsurableItems} from '../../directives/policy/policyInsurableItems';
+import {PolicyHolders} from '../../directives/policy/policyHolders';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -20,7 +21,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({
     templateUrl: './application/components/policy/newPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders],
     pipes: [JsonPipe]
 })
 export class NewPolicy extends CRUDController {
@@ -62,7 +63,7 @@ export class NewPolicy extends CRUDController {
 
     protected initPolicy(policySubTypeID: number) {
 
-        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses, PolicyType.ItemClasses.InsurableItemClass, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType, PolicyType.ItemClasses.InsurableItemClass.Groups, PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes", false, this.onLoadConfig, this.onConfigFailure);
+        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses, PolicyType.ItemClasses.InsurableItemClass, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType, PolicyType.ItemClasses.InsurableItemClass.Groups, PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes, Coverages, Coverages.CoverageType", false, this.onLoadConfig, this.onConfigFailure);
     }
 
     protected onLoadConfig(sender: NewPolicy, data: breeze.QueryResult): any {
@@ -100,39 +101,5 @@ export class NewPolicy extends CRUDController {
         alert(data);
     }
 
-
-    protected addEntityRequirement() {
-        var item = this.dataService.createEntity("PolicyTypeEntityRequirement", {});
-        this.entity.EntityRequirements.push(item);
-    }
-
-    protected addAgentRequirement() {
-        var item = this.dataService.createEntity("PolicyTypeAgentRequirement", {});
-        this.entity.AgentRequirements.push(item);
-    }
-
-    protected addServiceProvider() {
-        var item = this.dataService.createEntity("PolicyTypeServiceProvider", {});
-        this.entity.ServiceProviders.push(item);
-    }
-
-    protected addPolicySubType() {
-        var item = this.dataService.createEntity("PolicySubType", {});
-        this.entity.PolicySubTypes.push(item);
-    }
-
-
-
-
-    protected removeEntityRequirement(item: breeze.Entity) {
-        item.entityAspect.setDeleted();
-    }
-
-    protected removeAgentRequirement(item: breeze.Entity) {
-        item.entityAspect.setDeleted();
-    }
-
-    protected removeServiceProvider(item: breeze.Entity) {
-        item.entityAspect.setDeleted();
-    }
+        
 }

@@ -1,0 +1,15 @@
+﻿<table class="table">
+    <tr>
+        <th>Name</th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
+    </tr>
+    <tr *ngFor="#holder of policy.PolicyHolders">
+        <td>
+            <publicSelector [(value)]="holder.Public" [dataService]="dataService"></publicSelector>
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="remove(holder)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+        
+    </tr>
+</table>

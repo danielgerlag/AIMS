@@ -71,6 +71,7 @@
     <Compile Include="Entities\OperatorTypeAttributeGroup.cs" />
     <Compile Include="Entities\PolicyReportingEntity.cs" />
     <Compile Include="Entities\PolicyAgent.cs" />
+    <Compile Include="Entities\PolicySubTypeCoverage.cs" />
     <Compile Include="Entities\PolicySubType.cs" />
     <Compile Include="Entities\PolicyTypeAgentRequirement.cs" />
     <Compile Include="Entities\PolicyTypeItemClass.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Entities\TransactionTriggerFrequency.cs" />
     <Compile Include="Entities\TransactionTrigger.cs" />
     <Compile Include="Entities\TransactionTriggerInput.cs" />
+    <Compile Include="Indexers\PolicyIndexer.cs" />
     <Compile Include="Indexers\PublicIndexer.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.Designer.cs">
@@ -165,6 +167,14 @@
     <Compile Include="Migrations\201602181642589_n1.cs" />
     <Compile Include="Migrations\201602181642589_n1.Designer.cs">
       <DependentUpon>201602181642589_n1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602182005394_n2.cs" />
+    <Compile Include="Migrations\201602182005394_n2.Designer.cs">
+      <DependentUpon>201602182005394_n2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602182019518_n3.cs" />
+    <Compile Include="Migrations\201602182019518_n3.Designer.cs">
+      <DependentUpon>201602182019518_n3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -226,6 +236,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602181642589_n1.resx">
       <DependentUpon>201602181642589_n1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602182005394_n2.resx">
+      <DependentUpon>201602182005394_n2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602182019518_n3.resx">
+      <DependentUpon>201602182019518_n3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

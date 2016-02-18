@@ -74,6 +74,15 @@ export class EditPolicyType extends CRUDController {
         this.entity.ItemClasses.push(item);
     }    
 
+    protected addPolicySubTypeCoverage(policySubType) {
+        var item = this.dataService.createEntity("PolicySubTypeCoverage", {});
+        policySubType.Coverages.push(item);
+    }
+    
+    protected removePolicySubTypeCoverage(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }    
+
     protected removeEntityRequirement(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }

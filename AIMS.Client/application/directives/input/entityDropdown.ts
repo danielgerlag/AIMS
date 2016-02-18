@@ -80,8 +80,8 @@ export class EntityDropdown implements OnInit {
         if ((!self.query) && (self._boundList) && (self.keyField) && (self.displayField)) {
             self.selectList = self._boundList.map(function (x) {
                 return {
-                    //key: self.drillObject(x, self.keyField), name: self.drillObject(x, self.displayField)
-                    key: x[self.keyField], name: x[self.displayField]
+                    key: self.drillObject(x, self.keyField), name: self.drillObject(x, self.displayField)
+                    //key: x[self.keyField], name: x[self.displayField]
                 }
             });
         }

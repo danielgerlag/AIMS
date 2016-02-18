@@ -152,13 +152,12 @@ export abstract class CRUDController extends BaseController {
 
     protected onLoadSuccess(sender: CRUDController, data: breeze.QueryResult): any {
         sender.shellService.hideLoader();
-        //sender.dataService.detachEntity(sender.entity);
         sender.entity = data.results[0];
     }
 
     protected onLoadFailure(sender: CRUDController, data: any): any {
         sender.shellService.hideLoader();
-        //
+        alert(data);
     }
 
 }

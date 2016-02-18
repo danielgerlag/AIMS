@@ -16,7 +16,7 @@
                                  displayField="StreetAddressLine1"
                                  nullable="false">
                 </entity-dropdown>
-                                
+
             </form-input>
 
             <tabset>
@@ -24,10 +24,85 @@
                     <insurableItemAttributes [(value)]="entity" [dataService]="dataService" [insurableItemClass]="entity.InsurableItemClass"></insurableItemAttributes>
                 </tab>
                 <tab heading="Coverages">
-                    
+                    <table class="table-striped">
+                        <tr>
+                            <th>
+                                Coverage
+                            </th>
+                            <th>
+                                Limit
+                            </th>
+                            <th>
+                                Deductible
+                            </th>
+                            <th>
+                                Premium
+                            </th>
+                            <th>
+                                <button type="button" class="btn" (click)="addCoverage()">Add</button>
+                            </th>
+                        </tr>
+                        <tr *ngFor="#coverage of entity.PolicyCoverages">
+                            <td>
+                                <entity-dropdown [(value)]="coverage.CoverageTypeID"
+                                                 name="CoverageTypeID"
+                                                 [boundList]="entity.Policy.PolicySubType.Coverages"
+                                                 keyField="CoverageType.ID"
+                                                 displayField="CoverageType.Name"
+                                                 nullable="false">
+                                </entity-dropdown>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="Limit" [(ngModel)]="coverage.Limit" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="Deductible" [(ngModel)]="coverage.Deductible" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="Premium" [(ngModel)]="coverage.Premium" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn" (click)="removeCoverage(coverage)"><i class="fa fa-trash fa-fw"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </tab>
+                <tab heading="Operators">
+                    <table table-striped>
+                        <tr>                            
+                            <th>
+                                Operator
+                            </th>
+                            <th>
+                                Primary
+                            </th>
+                            <th>
+                                <button type="button" class="btn" (click)="addOperator()">Add</button>
+                            </th>
+                        </tr>
+                        <tr *ngFor="#operator of entity.Operators">
+                            <td>
+                                <entity-dropdown [(value)]="operator.OperatorID"
+                                                 name="OperatorID"
+                                                 [boundList]="entity.Policy.Operators"
+                                                 keyField="ID"
+                                                 displayField="OperatorPublic.Name"
+                                                 nullable="false">
+                                </entity-dropdown>
+                            </td>
+                            <td>
+                                <input type="checkbox" class="form-control" name="Primary" [(checked)]="Primary"  />
+                            </td>
+                            <td>
+                                <button type="button" class="btn" (click)="removeOperator(operator)"><i class="fa fa-trash fa-fw"></i></button>
+                            </td>
+                        </tr>
+                    </table>
                 </tab>
             </tabset>
-            
+
 
         </div>
     </div>
@@ -50,7 +125,3 @@
     </div>
 </div>
 -->
-
-
-
-

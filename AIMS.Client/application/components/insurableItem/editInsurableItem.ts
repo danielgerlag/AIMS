@@ -58,5 +58,25 @@ export class EditInsurableItem implements OnInit, ICustomModalComponent {
         this.dialog.close(null);
     }
 
+    protected addCoverage() {
+        var item = this.dataService.createEntity("PolicyCoverage", {});
+        item.Policy = this.entity.Policy;
+        item.InsurableItem = this.entity;
+        this.entity.PolicyCoverages.push(item);
+    }
+
+    protected addOperator() {
+        var item = this.dataService.createEntity("InsurableItemOperator", {});
+        item.InsurableItem = this.entity;
+        this.entity.Operators.push(item);
+    }
+
+    protected removeCoverage(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeOperator(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
 }
 

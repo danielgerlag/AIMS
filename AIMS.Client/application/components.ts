@@ -22,10 +22,12 @@ import {EditPublic} from './components/public/editPublic'
 import {NewPublic} from './components/public/newPublic'
 
 import {NewPolicy} from './components/policy/newPolicy'
+import {EditPolicy} from './components/policy/editPolicy'
 
 var Components = {
 
     NewPolicy: NewPolicy,
+    EditPolicy: EditPolicy,
 
     ListReportingEntity: ListReportingEntity,
     EditReportingEntity: EditReportingEntity,

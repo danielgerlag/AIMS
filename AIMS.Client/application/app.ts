@@ -42,6 +42,7 @@ declare var System:any;
 
 
         new Route({ path: '/NewPolicy', component: Components.NewPolicy, name: 'NewPolicy' }),
+        new Route({ path: '/EditPolicy/:Id', component: Components.EditPolicy, name: 'EditPolicy' }),
 
         new Route({ path: '/NewPublic', component: Components.NewPublic, name: 'NewPublic' }),
         new Route({ path: '/EditPublic', component: Components.EditPublic, name: 'EditPublic' }),
