@@ -33,6 +33,8 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<PolicyRiskLocation> RiskLocations { get; set; } = new HashSet<PolicyRiskLocation>();
 
+        public virtual ICollection<InsurableItem> InsurableItems { get; set; } = new HashSet<InsurableItem>();
+
         public virtual ICollection<Journal> Journals { get; set; } = new HashSet<Journal>();
 
         public virtual ICollection<LedgerTxn> LedgerTxns { get; set; } = new HashSet<LedgerTxn>();

@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" name="Name" [(ngModel)]="ledgerAccount.Name">
                         </td>
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="ledgerAccount.LedgerAccountTypeID"
                                              name="LedgerAccountTypeID"
                                              query="LedgerAccountTypes"
@@ -59,7 +59,7 @@
                     </tr>
                     <tr *ngFor="#coverageProfile of entity.CoverageProfiles">
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="coverageProfile.CoverageTypeID"
                                              name="CoverageTypeID"
                                              query="CoverageTypes"
@@ -69,7 +69,7 @@
                             </entity-dropdown>
                         </td>
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="coverageProfile.IncomeLedgerAccountID"
                                              name="IncomeLedgerAccountID"
                                              [boundList]="entity.LedgerAccounts"
@@ -79,7 +79,7 @@
                             </entity-dropdown>
                         </td>
                         <td>
-                            <entity-dropdown class="form-control"
+                            <entity-dropdown 
                                              [(value)]="coverageProfile.ExpenseLedgerAccountID"
                                              name="ExpenseLedgerAccountID"
                                              [boundList]="entity.LedgerAccounts"
@@ -112,7 +112,7 @@
                                 </form-input>
 
                                 <form-input [entity]="journalTemplate" name="JournalTypeID" title="Type">
-                                    <entity-dropdown class="form-control"
+                                    <entity-dropdown 
                                                      [(value)]="journalTemplate.JournalTypeID"
                                                      name="JournalTypeID"
                                                      query="JournalTypes"
@@ -148,7 +148,7 @@
                                             <input type="text" class="form-control" name="Name" [(ngModel)]="input.Name">
                                         </td>
                                         <td>
-                                            <entity-dropdown class="form-control"
+                                            <entity-dropdown 
                                                              [(value)]="input.AttributeDataTypeID"
                                                              name="AttributeDataTypeID"
                                                              query="AttributeDataTypes"
@@ -171,7 +171,7 @@
                                         </form-input>
 
                                         <form-input [entity]="txn" name="PublicRequirementID" title="Public Requirement">
-                                            <entity-dropdown class="form-control"
+                                            <entity-dropdown 
                                                              [(value)]="txn.PublicRequirementID"
                                                              name="PublicRequirementID"
                                                              query="PublicRequirements"
@@ -182,7 +182,7 @@
                                         </form-input>
 
                                         <form-input [entity]="txn" name="ServiceProviderTypeID" title="Service Provider Type">
-                                            <entity-dropdown class="form-control"
+                                            <entity-dropdown 
                                                              [(value)]="txn.ServiceProviderTypeID"
                                                              name="ServiceProviderTypeID"
                                                              query="ServiceProviderTypes"
@@ -193,7 +193,7 @@
                                         </form-input>
 
                                         <form-input [entity]="txn" name="AgentTypeID" title="Agent Type">
-                                            <entity-dropdown class="form-control"
+                                            <entity-dropdown 
                                                              [(value)]="txn.AgentTypeID"
                                                              name="AgentTypeID"
                                                              query="AgentTypes"
@@ -218,7 +218,7 @@
                                         </tr>
                                         <tr *ngFor="#posting of txn.Postings">
                                             <td>
-                                                <entity-dropdown class="form-control"
+                                                <entity-dropdown 
                                                                  [(value)]="posting.LedgerAccountID"
                                                                  name="LedgerAccountID"
                                                                  [boundList]="entity.LedgerAccounts"

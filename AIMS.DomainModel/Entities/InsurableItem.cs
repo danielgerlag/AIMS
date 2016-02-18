@@ -21,26 +21,23 @@ namespace AIMS.DomainModel.Entities
         public virtual InsurableItemClass InsurableItemClass { get; set; }
 
         [Index]
+        public int PolicyID { get; set; }
+        public virtual Policy Policy { get; set; }
+
+        [Index]
         public int PolicyRiskLocationID { get; set; }
         public virtual PolicyRiskLocation PolicyRiskLocation { get; set; }
-
-        [Required]
-        [StringLength(200)]
-        public string Description { get; set; }
-
-        [StringLength(200)]
-        public string SerialNo { get; set; }
-
+        
         public virtual ICollection<InsurableItemAttribute> Attributes { get; set; } = new HashSet<InsurableItemAttribute>();
 
         public virtual ICollection<InsurableItemOperator> Operators { get; set; } = new HashSet<InsurableItemOperator>();
 
         public virtual ICollection<PolicyCoverage> PolicyCoverages { get; set; } = new HashSet<PolicyCoverage>();
 
-        public override string GetLookupText()
-        {
-            return Description;
-        }
+        //public override string GetLookupText()
+        //{
+        //    return Description;
+        //}
 
 
     }

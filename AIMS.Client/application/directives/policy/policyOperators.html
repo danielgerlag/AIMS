@@ -3,13 +3,13 @@
         <th>Type</th>
         <th>Name</th>        
         <th>
-            <span *ngFor="#itemClass of policy.PolicySubType.PolicyType.ItemClasses">                
+            <span *ngFor="#itemClass of entity.PolicySubType.PolicyType.ItemClasses">                
                 <button *ngFor="#opType of itemClass.InsurableItemClass.OperatorTypes" type="button" class="btn" (click)="add(opType.OperatorType)">Add {{ opType.OperatorType.Name }}</button>
             </span>
             
         </th>
     </tr>
-    <tr *ngFor="#op of policy.Operators">
+    <tr *ngFor="#op of entity.Operators">
         <td>
             {{ op.OperatorType.Name }}
         </td>

@@ -52,6 +52,15 @@
         </div>
     </div>
 
+    <div class="panel panel-default" *ngIf="step == 7">
+        <div class="panel-heading">Step {{step}} - Insurable Items</div>
+        <div class="panel-body">
+            <policyInsurableItems [(value)]="entity" [dataService]="dataService" [policySubType]="policySubType"></policyInsurableItems>
+        </div>
+    </div>
+
+    
+
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 
     <div class="modal-footer">

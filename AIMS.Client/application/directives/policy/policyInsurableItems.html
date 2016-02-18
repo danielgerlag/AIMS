@@ -1,0 +1,24 @@
+﻿<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Name</th>        
+        <th>
+            <span *ngFor="#itemClass of entity.PolicySubType.PolicyType.ItemClasses">                
+                <button type="button" class="btn" (click)="add(itemClass.InsurableItemClass)">Add {{ itemClass.InsurableItemClass.DisplayName }}</button>
+            </span>
+            
+        </th>
+    </tr>
+    <tr *ngFor="#item of entity.InsurableItems">
+        <td>
+            {{ item.InsurableItemClass.DisplayName }}
+        </td>
+        <td>
+            
+        </td>        
+        <td>
+            <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
+            <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+    </tr>
+</table>

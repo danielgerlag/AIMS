@@ -5,7 +5,7 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
-import {EditOperator} from '../../components/operator/editOperator';
+import {EditInsurableItem} from '../../components/insurableItem/editInsurableItem';
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
 
@@ -14,16 +14,16 @@ import {SubViewList} from '../../core/subViewList'
 import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-modal/angular2-modal';
 
 @Component({
-    selector: 'policyOperators',    
+    selector: 'policyInsurableItems',    
     providers: [Modal],
     inputs: ['value', 'dataService', 'policySubType'],
     outputs: ['valueChange']
 })
 @View({
-    templateUrl: './application/directives/policy/policyOperators.html',
+    templateUrl: './application/directives/policy/policyInsurableItems.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, LookupText]
 })
-export class PolicyOperators extends SubViewList {
+export class PolicyInsurableItems extends SubViewList {
         
     private policySubType: breeze.Entity;    
     
@@ -32,18 +32,29 @@ export class PolicyOperators extends SubViewList {
     }    
        
     protected getSubView(): any {
-        return EditOperator;
+        return EditInsurableItem;
     }
 
     protected createChildEntity(type): any {
-        var item = this.dataService.createEntity("Operator", {});
-        item.OperatorType = type;
+        var item = this.dataService.createEntity("InsurableItem", {});
+        item.InsurableItemClass = type;
+        item.Policy = this.entity;
         return item;
     }
 
     protected onAdd(item) {
-        this.entity['Operators'].push(item);
+        this.entity['InsurableItems'].push(item);
     }
+
+    //flattenItems() {
+    //    var result = [];
+    //    for (let riskLocation of this.entity['RiskLocations']) {
+    //        for (let item of riskLocation.InsurableItems) {
+    //            result.push(item);
+    //        }            
+    //    }
+    //    return result;
+    //}
     
     
 }

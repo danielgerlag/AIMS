@@ -20,8 +20,8 @@
             </tab>
             <tab heading="Attributes">
                 <button type="button" class="btn" (click)="addGroup()">Add Group</button>
-                <tabset>
-                    <tab *ngFor="#group of entity.Groups" heading="{{group.Name}}">
+                <accordion>
+                    <accordion-group *ngFor="#group of entity.Groups" heading="{{group.Name}}">
 
                         <form-input [entity]="group" name="Name" title="Name">
                             <input type="text" class="form-control" name="Name" [(ngModel)]="group.Name">
@@ -106,8 +106,8 @@
 
                             </tr>
                         </table>
-                    </tab>
-                </tabset>
+                    </accordion-group>
+                </accordion>
 
 
             </tab>

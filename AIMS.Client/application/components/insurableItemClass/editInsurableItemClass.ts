@@ -1,7 +1,7 @@
 ﻿import {ROUTER_DIRECTIVES, RouteConfig, Location, ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy, Route, AsyncRoute, Router} from 'angular2/router';
 import {FormBuilder, Validators, ControlGroup, Control, NgClass, FORM_BINDINGS, CORE_DIRECTIVES, FORM_DIRECTIVES, JsonPipe} from 'angular2/common';
 import {RouteParams} from 'angular2/router';
-import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {TAB_DIRECTIVES, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Component, View} from 'angular2/core';
 
 import {FormInput} from '../../directives/input/formInput';
@@ -15,7 +15,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/insurableItemClass/editInsurableItemClass.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES],
     pipes: [JsonPipe]
 })
 export class EditInsurableItemClass extends CRUDController {
@@ -49,6 +49,7 @@ export class EditInsurableItemClass extends CRUDController {
 
     protected addGroup() {
         var item = this.dataService.createEntity("InsurableItemClassAttributeGroup", {});
+        item.Name = "New Group";
         this.entity.Groups.push(item);
     }
 

@@ -154,6 +154,14 @@
     <Compile Include="Migrations\201602180105273_m7.Designer.cs">
       <DependentUpon>201602180105273_m7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602180139291_m8.cs" />
+    <Compile Include="Migrations\201602180139291_m8.Designer.cs">
+      <DependentUpon>201602180139291_m8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602180351466_m9.cs" />
+    <Compile Include="Migrations\201602180351466_m9.Designer.cs">
+      <DependentUpon>201602180351466_m9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -205,6 +213,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602180105273_m7.resx">
       <DependentUpon>201602180105273_m7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602180139291_m8.resx">
+      <DependentUpon>201602180139291_m8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602180351466_m9.resx">
+      <DependentUpon>201602180351466_m9.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
