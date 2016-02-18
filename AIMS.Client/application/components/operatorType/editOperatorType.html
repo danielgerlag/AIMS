@@ -80,7 +80,7 @@
                                     </entity-dropdown>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-control" name="Required" [(checked)]="attribute.Required">
+                                    <input type="checkbox" class="form-control" name="Required" [(ngModel)]="attribute.Required">
                                 </td>
                                 <td>
                                     <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>

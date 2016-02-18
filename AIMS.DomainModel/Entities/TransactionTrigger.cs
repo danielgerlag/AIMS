@@ -28,7 +28,11 @@ namespace AIMS.DomainModel.Entities
 
         public DateTime? TxnDate { get; set; }
 
-        public DateTime? ExecutionDate { get; set; }
+        public DateTime? NextExecutionDate { get; set; }
+
+        public DateTime? EffectiveFrom { get; set; }
+
+        public DateTime? EffectiveTo { get; set; }
 
         public virtual ICollection<TransactionTriggerInput> Inputs { get; set; } = new HashSet<TransactionTriggerInput>();
     }

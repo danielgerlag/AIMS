@@ -29,6 +29,10 @@
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
     <Content Include="application\components\insurableItem\editInsurableItem.html" />
     <Content Include="application\components\insurableItem\insurableItemAttributes.html" />
+    <Content Include="application\components\journalTemplate\editJournalTemplateTxn.html" />
+    <Content Include="application\components\journalTemplate\editJournalTemplate.html" />
+    <Content Include="application\components\journalTemplate\journalTemplates.html" />
+    <Content Include="application\components\journalTemplate\journalTemplateTxns.html" />
     <Content Include="application\components\operator\operatorAttributes.html" />
     <Content Include="application\components\operator\editOperator.html" />
     <Content Include="application\components\policy\newPolicy.html" />
@@ -83,6 +87,10 @@
     <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\insurableItem\editInsurableItem.ts" />
     <TypeScriptCompile Include="application\components\insurableItem\insurableItemAttributes.ts" />
+    <TypeScriptCompile Include="application\components\journalTemplate\editJournalTemplateTxn.ts" />
+    <TypeScriptCompile Include="application\components\journalTemplate\editJournalTemplate.ts" />
+    <TypeScriptCompile Include="application\components\journalTemplate\journalTemplates.ts" />
+    <TypeScriptCompile Include="application\components\journalTemplate\journalTemplateTxns.ts" />
     <TypeScriptCompile Include="application\components\operator\editOperator.ts" />
     <TypeScriptCompile Include="application\components\operator\operatorAttributes.ts" />
     <TypeScriptCompile Include="application\components\policy\newPolicy.ts" />

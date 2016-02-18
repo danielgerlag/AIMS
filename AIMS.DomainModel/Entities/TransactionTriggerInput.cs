@@ -16,10 +16,11 @@ namespace AIMS.DomainModel.Entities
 
         public int JournalTemplateInputID { get; set; }
         public virtual JournalTemplateInput JournalTemplateInput { get; set; }
-        
 
-        //[MaxLength(500)]
-        //public string Description { get; set; }
+
+        [MaxLength(500)]
+        public string Value { get; set; }
+
 
     }
 }

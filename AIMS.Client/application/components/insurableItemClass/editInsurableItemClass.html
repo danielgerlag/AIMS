@@ -97,16 +97,16 @@
                                     </entity-dropdown>
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-control" name="Required" [(checked)]="attribute.Required">
+                                    <input type="checkbox" class="form-control" name="Required" [(ngModel)]="attribute.Required">
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-control" name="IndexField" [(checked)]="attribute.IndexField">
+                                    <input type="checkbox" class="form-control" name="IndexField" [(ngModel)]="attribute.IndexField">
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-control" name="Key" [(checked)]="attribute.Key">
+                                    <input type="checkbox" class="form-control" name="Key" [(ngModel)]="attribute.Key">
                                 </td>
                                 <td>
-                                    <input type="checkbox" class="form-control" name="ShowInList" [(checked)]="attribute.ShowInList">
+                                    <input type="checkbox" class="form-control" name="ShowInList" [(ngModel)]="attribute.ShowInList">
                                 </td>
                                 <td>
                                     <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>
