@@ -1,0 +1,33 @@
+﻿<accordion [closeOthers]="oneAtATime">
+    <accordion-group *ngFor="#group of operatorType.Groups" heading="{{ group.Prompt }}">
+        <div class="form-horizontal">
+
+            <form-input *ngFor="#attr of group.Attributes" 
+                        [entity]="findAttribute(attr.ID)"
+                        title="{{ attr.Prompt }}" 
+                        labelClass="col-sm-2"
+                        [ngSwitch]="attr.AttributeDataType.Code">
+                <div class="col-sm-10">
+                    attTypeID = {{ attr.OperatorTypeAttributeID }}
+
+                    <input *ngSwitchWhen="'STR'" [(ngModel)]="findAttribute(attr.ID).Value" type="text" class="form-control">
+                    <input *ngSwitchWhen="'NUM'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
+                    <input *ngSwitchWhen="'DEC'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
+                    <input *ngSwitchWhen="'PER'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
+                    <input *ngSwitchWhen="'DTE'" [(ngModel)]="findAttribute(attr.ID).Value" type="date" class="form-control">
+                    <p *ngSwitchWhen="'LIS'">list...</p>
+                    <p *ngSwitchWhen="'YEA'">year...</p>
+                    <input *ngSwitchWhen="'BLN'" [(checked)]="findAttribute(attr.ID).Value" type="checkbox" class="form-control">
+                    <p *ngSwitchWhen="'CLS'">csio list...</p>
+                </div>
+            </form-input>
+
+
+            <!--
+            <form-input [entity]="entity" name="Name" title="Name">
+                <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
+            </form-input>
+                -->
+        </div>
+    </accordion-group>
+</accordion>

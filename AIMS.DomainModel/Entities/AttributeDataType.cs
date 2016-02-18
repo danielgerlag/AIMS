@@ -26,7 +26,10 @@ namespace AIMS.DomainModel.Entities
 
         [Required]
         [StringLength(200)]
-        public string Description { get; set; }                
+        public string Description { get; set; }
+
+        [StringLength(3)]
+        public string Code { get; set; }
 
         public override string GetLookupText()
         {

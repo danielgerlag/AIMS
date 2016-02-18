@@ -95,6 +95,35 @@ export class PolicyOperators implements OnInit {
         
     }
 
+    protected edit(item: breeze.Entity) {        
+        let dialog: Promise<ModalDialogInstance>;
+        let component = EditOperator;
+        var self = this;
+
+
+        let bindings = Injector.resolve([
+            provide(IDataService, { useValue: this.dataService }),
+            provide(ICustomModal, { useValue: item }),
+            provide(IterableDiffers, { useValue: this.injector.get(IterableDiffers) }),
+            provide(KeyValueDiffers, { useValue: this.injector.get(KeyValueDiffers) }),
+            provide(Renderer, { useValue: this._renderer })
+        ]);
+
+        dialog = this.modal.open(
+            <any>component,
+            bindings,
+            new ModalConfig("lg", false, 27));
+
+
+        dialog.then((resultPromise) => {
+            return resultPromise.result.then((result) => {
+                // ?
+            }, () => {
+                //
+            });
+        });
+    }
+
     protected remove(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }

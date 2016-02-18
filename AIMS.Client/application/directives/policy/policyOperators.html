@@ -17,6 +17,7 @@
             {{ op.OperatorPublic['Name'] }}, {{ op.OperatorPublic['FirstName'] }}
         </td>        
         <td>
+            <button type="button" class="btn" (click)="edit(op)"><i class="fa fa-edit fa-fw"></i></button>
             <button type="button" class="btn" (click)="remove(op)"><i class="fa fa-trash fa-fw"></i></button>
         </td>
     </tr>

@@ -6,12 +6,12 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ControlGroup} from 'angular2/
 
 @Component({
     selector: 'form-input',
-    properties: ['title', 'name', 'entity']
+    properties: ['title', 'name', 'entity', 'labelClass']
 })
 @View({
     template: `    
     <div class="form-group" [class.has-danger]="hasError()">
-        <label class="control-label" >{{ title }}</label>
+        <label class="control-label {{labelClass}}" >{{ title }}</label>
         <ng-content></ng-content>
     </div>
   `,    
@@ -21,6 +21,7 @@ export class FormInput implements OnInit {
 
     private title: string;
     private name: string;
+    private labelClass: string;
     private entity: breeze.Entity;
 
     //private translateService: TranslateService;

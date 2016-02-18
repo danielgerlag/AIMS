@@ -27,6 +27,7 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\operator\operatorAttributes.html" />
     <Content Include="application\components\operator\editOperator.html" />
     <Content Include="application\components\policy\newPolicy.html" />
     <Content Include="application\components\policy\editPolicy.html" />
@@ -77,6 +78,7 @@
     <TypeScriptCompile Include="application\components\attributeLookupList\editAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\attributeLookupList\listAttributeLookupList.ts" />
     <TypeScriptCompile Include="application\components\operator\editOperator.ts" />
+    <TypeScriptCompile Include="application\components\operator\operatorAttributes.ts" />
     <TypeScriptCompile Include="application\components\policy\newPolicy.ts" />
     <TypeScriptCompile Include="application\components\policy\editPolicy.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyOperators.ts" />

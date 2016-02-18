@@ -7,6 +7,7 @@ import {PublicSelector} from '../../directives/public/publicSelector';
 //import {IRemoteService} from '../../services/remoteService';
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
+import {OperatorAttributes} from './operatorAttributes';
 
 import {Modal} from 'angular2-modal/angular2-modal';
 import {ModalDialogInstance} from 'angular2-modal/angular2-modal';
@@ -19,7 +20,7 @@ import {ICustomModal, ICustomModalComponent} from 'angular2-modal/angular2-modal
 })
 @View({
     templateUrl: './application/components/operator/editOperator.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicSelector]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicSelector, OperatorAttributes]
 })
 export class EditOperator implements OnInit, ICustomModalComponent {
         

@@ -11,6 +11,8 @@
                 <publicSelector [(value)]="entity.OperatorPublic" [dataService]="dataService"></publicSelector>
             </form-input>
 
+            <operatorAttributes [(value)]="entity" [dataService]="dataService" [operatorType]="entity.OperatorType" ></operatorAttributes>
+
         </div>
     </div>
     <div class="modal-footer">

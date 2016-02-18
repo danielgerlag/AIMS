@@ -23,7 +23,7 @@ namespace AIMS.DomainModel.Entities
         public virtual PolicySubType PolicySubType { get; set; }
 
         [Index]
-        public int BillingPublicID { get; set; }
+        public int? BillingPublicID { get; set; }
         public virtual Public BillingPublic { get; set; }
 
 
