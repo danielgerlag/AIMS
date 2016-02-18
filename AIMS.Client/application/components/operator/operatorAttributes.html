@@ -8,14 +8,20 @@
                         labelClass="col-sm-2"
                         [ngSwitch]="attr.AttributeDataType.Code">
                 <div class="col-sm-10">
-                    attTypeID = {{ attr.OperatorTypeAttributeID }}
-
                     <input *ngSwitchWhen="'STR'" [(ngModel)]="findAttribute(attr.ID).Value" type="text" class="form-control">
                     <input *ngSwitchWhen="'NUM'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
                     <input *ngSwitchWhen="'DEC'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
                     <input *ngSwitchWhen="'PER'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
-                    <input *ngSwitchWhen="'DTE'" [(ngModel)]="findAttribute(attr.ID).Value" type="date" class="form-control">
-                    <p *ngSwitchWhen="'LIS'">list...</p>
+                    <input *ngSwitchWhen="'DTE'" [(ngModel)]="findAttribute(attr.ID).Value" type="date" class="form-control">                    
+                    <entity-dropdown *ngSwitchWhen="'LIS'"
+                                     [(value)]="findAttribute(attr.ID).Value"
+                                     query="AttributeLookupItems?$filter=AttributeLookupListID eq {{attr.AttributeLookupListID}}&$orderby=Description"
+                                     keyField="ID"
+                                     displayField="Description"
+                                     nullable="true">
+                    </entity-dropdown>
+
+
                     <p *ngSwitchWhen="'YEA'">year...</p>
                     <input *ngSwitchWhen="'BLN'" [(checked)]="findAttribute(attr.ID).Value" type="checkbox" class="form-control">
                     <p *ngSwitchWhen="'CLS'">csio list...</p>
