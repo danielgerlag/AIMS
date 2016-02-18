@@ -62,7 +62,7 @@ export class NewPolicy extends CRUDController {
 
     protected initPolicy(policySubTypeID: number) {
 
-        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses, PolicyType.ItemClasses.InsurableItemClass, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType", false, this.onLoadConfig, this.onConfigFailure);
+        this.dataService.getEntity(this, "PolicySubTypes", policySubTypeID, "PolicyType, PolicyType.EntityRequirements, PolicyType.AgentRequirements, PolicyType.ServiceProviders, PolicyType.ItemClasses, PolicyType.ItemClasses.InsurableItemClass, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes, PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType, PolicyType.ItemClasses.InsurableItemClass.Groups, PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes", false, this.onLoadConfig, this.onConfigFailure);
     }
 
     protected onLoadConfig(sender: NewPolicy, data: breeze.QueryResult): any {
@@ -97,7 +97,7 @@ export class NewPolicy extends CRUDController {
 
     protected onConfigFailure(sender: NewPolicy, data: any): any {
         sender.shellService.hideLoader();
-        //
+        alert(data);
     }
 
 

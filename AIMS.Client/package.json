@@ -19,6 +19,7 @@
     "toastr": "^2.1.2",
     "traceur-runtime": "0.0.59",
     "tsd": "^0.6.5",
+    "underscore": "^1.8.3",
     "zone.js": "0.5.10"
   },
   "devDependencies": {

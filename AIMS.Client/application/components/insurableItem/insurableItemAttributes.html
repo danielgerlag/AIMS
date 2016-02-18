@@ -1,7 +1,8 @@
-﻿<accordion [closeOthers]="oneAtATime">
+﻿
+<accordion *ngIf="ready" [closeOthers]="oneAtATime">
     <accordion-group *ngFor="#group of insurableItemClass.Groups" heading="{{ group.Prompt }}">
         <div class="form-horizontal">
-
+                        
             <form-input *ngFor="#attr of group.Attributes" 
                         [entity]="findAttribute(attr.ID)"
                         title="{{ attr.Prompt }}" 
@@ -27,8 +28,7 @@
                     <p *ngSwitchWhen="'CLS'">csio list...</p>
                 </div>
             </form-input>
-
-
+            
             <!--
             <form-input [entity]="entity" name="Name" title="Name">
                 <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">

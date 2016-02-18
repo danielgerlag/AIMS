@@ -1,24 +1,30 @@
-﻿<table class="table">
-    <tr>
-        <th>Type</th>
-        <th>Name</th>        
-        <th>
-            <span *ngFor="#itemClass of entity.PolicySubType.PolicyType.ItemClasses">                
-                <button type="button" class="btn" (click)="add(itemClass.InsurableItemClass)">Add {{ itemClass.InsurableItemClass.DisplayName }}</button>
-            </span>
-            
-        </th>
-    </tr>
-    <tr *ngFor="#item of entity.InsurableItems">
-        <td>
-            {{ item.InsurableItemClass.DisplayName }}
-        </td>
-        <td>
-            
-        </td>        
-        <td>
-            <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
-            <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
-        </td>
-    </tr>
-</table>
+﻿
+<accordion>
+    <accordion-group *ngFor="#itemClass of entity.PolicySubType.PolicyType.ItemClasses" #g>
+        <div accordion-heading>
+            {{ itemClass.InsurableItemClass.DisplayName }}
+            <i class="pull-right glyphicon"
+               [ngClass]="{'glyphicon-chevron-down': g?.isOpen, 'glyphicon-chevron-right': !g?.isOpen}"></i>
+        </div>
+
+        <table class="table">
+            <tr>                
+                <th *ngFor="#attr of displayColumnsByClass(itemClass.InsurableItemClass)">{{ attr.Prompt }}</th>
+                <th>                    
+                    <button type="button" class="btn" (click)="add(itemClass.InsurableItemClass)">Add {{ itemClass.InsurableItemClass.DisplayName }}</button>
+                </th>
+            </tr>
+            <tr *ngFor="#item of itemsByClass(itemClass.InsurableItemClass)">
+                <td *ngFor="#attr of displayColumnsByClass(itemClass.InsurableItemClass)">
+                    {{ getAttributeValue(item, attr) }}
+                </td>                
+                <td>
+                    <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
+                    <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
+                </td>
+            </tr>
+        </table>
+
+    </accordion-group>
+</accordion>
+

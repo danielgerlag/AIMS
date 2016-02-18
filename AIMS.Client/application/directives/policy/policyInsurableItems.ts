@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit, EventEmitter, View, provide, ElementRef, Injector, Renderer} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ControlGroup} from 'angular2/common';
 
-import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
+import {TAB_DIRECTIVES, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
@@ -21,7 +21,7 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 })
 @View({
     templateUrl: './application/directives/policy/policyInsurableItems.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, LookupText]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, EntityDropdown, FormInput, LookupText]
 })
 export class PolicyInsurableItems extends SubViewList {
         
@@ -46,16 +46,27 @@ export class PolicyInsurableItems extends SubViewList {
         this.entity['InsurableItems'].push(item);
     }
 
-    //flattenItems() {
-    //    var result = [];
-    //    for (let riskLocation of this.entity['RiskLocations']) {
-    //        for (let item of riskLocation.InsurableItems) {
-    //            result.push(item);
-    //        }            
-    //    }
-    //    return result;
-    //}
+    public displayColumnsByClass(insurableItemClass) {
+        //insurableItemClass.entityAspect.loadNavigationProperty("Attributes", () => { });
+        let result = [];
+        for (let group of insurableItemClass.Groups) {            
+            let attrs = _.where(group.Attributes, { ShowInList: true });
+            for (let attr of attrs) {
+                result.push(attr);
+            }
+        }
+        return result;
+    }
+
+    public itemsByClass(insurableItemClass) {
+        return _.where(this.entity['InsurableItems'], { InsurableItemClass: insurableItemClass });
+    }
     
-    
+    public getAttributeValue(item, attr) {
+        let value: any = _.findWhere(item.Attributes, { InsurableItemClassAttributeID: attr.ID });
+        if (value)
+            return value.Value;
+        return null;
+    }
 }
 

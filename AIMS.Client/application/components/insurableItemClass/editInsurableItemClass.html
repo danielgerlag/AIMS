@@ -7,6 +7,10 @@
                     <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                 </form-input>
 
+                <form-input [entity]="entity" name="DisplayName" title="DisplayName">
+                    <input type="text" class="form-control" name="Name" [(ngModel)]="entity.DisplayName">
+                </form-input>
+
                 <form-input [entity]="entity" name="ParentInsurableItemClassID" title="Parent Class">
                     <entity-dropdown class="form-control"
                                      [(value)]="entity.ParentInsurableItemClassID"
@@ -48,6 +52,7 @@
                                 <th>Required</th>
                                 <th>Index</th>
                                 <th>Key</th>
+                                <th>Show in List</th>
                                 <th>
                                     <button type="button" class="btn" (click)="addAttribute(group)">Add</button>
                                 </th>
@@ -99,6 +104,9 @@
                                 </td>
                                 <td>
                                     <input type="checkbox" class="form-control" name="Key" [(checked)]="attribute.Key">
+                                </td>
+                                <td>
+                                    <input type="checkbox" class="form-control" name="ShowInList" [(checked)]="attribute.ShowInList">
                                 </td>
                                 <td>
                                     <button type="button" class="btn" (click)="removeAttribute(attribute)"><i class="fa fa-trash fa-fw"></i></button>

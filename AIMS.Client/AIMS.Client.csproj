@@ -145,6 +145,7 @@
     <TypeScriptCompile Include="application\services\searchService.ts" />
     <TypeScriptCompile Include="application\services\shellService.ts" />
     <TypeScriptCompile Include="Scripts\typings\breeze\breeze.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="typings\angular2\angular2.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx-lite.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx.d.ts" />

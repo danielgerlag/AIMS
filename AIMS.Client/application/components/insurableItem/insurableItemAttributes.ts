@@ -28,10 +28,11 @@ export class InsurableItemAttributes implements OnInit {
     private dataService: IDataService;
     private entity: breeze.Entity;
     private insurableItemClass: breeze.Entity;
-    public valueChange: EventEmitter<any> = new EventEmitter();        
+    public valueChange: EventEmitter<any> = new EventEmitter();
+    public ready: boolean;
     
-    
-    constructor() {        
+    constructor() {
+        this.ready = false;
     }
 
     ngOnInit() {
@@ -45,10 +46,12 @@ export class InsurableItemAttributes implements OnInit {
 
     onTypeDataRecieved(sender: InsurableItemAttributes, data: breeze.QueryResult) {
         sender.insurableItemClass = data.results[0];
-        //sender.initAttributes();
+        sender.ready = true;
+        
     }
 
     onTypeDataFailed(sender: InsurableItemAttributes, reason: any) {
+        alert(reason);
     }
 
     public get value() {
@@ -71,7 +74,7 @@ export class InsurableItemAttributes implements OnInit {
             }
         }
         var newAttr = this.dataService.createEntity("InsurableItemAttribute", {});
-        newAttr.OperatorTypeAttributeID = insurableItemClassAttributeID;
+        newAttr.InsurableItemClassAttributeID = insurableItemClassAttributeID;
         insurableItem.Attributes.push(newAttr);
         return newAttr;
     }                

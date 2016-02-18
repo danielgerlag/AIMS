@@ -37,6 +37,8 @@ namespace AIMS.DomainModel.Entities
 
         public bool Key { get; set; }
 
+        public bool ShowInList { get; set; }
+                    
         [Index]
         public int InsurableItemClassAttributeGroupID { get; set; }
         public virtual InsurableItemClassAttributeGroup InsurableItemClassAttributeGroup { get; set; }
