@@ -15,7 +15,8 @@ export abstract class SubViewList implements OnInit {
         private injector: Injector, private _renderer: Renderer) {
     }
 
-    protected abstract getSubView(): any;
+    protected abstract getNewSubView(): any;
+    protected abstract getEditSubView(): any;
     protected abstract createChildEntity(type): any;
     protected abstract onAdd(item);
 
@@ -43,7 +44,7 @@ export abstract class SubViewList implements OnInit {
     protected add(type) {
         var item = this.createChildEntity(type);        
         let dialog: Promise<ModalDialogInstance>;
-        let component = this.getSubView();
+        let component = this.getNewSubView();
         var self = this;
 
 
@@ -76,7 +77,7 @@ export abstract class SubViewList implements OnInit {
 
     protected edit(item: breeze.Entity) {
         let dialog: Promise<ModalDialogInstance>;
-        let component = this.getSubView();
+        let component = this.getEditSubView();
         var self = this;
 
 

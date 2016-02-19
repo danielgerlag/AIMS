@@ -31,7 +31,11 @@ export class PolicyInsurableItems extends SubViewList {
         super(modal, elementRef, injector, _renderer);
     }    
        
-    protected getSubView(): any {
+    protected getNewSubView(): any {
+        return EditInsurableItem;
+    }
+
+    protected getEditSubView(): any {
         return EditInsurableItem;
     }
 

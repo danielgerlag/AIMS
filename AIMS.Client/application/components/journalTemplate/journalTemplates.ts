@@ -29,8 +29,12 @@ export class JournalTemplates extends SubViewList {
     constructor(modal: Modal, elementRef: ElementRef, injector: Injector, _renderer: Renderer) {
         super(modal, elementRef, injector, _renderer);
     }    
-       
-    protected getSubView(): any {
+     
+    protected getNewSubView(): any {
+        return EditJournalTemplate;
+    }
+      
+    protected getEditSubView(): any {
         return EditJournalTemplate;
     }
 

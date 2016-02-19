@@ -5,48 +5,50 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
-import {EditOperator} from '../../components/operator/editOperator';
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
+
+import {NewTransactionTrigger} from './newTransactionTrigger'
+import {EditTransactionTrigger} from './editTransactionTrigger'
 
 import {SubViewList} from '../../core/subViewList'
 
 import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-modal/angular2-modal';
 
 @Component({
-    selector: 'policyOperators',    
+    selector: 'transactionTriggers',    
     providers: [Modal],
-    inputs: ['value', 'dataService', 'policySubType'],
+    inputs: ['value', 'dataService', 'origin'],
     outputs: ['valueChange']
 })
 @View({
-    templateUrl: './application/directives/policy/policyOperators.html',
+    templateUrl: './application/components/transactionTrigger/transactionTriggers.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, LookupText]
 })
-export class PolicyOperators extends SubViewList {
-        
-    private policySubType: breeze.Entity;    
+export class TransactionTriggers extends SubViewList {      
+    
     
     constructor(modal: Modal, elementRef: ElementRef, injector: Injector, _renderer: Renderer) {
         super(modal, elementRef, injector, _renderer);
     }    
      
+    
     protected getNewSubView(): any {
-        return EditOperator;
+        return NewTransactionTrigger;
     }
       
     protected getEditSubView(): any {
-        return EditOperator;
+        return EditTransactionTrigger;
     }
 
     protected createChildEntity(type): any {
-        var item = this.dataService.createEntity("Operator", {});
-        item.OperatorType = type;
+        var item = this.dataService.createEntity("TransactionTrigger", {});        
         return item;
     }
 
     protected onAdd(item) {
-        this.entity['Operators'].push(item);
+        this.entity['TransactionTriggers'].push(item);
+        //this.onEntityChanged();
     }
     
     

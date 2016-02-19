@@ -43,7 +43,12 @@
         </tab>
 
         <tab heading="Agents">            
-        </tab>       
+        </tab>
+
+        <tab heading="Transactions">
+            <transactionTriggers [(value)]="entity" [dataService]="dataService" origin="P"></transactionTriggers>
+        </tab>
+        
 
     </tabset>     
 

@@ -47,5 +47,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<PolicyAgent> Agents { get; set; } = new HashSet<PolicyAgent>();
 
         public virtual ICollection<Operator> Operators { get; set; } = new HashSet<Operator>();
+
+        public virtual ICollection<TransactionTrigger> TransactionTriggers { get; set; } = new HashSet<TransactionTrigger>();
     }
 }

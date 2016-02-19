@@ -17,5 +17,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ServiceProviderType ServiceProviderType { get; set; }                
 
         public virtual ICollection<Journal> Journals { get; set; } = new HashSet<Journal>();
+
+        public virtual ICollection<TransactionTrigger> TransactionTriggers { get; set; } = new HashSet<TransactionTrigger>();
     }
 }

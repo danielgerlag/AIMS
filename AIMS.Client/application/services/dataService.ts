@@ -32,6 +32,7 @@ export abstract class IDataService {
     abstract query(sender: any, query: breeze.EntityQuery, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract reset();
     abstract cacheEntities(sender: any, setName: string, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
+    abstract getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
 }
 
 @Injectable()
@@ -127,6 +128,21 @@ export class DataService implements IDataService {
         if (expand)
             query = query.expand(expand);
 
+        query.using(this.manager).execute()
+            .then(function (data) {
+                success(sender, data);
+            })
+            .catch((reason) => {
+                failure(sender, reason);
+            });
+    }
+
+    getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any) {
+        var query = breeze.EntityQuery.from(setName);            
+
+        if (expand)
+            query = query.expand(expand);
+        
         query.using(this.manager).execute()
             .then(function (data) {
                 success(sender, data);

@@ -28,9 +28,13 @@ export class JournalTemplateTxns extends SubViewList {
     
     constructor(modal: Modal, elementRef: ElementRef, injector: Injector, _renderer: Renderer) {
         super(modal, elementRef, injector, _renderer);
+    }
+    
+    protected getNewSubView(): any {
+        return EditJournalTemplateTxn;
     }    
        
-    protected getSubView(): any {
+    protected getEditSubView(): any {
         return EditJournalTemplateTxn;
     }
 

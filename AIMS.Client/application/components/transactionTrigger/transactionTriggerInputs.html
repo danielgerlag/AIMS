@@ -1,0 +1,29 @@
+﻿
+<div class="form-horizontal">
+    <form-input *ngFor="#templateInput of journalTemplate.Inputs"
+                [entity]="findInput(templateInput.ID)"
+                title="{{ templateInput.Name }}"
+                labelClass="col-sm-2"
+                [ngSwitch]="templateInput.AttributeDataType.Code">
+        <div class="col-sm-10">
+            <input *ngSwitchWhen="'STR'" [(ngModel)]="findInput(templateInput.ID).Value" type="text" class="form-control">
+            <input *ngSwitchWhen="'NUM'" [(ngModel)]="findInput(templateInput.ID).Value" type="number" class="form-control">
+            <input *ngSwitchWhen="'DEC'" [(ngModel)]="findInput(templateInput.ID).Value" type="number" class="form-control">
+            <input *ngSwitchWhen="'PER'" [(ngModel)]="findInput(templateInput.ID).Value" type="number" class="form-control">
+            <input *ngSwitchWhen="'DTE'" [(ngModel)]="findInput(templateInput.ID).Value" type="date" class="form-control">
+            <entity-dropdown *ngSwitchWhen="'LIS'"
+                             [(value)]="findInput(templateInput.ID).Value"
+                             query="AttributeLookupItems?$filter=AttributeLookupListID eq {{templateInput.AttributeLookupListID}}&$orderby=Description"
+                             keyField="ID"
+                             displayField="Description"
+                             nullable="true">
+            </entity-dropdown>
+
+
+            <p *ngSwitchWhen="'YEA'">year...</p>
+            <input *ngSwitchWhen="'BLN'" [(checked)]="findInput(attr.ID).Value" type="checkbox" class="form-control">
+            <p *ngSwitchWhen="'CLS'">csio list...</p>
+        </div>
+    </form-input>
+
+</div>

@@ -40,5 +40,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<Journal> Journals { get; set; } = new HashSet<Journal>();
 
         public virtual ICollection<ContactDetail> ContactDetails { get; set; } = new HashSet<ContactDetail>();
+
+        public virtual ICollection<TransactionTrigger> TransactionTriggers { get; set; } = new HashSet<TransactionTrigger>();
     }
 }

@@ -21,5 +21,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<Journal> Journals { get; set; } = new HashSet<Journal>();
 
         public virtual ICollection<LedgerTxn> LedgerTxns { get; set; } = new HashSet<LedgerTxn>();
+
+        public virtual ICollection<TransactionTrigger> TransactionTriggers { get; set; } = new HashSet<TransactionTrigger>();
     }
 }

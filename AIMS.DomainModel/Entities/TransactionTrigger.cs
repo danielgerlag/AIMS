@@ -16,6 +16,10 @@ namespace AIMS.DomainModel.Entities
         public int JournalTemplateID { get; set; }
         public virtual JournalTemplate JournalTemplate { get; set; }
 
+        [Required]
+        [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
+        public string TransactionOrigin { get; set; }
+
         public int TransactionTriggerFrequencyID { get; set; }
         public virtual TransactionTriggerFrequency TransactionTriggerFrequency { get; set; }
 
@@ -35,5 +39,21 @@ namespace AIMS.DomainModel.Entities
         public DateTime? EffectiveTo { get; set; }
 
         public virtual ICollection<TransactionTriggerInput> Inputs { get; set; } = new HashSet<TransactionTriggerInput>();
+
+
+        public int? PolicyID { get; set; }
+        public virtual Policy Policy { get; set; }
+
+        public int? PublicID { get; set; }
+        public virtual Public Public { get; set; }
+
+        public int? ServiceProviderID { get; set; }
+        public virtual ServiceProvider ServiceProvider { get; set; }
+
+        public int? AgentID { get; set; }
+        public virtual Agent Agent { get; set; }
+
+        public int? ReportingEntityBranchID { get; set; }
+        public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
     }
 }
