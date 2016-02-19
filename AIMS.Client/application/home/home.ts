@@ -11,6 +11,9 @@ import {ISearchService, SearchService} from '../services/searchService';
 import {dto} from '../core/dto';
 
 
+
+import {DateInput} from '../directives/input/dateInput';
+
 import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-modal/angular2-modal';
 //import {YesNoModalContent, YesNoModal} from '../../../angular2-modal/commonModals/yesNoModal';
 //import {OKOnlyContent, OKOnlyModal} from '../../../angular2-modal/commonModals/okOnlyModal';
@@ -23,7 +26,7 @@ var config: any;
 
 @Component({
     selector: 'home',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Typeahead],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Typeahead, DateInput],
     providers: [Modal],
     templateUrl: './application/home/home.html'    
 })
@@ -34,6 +37,8 @@ export class Home {
     public searchStr: string;
     public searchType: string;
     public debugStr: string;
+
+    public testDate: Date;
 
     //userInfo: TransientInfo;
     public shellInfo: ShellInfo;
@@ -49,6 +54,7 @@ export class Home {
         //this.userInfo = authService.userInfo;
         this.shellInfo = shellService.info;
         this.searchResponse = new dto.SearchResponse();
+        this.testDate = new Date(2001, 1, 1);
     }    
 
     public search() {
@@ -87,28 +93,6 @@ export class Home {
     private testVal: any;
 
     test() {
-        let dialog: Promise<ModalDialogInstance>;
-        let component = AdditionCalculateWindow;
-        this.testVal = new AdditionCalculateWindowData(2, 3);
-        var self = this;
-        let bindings = Injector.resolve([
-            provide(ICustomModal, { useValue: this.testVal }),
-            provide(IterableDiffers, { useValue: this.injector.get(IterableDiffers) }),
-            provide(KeyValueDiffers, { useValue: this.injector.get(KeyValueDiffers) }),
-            provide(Renderer, { useValue: this._renderer })
-        ]);
-
-        
-        dialog = this.modal.open(
-            <any>component,
-            bindings,
-            new ModalConfig("lg", false, 27));
-
-        
-        dialog.then((resultPromise) => {            
-            return resultPromise.result.then((result) => {
-                alert(JSON.stringify(self.testVal));                
-            }, () => alert("cancel") );
-        });
+        this.testDate = new Date(2020, 5, 5);
     }
 }

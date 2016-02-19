@@ -70,6 +70,11 @@ namespace AIMS.DomainModel.Abstractions
                 PostSave();
                 return count;
             }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                var errs = ex.EntityValidationErrors;
+                throw ex;
+            }
             catch (Exception ex)
             {
                 throw ex;

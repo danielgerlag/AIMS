@@ -3,6 +3,7 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ControlGroup} from 'angular2/
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
+import {DateInput} from '../../directives/input/dateInput';
 import {PublicSelector} from '../../directives/public/publicSelector';
 //import {IRemoteService} from '../../services/remoteService';
 import {IDataService} from '../../services/dataService';
@@ -20,7 +21,7 @@ import {ICustomModal, ICustomModalComponent} from 'angular2-modal/angular2-modal
 })
 @View({
     templateUrl: './application/components/transactionTrigger/editTransactionTrigger.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicSelector, TransactionTriggerInputs]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, DateInput, PublicSelector, TransactionTriggerInputs]
 })
 export class EditTransactionTrigger implements OnInit, ICustomModalComponent {
         

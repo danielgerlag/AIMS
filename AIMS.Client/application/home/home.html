@@ -1,6 +1,13 @@
 ﻿<div class="container-fluid">
     
-    <button type="button" (click)="test()">Test</button>
+    <div>
+        <dateInput [(value)]="testDate" ></dateInput>
+    </div>
+
+    <div>
+        {{ testDate }}
+        <button type="button" (click)="test()">test</button>
+    </div>
 
     <form class="form-horizontal" role="search">
         <div class="form-group">

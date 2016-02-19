@@ -18,3 +18,5 @@
 /AIMS.Client/node_modules
 /AIMS.Client/obj
 /AIMS.Client/bower_components
+/AIMS.Client/Scripts/kendo
+/AIMS.Client/styles

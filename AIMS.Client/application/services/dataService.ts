@@ -51,6 +51,10 @@ export class DataService implements IDataService {
         this.servicePath = configService.getSettings().api + "Data.svc"; 
         this.rootManager = new breeze.EntityManager(this.servicePath);
         this.rootManager.fetchMetadata().then((value) => { self.manager = self.rootManager.createEmptyCopy(); }, (reason) => { });
+
+        var valOpts = this.rootManager.validationOptions.using({ validateOnAttach: false, validateOnPropertyChange: false, validateOnSave: false });        
+        this.rootManager.setProperties({ validationOptions: valOpts });
+
         
     }
     

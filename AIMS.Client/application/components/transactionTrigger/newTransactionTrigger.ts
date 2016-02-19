@@ -3,6 +3,9 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ControlGroup} from 'angular2/
 import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
+import {DateInput} from '../../directives/input/dateInput';
+
+
 import {PublicSelector} from '../../directives/public/publicSelector';
 //import {IRemoteService} from '../../services/remoteService';
 import {IDataService} from '../../services/dataService';
@@ -20,7 +23,7 @@ import {ICustomModal, ICustomModalComponent} from 'angular2-modal/angular2-modal
 })
 @View({
     templateUrl: './application/components/transactionTrigger/newTransactionTrigger.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicSelector, TransactionTriggerInputs]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, DateInput, PublicSelector, TransactionTriggerInputs]
 })
 export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
         
@@ -34,6 +37,10 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
     availableTemplates: any = [];
 
     protected step: number;
+
+    onDateChange(e) {
+        this.entity.EffectiveFrom = e.sender.value();
+    }
 
     ngOnInit() {
 
@@ -88,6 +95,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
     protected onLoadConfig(sender: NewTransactionTrigger, data: breeze.QueryResult): any {
         sender.entity.JournalTemplate = data.results[0];
         sender.templateInputsLoaded = true;
+        sender.entity.TransactionOrigin = sender.entity.JournalTemplate.TransactionOrigin;
     }
 
     protected onConfigFailure(sender: NewTransactionTrigger, data: any): any {

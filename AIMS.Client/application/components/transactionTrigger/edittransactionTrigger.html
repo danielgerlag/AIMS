@@ -3,46 +3,60 @@
         <button type="button" class="close" (click)="cancel()">&times;</button>
         <h4 class="modal-title">Transaction Trigger - {{ entity.Description }}</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body form-horizontal">
 
-        <form-input [entity]="entity" name="Description" title="Name">
-            <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
+        <form-input [entity]="entity" name="Description" title="Name" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TransactionTriggerFrequencyID" title="Frequency">
-            <entity-dropdown [(value)]="entity.TransactionTriggerFrequencyID"
-                             name="TransactionTriggerFrequencyID"
-                             query="TransactionTriggerFrequencies"
-                             keyField="ID"
-                             displayField="Name"
-                             nullable="false">
-            </entity-dropdown>
+        <form-input [entity]="entity" name="TransactionTriggerFrequencyID" title="Frequency" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <entity-dropdown [(value)]="entity.TransactionTriggerFrequencyID"
+                                 name="TransactionTriggerFrequencyID"
+                                 query="TransactionTriggerFrequencies"
+                                 keyField="ID"
+                                 displayField="Name"
+                                 nullable="false">
+                </entity-dropdown>
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TransactionTriggerStatusID" title="Status">
-            <entity-dropdown [(value)]="entity.TransactionTriggerStatusID"
-                             name="TransactionTriggerStatusID"
-                             query="TransactionTriggerStatuses"
-                             keyField="ID"
-                             displayField="Name"
-                             nullable="false">
-            </entity-dropdown>
+        <form-input [entity]="entity" name="TransactionTriggerStatusID" title="Status" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <entity-dropdown [(value)]="entity.TransactionTriggerStatusID"
+                                 name="TransactionTriggerStatusID"
+                                 query="TransactionTriggerStatuses"
+                                 keyField="ID"
+                                 displayField="Name"
+                                 nullable="false">
+                </entity-dropdown>
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="EffectiveFrom" title="Effective From">
-            <input type="date" class="form-control" name="EffectiveFrom" [(ngModel)]="entity.EffectiveFrom" />
+        <form-input [entity]="entity" name="EffectiveFrom" title="Effective From" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <dateInput [(value)]="entity.EffectiveFrom"></dateInput>
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="EffectiveTo" title="Effective To">
-            <input type="date" class="form-control" name="EffectiveTo" [(ngModel)]="entity.EffectiveTo" />
+        <form-input [entity]="entity" name="EffectiveTo" title="Effective To" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <dateInput [(value)]="entity.EffectiveTo"></dateInput>
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TxnDate" title="Transaction Date">
-            <input type="date" class="form-control" name="TxnDate" [(ngModel)]="entity.TxnDate" />
+        <form-input [entity]="entity" name="TxnDate" title="Transaction Date" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <dateInput [(value)]="entity.TxnDate"></dateInput>
+            </div>
         </form-input>
 
-        <form-input [entity]="entity" name="NextExecutionDate" title="Next Execution Date">
-            <input type="date" class="form-control" name="NextExecutionDate" [(ngModel)]="entity.NextExecutionDate" />
+        <form-input [entity]="entity" name="NextExecutionDate" title="Next Execution Date" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <dateInput [(value)]="entity.NextExecutionDate"></dateInput>
+            </div>
         </form-input>
 
         <transactionTriggerInputs [(value)]="entity" [dataService]="dataService" [journalTemplate]="entity.JournalTemplate" ></transactionTriggerInputs>
