@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{968D499D-D2D4-4591-82B4-A04594220578}</ProjectGuid>
+    <ProjectGuid>{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AIMS.DomainModel.Abstractions</RootNamespace>
-    <AssemblyName>AIMS.DomainModel.Abstractions</AssemblyName>
+    <RootNamespace>AIMS.DistributedServices.Infrastructure</RootNamespace>
+    <AssemblyName>AIMS.DistributedServices.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,18 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,27 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseContext.cs" />
-    <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Intercepts\IEntityIntercept.cs" />
-    <Compile Include="Intercepts\InterceptAttribute.cs" />
+    <Compile Include="ILockService.cs" />
+    <Compile Include="IQueueManager.cs" />
+    <Compile Include="IWorker.cs" />
+    <Compile Include="IWorkerPool.cs" />
+    <Compile Include="LockService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="QueueManager.cs" />
+    <Compile Include="ReceivedMessage.cs" />
+    <Compile Include="Worker.cs" />
+    <Compile Include="WorkerPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.DomainModel.Interface\AIMS.DomainModel.Interface.csproj">
       <Project>{6b7cdd03-0cb3-4edf-a9a6-9b8f6bd6b3e5}</Project>
       <Name>AIMS.DomainModel.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AIMS.Services.Indexer.Interface\AIMS.Services.Indexer.Interface.csproj">
-      <Project>{0ddcbb0d-1a33-4d67-af8d-b1224a6c05e1}</Project>
-      <Name>AIMS.Services.Indexer.Interface</Name>
+    <ProjectReference Include="..\AIMS.Services.IoC\AIMS.Services.IoC.csproj">
+      <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
+      <Name>AIMS.Services.IoC</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -44,14 +44,7 @@ namespace AIMS.DomainModel.Abstractions
         private ConcurrentQueue<BaseEntity> _postCommitQueue = new ConcurrentQueue<BaseEntity>();
         private bool _addedPostCommitEventToTxn = false;
         private IIndexQueue _indexQueue;
-
-        //public virtual DbSet<LedgerAccountType> LedgerAccountTypes { get; set; }
-        //public virtual DbSet<LedgerAccount> LedgerAccounts { get; set; }
-        //public virtual DbSet<ReportingEntityProfile> ReportingEntityProfiles { get; set; }
-
-
-        //public virtual DbSet<DataArea> DataAreas { get; set; }
-
+                
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

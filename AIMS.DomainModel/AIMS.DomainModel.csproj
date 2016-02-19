@@ -124,6 +124,7 @@
     <Compile Include="Entities\TransactionTriggerInput.cs" />
     <Compile Include="Indexers\PolicyIndexer.cs" />
     <Compile Include="Indexers\PublicIndexer.cs" />
+    <Compile Include="Intercepts\EnqueueTransactionTrigger.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.Designer.cs">
       <DependentUpon>201602170057404_InitialCreate.cs</DependentUpon>
@@ -191,6 +192,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\IJournalGenerator.cs" />
+    <Compile Include="Services\JournalGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.DomainModel.Abstractions\AIMS.DomainModel.Abstractions.csproj">
@@ -262,6 +265,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

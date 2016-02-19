@@ -20,3 +20,5 @@
 /AIMS.Client/bower_components
 /AIMS.Client/Scripts/kendo
 /AIMS.Client/styles
+/AIMS.DistributedServices.Infrastructure/bin
+/AIMS.DistributedServices.Infrastructure/obj

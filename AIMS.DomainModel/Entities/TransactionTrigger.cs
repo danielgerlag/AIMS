@@ -1,4 +1,6 @@
 ﻿using AIMS.DomainModel.Abstractions.Entities;
+using AIMS.DomainModel.Abstractions.Intercepts;
+using AIMS.DomainModel.Intercepts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
+    [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnAddAfterCommit, Order = 1)]
+    [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnChangeAfterCommit, Order = 1)]
     public class TransactionTrigger : BaseEntity
     {
         public int ReportingEntityID { get; set; }

@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Client", "AIMS.Client\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{81C0EE56-C7A2-4B90-876B-B809EF2F6E8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.DistributedServices.Infrastructure", "AIMS.DistributedServices.Infrastructure\AIMS.DistributedServices.Infrastructure.csproj", "{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{23219ED5-4AF3-49B3-953C-1C69DC2B5B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23219ED5-4AF3-49B3-953C-1C69DC2B5B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23219ED5-4AF3-49B3-953C-1C69DC2B5B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,5 +84,6 @@ Global
 		{2207CAF8-F541-4342-8BBB-CB2F6B3A4C29} = {58F4C39D-B91D-453A-BEAC-9A1EA280879C}
 		{7FF08F75-1853-4AF4-B269-0491B4BABCF1} = {3F68BA13-CF26-4E9A-935E-C5FBD68C182F}
 		{23219ED5-4AF3-49B3-953C-1C69DC2B5B6E} = {81C0EE56-C7A2-4B90-876B-B809EF2F6E8F}
+		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B} = {58F4C39D-B91D-453A-BEAC-9A1EA280879C}
 	EndGlobalSection
 EndGlobal

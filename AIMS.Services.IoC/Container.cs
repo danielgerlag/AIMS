@@ -16,6 +16,11 @@ namespace AIMS.Services.IoC
             return IOCContainer.Resolve<T>();
         }
 
+        public static T ResolveKeyed<T>(string key)
+        {
+            return IOCContainer.ResolveKeyed<T>(key);
+        }
+
         public static object Resolve(Type t)
         {
             return IOCContainer.Resolve(t);

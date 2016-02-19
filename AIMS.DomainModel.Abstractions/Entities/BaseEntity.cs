@@ -11,7 +11,7 @@ namespace AIMS.DomainModel.Abstractions.Entities
     public abstract class BaseEntity : IDomainEntity
     {
         [Key]
-        public int ID { get; set; }                
+        public int ID { get; set; }
 
         [Timestamp]
         [ConcurrencyCheck]
@@ -21,14 +21,41 @@ namespace AIMS.DomainModel.Abstractions.Entities
 
         public DateTime DateModifiedUTC { get; set; }
 
-        public event EntityCommitedEventHandler AfterCommit;
+        public event EntityEventHandler OnAdd;
+        public event EntityEventHandler OnChange;
+        public event EntityEventHandler OnAddAfterCommit;
+        public event EntityEventHandler OnChangeAfterCommit;
 
-        public void RaiseAfterCommit(IDbContext dataService)
+        public void RaiseOnAdd(IDbContext dataService)
         {
-            if (AfterCommit != null)
+            if (OnAdd != null)
             {
-                EntityCommitedEventArgs args = new EntityCommitedEventArgs() { DataService = dataService, Entity = this };
-                AfterCommit(this, args);
+                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
+                OnAdd(this, args);
+            }
+        }
+        public void RaiseOnAddAfterCommit(IDbContext dataService)
+        {
+            if (OnAddAfterCommit != null)
+            {
+                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
+                OnAddAfterCommit(this, args);
+            }
+        }
+        public void RaiseOnAddAfterCommit(IDbContext dataService)
+        {
+            if (OnAddAfterCommit != null)
+            {
+                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
+                OnAddAfterCommit(this, args);
+            }
+        }
+        public void RaiseOnAddAfterCommit(IDbContext dataService)
+        {
+            if (OnAddAfterCommit != null)
+            {
+                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
+                OnAddAfterCommit(this, args);
             }
         }
 
@@ -40,11 +67,11 @@ namespace AIMS.DomainModel.Abstractions.Entities
 
     }
 
-    public class EntityCommitedEventArgs : EventArgs
+    public class EntityEventArgs : EventArgs
     {
         public IDbContext DataService { get; set; }
         public BaseEntity Entity { get; set; }
     }
 
-    public delegate void EntityCommitedEventHandler(object sender, EntityCommitedEventArgs e);
+    public delegate void EntityEventHandler(object sender, EntityEventArgs e);
 }
