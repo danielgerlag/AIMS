@@ -1,6 +1,7 @@
 ﻿<table class="table">
     <tr>
         <th>Name</th>
+        <th>Status</th>
         <th>
             <button type="button" class="btn" (click)="add(null)">Add</button>
         </th>
@@ -8,6 +9,9 @@
     <tr *ngFor="#item of entity.TransactionTriggers">
         <td>
             {{ item.Description }}
+        </td>
+        <td>
+            {{ item.statusText() }}
         </td>
         <td>
             <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>

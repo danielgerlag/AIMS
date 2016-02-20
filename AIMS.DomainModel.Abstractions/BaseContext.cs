@@ -151,7 +151,8 @@ namespace AIMS.DomainModel.Abstractions
             var openTransaction = System.Transactions.Transaction.Current;
             if (openTransaction == null)
             {
-                Task.Factory.StartNew(new Action(() => { PerformPostCommit(); }));
+                //Task.Factory.StartNew(new Action(() => { PerformPostCommit(); }));
+                PerformPostCommit();
             }
             else
             {

@@ -42,6 +42,7 @@ namespace AIMS.API
             Autofac.ContainerBuilder builder = new Autofac.ContainerBuilder();
             
             builder.RegisterType<DataContext>().As<IDataContext>();
+            builder.AddDomainServices();
             builder.RegisterDomainModelIntercepts();
             builder.AddSearchIndexer();
             builder.RegisterSearchIndexers(typeof(DataContext).Assembly);            

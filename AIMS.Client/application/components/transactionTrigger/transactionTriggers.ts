@@ -50,7 +50,21 @@ export class TransactionTriggers extends SubViewList {
         this.entity['TransactionTriggers'].push(item);
         //this.onEntityChanged();
     }
-    
+
+    //getStatus(item: breeze.Entity) {
+    //    //if (item.entityAspect.isNavigationPropertyLoaded("Status")) {
+    //    if (item["Status"]) {
+    //        return item["Status"].Name;
+    //    }
+    //    else {
+    //        if (item["TransactionTriggerStatusID"]) {
+    //            //item.entityAspect.
+    //            item.entityAspect.loadNavigationProperty("Status");
+    //        }
+    //        return null;
+    //    }
+        
+    //}
     
 }
 

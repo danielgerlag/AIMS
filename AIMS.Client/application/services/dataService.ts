@@ -1,6 +1,7 @@
 ﻿import {Inject, Injectable, Injector, Component, provide} from 'angular2/core';
 import {IConfigService, ConfigService} from './configService';
 import {IRemoteService, RemoteService} from './remoteService';
+import {EntityExts} from '../core/models';
 import {Q} from './q';
 
 breeze.config.setQ(Q);
@@ -35,6 +36,10 @@ export abstract class IDataService {
     abstract getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
 }
 
+function initEntity(entity) {
+    entity.init();
+}
+
 @Injectable()
 export class DataService implements IDataService {
 
@@ -50,6 +55,8 @@ export class DataService implements IDataService {
         var self = this;
         this.servicePath = configService.getSettings().api + "Data.svc"; 
         this.rootManager = new breeze.EntityManager(this.servicePath);
+        this.rootManager.metadataStore.registerEntityTypeCtor("TransactionTrigger", EntityExts.TransactionTrigger, initEntity);
+
         this.rootManager.fetchMetadata().then((value) => { self.manager = self.rootManager.createEmptyCopy(); }, (reason) => { });
 
         var valOpts = this.rootManager.validationOptions.using({ validateOnAttach: false, validateOnPropertyChange: false, validateOnSave: false });        

@@ -28,7 +28,7 @@ namespace AIMS.DomainModel.Entities
         public virtual TransactionTriggerFrequency TransactionTriggerFrequency { get; set; }
 
         public int TransactionTriggerStatusID { get; set; }
-        public virtual TransactionTriggerStatus TransactionTriggerStatus { get; set; }
+        public virtual TransactionTriggerStatus Status { get; set; }
 
         [Required]
         [MaxLength(300)]

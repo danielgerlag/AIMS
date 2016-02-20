@@ -109,3 +109,40 @@ export namespace DocumentBuilderModels {
 
     }
 }
+
+export namespace EntityExts {
+
+    export class TransactionTrigger {
+
+        _statusLoading: boolean = false;
+
+        init() {
+            var self: any = this;
+            var entity: breeze.Entity = self;
+            entity.entityAspect.propertyChanged.subscribe(
+                function (propertyChangedArgs) {
+                    if (propertyChangedArgs.propertyName == "TransactionTriggerStatusID") {
+                        self._statusLoading = true;
+                        entity.entityAspect.loadNavigationProperty("Status");
+                    }
+                });
+        }
+
+        statusText() {
+            var self: any = this;
+            var entity: breeze.Entity = self;
+
+            if (self["Status"]) {
+                self._statusLoading = false;
+                return self["Status"].Name;
+            }
+            else {
+                if (!self._statusLoading) {
+                    self._statusLoading = true;
+                    entity.entityAspect.loadNavigationProperty("Status");
+                }
+            }
+
+        }
+    }
+}

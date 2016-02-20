@@ -11,10 +11,13 @@ namespace AIMS.DomainModel.Services
     public class JournalGenerator : IJournalGenerator
     {
         protected readonly IDataContext _db;
+                
+        private TransactionTriggerStatus supendedStatus;
 
         public JournalGenerator(IDataContext db)
         {
             _db = db;
+            supendedStatus = db.TransactionTriggerStatuses.First(x => x.Code == "S");
         }
 
 
@@ -54,8 +57,10 @@ namespace AIMS.DomainModel.Services
             //{
             //    case "P":                    
             //        break;
-           
+
             //}
+
+            transactionTrigger.Status = supendedStatus;
 
             _db.SaveChanges();
         }
