@@ -69,6 +69,10 @@
       <Project>{0ddcbb0d-1a33-4d67-af8d-b1224a6c05e1}</Project>
       <Name>AIMS.Services.Indexer.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services.IoC\AIMS.Services.IoC.csproj">
+      <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
+      <Name>AIMS.Services.IoC</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

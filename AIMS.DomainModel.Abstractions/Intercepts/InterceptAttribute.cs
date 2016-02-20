@@ -14,5 +14,5 @@ namespace AIMS.DomainModel.Abstractions.Intercepts
         public int Order { get; set; }
     }
 
-    public enum Stage { OnAdd, OnChange, OnAddAfterCommit, OnChangeAfterCommit }
+    public enum Stage { OnAddBeforeCommit, OnChangeBeforeCommit, OnAddAfterCommit, OnChangeAfterCommit }
 }

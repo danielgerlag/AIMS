@@ -36,7 +36,7 @@ export class TransactionTriggerInputs implements OnInit {
 
     ngOnInit() {
         //this.entity.entityAspect.loadNavigationProperty("Inputs");
-        this.dataService.getEntity(this, "JournalTemplates", this.journalTemplate['ID'], "Inputs", false, this.onTypeDataRecieved, this.onTypeDataFailed);        
+        this.dataService.getEntity(this, "JournalTemplates", this.journalTemplate['ID'], "Inputs, Inputs.AttributeDataType", false, this.onTypeDataRecieved, this.onTypeDataFailed);        
     }
 
     onInit() {

@@ -1,4 +1,5 @@
-﻿using AIMS.DomainModel.Context;
+﻿using AIMS.DomainModel;
+using AIMS.DomainModel.Context;
 using AIMS.Services.Indexer;
 using AIMS.Services.Indexer.Interface;
 using Autofac;
@@ -41,6 +42,7 @@ namespace AIMS.API
             Autofac.ContainerBuilder builder = new Autofac.ContainerBuilder();
             
             builder.RegisterType<DataContext>().As<IDataContext>();
+            builder.RegisterDomainModelIntercepts();
             builder.AddSearchIndexer();
             builder.RegisterSearchIndexers(typeof(DataContext).Assembly);            
 

@@ -1,4 +1,5 @@
 ﻿using AIMS.DomainModel.Abstractions.Entities;
+using AIMS.DomainModel.Abstractions.Intercepts;
 using AIMS.DomainModel.Interface;
 using AIMS.Services.Indexer.Interface;
 using System;
@@ -41,7 +42,8 @@ namespace AIMS.DomainModel.Abstractions
             indexRegistry.RegisterEntityTypes(GetType().Assembly);
         }
 
-        private ConcurrentQueue<BaseEntity> _postCommitQueue = new ConcurrentQueue<BaseEntity>();
+        private ConcurrentQueue<BaseEntity> _postCommitAddedQueue = new ConcurrentQueue<BaseEntity>();
+        private ConcurrentQueue<BaseEntity> _postCommitChangedQueue = new ConcurrentQueue<BaseEntity>();
         private bool _addedPostCommitEventToTxn = false;
         private IIndexQueue _indexQueue;
                 
@@ -116,19 +118,30 @@ namespace AIMS.DomainModel.Abstractions
             {
                 if (item.Entity is BaseEntity)
                 {
+                    AttachIntercepts(item.Entity as BaseEntity);
+
                     if (item.State == EntityState.Added)
                     {
                         (item.Entity as BaseEntity).DateCreatedUTC = DateTime.UtcNow;
                         (item.Entity as BaseEntity).DateModifiedUTC = DateTime.UtcNow;
+
+                        (item.Entity as BaseEntity).RaiseOnAddBeforeCommit(this);
+
+                        if ((!_postCommitAddedQueue.Contains(item.Entity)))
+                            _postCommitAddedQueue.Enqueue(item.Entity as BaseEntity);
                     }
 
                     if (item.State == EntityState.Modified)
                     {
                         (item.Entity as BaseEntity).DateModifiedUTC = DateTime.UtcNow;
+
+                        (item.Entity as BaseEntity).RaiseOnChangeBeforeCommit(this);
+
+                        if ((!_postCommitChangedQueue.Contains(item.Entity)))
+                            _postCommitChangedQueue.Enqueue(item.Entity as BaseEntity);
                     }
 
-                    if ((!_postCommitQueue.Contains(item.Entity)))
-                        _postCommitQueue.Enqueue(item.Entity as BaseEntity);
+                    //todo: deleted events                    
                 }
             }
         }
@@ -153,21 +166,35 @@ namespace AIMS.DomainModel.Abstractions
         private void PerformPostCommit()
         {
             BaseEntity entity;
-            while (_postCommitQueue.TryDequeue(out entity))
+            while (_postCommitAddedQueue.TryDequeue(out entity))
             {
                 if (entity is BaseEntity)
                 {
-                    entity.RaiseAfterCommit(this);
-                    if (_indexRegistry != null)
-                    {
-                        if (_indexRegistry.CanIndex(entity))
-                        {
-                            Type type = entity.GetType();
-                            if (type.FullName.StartsWith("System.Data.Entity.DynamicProxies"))
-                                type = type.BaseType;
-                            _indexQueue.QueueIndexWork(type, entity.ID, true, GetInterfaceType());
-                        }
-                    }
+                    entity.RaiseOnAddAfterCommit(this);
+                    QueueIndex(entity);
+                }
+            }
+
+            while (_postCommitChangedQueue.TryDequeue(out entity))
+            {
+                if (entity is BaseEntity)
+                {
+                    entity.RaiseOnChangeAfterCommit(this);
+                    QueueIndex(entity);
+                }
+            }
+        }
+
+        private void QueueIndex(BaseEntity entity)
+        {
+            if (_indexRegistry != null)
+            {
+                if (_indexRegistry.CanIndex(entity))
+                {
+                    Type type = entity.GetType();
+                    if (type.FullName.StartsWith("System.Data.Entity.DynamicProxies"))
+                        type = type.BaseType;
+                    _indexQueue.QueueIndexWork(type, entity.ID, true, GetInterfaceType());
                 }
             }
         }
@@ -175,6 +202,62 @@ namespace AIMS.DomainModel.Abstractions
         void openTransaction_TransactionCompleted(object sender, System.Transactions.TransactionEventArgs e)
         {
             PerformPostCommit();
+        }
+
+        private void AttachIntercepts(BaseEntity entity)
+        {
+            if (!entity.InterceptorsAttached)
+            {
+                var attributes = entity.GetType().GetCustomAttributes(typeof(InterceptAttribute), true).Cast<InterceptAttribute>();
+
+                foreach (var interceptAttr in attributes)
+                {
+                    IEntityIntercept intercept = (Services.IoC.Container.Resolve(interceptAttr.Intercept) as IEntityIntercept);
+                    entity.Intercepts.Add(new AttachedIntercept() { Metadata = interceptAttr, Intercept = intercept });
+                }
+
+                entity.OnAddAfterCommit += Entity_OnAddAfterCommit;
+                entity.OnAddBeforeCommit += Entity_OnAddBeforeCommit;
+                entity.OnChangeAfterCommit += Entity_OnChangeAfterCommit;
+                entity.OnChangeBeforeCommit += Entity_OnChangeBeforeCommit;
+                entity.InterceptorsAttached = true;
+            }
+        }
+
+        private void Entity_OnChangeBeforeCommit(object sender, EntityEventArgs e)
+        {
+            var intercepts = e.Entity.Intercepts.Where(x => x.Metadata.Stage == Stage.OnChangeBeforeCommit).OrderBy(x => x.Metadata.Order);
+            foreach (var intercept in intercepts)
+            {
+                intercept.Intercept.Execute(e.Entity, e.DataService);
+            }
+        }
+
+        private void Entity_OnChangeAfterCommit(object sender, EntityEventArgs e)
+        {
+            var intercepts = e.Entity.Intercepts.Where(x => x.Metadata.Stage == Stage.OnChangeAfterCommit).OrderBy(x => x.Metadata.Order);
+            foreach (var intercept in intercepts)
+            {
+                intercept.Intercept.Execute(e.Entity, e.DataService);
+            }
+        }
+
+        private void Entity_OnAddBeforeCommit(object sender, EntityEventArgs e)
+        {
+            var intercepts = e.Entity.Intercepts.Where(x => x.Metadata.Stage == Stage.OnAddBeforeCommit).OrderBy(x => x.Metadata.Order);
+            foreach (var intercept in intercepts)
+            {
+                intercept.Intercept.Execute(e.Entity, e.DataService);
+            }
+        }
+
+        private void Entity_OnAddAfterCommit(object sender, EntityEventArgs e)
+        {
+            var intercepts = e.Entity.Intercepts.Where(x => x.Metadata.Stage == Stage.OnAddAfterCommit).OrderBy(x => x.Metadata.Order);
+            foreach (var intercept in intercepts)
+            {
+                intercept.Intercept.Execute(e.Entity, e.DataService);
+            }
         }
 
         protected abstract Type GetInterfaceType();

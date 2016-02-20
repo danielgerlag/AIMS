@@ -1,4 +1,5 @@
-﻿using AIMS.DomainModel.Interface;
+﻿using AIMS.DomainModel.Abstractions.Intercepts;
+using AIMS.DomainModel.Interface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,18 +21,27 @@ namespace AIMS.DomainModel.Abstractions.Entities
         public DateTime DateCreatedUTC { get; set; }
 
         public DateTime DateModifiedUTC { get; set; }
+                
 
-        public event EntityEventHandler OnAdd;
-        public event EntityEventHandler OnChange;
+        public event EntityEventHandler OnAddBeforeCommit;
         public event EntityEventHandler OnAddAfterCommit;
+        public event EntityEventHandler OnChangeBeforeCommit;        
         public event EntityEventHandler OnChangeAfterCommit;
 
-        public void RaiseOnAdd(IDbContext dataService)
+        public void RaiseOnAddBeforeCommit(IDbContext dataService)
         {
-            if (OnAdd != null)
+            if (OnAddBeforeCommit != null)
             {
                 EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
-                OnAdd(this, args);
+                OnAddBeforeCommit(this, args);
+            }
+        }
+        public void RaiseOnChangeBeforeCommit(IDbContext dataService)
+        {
+            if (OnChangeBeforeCommit != null)
+            {
+                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
+                OnChangeBeforeCommit(this, args);
             }
         }
         public void RaiseOnAddAfterCommit(IDbContext dataService)
@@ -42,20 +52,12 @@ namespace AIMS.DomainModel.Abstractions.Entities
                 OnAddAfterCommit(this, args);
             }
         }
-        public void RaiseOnAddAfterCommit(IDbContext dataService)
+        public void RaiseOnChangeAfterCommit(IDbContext dataService)
         {
-            if (OnAddAfterCommit != null)
+            if (OnChangeAfterCommit != null)
             {
                 EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
-                OnAddAfterCommit(this, args);
-            }
-        }
-        public void RaiseOnAddAfterCommit(IDbContext dataService)
-        {
-            if (OnAddAfterCommit != null)
-            {
-                EntityEventArgs args = new EntityEventArgs() { DataService = dataService, Entity = this };
-                OnAddAfterCommit(this, args);
+                OnChangeAfterCommit(this, args);
             }
         }
 
@@ -64,6 +66,9 @@ namespace AIMS.DomainModel.Abstractions.Entities
             return string.Empty;
         }
 
+
+        internal bool InterceptorsAttached { get; set; } = false;
+        internal List<AttachedIntercept> Intercepts = new List<AttachedIntercept>();
 
     }
 
@@ -74,4 +79,10 @@ namespace AIMS.DomainModel.Abstractions.Entities
     }
 
     public delegate void EntityEventHandler(object sender, EntityEventArgs e);
+
+    internal class AttachedIntercept
+    {
+        public InterceptAttribute Metadata { get; set; }
+        public IEntityIntercept Intercept { get; set; }
+    }
 }
