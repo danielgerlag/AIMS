@@ -1,0 +1,15 @@
+﻿<div class="modal-content">
+    <div class="modal-header alert-danger">
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+        <h4 class="modal-title">Error</h4>
+    </div>
+    <div class="modal-body form-horizontal">
+
+        {{ context.message }}                
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="ok()">OK</button>
+    </div>
+</div>

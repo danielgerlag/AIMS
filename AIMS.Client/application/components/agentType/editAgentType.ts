@@ -6,7 +6,7 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
-
+import {ILogService} from '../../services/logService';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -19,8 +19,8 @@ import {CRUDController} from '../../core/crudController';
 })
 export class EditAgentType extends CRUDController {
 
-    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
-        super(params, router, location, dataService, shellService, authService, fb);
+    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
+        super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Agent Type";
     }
 

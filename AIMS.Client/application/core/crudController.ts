@@ -4,6 +4,7 @@ import {RouteParams} from 'angular2/router';
 import {IShellService} from '../services/shellService';
 import {IAuthService} from '../services/authService';
 import {IDataService} from '../services/dataService';
+import {ILogService} from '../services/logService';
 import {BaseController} from './baseController';
 import {dto} from './dto';
 import {ModelErrorContainer} from './interfaces';
@@ -18,16 +19,18 @@ export abstract class CRUDController extends BaseController {
     protected form: ControlGroup;
     protected showErrorSummary: boolean;
     protected dataService: IDataService;
+    protected logService: ILogService;
     protected params: RouteParams;
     protected router: Router;
     protected location: Location;    
     protected authService: IAuthService;
     protected title: string;
 
-    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
+    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(shellService);
         dataService.reset();
         this.dataService = dataService;
+        this.logService = logService;
         this.showErrorSummary = false;
         this.serverState = { modelState: {} };
         this.params = params;
@@ -115,7 +118,8 @@ export abstract class CRUDController extends BaseController {
         sender.showErrorSummary = true;
 
         if (data.message) {
-            sender.shellService.toastError("Error", data.message);
+            //sender.shellService.toastError("Error", data.message);
+            sender.logService.showErrorDialog({ message: data.message });
         }
     }
 
@@ -157,7 +161,7 @@ export abstract class CRUDController extends BaseController {
 
     protected onLoadFailure(sender: CRUDController, data: any): any {
         sender.shellService.hideLoader();
-        alert(data);
+        sender.logService.showErrorDialog({ message: data });
     }
 
 }

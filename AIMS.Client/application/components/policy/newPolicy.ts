@@ -17,6 +17,7 @@ import {PolicyHolders} from '../../directives/policy/policyHolders';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
+import {ILogService} from '../../services/logService';
 import {CRUDController} from '../../core/crudController';
 
 @Component({
@@ -30,8 +31,8 @@ export class NewPolicy extends CRUDController {
     protected policyType: any;
     protected step: number;
 
-    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder) {
-        super(params, router, location, dataService, shellService, authService, fb);
+    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
+        super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Policy";
         this.step = 1;
     }

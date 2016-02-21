@@ -1,5 +1,5 @@
 ﻿import {bootstrap} from 'angular2/platform/browser'
-import {Inject, Component, View, provide} from 'angular2/core';
+import {Inject, Component, View, provide, Renderer} from 'angular2/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {HTTP_PROVIDERS} from './core/xhr_backend';
 import {Home} from './home/home';
@@ -16,6 +16,7 @@ import {IRemoteService, RemoteService} from './services/remoteService';
 import {IAuthService, AuthService, TransientInfo} from './services/authService';
 import {IShellService, ShellService, ShellInfo} from './services/shellService';
 import {ISearchService, SearchService} from './services/searchService';
+import {ILogService, LogService} from './services/logService';
 
 import {IDataService, DataService} from './services/dataService';
 
@@ -141,12 +142,15 @@ bootstrap(AIMSApp, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,    
     FormBuilder,    
+    Modal, 
+    Renderer,
     provide(IConfigService, { useClass: ConfigService }),
     provide(IRemoteService, { useClass: RemoteService }),
     provide(IDataService, { useClass: DataService }),
     provide(IAuthService, { useClass: AuthService }),
     provide(IShellService, { useClass: ShellService }),
     provide(ISearchService, { useClass: SearchService }),
+    provide(ILogService, { useClass: LogService }),
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide(ModalConfig, { useValue: new ModalConfig('lg', true, 81) })
 ]);

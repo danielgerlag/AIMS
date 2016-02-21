@@ -27,6 +27,7 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\errorDialog\errorDialog.html" />
     <Content Include="application\components\insurableItem\editInsurableItem.html" />
     <Content Include="application\components\insurableItem\insurableItemAttributes.html" />
     <Content Include="application\components\journalTemplate\editJournalTemplateTxn.html" />
@@ -1010,6 +1011,7 @@
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="application\Web.config" />
+    <TypeScriptCompile Include="application\components\errorDialog\errorDialog.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\transactionTriggers.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\newTransactionTrigger.ts" />
     <Content Include="Scripts\kendo\jquery.min.map" />
@@ -1305,6 +1307,7 @@
     <TypeScriptCompile Include="application\directives\public\publicWizard.ts" />
     <TypeScriptCompile Include="application\home\home.ts" />
     <TypeScriptCompile Include="application\services\authService.ts" />
+    <TypeScriptCompile Include="application\services\logService.ts" />
     <TypeScriptCompile Include="application\services\configService.ts" />
     <TypeScriptCompile Include="application\services\dataService.ts" />
     <TypeScriptCompile Include="application\services\q.ts" />
