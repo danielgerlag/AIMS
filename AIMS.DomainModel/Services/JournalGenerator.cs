@@ -10,11 +10,12 @@ namespace AIMS.DomainModel.Services
 {
     public class JournalGenerator : IJournalGenerator
     {
-
+        IJournalPoster _journalPoster;
         ISequenceNumberGeneator _sequenceNumberGeneator;
         IContextParameterResolver _contextParameterResolver;
-        public JournalGenerator(ISequenceNumberGeneator sequenceNumberGeneator, IContextParameterResolver contextParameterResolver)
+        public JournalGenerator(IJournalPoster journalPoster, ISequenceNumberGeneator sequenceNumberGeneator, IContextParameterResolver contextParameterResolver)
         {
+            _journalPoster = journalPoster;
             _sequenceNumberGeneator = sequenceNumberGeneator;
             _contextParameterResolver = contextParameterResolver;
         }
@@ -24,6 +25,8 @@ namespace AIMS.DomainModel.Services
             JournalRunResult result = new JournalRunResult();
 
             Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, null, null); //todo
+            _journalPoster.Run(db, journal);
+
             result.Journals.Add(journal);
 
             IncrementTrigger(db, transactionTrigger);
@@ -69,7 +72,7 @@ namespace AIMS.DomainModel.Services
                 txn.Amount = ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn);
 
             if (templateTxn.JournalTxnClass.OfLedgerAccount)
-                txn.Amount = (ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, templateTxn, resolvedPublic));
+                txn.Amount = (ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, transactionTrigger, templateTxn, resolvedPublic));
 
             txn.Description = templateTxn.Description;
             txn.Policy = transactionTrigger.Policy;
@@ -77,6 +80,7 @@ namespace AIMS.DomainModel.Services
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
             txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
             txn.TxnDate = transactionTrigger.TxnDate.Value;
+            txn.JournalTemplateTxn = templateTxn;
 
             journal.JournalTxns.Add(txn);
         }
@@ -94,6 +98,8 @@ namespace AIMS.DomainModel.Services
                 txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
                 txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
                 txn.TxnDate = transactionTrigger.TxnDate.Value;
+                txn.JournalTemplateTxn = templateTxn;
+                txn.PolicyCoverage = coverage;
 
                 journal.JournalTxns.Add(txn);
             }            

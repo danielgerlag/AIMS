@@ -18,10 +18,7 @@ namespace AIMS.DomainModel.Entities
 
         public int LedgerAccountID { get; set; }
         public virtual LedgerAccount LedgerAccount { get; set; }
-
-        [Required]
-        [MaxLength(300)]
-        public string Description { get; set; }
+                
 
         [Required]
         [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch

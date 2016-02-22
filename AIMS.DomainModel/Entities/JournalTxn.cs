@@ -38,6 +38,12 @@ namespace AIMS.DomainModel.Entities
         public int? ReportingEntityBranchID { get; set; }
         public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
 
+        public int? JournalTemplateTxnID { get; set; }
+        public virtual JournalTemplateTxn JournalTemplateTxn { get; set; }
+
+        public int? PolicyCoverageID { get; set; }
+        public virtual PolicyCoverage PolicyCoverage { get; set; }
+
         public virtual ICollection<LedgerTxn> LedgerTxns { get; set; } = new HashSet<LedgerTxn>();
     }
 }
