@@ -45,6 +45,7 @@
     <Compile Include="IWorker.cs" />
     <Compile Include="IWorkerPool.cs" />
     <Compile Include="LockService.cs" />
+    <Compile Include="MemoryQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SSBQueueManager.cs" />
     <Compile Include="ReceivedMessage.cs" />

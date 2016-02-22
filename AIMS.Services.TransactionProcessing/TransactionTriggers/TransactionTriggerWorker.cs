@@ -168,7 +168,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
             switch (trigger.TransactionOrigin)
             {
                 case "P":
-                    subSet = _db.Entry<Policy>(trigger.Policy).Reference("TransactionTriggers").Query().Cast<TransactionTrigger>();
+                    subSet = _db.Entry<Policy>(trigger.Policy).Collection<TransactionTrigger>("TransactionTriggers").Query();
                     break;
             }
 

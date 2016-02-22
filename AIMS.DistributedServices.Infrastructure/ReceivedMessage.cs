@@ -21,18 +21,23 @@ namespace AIMS.DistributedServices.Infrastructure
         {
             Payload = payload;
             _queueManager = queueManager;
-            //_txnScope = txnScope;
-            _transaction = transaction;
-            _connection = _transaction.Connection;
+
+            if (_transaction != null)
+            {
+                _transaction = transaction;
+                _connection = _transaction.Connection;
+            }
         }
 
         public void Ack()
         {
             if (!_finalised)
             {
-                _transaction.Commit();
-                //_txnScope.Complete();
-                CloseConnection();
+                if (_transaction != null)
+                {
+                    _transaction.Commit();
+                    CloseConnection();
+                }
                 _finalised = true;
             }
         }
@@ -41,9 +46,11 @@ namespace AIMS.DistributedServices.Infrastructure
         {
             if (!_finalised)
             {
-                _transaction.Rollback();
-                //_txnScope.Dispose();
-                CloseConnection();
+                if (_transaction != null)
+                {
+                    _transaction.Rollback();
+                    CloseConnection();
+                }
                 _finalised = true;
             }
         }
@@ -53,13 +60,10 @@ namespace AIMS.DistributedServices.Infrastructure
             if (!_finalised)
             {
                 _finalised = true;
-
-                //System.Threading.Tasks.Task.Factory.StartNew(new Action(() =>
-                //{
+                
                 Ack();
                 System.Threading.Thread.Sleep(2000);
-                _queueManager.Enqueue(Payload);
-                //}));                
+                _queueManager.Enqueue(Payload);                
             }
         }
 
