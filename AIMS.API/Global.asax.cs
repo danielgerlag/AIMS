@@ -1,7 +1,9 @@
-﻿using AIMS.DomainModel;
+﻿using AIMS.DistributedServices.Infrastructure;
+using AIMS.DomainModel;
 using AIMS.DomainModel.Context;
 using AIMS.Services.Indexer;
 using AIMS.Services.Indexer.Interface;
+using AIMS.Services.TransactionProcessing;
 using Autofac;
 using System;
 using System.Collections.Generic;
@@ -27,14 +29,14 @@ namespace AIMS.API
 
             ConfigureIoC();
 
-            var indexWorker = Services.IoC.Container.Resolve<IIndexWorker>();
-            indexWorker.Start();
+            Services.IoC.Container.Resolve<IIndexWorker>().Start();
+            Services.IoC.Container.ResolveKeyed<IWorkerPool>("TransactionTrigger").Start();
         }
 
         protected void Application_End(object sender, EventArgs e)
         {
-            var indexWorker = Services.IoC.Container.Resolve<IIndexWorker>();
-            indexWorker.Stop();
+            Services.IoC.Container.Resolve<IIndexWorker>().Stop();
+            Services.IoC.Container.ResolveKeyed<IWorkerPool>("TransactionTrigger").Stop();
         }
 
         public void ConfigureIoC()
@@ -43,9 +45,10 @@ namespace AIMS.API
             
             builder.RegisterType<DataContext>().As<IDataContext>();
             builder.AddDomainServices();
-            builder.RegisterDomainModelIntercepts();
-            builder.AddSearchIndexer();
-            builder.RegisterSearchIndexers(typeof(DataContext).Assembly);            
+            builder.AddDomainModelIntercepts();
+            builder.AddSearchIndexerServices();
+            builder.AddSearchIndexers(typeof(DataContext).Assembly);
+            builder.AddTransactionProcessingServices();
 
             Services.IoC.Container.IOCContainer = builder.Build();
             //AutofacHostFactory.Container = Westland.Documents.IoC.Container.IOCContainer;

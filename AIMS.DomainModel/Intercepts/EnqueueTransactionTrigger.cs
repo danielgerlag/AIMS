@@ -1,3 +1,4 @@
+using AIMS.DistributedServices.Infrastructure;
 using AIMS.DomainModel.Abstractions.Intercepts;
 using AIMS.DomainModel.Entities;
 using AIMS.DomainModel.Interface;
@@ -21,10 +22,14 @@ namespace AIMS.DomainModel.Intercepts
 
         public override void Run(TransactionTrigger entity, IDbContext dataContext)
         {
-            //entity.Description = entity.Description + " Boo";
-            //if (entity.Status.Code == "A")
-            //    _journalGenerator.Run(entity.ID);
-
+            if ((entity.Status.Code == "A") && (entity.NextExecutionDate.HasValue))
+            {
+                if (entity.NextExecutionDate.Value <= DateTime.Now)
+                {
+                    var queue = AIMS.Services.IoC.Container.ResolveKeyed<IQueueManager>("TransactionTriggerQueue");
+                    queue.Enqueue(entity.ID);
+                }
+            }
         }
 
     }

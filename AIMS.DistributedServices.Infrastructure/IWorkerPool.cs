@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.DistributedServices.Infrastructure
 {
-    interface IWorkerPool
+    public interface IWorkerPool
     {
         void Start();
         void Stop();

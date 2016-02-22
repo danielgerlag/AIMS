@@ -195,6 +195,10 @@
     <Compile Include="Migrations\201602212239593_ServiceBroker.Designer.cs">
       <DependentUpon>201602212239593_ServiceBroker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602220247146_Serv2.cs" />
+    <Compile Include="Migrations\201602220247146_Serv2.Designer.cs">
+      <DependentUpon>201602220247146_Serv2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -207,6 +211,10 @@
     <Compile Include="Services\JournalGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AIMS.DistributedServices.Infrastructure\AIMS.DistributedServices.Infrastructure.csproj">
+      <Project>{6027adf0-25d7-4ed9-86ac-f7e4478f720b}</Project>
+      <Name>AIMS.DistributedServices.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIMS.DomainModel.Abstractions\AIMS.DomainModel.Abstractions.csproj">
       <Project>{968d499d-d2d4-4591-82b4-a04594220578}</Project>
       <Name>AIMS.DomainModel.Abstractions</Name>
@@ -218,6 +226,10 @@
     <ProjectReference Include="..\AIMS.Services.Indexer.Interface\AIMS.Services.Indexer.Interface.csproj">
       <Project>{0ddcbb0d-1a33-4d67-af8d-b1224a6c05e1}</Project>
       <Name>AIMS.Services.Indexer.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services.IoC\AIMS.Services.IoC.csproj">
+      <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
+      <Name>AIMS.Services.IoC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602212239593_ServiceBroker.resx">
       <DependentUpon>201602212239593_ServiceBroker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602220247146_Serv2.resx">
+      <DependentUpon>201602220247146_Serv2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

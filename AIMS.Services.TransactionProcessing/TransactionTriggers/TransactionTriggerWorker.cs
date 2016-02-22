@@ -13,8 +13,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 {
     public class TransactionTriggerWorker : DistributedWorker
     {
-        IJournalGenerator _journalGenerator;
-        int _txnGeneratorGroupID;
+        IJournalGenerator _journalGenerator;        
 
         IDataContext _db;
         IDataContext _controlDb;
@@ -129,21 +128,21 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                 {
                     foreach (var ex2 in (ex as AggregateException).InnerExceptions)
                     {
-                        //execution.Exceptions.Add(new TransactionTriggerExecutionException()
-                        //{
-                        //    Description = ex2.Message,
-                        //    ExceptionType = "E"
+                        log.Exceptions.Add(new TransactionTriggerException()
+                        {
+                            Message = ex2.Message,
+                            ExceptionType = "E"
 
-                        //});
+                        });
                     }
                 }
                 else
                 {
-                    //execution.Exceptions.Add(new TransactionTriggerExecutionException()
-                    //{
-                    //    Description = ex.Message,
-                    //    ExceptionType = "E"
-                    //});
+                    log.Exceptions.Add(new TransactionTriggerException()
+                    {
+                        Message = ex.Message,
+                        ExceptionType = "E"
+                    });
                 }
                 throw ex;
             }

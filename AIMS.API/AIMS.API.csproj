@@ -189,6 +189,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AIMS.DistributedServices.Infrastructure\AIMS.DistributedServices.Infrastructure.csproj">
+      <Project>{6027adf0-25d7-4ed9-86ac-f7e4478f720b}</Project>
+      <Name>AIMS.DistributedServices.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIMS.DomainModel.Abstractions\AIMS.DomainModel.Abstractions.csproj">
       <Project>{968d499d-d2d4-4591-82b4-a04594220578}</Project>
       <Name>AIMS.DomainModel.Abstractions</Name>
@@ -212,6 +216,10 @@
     <ProjectReference Include="..\AIMS.Services.IoC\AIMS.Services.IoC.csproj">
       <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
       <Name>AIMS.Services.IoC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services.TransactionProcessing\AIMS.Services.TransactionProcessing.csproj">
+      <Project>{69212075-ecd3-418c-82f6-c909fd21330a}</Project>
+      <Name>AIMS.Services.TransactionProcessing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

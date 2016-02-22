@@ -20,7 +20,7 @@ namespace AIMS.DomainModel
             return services;
         }
 
-        public static Autofac.ContainerBuilder RegisterDomainModelIntercepts(this Autofac.ContainerBuilder services)
+        public static Autofac.ContainerBuilder AddDomainModelIntercepts(this Autofac.ContainerBuilder services)
         {
             Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
             foreach (var t in types.Where(x => x.IsClass && !x.IsAbstract).Where(x => x.GetInterfaces().Any(y => y == typeof(IEntityIntercept))))

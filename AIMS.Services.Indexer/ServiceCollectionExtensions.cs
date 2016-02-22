@@ -12,7 +12,7 @@ namespace AIMS.Services.Indexer
 {
     public static class ServiceCollectionExtensions
     {
-        public static Autofac.ContainerBuilder AddSearchIndexer(this Autofac.ContainerBuilder services)
+        public static Autofac.ContainerBuilder AddSearchIndexerServices(this Autofac.ContainerBuilder services)
         {
 
             services.RegisterType<IndexQueue>().As<IIndexQueue>().SingleInstance();
@@ -24,7 +24,7 @@ namespace AIMS.Services.Indexer
             return services;
         }
 
-        public static Autofac.ContainerBuilder RegisterSearchIndexers(this Autofac.ContainerBuilder services, System.Reflection.Assembly assembly)
+        public static Autofac.ContainerBuilder AddSearchIndexers(this Autofac.ContainerBuilder services, System.Reflection.Assembly assembly)
         {
             Type[] types = assembly.GetTypes();
             foreach (var t in types.Where(x => x.IsClass && !x.IsAbstract).Where(x => x.GetInterfaces().Any(y => y == typeof(IEntityIndexer))))
