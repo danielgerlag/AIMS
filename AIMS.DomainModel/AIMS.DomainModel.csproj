@@ -122,6 +122,7 @@
     <Compile Include="Entities\Agent.cs" />
     <Compile Include="Entities\ServiceProvider.cs" />
     <Compile Include="Entities\ServiceProviderType.cs" />
+    <Compile Include="Entities\TransactionTriggerException.cs" />
     <Compile Include="Entities\TransactionTriggerLog.cs" />
     <Compile Include="Entities\TransactionTriggerStatus.cs" />
     <Compile Include="Entities\TransactionTriggerFrequency.cs" />

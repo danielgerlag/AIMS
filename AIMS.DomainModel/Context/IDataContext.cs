@@ -78,7 +78,8 @@ namespace AIMS.DomainModel.Context
         DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
         DbSet<TransactionTriggerStatus> TransactionTriggerStatuses { get; set; }
         DbSet<TransactionTriggerLog> TransactionTriggerLogs { get; set; }
-        
+        DbSet<TransactionTriggerException> TransactionTriggerExceptions { get; set; }
+
 
         DbSet<PolicyStatus> PolicyStatuses { get; set; }       
 

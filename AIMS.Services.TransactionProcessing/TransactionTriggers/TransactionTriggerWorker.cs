@@ -13,36 +13,36 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 {
     public class TransactionTriggerWorker : DistributedWorker
     {
-        IJournalGenerator _journalGenerator;                
+        IJournalGenerator _journalGenerator;
         int _txnGeneratorGroupID;
-        
+
         IDataContext _db;
         IDataContext _controlDb;
-        
+
         TransactionTrigger trigger;
         TransactionTriggerLog log;
 
         public TransactionTriggerWorker(IJournalGenerator journalGenerator)
             : base()
         {
-            _journalGenerator = journalGenerator;            
+            _journalGenerator = journalGenerator;
         }
-                        
+
         public override void Init(ReceivedMessage message, int threadNumber)
         {
-            base.Init(message, threadNumber);            
+            base.Init(message, threadNumber);
             _db = IoC.Container.Resolve<IDataContext>();
             _controlDb = IoC.Container.Resolve<IDataContext>();
             trigger = _db.TransactionTriggers.Find(message.Payload);
 
             if (trigger == null)
                 return;
-            
+
             _lockKeys.Add("TransactionTrigger:" + trigger.ID.ToString());
 
-            if (trigger.PolicyID.HasValue) 
+            if (trigger.PolicyID.HasValue)
                 _lockKeys.Add("Policy:" + trigger.PolicyID.ToString());
-            
+
         }
 
         public override void DoWork()
@@ -51,7 +51,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                 return;
 
             _db.Entry(trigger).Reload();
-            
+
 
             var txOptions = new System.Transactions.TransactionOptions();
             txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;
@@ -64,7 +64,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                 JournalRunResult runResult;
                 using (txnScope)
                 {
-                    
+
                     runResult = _journalGenerator.Run(_db, trigger);
                     if ((runResult.Errors.Count() == 0) && (runResult.Holders.Count() == 0) && (runResult.Deferrals.Count() == 0))
                     {
@@ -79,29 +79,29 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
                 foreach (var err in runResult.Errors)
                 {
-                    //execution.Exceptions.Add(new TransactionTriggerExecutionException()
-                    //{
-                    //    Description = err,
-                    //    ExceptionType = "E"
-                    //});
+                    log.Exceptions.Add(new TransactionTriggerException()
+                    {
+                        Message = err,
+                        ExceptionType = "E"
+                    });
                 }
 
                 foreach (var err in runResult.Holders)
                 {
-                    //execution.Exceptions.Add(new TransactionTriggerExecutionException()
-                    //{
-                    //    Description = err,
-                    //    ExceptionType = "H"
-                    //});
+                    log.Exceptions.Add(new TransactionTriggerException()
+                    {
+                        Message = err,
+                        ExceptionType = "H"
+                    });
                 }
 
                 foreach (var err in runResult.Deferrals)
                 {
-                    //execution.Exceptions.Add(new TransactionTriggerExecutionException()
-                    //{
-                    //    Description = err,
-                    //    ExceptionType = "D"
-                    //});
+                    log.Exceptions.Add(new TransactionTriggerException()
+                    {
+                        Message = err,
+                        ExceptionType = "D"
+                    });
                 }
 
                 if (runResult.Errors.Count() > 0)
@@ -111,7 +111,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                     MarkHold();
 
                 if ((runResult.Errors.Count() == 0) && (runResult.Holders.Count() == 0) && (runResult.Deferrals.Count() == 0))
-                {                    
+                {
                     if (runResult.Journals.Count > 0)
                     {
                         //
@@ -164,13 +164,13 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
             int priority = trigger.JournalTemplate.Priority;
             int blockingGenerators = 0;
-            IQueryable<TransactionTrigger> subSet = null;                       
+            IQueryable<TransactionTrigger> subSet = null;
 
             switch (trigger.TransactionOrigin)
             {
                 case "P":
-                    subSet = _db.Entry<Policy>(trigger.Policy).Reference("TransactionTriggers").Query().Cast<TransactionTrigger>();                    
-                    break;                
+                    subSet = _db.Entry<Policy>(trigger.Policy).Reference("TransactionTriggers").Query().Cast<TransactionTrigger>();
+                    break;
             }
 
             if (subSet == null)
@@ -207,12 +207,12 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
         }
 
         private void MarkError()
-        {            
+        {
             //_db.SaveChanges();
         }
 
         private void MarkHold()
-        {            
+        {
             //trigger.OnHold = true;
             //_db.SaveChanges();
         }

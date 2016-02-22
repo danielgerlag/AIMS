@@ -28,5 +28,7 @@ namespace AIMS.DomainModel.Entities
 
         public bool IsRequeue { get; set; }
 
+        public virtual ICollection<TransactionTriggerException> Exceptions { get; set; } = new HashSet<TransactionTriggerException>();
+
     }
 }
