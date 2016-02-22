@@ -14,7 +14,7 @@ namespace AIMS.DomainModel.Entities
         public int JournalTemplateTxnID { get; set; }
         public virtual JournalTemplateTxn JournalTemplateTxn { get; set; }
 
-        public int LedgerAccountID { get; set; }
+        public int? LedgerAccountID { get; set; }
         public virtual LedgerAccount LedgerAccount { get; set; }
 
         [Required]
@@ -29,6 +29,12 @@ namespace AIMS.DomainModel.Entities
 
         [Required]
         public bool InheritPublic { get; set; }
+
+        [Required]
+        public bool CoverageExpenseAccount { get; set; }
+
+        [Required]
+        public bool CoverageIncomeAccount { get; set; }
 
 
     }

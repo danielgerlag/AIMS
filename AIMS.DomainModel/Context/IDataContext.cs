@@ -40,6 +40,7 @@ namespace AIMS.DomainModel.Context
         DbSet<LedgerAccount> LedgerAccounts { get; set; }
         DbSet<LedgerAccountType> LedgerAccountTypes { get; set; }
         DbSet<LedgerTxn> LedgerTxns { get; set; }
+        DbSet<Ledger> Ledgers { get; set; }
 
         DbSet<Operator> Operators { get; set; }
         DbSet<OperatorType> OperatorTypes { get; set; }

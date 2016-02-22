@@ -22,3 +22,5 @@
 /AIMS.Client/styles
 /AIMS.DistributedServices.Infrastructure/bin
 /AIMS.DistributedServices.Infrastructure/obj
+/AIMS.Services.TransactionProcessing/obj
+/AIMS.Services.TransactionProcessing/bin

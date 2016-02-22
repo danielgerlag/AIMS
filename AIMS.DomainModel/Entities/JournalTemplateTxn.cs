@@ -32,10 +32,17 @@ namespace AIMS.DomainModel.Entities
 
         public int? AmountInputID { get; set; }
         public virtual JournalTemplateInput AmountInput { get; set; }
+        
+
+        public int? AmountContextParameterID { get; set; }
+        public virtual ContextParameter AmountContextParameter { get; set; }
+
+        public decimal? Amount { get; set; }
+
 
         public int? ReferenceInputID { get; set; }
         public virtual JournalTemplateInput ReferenceInput { get; set; }
-
+        
 
         public virtual ICollection<JournalTemplateTxnPosting> Postings { get; set; } = new HashSet<JournalTemplateTxnPosting>();
     }

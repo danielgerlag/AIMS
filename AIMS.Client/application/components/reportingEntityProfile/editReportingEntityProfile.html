@@ -11,6 +11,7 @@
             <tab heading="Ledger Accounts">
                 <table>
                     <tr>
+                        <th>Ledger</th>
                         <th>Name</th>
                         <th>Type</th>
                         <th>Closing Account</th>
@@ -21,11 +22,19 @@
                     </tr>
                     <tr *ngFor="#ledgerAccount of entity.LedgerAccounts">
                         <td>
+                            <entity-dropdown [(value)]="ledgerAccount.LedgerID"
+                                             name="LedgerID"
+                                             query="Ledgers"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
                             <input type="text" class="form-control" name="Name" [(ngModel)]="ledgerAccount.Name">
                         </td>
                         <td>
-                            <entity-dropdown 
-                                             [(value)]="ledgerAccount.LedgerAccountTypeID"
+                            <entity-dropdown [(value)]="ledgerAccount.LedgerAccountTypeID"
                                              name="LedgerAccountTypeID"
                                              query="LedgerAccountTypes"
                                              keyField="ID"

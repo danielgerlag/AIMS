@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace AIMS.DistributedServices.Infrastructure
         protected readonly string _receiveService;
 
         protected readonly string _queueName;
+
+        protected List<ItemInfo> _inProcItems = new List<ItemInfo>();
 
         public SSBQueueManager(string connectionString, string queueName, string receiveService)
         {
@@ -62,12 +65,55 @@ namespace AIMS.DistributedServices.Infrastructure
 
             if (result is int)
             {
-                return new ReceivedMessage(Convert.ToInt32(result), this, txn);
+                var item = new ReceivedMessage(Convert.ToInt32(result));
+                _inProcItems.Add(new ItemInfo() { Message = item, Transaction = txn, Connection = conn });
+                return item;
             }
 
             txn.Rollback();
             conn.Close();
             return null;
+        }
+                
+
+        
+        public void Ack(ReceivedMessage item)
+        {
+            var message = _inProcItems.FirstOrDefault(x => x.Message == item);
+            if (message != null)
+            {                
+                if (message.Transaction != null)
+                {
+                    message.Transaction.Commit();
+                    CloseConnection(message);
+                }
+                _inProcItems.Remove(message);
+            }
+        }
+
+        public void NAck(ReceivedMessage item)
+        {
+            var message = _inProcItems.FirstOrDefault(x => x.Message == item);
+            if (message != null)
+            {
+                if (message.Transaction != null)
+                {
+                    message.Transaction.Rollback();
+                    CloseConnection(message);
+                }
+                _inProcItems.Remove(message);
+            }
+        }
+
+        public void Requeue(ReceivedMessage item)
+        {
+            var message = _inProcItems.FirstOrDefault(x => x.Message == item);
+            if (message != null)
+            {
+                Ack(item);
+                System.Threading.Thread.Sleep(2000);
+                Enqueue(item.Payload);
+            }
         }
 
         //public int Count()
@@ -76,6 +122,25 @@ namespace AIMS.DistributedServices.Infrastructure
         //    int result = dataService.Context.ExecuteStoreQuery<int>("SELECT count(*) FROM [dbo]." + QueueName + " WITH(NOLOCK)").First();
         //    return result;
         //}
+
+        private void CloseConnection(ItemInfo item)
+        {
+            try
+            {
+                item.Connection.Close();
+            }
+            catch
+            {
+            }
+        }
+
+
+        public class ItemInfo
+        {
+            public ReceivedMessage Message { get; set; }            
+            public DbTransaction Transaction { get; set; }
+            public DbConnection Connection { get; set; }
+        }
 
     }
 }

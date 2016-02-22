@@ -16,6 +16,9 @@ namespace AIMS.DomainModel.Entities
         public int LedgerAccountTypeID { get; set; }
         public virtual LedgerAccountType LedgerAccountType { get; set; }
 
+        public int LedgerID { get; set; }
+        public virtual Ledger Ledger { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }

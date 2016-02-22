@@ -16,9 +16,24 @@ namespace AIMS.DistributedServices.Infrastructure
         {
         }
 
+        public void Ack(ReceivedMessage item)
+        {
+            
+        }
+
         public void Enqueue(int obj)
         {
             _queue.Enqueue(obj);
+        }
+
+        public void NAck(ReceivedMessage item)
+        {
+            _queue.Enqueue(item.Payload);
+        }
+
+        public void Requeue(ReceivedMessage item)
+        {
+            _queue.Enqueue(item.Payload);
         }
 
         public ReceivedMessage TryDequeue(int timeout)
@@ -26,7 +41,7 @@ namespace AIMS.DistributedServices.Infrastructure
             int item;
             if (_queue.TryDequeue(out item))
             {
-                return new ReceivedMessage(item, this, null);
+                return new ReceivedMessage(item);
             }
             return null;
         }

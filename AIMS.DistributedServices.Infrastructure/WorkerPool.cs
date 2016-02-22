@@ -95,14 +95,14 @@ namespace AIMS.DistributedServices.Infrastructure
                                         }
                                         finally
                                         {
-                                            item.Ack();
+                                            _queue.Ack(item);
                                             worker.ReleaseLock();
                                             worker.Dispose();
                                         }
                                     }
                                     catch (Exception ex)
                                     {
-                                        item.Ack();
+                                        _queue.Ack(item);
                                         worker.ReleaseLock();
                                         worker.EndLog(false, true, true);
                                         worker.Dispose();
@@ -115,14 +115,14 @@ namespace AIMS.DistributedServices.Infrastructure
                                 else
                                 {
                                     //Thread.Sleep(2000);
-                                    item.Ack();
+                                    _queue.Ack(item);
                                     worker.EndLog(false, false, true);
                                     worker.Dispose();
                                 }
                             }
                             else
                             {
-                                item.Ack(); //item.Requeue();
+                                _queue.Ack(item);
                                 worker.EndLog(false, false, true);
                                 worker.Dispose();
                             }
@@ -130,7 +130,7 @@ namespace AIMS.DistributedServices.Infrastructure
                         catch (Exception ex)
                         {
                             Thread.Sleep(_timeOut); //throttle retries
-                            item.Ack(); //item.NAck();
+                            _queue.Ack(item);
                             ex.Data.Add("PoolType", GetType().Name);
                             ex.Data.Add("Key", item.Payload);
                             //todo: send alert

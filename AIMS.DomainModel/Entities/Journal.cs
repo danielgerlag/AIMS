@@ -21,6 +21,9 @@ namespace AIMS.DomainModel.Entities
         [MaxLength(300)]
         public string Description { get; set; }
 
+        [MaxLength(100)]
+        public string Reference { get; set; }
+
         [Required]
         [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
         public string TransactionOrigin { get; set; }

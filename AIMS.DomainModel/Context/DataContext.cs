@@ -46,6 +46,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<LedgerAccount> LedgerAccounts { get; set; }
         public virtual DbSet<LedgerAccountType> LedgerAccountTypes { get; set; }
         public virtual DbSet<LedgerTxn> LedgerTxns { get; set; }
+        public virtual DbSet<Ledger> Ledgers { get; set; }
 
         public virtual DbSet<Operator> Operators { get; set; }
         public virtual DbSet<OperatorType> OperatorTypes { get; set; }

@@ -28,6 +28,17 @@
                         <option value="B">Branch</option>
                     </select>
                 </form-input>
+
+                <form-input [entity]="entity" name="SequenceNumberID" title="Sequence Number">
+                    <entity-dropdown [(value)]="entity.SequenceNumberID"
+                                     name="SequenceNumberID"
+                                     query="SequenceNumbers"
+                                     keyField="ID"
+                                     displayField="Name"
+                                     nullable="false">
+                    </entity-dropdown>
+                </form-input>
+
             </tab>
             <tab heading="Inputs">
                 <table class="table">
