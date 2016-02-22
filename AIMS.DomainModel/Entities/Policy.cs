@@ -1,4 +1,6 @@
 ﻿using AIMS.DomainModel.Abstractions.Entities;
+using AIMS.DomainModel.Abstractions.Intercepts;
+using AIMS.DomainModel.Intercepts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
+    [Intercept(Intercept = typeof(GeneratePolicyNumber), Stage = Stage.OnAddBeforeCommit, Order = 1)]
     public class Policy : BaseEntity
     {
 

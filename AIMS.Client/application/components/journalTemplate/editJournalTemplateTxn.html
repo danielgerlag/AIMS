@@ -7,13 +7,13 @@
         <tabset>
             <tab heading="General">
                 <div class="form-horizontal">
-                                        
+
                     <form-input [entity]="entity" name="Description" title="Name" labelClass="col-sm-2">
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
                         </div>
                     </form-input>
-                    
+
 
                     <form-input [entity]="entity" name="JournalTxnClassID" title="Class" labelClass="col-sm-2">
                         <div class="col-sm-10">
@@ -24,6 +24,17 @@
                                              displayField="Description"
                                              nullable="false">
                             </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="BalanceOrigin" title="Balance Origin" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <select class="form-control" [(ngModel)]="entity.BalanceOrigin">                                
+                                <option value="P">Policy</option>
+                                <option value="U">Public</option>
+                                <option value="A">Agent</option>
+                                <option value="B">Branch</option>
+                            </select>
                         </div>
                     </form-input>
 
@@ -61,19 +72,7 @@
                                              nullable="true">
                             </entity-dropdown>
                         </div>
-                    </form-input>
-
-                    <form-input [entity]="entity" name="ReferenceInputID" title="Reference Input" labelClass="col-sm-2">
-                        <div class="col-sm-10">
-                            <entity-dropdown [(value)]="entity.ReferenceInputID"
-                                             name="ReferenceInputID"
-                                             [boundList]="entity.JournalTemplate.Inputs"
-                                             keyField="ID"
-                                             displayField="Name"
-                                             nullable="true">
-                            </entity-dropdown>
-                        </div>
-                    </form-input>
+                    </form-input>                                        
 
                     <form-input [entity]="entity" name="AmountInputID" title="Amount Input" labelClass="col-sm-2">
                         <div class="col-sm-10">
@@ -87,7 +86,7 @@
                         </div>
                     </form-input>
 
-                    <form-input [entity]="entity" name="AmountContextParameterID" title="Amount Context Parameter" labelClass="col-sm-2">
+                    <form-input [entity]="entity" name="AmountContextParameterID" title="Source Context Parameter" labelClass="col-sm-2">
                         <div class="col-sm-10">
                             <entity-dropdown [(value)]="entity.AmountContextParameterID"
                                              name="AmountContextParameterID"
@@ -98,6 +97,20 @@
                             </entity-dropdown>
                         </div>
                     </form-input>
+
+
+                    <form-input [entity]="entity" name="AmountLedgerAccountID" title="Source Ledger Account" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.AmountLedgerAccountID"
+                                             name="AmountLedgerAccountID"
+                                             [boundList]="entity.ReportingEntityProfile.LedgerAccounts"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+                    
 
                     <form-input [entity]="entity" name="Amount" title="Fixed Amount" labelClass="col-sm-2">
                         <div class="col-sm-10">

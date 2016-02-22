@@ -28,6 +28,21 @@ namespace AIMS.DomainModel.Entities
         [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
         public string TransactionOrigin { get; set; }
 
+        public int? PolicyID { get; set; }
+        public virtual Policy Policy { get; set; }
+
+        public int? PublicID { get; set; }
+        public virtual Public Public { get; set; }
+
+        public int? ServiceProviderID { get; set; }
+        public virtual ServiceProvider ServiceProvider { get; set; }
+
+        public int? ReportingEntityBranchID { get; set; }
+        public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
+
+        public int? AgentID { get; set; }
+        public virtual Agent Agent { get; set; }
+
         public virtual ICollection<JournalTxn> JournalTxns { get; set; } = new HashSet<JournalTxn>();
 
     }

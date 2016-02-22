@@ -37,12 +37,16 @@ namespace AIMS.DomainModel.Entities
         public int? AmountContextParameterID { get; set; }
         public virtual ContextParameter AmountContextParameter { get; set; }
 
+        public int? AmountLedgerAccountID { get; set; }
+        public virtual LedgerAccount AmountLedgerAccount { get; set; }
+
         public decimal? Amount { get; set; }
+                
 
+        [Required]
+        [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
+        public string BalanceOrigin { get; set; }
 
-        public int? ReferenceInputID { get; set; }
-        public virtual JournalTemplateInput ReferenceInput { get; set; }
-        
 
         public virtual ICollection<JournalTemplateTxnPosting> Postings { get; set; } = new HashSet<JournalTemplateTxnPosting>();
     }

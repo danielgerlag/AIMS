@@ -30,6 +30,9 @@ namespace AIMS.DomainModel.Entities
         public int? SequenceNumberID { get; set; }
         public virtual SequenceNumber SequenceNumber { get; set; }
 
+        public int? ReferenceInputID { get; set; }
+        public virtual JournalTemplateInput ReferenceInput { get; set; }
+
 
         public virtual ICollection<JournalTemplateTxn> JournalTemplateTxns { get; set; } = new HashSet<JournalTemplateTxn>();
 

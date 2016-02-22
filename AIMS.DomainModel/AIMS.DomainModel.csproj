@@ -131,6 +131,7 @@
     <Compile Include="Entities\TransactionTriggerInput.cs" />
     <Compile Include="Indexers\PolicyIndexer.cs" />
     <Compile Include="Indexers\PublicIndexer.cs" />
+    <Compile Include="Intercepts\GeneratePolicyNumber.cs" />
     <Compile Include="Intercepts\EnqueueTransactionTrigger.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.cs" />
     <Compile Include="Migrations\201602170057404_InitialCreate.Designer.cs">
@@ -224,8 +225,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ServiceCollectionExtensions.cs" />
+    <Compile Include="Services\ContextParameterResolver.cs" />
+    <Compile Include="Services\IContextParameterResolver.cs" />
     <Compile Include="Services\IJournalGenerator.cs" />
+    <Compile Include="Services\IJournalPoster.cs" />
+    <Compile Include="Services\ISequenceNumberGeneator.cs" />
+    <Compile Include="Services\JournalPoster.cs" />
     <Compile Include="Services\JournalGenerator.cs" />
+    <Compile Include="Services\SequenceNumberGeneator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.DistributedServices.Infrastructure\AIMS.DistributedServices.Infrastructure.csproj">

@@ -39,6 +39,16 @@
                     </entity-dropdown>
                 </form-input>
 
+                <form-input [entity]="entity" name="ReferenceInputID" title="Reference Input">
+                    <entity-dropdown [(value)]="entity.ReferenceInputID"
+                                     name="ReferenceInputID"
+                                     [boundList]="Inputs"
+                                     keyField="ID"
+                                     displayField="Name"
+                                     nullable="true">
+                    </entity-dropdown>
+                </form-input>
+
             </tab>
             <tab heading="Inputs">
                 <table class="table">

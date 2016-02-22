@@ -13,11 +13,9 @@ namespace AIMS.DomainModel.Intercepts
 {
     public class EnqueueTransactionTrigger : EntityIntercept<TransactionTrigger>
     {
-
-        IJournalGenerator _journalGenerator;
-        public EnqueueTransactionTrigger(IJournalGenerator journalGenerator)
-        {
-            _journalGenerator = journalGenerator;
+                
+        public EnqueueTransactionTrigger()
+        {            
         }
 
         public override void Run(TransactionTrigger entity, IDbContext dataContext)
