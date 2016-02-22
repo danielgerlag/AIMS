@@ -22,7 +22,8 @@ namespace AIMS.DomainModel.Migrations
             AddForeignKey("dbo.TransactionTrigger", "PolicyID", "dbo.Policy", "ID");
             AddForeignKey("dbo.TransactionTrigger", "PublicID", "dbo.Public", "ID");
             AddForeignKey("dbo.TransactionTrigger", "ReportingEntityBranchID", "dbo.ReportingEntityBranch", "ID");
-            AddForeignKey("dbo.TransactionTrigger", "ServiceProviderID", "dbo.ServiceProvider", "ID");
+            AddForeignKey("dbo.TransactionTrigger", "ServiceProviderID", "dbo.ServiceProvider", "ID");            
+
         }
         
         public override void Down()

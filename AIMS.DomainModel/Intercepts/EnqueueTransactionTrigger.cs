@@ -1,4 +1,4 @@
-﻿using AIMS.DomainModel.Abstractions.Intercepts;
+using AIMS.DomainModel.Abstractions.Intercepts;
 using AIMS.DomainModel.Entities;
 using AIMS.DomainModel.Interface;
 using AIMS.DomainModel.Services;
@@ -22,10 +22,10 @@ namespace AIMS.DomainModel.Intercepts
         public override void Run(TransactionTrigger entity, IDbContext dataContext)
         {
             //entity.Description = entity.Description + " Boo";
-            if (entity.Status.Code == "A")
-                _journalGenerator.Run(entity.ID);
+            //if (entity.Status.Code == "A")
+            //    _journalGenerator.Run(entity.ID);
 
         }
-        
+
     }
 }

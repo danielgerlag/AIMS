@@ -7,21 +7,19 @@ using System.Threading.Tasks;
 
 namespace AIMS.DistributedServices.Infrastructure
 {
-    abstract class BasePool : IWorkerPool
+    public abstract class WorkerPool : IWorkerPool
     {
         protected bool _shutdown = true;
         protected int _maxThreads;
         protected List<Thread> _threads = new List<Thread>();
         protected IQueueManager _queue;
-        protected int _timeOut;
-        protected string _connectionString;
+        protected int _timeOut;        
         private Object _counterLock = new Object();
 
         private int _counter = 0;
 
-        public BasePool(string connectionString, int threadCount, TimeSpan timeOut)
-        {
-            _connectionString = connectionString;
+        public WorkerPool(int threadCount, TimeSpan timeOut)
+        {           
             _maxThreads = threadCount;
             _timeOut = Convert.ToInt32(timeOut.TotalMilliseconds);
             _queue = CreateQueue();

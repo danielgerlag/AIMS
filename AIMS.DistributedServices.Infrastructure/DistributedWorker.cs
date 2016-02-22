@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace AIMS.DistributedServices.Infrastructure
 {
-    abstract class BaseWorker : IDisposable, IWorker
+    public abstract class DistributedWorker : IDisposable, IWorker
     {
         protected List<string> _lockKeys = new List<string>();
-        protected ILockService _lockService;
-        protected string _connectionString { get; set; }
+        protected ILockService _lockService;        
 
         public int ThreadNumber { get; set; }
         public ReceivedMessage Message { get; set; }
 
-        public BaseWorker(string connectionString)
+        public DistributedWorker()
         {
-            _connectionString = connectionString;
+            
         }
 
         public virtual void Init(ReceivedMessage message, int threadNumber)
@@ -34,7 +33,7 @@ namespace AIMS.DistributedServices.Infrastructure
         public bool AquireLock()
         {
             bool result = true;
-            _lockService = new LockService(_connectionString);
+            _lockService = Services.IoC.Container.Resolve<ILockService>(); //new LockService(_connectionString);
             foreach (string lockID in _lockKeys)
             {
                 bool firstPass = _lockService.AquireLock(lockID);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.DistributedServices.Infrastructure
 {
-    public class QueueManager : IQueueManager
+    public class SSBQueueManager : IQueueManager
     {
 
         protected readonly string _connectionString;
@@ -16,7 +16,7 @@ namespace AIMS.DistributedServices.Infrastructure
 
         protected readonly string _queueName;
 
-        public QueueManager(string connectionString, string queueName, string receiveService)
+        public SSBQueueManager(string connectionString, string queueName, string receiveService)
         {
             _connectionString = connectionString;
             _receiveService = receiveService;

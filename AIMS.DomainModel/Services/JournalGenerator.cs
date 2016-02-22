@@ -10,20 +10,10 @@ namespace AIMS.DomainModel.Services
 {
     public class JournalGenerator : IJournalGenerator
     {
-        protected readonly IDataContext _db;
-                
-        private TransactionTriggerStatus supendedStatus;
-
-        public JournalGenerator(IDataContext db)
+        
+        public JournalRunResult Run(IDataContext db, TransactionTrigger transactionTrigger)
         {
-            _db = db;
-            supendedStatus = db.TransactionTriggerStatuses.First(x => x.Code == "S");
-        }
-
-
-        public void Run(int transactionTriggerID)
-        {
-            TransactionTrigger transactionTrigger =_db.TransactionTriggers.Find(transactionTriggerID);
+            JournalRunResult result = new JournalRunResult();                       
 
             Journal journal = new Journal();
             journal.Description = transactionTrigger.Description;
@@ -31,7 +21,7 @@ namespace AIMS.DomainModel.Services
             journal.ReportingEntity = transactionTrigger.ReportingEntity;
             journal.TransactionOrigin = transactionTrigger.TransactionOrigin;
                 
-            _db.Journals.Add(journal);
+            db.Journals.Add(journal);
 
             foreach (var templateTxn in transactionTrigger.JournalTemplate.JournalTemplateTxns)
             {
@@ -60,9 +50,13 @@ namespace AIMS.DomainModel.Services
 
             //}
 
-            transactionTrigger.Status = supendedStatus;
+            transactionTrigger.Status = db.TransactionTriggerStatuses.First(x => x.Code == "S");
 
-            _db.SaveChanges();
+            result.Journals.Add(journal);
+            return result;
         }
+
+        
     }
+        
 }

@@ -17,5 +17,9 @@ namespace AIMS.DomainModel.Interface
         DbContextConfiguration Configuration { get; }
         Database Database { get; }
 
+        DbEntityEntry Entry(object entity);
+        
+        DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+
     }
 }

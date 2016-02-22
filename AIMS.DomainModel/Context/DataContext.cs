@@ -83,7 +83,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
         public virtual DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
         public virtual DbSet<TransactionTriggerStatus> TransactionTriggerStatuses { get; set; }
-
+        public virtual DbSet<TransactionTriggerLog> TransactionTriggerLogs { get; set; }
 
         public virtual DbSet<PolicyStatus> PolicyStatuses { get; set; }
 

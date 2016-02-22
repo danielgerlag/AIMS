@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.DistributedServices.Infrastructure
 {
-    interface IWorker : IDisposable
+    public interface IWorker : IDisposable
     {
         void Init(ReceivedMessage message, int threadNumber);
         bool AquireLock();

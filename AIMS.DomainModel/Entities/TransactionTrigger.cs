@@ -42,7 +42,11 @@ namespace AIMS.DomainModel.Entities
 
         public DateTime? EffectiveTo { get; set; }
 
+        public bool OnHold { get; set; }
+
         public virtual ICollection<TransactionTriggerInput> Inputs { get; set; } = new HashSet<TransactionTriggerInput>();
+
+        public virtual ICollection<TransactionTriggerLog> Logs { get; set; } = new HashSet<TransactionTriggerLog>();
 
 
         public int? PolicyID { get; set; }
