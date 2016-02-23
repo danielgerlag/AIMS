@@ -37,43 +37,7 @@
                             </select>
                         </div>
                     </form-input>
-
-                    <form-input [entity]="entity" name="PublicRequirementID" title="Public Requirement" labelClass="col-sm-2">
-                        <div class="col-sm-10">
-                            <entity-dropdown [(value)]="entity.PublicRequirementID"
-                                             name="PublicRequirementID"
-                                             query="PublicRequirements"
-                                             keyField="ID"
-                                             displayField="Name"
-                                             nullable="true">
-                            </entity-dropdown>
-                        </div>
-                    </form-input>
-
-                    <form-input [entity]="entity" name="ServiceProviderTypeID" title="Service Provider Type" labelClass="col-sm-2">
-                        <div class="col-sm-10">
-                            <entity-dropdown [(value)]="entity.ServiceProviderTypeID"
-                                             name="ServiceProviderTypeID"
-                                             query="ServiceProviderTypes"
-                                             keyField="ID"
-                                             displayField="Name"
-                                             nullable="true">
-                            </entity-dropdown>
-                        </div>
-                    </form-input>
-
-                    <form-input [entity]="entity" name="AgentTypeID" title="Agent Type" labelClass="col-sm-2">
-                        <div class="col-sm-10">
-                            <entity-dropdown [(value)]="entity.AgentTypeID"
-                                             name="AgentTypeID"
-                                             query="AgentTypes"
-                                             keyField="ID"
-                                             displayField="Name"
-                                             nullable="true">
-                            </entity-dropdown>
-                        </div>
-                    </form-input>                                        
-
+                    
                     <form-input [entity]="entity" name="AmountInputID" title="Amount Input" labelClass="col-sm-2">
                         <div class="col-sm-10">
                             <entity-dropdown [(value)]="entity.AmountInputID"

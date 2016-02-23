@@ -20,6 +20,7 @@ namespace AIMS.DomainModel.Entities
         public int PolicyID { get; set; }
         public virtual Policy Policy { get; set; }
 
+        public decimal? BillingPercent { get; set; }
 
     }
 

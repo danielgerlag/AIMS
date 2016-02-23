@@ -24,18 +24,90 @@ namespace AIMS.DomainModel.Services
         {
             JournalRunResult result = new JournalRunResult();
 
-            Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, null, null); //todo
-            _journalPoster.Run(db, journal);
+            if (transactionTrigger.TransactionOrigin == "G")
+            {
+                Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
+                _journalPoster.Run(db, journal);
+                result.Journals.Add(journal);
+            }
 
-            result.Journals.Add(journal);
+
+            if (transactionTrigger.TransactionOrigin == "P")
+            {
+                if (transactionTrigger.JournalTemplate.PublicRequirement != null)
+                {
+                    if (transactionTrigger.JournalTemplate.PublicRequirement.IsPolicyHolder)
+                    {
+                        decimal totalPerc = 0;
+                        foreach (var policyHolder in transactionTrigger.Policy.PolicyHolders)
+                        {
+                            if (policyHolder.BillingPercent.HasValue)
+                            {
+                                if (policyHolder.BillingPercent.Value != 0)
+                                {
+                                    Journal journal = BuildJournal(db, transactionTrigger, policyHolder.Public, null, null, policyHolder.BillingPercent.Value);
+                                    _journalPoster.Run(db, journal);
+                                    result.Journals.Add(journal);
+                                }
+                                totalPerc += policyHolder.BillingPercent.Value;
+                            }                            
+                        }
+                        if (totalPerc != 1)
+                            throw new Exception("Policy holder split does not add up to 100%");
+                    }
+
+                    if (transactionTrigger.JournalTemplate.PublicRequirement.IsServiceProvider)
+                    {
+                        decimal totalPerc = 0;
+                        foreach (var sp in transactionTrigger.Policy.ServiceProviders.Where(x => x.ServiceProviderTypeID == transactionTrigger.JournalTemplate.ServiceProviderTypeID))
+                        {                            
+                            if (sp.Percentage != 0)
+                            {
+                                Journal journal = BuildJournal(db, transactionTrigger, sp.ServiceProvider.Public, sp.ServiceProvider, null, sp.Percentage);
+                                _journalPoster.Run(db, journal);
+                                result.Journals.Add(journal);
+                            }
+                            totalPerc += sp.Percentage;
+                            
+                        }
+                        if (totalPerc != 1)
+                            throw new Exception("Service Provider split does not add up to 100%");
+                    }
+
+                    if (transactionTrigger.JournalTemplate.PublicRequirement.IsAgent)
+                    {
+                        decimal totalPerc = 0;
+                        foreach (var agent in transactionTrigger.Policy.Agents.Where(x => x.AgentTypeID == transactionTrigger.JournalTemplate.AgentTypeID))
+                        {
+                            if (agent.Percentage != 0)
+                            {
+                                Journal journal = BuildJournal(db, transactionTrigger, agent.Agent.Public, null, agent.Agent, agent.Percentage);
+                                _journalPoster.Run(db, journal);
+                                result.Journals.Add(journal);
+                            }
+                            totalPerc += agent.Percentage;
+
+                        }
+                        if (totalPerc != 1)
+                            throw new Exception("Agent split does not add up to 100%");
+                    }
+
+                }
+                else
+                {
+                    Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
+                    _journalPoster.Run(db, journal);
+                    result.Journals.Add(journal);
+                }
+            }
 
             IncrementTrigger(db, transactionTrigger);
             
             return result;
         }
 
-        private Journal BuildJournal(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, ServiceProvider serviceProvider, Agent agent)
-        {
+        private Journal BuildJournal(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, ServiceProvider serviceProvider, Agent agent, decimal percentage)
+        {            
             Journal journal = new Journal();
             journal.Description = transactionTrigger.Description;
             journal.JournalType = transactionTrigger.JournalTemplate.JournalType;
@@ -45,6 +117,7 @@ namespace AIMS.DomainModel.Services
             journal.Public = resolvedPublic;
             journal.ServiceProvider = serviceProvider;
             journal.Agent = agent;
+            journal.TxnDate = transactionTrigger.TxnDate.Value;
             journal.Reference = ResolveReference(db, transactionTrigger);
 
             db.Journals.Add(journal);
@@ -53,26 +126,26 @@ namespace AIMS.DomainModel.Services
             {
                 if (templateTxn.JournalTxnClass.OfCoveragePremium)
                 {
-                    BuildCoverageTxns(db, transactionTrigger, resolvedPublic, journal, templateTxn);                    
+                    BuildCoverageTxns(db, transactionTrigger, resolvedPublic, journal, templateTxn, percentage);                    
                 }
                 else
                 {
-                    BuildStandardTxn(db, transactionTrigger, resolvedPublic, journal, templateTxn);
+                    BuildStandardTxn(db, transactionTrigger, resolvedPublic, journal, templateTxn, percentage);
                 }
             }
 
             return journal;
         }
 
-        private void BuildStandardTxn(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn)
+        private void BuildStandardTxn(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn, decimal percentage)
         {
             JournalTxn txn = new JournalTxn();
 
             if (templateTxn.JournalTxnClass.IsDefinedAmount)
-                txn.Amount = ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn);
+                txn.Amount = (ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * percentage);
 
             if (templateTxn.JournalTxnClass.OfLedgerAccount)
-                txn.Amount = (ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, transactionTrigger, templateTxn, resolvedPublic));
+                txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, transactionTrigger, templateTxn, resolvedPublic)) * percentage);
 
             txn.Description = templateTxn.Description;
             txn.Policy = transactionTrigger.Policy;
@@ -85,12 +158,12 @@ namespace AIMS.DomainModel.Services
             journal.JournalTxns.Add(txn);
         }
         
-        private void BuildCoverageTxns(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn)
+        private void BuildCoverageTxns(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn, decimal percentage)
         {
             foreach (var coverage in transactionTrigger.Policy.Coverages)
             {
                 JournalTxn txn = new JournalTxn();
-                txn.Amount = (ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value);
+                txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value) * percentage);
                 txn.Description = templateTxn.Description + " - " + coverage.CoverageType.Name;
                 txn.Policy = transactionTrigger.Policy;
                 txn.Public = transactionTrigger.Public;

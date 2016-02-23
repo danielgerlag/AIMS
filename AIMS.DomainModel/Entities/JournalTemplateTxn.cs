@@ -20,15 +20,7 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [MaxLength(300)]
         public string Description { get; set; }
-
-        public int? PublicRequirementID { get; set; }
-        public virtual PublicRequirement PublicRequirement { get; set; }
-
-        public int? ServiceProviderTypeID { get; set; }
-        public virtual ServiceProviderType ServiceProviderType { get; set; }
-
-        public int? AgentTypeID { get; set; }
-        public virtual AgentType AgentType { get; set; }
+                
 
         public int? AmountInputID { get; set; }
         public virtual JournalTemplateInput AmountInput { get; set; }

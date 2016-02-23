@@ -33,6 +33,15 @@ namespace AIMS.DomainModel.Entities
         public int? ReferenceInputID { get; set; }
         public virtual JournalTemplateInput ReferenceInput { get; set; }
 
+        public int? PublicRequirementID { get; set; }
+        public virtual PublicRequirement PublicRequirement { get; set; }
+
+        public int? ServiceProviderTypeID { get; set; }
+        public virtual ServiceProviderType ServiceProviderType { get; set; }
+
+        public int? AgentTypeID { get; set; }
+        public virtual AgentType AgentType { get; set; }
+
 
         public virtual ICollection<JournalTemplateTxn> JournalTemplateTxns { get; set; } = new HashSet<JournalTemplateTxn>();
 

@@ -6,48 +6,98 @@
     <div class="modal-body">
         <tabset>
             <tab heading="General">
-                <form-input [entity]="entity" name="Description" title="Name">
-                    <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
-                </form-input>
-                <form-input [entity]="entity" name="JournalTypeID" title="Type">
-                    <entity-dropdown [(value)]="entity.JournalTypeID"
-                                     name="JournalTypeID"
-                                     query="JournalTypes"
-                                     keyField="ID"
-                                     displayField="Name"
-                                     nullable="false">
-                    </entity-dropdown>
-                </form-input>
+                <div class="form-horizontal">
 
-                <form-input [entity]="entity" name="TransactionOrigin" title="Origin">
-                    <select class="form-control" [(ngModel)]="entity.TransactionOrigin">
-                        <option value="G">Global</option>
-                        <option value="P">Policy</option>
-                        <option value="U">Public</option>
-                        <option value="A">Agent</option>
-                        <option value="B">Branch</option>
-                    </select>
-                </form-input>
+                    <form-input [entity]="entity" name="Description" title="Name" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
+                        </div>
+                    </form-input>
 
-                <form-input [entity]="entity" name="SequenceNumberID" title="Sequence Number">
-                    <entity-dropdown [(value)]="entity.SequenceNumberID"
-                                     name="SequenceNumberID"
-                                     query="SequenceNumbers"
-                                     keyField="ID"
-                                     displayField="Name"
-                                     nullable="false">
-                    </entity-dropdown>
-                </form-input>
+                    <form-input [entity]="entity" name="JournalTypeID" title="Type">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.JournalTypeID"
+                                             name="JournalTypeID"
+                                             query="JournalTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
 
-                <form-input [entity]="entity" name="ReferenceInputID" title="Reference Input">
-                    <entity-dropdown [(value)]="entity.ReferenceInputID"
-                                     name="ReferenceInputID"
-                                     [boundList]="Inputs"
-                                     keyField="ID"
-                                     displayField="Name"
-                                     nullable="true">
-                    </entity-dropdown>
-                </form-input>
+                    <form-input [entity]="entity" name="TransactionOrigin" title="Origin" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <select class="form-control" [(ngModel)]="entity.TransactionOrigin">
+                                <option value="G">Global</option>
+                                <option value="P">Policy</option>
+                                <option value="U">Public</option>
+                                <option value="A">Agent</option>
+                                <option value="B">Branch</option>
+                            </select>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="SequenceNumberID" title="Sequence Number" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.SequenceNumberID"
+                                             name="SequenceNumberID"
+                                             query="SequenceNumbers"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="ReferenceInputID" title="Reference Input" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.ReferenceInputID"
+                                             name="ReferenceInputID"
+                                             [boundList]="Inputs"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="PublicRequirementID" title="Public Requirement" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.PublicRequirementID"
+                                             name="PublicRequirementID"
+                                             query="PublicRequirements"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="ServiceProviderTypeID" title="Service Provider Type" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.ServiceProviderTypeID"
+                                             name="ServiceProviderTypeID"
+                                             query="ServiceProviderTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" name="AgentTypeID" title="Agent Type" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.AgentTypeID"
+                                             name="AgentTypeID"
+                                             query="AgentTypes"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+                </div>
 
             </tab>
             <tab heading="Inputs">
