@@ -6,6 +6,7 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
+import {DateInput} from '../../directives/input/dateInput';
 
 import {PolicyReportingEntities} from '../../directives/policy/policyReportingEntities';
 import {PolicyServiceProviders} from '../../directives/policy/policyServiceProviders';
@@ -15,8 +16,8 @@ import {PolicyInsurableItems} from '../../directives/policy/policyInsurableItems
 import {PolicyHolders} from '../../directives/policy/policyHolders';
 
 import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
-
 import {JournalExplorer} from '../../components/journal/journalExplorer';
+import {LedgerBalances} from '../../components/journal/ledgerBalances';
 
 
 import {IShellService} from '../../services/shellService';
@@ -27,17 +28,19 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policy/editPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput],
     pipes: [JsonPipe]
 })
 export class EditPolicy extends CRUDController {
 
     private ready: boolean;
+    ledgerBalanceDate: Date;
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Policy";
         this.ready = false;
+        this.ledgerBalanceDate = moment().toDate();
     }
 
     protected typeName(): string {

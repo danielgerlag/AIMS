@@ -11,6 +11,7 @@
     "es6-shim": "0.33.3",
     "filesaver.js": "^0.2.0",
     "jquery": "^2.2.0",
+    "moment": "^2.11.2",
     "ng2-bootstrap": "1.0.1-beta.0",
     "ng2-file-upload": "^0.46.0",
     "ng2-translate": "1.2.4",

@@ -1012,6 +1012,7 @@
     <Content Include="bower.json" />
     <Content Include="application\Web.config" />
     <TypeScriptCompile Include="application\components\errorDialog\errorDialog.ts" />
+    <TypeScriptCompile Include="application\components\journal\ledgerBalances.ts" />
     <TypeScriptCompile Include="application\components\journal\journalExplorer.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\transactionTriggers.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\newTransactionTrigger.ts" />
@@ -1318,6 +1319,8 @@
     <TypeScriptCompile Include="Scripts\typings\breeze\breeze.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\kendo.all.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\moment\moment-node.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="typings\angular2\angular2.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx-lite.d.ts" />

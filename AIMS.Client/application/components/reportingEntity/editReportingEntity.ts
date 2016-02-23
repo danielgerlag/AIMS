@@ -8,6 +8,12 @@ import {PublicSelector} from '../../directives/public/publicSelector';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 
+import {DateInput} from '../../directives/input/dateInput';
+
+import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
+import {JournalExplorer} from '../../components/journal/journalExplorer';
+import {LedgerBalances} from '../../components/journal/ledgerBalances';
+
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -16,14 +22,17 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/reportingEntity/editReportingEntity.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput],
     pipes: [JsonPipe]
 })
 export class EditReportingEntity extends CRUDController {
 
+    ledgerBalanceDate: Date;
+
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Reporting Entity";
+        this.ledgerBalanceDate = moment().toDate();
     }
 
     protected typeName(): string {
@@ -36,7 +45,12 @@ export class EditReportingEntity extends CRUDController {
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        result.push("Public");        
+        result.push("Public");
+
+        //result.push("TransactionTriggers");
+        //result.push("TransactionTriggers.JournalTemplate");
+        //result.push("TransactionTriggers.Inputs");        
+
         return result;
     }
 

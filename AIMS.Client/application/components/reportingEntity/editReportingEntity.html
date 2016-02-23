@@ -10,8 +10,7 @@
 
 
                 <form-input [entity]="entity" name="ReportingEntityProfileID" title="Configuration Profile">
-                    <entity-dropdown 
-                                     [(value)]="entity.ReportingEntityProfileID"
+                    <entity-dropdown [(value)]="entity.ReportingEntityProfileID"
                                      name="ReportingEntityProfileID"
                                      query="ReportingEntityProfiles"
                                      keyField="ID"
@@ -19,9 +18,29 @@
                                      nullable="false">
                     </entity-dropdown>
                 </form-input>
-                                
-                                
-            </tab>            
+
+
+            </tab>
+            <tab heading="Transaction Triggers">
+                <!--
+                <transactionTriggers [(value)]="entity" [dataService]="dataService" origin="G"></transactionTriggers>
+                    -->
+            </tab>
+
+            <tab heading="Balances">
+                Effective Date:
+                <input dateInput [(value)]="ledgerBalanceDate" />
+
+                <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+            </tab>
+
+            <tab heading="Journals">
+                id = {{entity.ID}}
+
+                <div journalExplorer path="ReportingEntities({{entity.ID}})/Journals"></div>
+            </tab>
+
+
         </tabset>
 
     </div>

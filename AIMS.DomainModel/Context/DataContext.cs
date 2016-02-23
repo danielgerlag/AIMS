@@ -89,6 +89,7 @@ namespace AIMS.DomainModel.Context
 
         public virtual DbSet<PolicyStatus> PolicyStatuses { get; set; }
 
+        
 
         protected override Type GetInterfaceType()
         {
@@ -117,8 +118,9 @@ namespace AIMS.DomainModel.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            
+
+            modelBuilder.ComplexType<Models.LedgerAccountBalance>();
+            base.OnModelCreating(modelBuilder);            
         }
 
     }

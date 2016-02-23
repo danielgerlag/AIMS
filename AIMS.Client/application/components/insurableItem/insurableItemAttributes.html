@@ -1,5 +1,5 @@
 ﻿
-<accordion *ngIf="ready" [closeOthers]="oneAtATime">
+<accordion *ngIf="ready" [closeOthers]="true">
     <accordion-group *ngFor="#group of insurableItemClass.Groups" heading="{{ group.Prompt }}">
         <div class="form-horizontal">
                         

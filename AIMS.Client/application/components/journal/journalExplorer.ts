@@ -115,11 +115,13 @@ export class JournalExplorer implements AfterContentInit {
                     virtual: true
                 },
                 sortable: true,
-                detailInit: ledgerTxnDetail,    
-                columns: [
-                    { field: "Description", title: "Description" },
-                    { field: "Amount", title: "Amount" }
-                ]
+                detailInit: ledgerTxnDetail,                    
+                columns: [{
+                        title: "Transactions",
+                        columns: [
+                            { field: "Description", title: "Description" },
+                            { field: "Amount", title: "Amount" }]
+                    }]                
             });
         }
     }
@@ -163,11 +165,14 @@ export class JournalExplorer implements AfterContentInit {
                 scrollable: {
                     virtual: true
                 },
-                sortable: true,
-                columns: [
-                    { field: "LedgerAccount.Name", title: "Account" },
-                    { field: "Amount", title: "Amount" }
-                ]
+                sortable: true,                
+
+                columns: [{
+                    title: "Ledger",
+                    columns: [
+                        { field: "LedgerAccount.Name", title: "Account" },
+                        { field: "Amount", title: "Amount" }]
+                }]                
             });
         }
     }

@@ -6,6 +6,7 @@
 using AIMS.DomainModel.Abstractions.Entities;
 using AIMS.DomainModel.Context;
 using AIMS.DomainModel.Entities;
+using AIMS.DomainModel.Models;
 using AIMS.Services.Indexer.Interface;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace AIMS.API
     [System.ServiceModel.ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class Data : EntityFrameworkDataService<WCFDataContext>
     {
+        //System.Data.Services.Providers.ServiceAction
         // This method is called only once to initialize service-wide policies.
         public static void InitializeService(DataServiceConfiguration config)
         {
@@ -43,7 +45,7 @@ namespace AIMS.API
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
             config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.SetServiceActionAccessRule("*", ServiceActionRights.Invoke);
-            config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;            
+            config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
         }
 
         private ISearchService _searchService = Services.IoC.Container.Resolve<ISearchService>();
@@ -72,17 +74,96 @@ namespace AIMS.API
 
         [WebGet]
         public IQueryable<Public> SearchPublics(string query)
-        {            
+        {
             var task = Task.Factory.StartNew<List<Public>>(new Func<List<Public>>(() =>
             {
                 List<Public> rawResult = new List<Public>();
                 rawResult.AddRange(_searchService.SearchEntity<Public>(query, CurrentDataSource, new string[] { }, null));
                 return rawResult;
-            }));            
+            }));
 
             return task.Result.AsQueryable();
         }
 
+        [WebGet]
+        public IQueryable<Policy> SearchPolicies(string query)
+        {
+            var task = Task.Factory.StartNew<List<Policy>>(new Func<List<Policy>>(() =>
+            {
+                List<Policy> rawResult = new List<Policy>();
+                rawResult.AddRange(_searchService.SearchEntity<Policy>(query, CurrentDataSource, new string[] { }, null));
+                return rawResult;
+            }));
+
+            return task.Result.AsQueryable();
+        }
+
+
+        [WebGet]
+        public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, string effectiveDate)
+        {
+            DateTime effDate = DateTime.Parse(effectiveDate);
+            var query = CurrentDataSource.LedgerTxns.Where(x => x.TxnDate <= effDate);
+
+            switch (source)
+            {
+                case "ReportingEntity":
+                    query = query.Where(x => x.ReportingEntityID == id);
+                    return query
+                            .GroupBy(x => new { x.ReportingEntity, x.LedgerAccount })
+                            .Select(x => new
+                            {
+                                Balance = x.Sum(t => t.Amount),
+                                LedgerAccountID = x.Key.LedgerAccount.ID,
+                                LedgerAccountName = x.Key.LedgerAccount.Name,
+                                ReportingEntityID = x.Key.ReportingEntity.ID,
+                                ReportingEntityName = x.Key.ReportingEntity.Public.Name
+                            }).ToList()
+                            .Select(x => new LedgerAccountBalance()
+                            {
+                                Balance = x.Balance,
+                                LedgerAccountID = x.LedgerAccountID,
+                                LedgerAccountName = x.LedgerAccountName,
+                                ReportingEntityID = x.ReportingEntityID,
+                                ReportingEntityName = x.ReportingEntityName
+                            }).AsQueryable();
+
+                case "Policy":
+                    query = query.Where(x => x.PolicyID == id);
+                    break;
+                case "Public":
+                    query = query.Where(x => x.PublicID == id);
+                    break;
+                default:
+                    return new List<LedgerAccountBalance>().AsQueryable();
+            }
+
+            return query
+                .GroupBy(x => new { x.ReportingEntity, x.LedgerAccount, x.Policy, x.Public })
+                .Select(x => new
+                {
+                    Balance = x.Sum(t => t.Amount),
+                    LedgerAccountID = x.Key.LedgerAccount.ID,
+                    LedgerAccountName = x.Key.LedgerAccount.Name,
+                    ReportingEntityID = x.Key.ReportingEntity.ID,
+                    ReportingEntityName = x.Key.ReportingEntity.Public.Name,
+                    Policy = x.Key.Policy,
+                    Public = x.Key.Public
+                }).ToList()
+                .Select(x => new LedgerAccountBalance(x.Public, x.Policy)
+                {
+                    Balance = x.Balance,
+                    LedgerAccountID = x.LedgerAccountID,
+                    LedgerAccountName = x.LedgerAccountName,
+                    ReportingEntityID = x.ReportingEntityID,
+                    ReportingEntityName = x.ReportingEntityName
+                }).AsQueryable();
+
+        }
+
+
+
+
     }
-        
+
 }

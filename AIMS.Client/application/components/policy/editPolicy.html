@@ -42,24 +42,30 @@
             <policyServiceProviders [(value)]="entity" [dataService]="dataService"></policyServiceProviders>
         </tab>
 
-        <tab heading="Agents">            
+        <tab heading="Agents">
         </tab>
 
-        <tab heading="Transactions">
+        <tab heading="Transaction Triggers">
             <transactionTriggers [(value)]="entity" [dataService]="dataService" origin="P"></transactionTriggers>
         </tab>
 
         <tab heading="Journals">
             <div journalExplorer path="Policies({{entity.ID}})/Journals"></div>
         </tab>
-        
 
-    </tabset>     
+        <tab heading="Balances">
+            Effective Date:
+            <input dateInput [(value)]="ledgerBalanceDate" />
+            <div ledgerBalances source="Policy" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+        </tab>
+
+
+    </tabset>
 
 
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 
-    <div class="modal-footer">        
+    <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 
