@@ -1,14 +1,5 @@
 ﻿<div class="container-fluid">
-    
-    <div>
-        <dateInput [(value)]="testDate" ></dateInput>
-    </div>
-
-    <div>
-        {{ testDate }}
-        <button type="button" (click)="test()">test</button>
-    </div>
-
+        
     <form class="form-horizontal" role="search">
         <div class="form-group">
             <input type="text" placeholder="Search"
@@ -39,5 +30,7 @@
             </button>
         </div>
     </div>
+
+    <div odata-grid path="Publics"></div>
 
 </div>

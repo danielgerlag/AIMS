@@ -48,6 +48,10 @@
         <tab heading="Transactions">
             <transactionTriggers [(value)]="entity" [dataService]="dataService" origin="P"></transactionTriggers>
         </tab>
+
+        <tab heading="Journals">
+            <div journalExplorer path="Policies({{entity.ID}})/Journals"></div>
+        </tab>
         
 
     </tabset>     

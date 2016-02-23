@@ -16,6 +16,8 @@ import {PolicyHolders} from '../../directives/policy/policyHolders';
 
 import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
 
+import {JournalExplorer} from '../../components/journal/journalExplorer';
+
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -25,7 +27,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policy/editPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer],
     pipes: [JsonPipe]
 })
 export class EditPolicy extends CRUDController {

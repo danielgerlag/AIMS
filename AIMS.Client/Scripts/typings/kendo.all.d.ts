@@ -1,9 +1,4 @@
-// Type definitions for Kendo UI Professional v2016.1.112
-// Project: http://www.telerik.com/kendo-ui
-// Definitions by: Telerik <https://github.com/telerik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../jquery/jquery.d.ts" />
+// type definitions for Kendo UI
 
 declare module kendo {
     function culture(): {
@@ -301,7 +296,7 @@ declare module kendo {
 
     class Layout extends View {
         containers: { [selector: string]: ViewContainer; };
-        showIn(selector: string, view: View, transitionClass?: string): void;
+        showIn(selector: string, view: View): void;
     }
 
     class History extends Observable {
@@ -316,13 +311,9 @@ declare module kendo {
     var history: History;
 
     interface RouterOptions {
-        pushState?: boolean;
-        hashBang?: boolean;
-        root?: string;
-        ignoreCase?: boolean;
-        change?(e: RouterChangeEvent): void;
-        routeMissing?(e: RouterRouteMissingEvent): void;
-        same?(e: RouterEvent): void;
+        init?: (e: RouterEvent) => void;
+        routeMissing?: (e: RouterEvent) => void;
+        change?: (e: RouterEvent) => void;
     }
 
     interface RouterEvent {
@@ -330,15 +321,6 @@ declare module kendo {
         url: string;
         preventDefault: Function;
         isDefaultPrevented(): boolean;
-    }
-    
-    interface RouterChangeEvent extends RouterEvent {
-        params: any;
-        backButtonPressed: boolean;
-    }
-    
-    interface RouterRouteMissingEvent extends RouterEvent {
-        params: any;
     }
 
     class Route extends Class {
@@ -945,7 +927,6 @@ declare module kendo.data {
     interface DataSourceSchemaModel {
         id?: string;
         fields?: any;
-        [index: string]: any;
     }
 
     interface DataSourceSchemaModelWithFieldsArray extends DataSourceSchemaModel {

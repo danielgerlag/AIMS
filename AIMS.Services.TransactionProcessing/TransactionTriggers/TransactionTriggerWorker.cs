@@ -53,9 +53,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
 
             var txOptions = new System.Transactions.TransactionOptions();
-            txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;
-            txOptions.Timeout = new TimeSpan(2, 0, 0);
-            //txOptions.
+            txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;            
 
             System.Transactions.TransactionScope txnScope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, txOptions);
             try

@@ -12,7 +12,7 @@ import {dto} from '../core/dto';
 
 
 
-import {DateInput} from '../directives/input/dateInput';
+import {oDataGrid} from '../directives/input/gridControl';
 
 import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-modal/angular2-modal';
 //import {YesNoModalContent, YesNoModal} from '../../../angular2-modal/commonModals/yesNoModal';
@@ -26,7 +26,7 @@ var config: any;
 
 @Component({
     selector: 'home',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Typeahead, DateInput],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, Typeahead, oDataGrid],
     providers: [Modal],
     templateUrl: './application/home/home.html'    
 })

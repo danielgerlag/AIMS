@@ -1012,6 +1012,7 @@
     <Content Include="bower.json" />
     <Content Include="application\Web.config" />
     <TypeScriptCompile Include="application\components\errorDialog\errorDialog.ts" />
+    <TypeScriptCompile Include="application\components\journal\journalExplorer.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\transactionTriggers.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\newTransactionTrigger.ts" />
     <Content Include="Scripts\kendo\jquery.min.map" />
@@ -1253,8 +1254,8 @@
     <TypeScriptCompile Include="application\components\transactionTrigger\editTransactionTrigger.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\transactionTriggerInputs.ts" />
     <TypeScriptCompile Include="application\core\subViewList.ts" />
+    <TypeScriptCompile Include="application\directives\input\gridControl.ts" />
     <TypeScriptCompile Include="application\directives\input\dateInput.ts" />
-    <TypeScriptCompile Include="application\directives\input\kendoComponent.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyInsurableItems.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyOperators.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyHolders.ts" />
@@ -1316,7 +1317,7 @@
     <TypeScriptCompile Include="application\services\shellService.ts" />
     <TypeScriptCompile Include="Scripts\typings\breeze\breeze.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\kendo-ui\kendo-ui.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\kendo.all.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="typings\angular2\angular2.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx-lite.d.ts" />

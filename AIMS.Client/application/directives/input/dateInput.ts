@@ -1,7 +1,7 @@
 ﻿import {Directive, View, OnInit, EventEmitter, Input, Output, AfterContentInit, ElementRef} from 'angular2/core';
 
 @Directive({
-    selector: 'dateInput',    
+    selector: '[dateInput]',    
     inputs: ['value'],
     outputs: ['valueChange']
 })
@@ -27,7 +27,7 @@ export class DateInput implements AfterContentInit {
                 self.value = datepicker.value();
             } 
         });        
-        element.text(self.formatDate(self.value));
+        //element.text(self.formatDate(self.value));
     }
 
     get value() {
@@ -39,7 +39,7 @@ export class DateInput implements AfterContentInit {
         var datepicker = element.data("kendoDatePicker");
         if (datepicker) {
             datepicker.value(value);
-            element.text(this.formatDate(value));
+            //element.text(this.formatDate(value));
         }
         this.onValueChanged();
     }
