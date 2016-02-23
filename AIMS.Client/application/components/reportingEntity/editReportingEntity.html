@@ -30,8 +30,19 @@
             <tab heading="Balances">
                 Effective Date:
                 <input dateInput [(value)]="ledgerBalanceDate" />
+                <tabset>
+                    <tab heading="Ledger">
+                        <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                    </tab>
+                    <tab heading="Debtors">
+                        <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="true" isCreditor="false" ></div>
+                    </tab>
+                    <tab heading="Creditors">
+                        <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="false" isCreditor="true" ></div>
+                    </tab>
+                </tabset>
 
-                <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                
             </tab>
 
             <tab heading="Journals">

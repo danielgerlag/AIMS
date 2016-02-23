@@ -13,6 +13,7 @@ import {DateInput} from '../../directives/input/dateInput';
 import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
 import {JournalExplorer} from '../../components/journal/journalExplorer';
 import {LedgerBalances} from '../../components/journal/ledgerBalances';
+import {DebtorCreditorBalances} from '../../components/journal/debtorCreditorBalances';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -22,7 +23,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/reportingEntity/editReportingEntity.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput, DebtorCreditorBalances],
     pipes: [JsonPipe]
 })
 export class EditReportingEntity extends CRUDController {

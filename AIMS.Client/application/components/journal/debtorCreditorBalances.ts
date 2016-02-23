@@ -2,10 +2,10 @@
 import {IConfigService, ConfigService} from '../../services/configService';
 
 @Directive({
-    selector: '[ledgerBalances]',
-    inputs: ['source', 'id', 'effectiveDate']
+    selector: '[debtorCreditorBalances]',
+    inputs: ['source', 'id', 'effectiveDate', 'isDebtor', 'isCreditor']
 })
-export class LedgerBalances implements OnInit {
+export class DebtorCreditorBalances implements OnInit {
     
     source: string;
     _id: number;
@@ -15,6 +15,8 @@ export class LedgerBalances implements OnInit {
     configService: IConfigService;
     servicePath: string;
     queryOptions: string;
+    isDebtor: boolean;
+    isCreditor: boolean;
 
     dataSource: kendo.data.DataSource;
 
@@ -48,9 +50,7 @@ export class LedgerBalances implements OnInit {
     }
 
     ngOnInit() {
-        var self = this;
-        var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
-        var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
+        var self = this;        
         var element = jQuery(this.elementRef.nativeElement);        
 
         element.kendoGrid({
@@ -70,6 +70,7 @@ export class LedgerBalances implements OnInit {
         if (this.source == 'ReportingEntity') {
             return [                
                 { field: "LedgerAccountName", title: "Account" },
+                { field: "PublicName", title: "Public" },
                 { field: "Balance", title: "Balance" }
             ];
         }
@@ -87,7 +88,6 @@ export class LedgerBalances implements OnInit {
             return [
                 { field: "ReportingEntityName", title: "Reporting Entity" },
                 { field: "LedgerAccountName", title: "Account" },
-                { field: "PolicyNumber", title: "Policy" },                
                 { field: "Balance", title: "Balance" }
             ];
         }
@@ -101,7 +101,7 @@ export class LedgerBalances implements OnInit {
         if (grid) {
 
             var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
-            var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
+            var path = "GetDebtorCreditorBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'&isDebtor=" + self.isDebtor + "&isCreditor=" + self.isCreditor;
             
             self.dataSource = new kendo.data.DataSource({
                 transport: {
@@ -115,12 +115,10 @@ export class LedgerBalances implements OnInit {
                     model: {
                         fields: {
                             'ReportingEntityName': { type: "string" },
+                            'LedgerAccountID': { type: "number" },
                             'LedgerAccountName': { type: "string" },
                             'PublicName': { type: "string" },
-                            'PolicyNumber': { type: "string" },
-                            'LedgerAccountID': { type: "number" },
-                            'PublicID': { type: "number" },
-                            'PolicyID': { type: "number" },
+                            'PublicID': { type: "number" },                            
                             'Balance': { type: "number" }
                         },
                         get: function (name) {

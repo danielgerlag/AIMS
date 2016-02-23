@@ -99,7 +99,7 @@ namespace AIMS.API
         }
 
 
-        [WebGet]
+        [WebGet]        
         public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, string effectiveDate)
         {
             DateTime effDate = DateTime.Parse(effectiveDate);
@@ -161,6 +161,51 @@ namespace AIMS.API
 
         }
 
+
+
+
+        [WebGet]
+        public IQueryable<LedgerAccountBalance> GetDebtorCreditorBalances(string source, int id, string effectiveDate, bool isDebtor, bool isCreditor)
+        {
+            DateTime effDate = DateTime.Parse(effectiveDate);
+            var query = CurrentDataSource.LedgerTxns.Where(x => x.TxnDate <= effDate && x.LedgerAccount.LedgerAccountType.IsDebtor == isDebtor && x.LedgerAccount.LedgerAccountType.IsCredior == isCreditor);
+
+            switch (source)
+            {
+                case "ReportingEntity":
+                    query = query.Where(x => x.ReportingEntityID == id);
+                    break;
+                case "Policy":
+                    query = query.Where(x => x.PolicyID == id);
+                    break;
+                case "Public":
+                    query = query.Where(x => x.PublicID == id);
+                    break;
+                default:
+                    return new List<LedgerAccountBalance>().AsQueryable();
+            }
+
+            return query
+                .GroupBy(x => new { x.ReportingEntity, x.LedgerAccount, x.Public })
+                .Select(x => new
+                {
+                    Balance = x.Sum(t => t.Amount),
+                    LedgerAccountID = x.Key.LedgerAccount.ID,
+                    LedgerAccountName = x.Key.LedgerAccount.Name,
+                    ReportingEntityID = x.Key.ReportingEntity.ID,
+                    ReportingEntityName = x.Key.ReportingEntity.Public.Name,                    
+                    Public = x.Key.Public
+                }).ToList()
+                .Select(x => new LedgerAccountBalance(x.Public)
+                {
+                    Balance = x.Balance,
+                    LedgerAccountID = x.LedgerAccountID,
+                    LedgerAccountName = x.LedgerAccountName,
+                    ReportingEntityID = x.ReportingEntityID,
+                    ReportingEntityName = x.ReportingEntityName
+                }).AsQueryable();
+
+        }
 
 
 
