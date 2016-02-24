@@ -78,8 +78,9 @@ export class EditPolicy extends CRUDController {
         result.push("ServiceProviders");
 
         result.push("TransactionTriggers");
-        result.push("TransactionTriggers.JournalTemplate");
-        result.push("TransactionTriggers.Inputs");        
+        result.push("TransactionTriggers.TransactionTrigger");
+        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate");
+        result.push("TransactionTriggers.TransactionTrigger.Inputs");        
         
         result.push("PolicySubType");
 

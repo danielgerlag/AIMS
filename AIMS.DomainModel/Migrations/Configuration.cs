@@ -10,7 +10,6 @@ namespace AIMS.DomainModel.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "AIMS.DomainModel.Context.DataContext";
         }
 
         protected override void Seed(AIMS.DomainModel.Context.DataContext context)

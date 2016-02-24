@@ -3,7 +3,7 @@ namespace AIMS.DomainModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -47,31 +47,32 @@ namespace AIMS.DomainModel.Migrations
                         ReportingEntityID = c.Int(nullable: false),
                         JournalTypeID = c.Int(nullable: false),
                         Description = c.String(nullable: false, maxLength: 300),
-                        TransactionOrigin = c.String(nullable: false, maxLength: 1),
+                        Reference = c.String(maxLength: 100),
+                        TxnDate = c.DateTime(nullable: false),
+                        PolicyID = c.Int(),
+                        PublicID = c.Int(),
+                        ServiceProviderID = c.Int(),
+                        ReportingEntityBranchID = c.Int(),
+                        AgentID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
-                        Public_ID = c.Int(),
-                        Policy_ID = c.Int(),
-                        ServiceProvider_ID = c.Int(),
-                        ReportingEntityBranch_ID = c.Int(),
-                        Agent_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Public", t => t.Public_ID)
-                .ForeignKey("dbo.Policy", t => t.Policy_ID)
+                .ForeignKey("dbo.Agent", t => t.AgentID)
+                .ForeignKey("dbo.Public", t => t.PublicID)
                 .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
-                .ForeignKey("dbo.ServiceProvider", t => t.ServiceProvider_ID)
-                .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranch_ID)
+                .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranchID)
+                .ForeignKey("dbo.ServiceProvider", t => t.ServiceProviderID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
                 .ForeignKey("dbo.JournalType", t => t.JournalTypeID)
-                .ForeignKey("dbo.Agent", t => t.Agent_ID)
                 .Index(t => t.ReportingEntityID)
                 .Index(t => t.JournalTypeID)
-                .Index(t => t.Public_ID)
-                .Index(t => t.Policy_ID)
-                .Index(t => t.ServiceProvider_ID)
-                .Index(t => t.ReportingEntityBranch_ID)
-                .Index(t => t.Agent_ID);
+                .Index(t => t.PolicyID)
+                .Index(t => t.PublicID)
+                .Index(t => t.ServiceProviderID)
+                .Index(t => t.ReportingEntityBranchID)
+                .Index(t => t.AgentID);
             
             CreateTable(
                 "dbo.JournalTxn",
@@ -80,12 +81,14 @@ namespace AIMS.DomainModel.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         JournalID = c.Int(nullable: false),
                         Description = c.String(nullable: false, maxLength: 300),
-                        TransactionOrigin = c.String(nullable: false, maxLength: 1),
+                        TxnDate = c.DateTime(nullable: false),
                         Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         PublicID = c.Int(),
                         PolicyID = c.Int(),
                         AgentID = c.Int(),
                         ReportingEntityBranchID = c.Int(),
+                        JournalTemplateTxnID = c.Int(),
+                        PolicyCoverageID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -93,84 +96,158 @@ namespace AIMS.DomainModel.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Agent", t => t.AgentID)
                 .ForeignKey("dbo.Journal", t => t.JournalID)
+                .ForeignKey("dbo.JournalTemplateTxn", t => t.JournalTemplateTxnID)
                 .ForeignKey("dbo.Policy", t => t.PolicyID)
+                .ForeignKey("dbo.PolicyCoverage", t => t.PolicyCoverageID)
                 .ForeignKey("dbo.Public", t => t.PublicID)
                 .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranchID)
                 .Index(t => t.JournalID)
                 .Index(t => t.PublicID)
                 .Index(t => t.PolicyID)
                 .Index(t => t.AgentID)
-                .Index(t => t.ReportingEntityBranchID);
+                .Index(t => t.ReportingEntityBranchID)
+                .Index(t => t.JournalTemplateTxnID)
+                .Index(t => t.PolicyCoverageID);
             
             CreateTable(
-                "dbo.LedgerTxn",
+                "dbo.JournalTemplateTxn",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        ReportingEntityID = c.Int(nullable: false),
-                        JournalTxnID = c.Int(nullable: false),
-                        LedgerAccountID = c.Int(nullable: false),
+                        JournalTemplateID = c.Int(nullable: false),
+                        JournalTxnClassID = c.Int(nullable: false),
                         Description = c.String(nullable: false, maxLength: 300),
-                        TransactionOrigin = c.String(nullable: false, maxLength: 1),
-                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        PublicID = c.Int(),
-                        PolicyID = c.Int(),
-                        AgentID = c.Int(),
-                        ReportingEntityBranchID = c.Int(),
+                        AmountInputID = c.Int(),
+                        AmountContextParameterID = c.Int(),
+                        AmountLedgerAccountID = c.Int(),
+                        Amount = c.Decimal(precision: 18, scale: 2),
+                        BalanceOrigin = c.String(nullable: false, maxLength: 1),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Agent", t => t.AgentID)
-                .ForeignKey("dbo.JournalTxn", t => t.JournalTxnID)
-                .ForeignKey("dbo.LedgerAccount", t => t.LedgerAccountID)
-                .ForeignKey("dbo.Policy", t => t.PolicyID)
-                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
-                .ForeignKey("dbo.Public", t => t.PublicID)
-                .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranchID)
-                .Index(t => t.ReportingEntityID)
-                .Index(t => t.JournalTxnID)
-                .Index(t => t.LedgerAccountID)
-                .Index(t => t.PublicID)
-                .Index(t => t.PolicyID)
-                .Index(t => t.AgentID)
-                .Index(t => t.ReportingEntityBranchID);
+                .ForeignKey("dbo.ContextParameter", t => t.AmountContextParameterID)
+                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
+                .ForeignKey("dbo.JournalTemplateInput", t => t.AmountInputID)
+                .ForeignKey("dbo.LedgerAccount", t => t.AmountLedgerAccountID)
+                .ForeignKey("dbo.JournalTxnClass", t => t.JournalTxnClassID)
+                .Index(t => t.JournalTemplateID)
+                .Index(t => t.JournalTxnClassID)
+                .Index(t => t.AmountInputID)
+                .Index(t => t.AmountContextParameterID)
+                .Index(t => t.AmountLedgerAccountID);
             
             CreateTable(
-                "dbo.LedgerAccount",
+                "dbo.ContextParameter",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 300),
+                        DecimalPlaces = c.Int(nullable: false),
+                        IsPercentage = c.Boolean(nullable: false),
+                        Code = c.String(nullable: false),
+                        UserPrompt = c.String(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.JournalTemplateInput",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        JournalTemplateID = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 200),
+                        Description = c.String(maxLength: 500),
+                        AttributeDataTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                        JournalTemplate_ID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.AttributeDataType", t => t.AttributeDataTypeID)
+                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplate_ID)
+                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
+                .Index(t => t.JournalTemplateID)
+                .Index(t => t.AttributeDataTypeID)
+                .Index(t => t.JournalTemplate_ID);
+            
+            CreateTable(
+                "dbo.AttributeDataType",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Description = c.String(nullable: false, maxLength: 200),
+                        Code = c.String(maxLength: 3),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.JournalTemplate",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         ReportingEntityProfileID = c.Int(nullable: false),
-                        LedgerAccountTypeID = c.Int(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 100),
+                        JournalTypeID = c.Int(nullable: false),
+                        Description = c.String(nullable: false, maxLength: 300),
+                        TransactionOrigin = c.String(nullable: false, maxLength: 1),
+                        Priority = c.Int(nullable: false),
+                        SequenceNumberID = c.Int(),
+                        ReferenceInputID = c.Int(),
+                        PublicRequirementID = c.Int(),
+                        ServiceProviderTypeID = c.Int(),
+                        AgentTypeID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.LedgerAccountType", t => t.LedgerAccountTypeID)
+                .ForeignKey("dbo.AgentType", t => t.AgentTypeID)
+                .ForeignKey("dbo.JournalType", t => t.JournalTypeID)
+                .ForeignKey("dbo.PublicRequirement", t => t.PublicRequirementID)
+                .ForeignKey("dbo.JournalTemplateInput", t => t.ReferenceInputID)
                 .ForeignKey("dbo.ReportingEntityProfile", t => t.ReportingEntityProfileID)
+                .ForeignKey("dbo.SequenceNumber", t => t.SequenceNumberID)
+                .ForeignKey("dbo.ServiceProviderType", t => t.ServiceProviderTypeID)
                 .Index(t => t.ReportingEntityProfileID)
-                .Index(t => t.LedgerAccountTypeID);
+                .Index(t => t.JournalTypeID)
+                .Index(t => t.SequenceNumberID)
+                .Index(t => t.ReferenceInputID)
+                .Index(t => t.PublicRequirementID)
+                .Index(t => t.ServiceProviderTypeID)
+                .Index(t => t.AgentTypeID);
             
             CreateTable(
-                "dbo.LedgerAccountType",
+                "dbo.JournalType",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 100),
-                        IsCurrent = c.Boolean(nullable: false),
-                        IsAsset = c.Boolean(nullable: false),
-                        IsLiability = c.Boolean(nullable: false),
-                        IsIncome = c.Boolean(nullable: false),
-                        IsExpense = c.Boolean(nullable: false),
-                        IsDebtor = c.Boolean(nullable: false),
-                        IsCredior = c.Boolean(nullable: false),
-                        IsControl = c.Boolean(nullable: false),
-                        IsEquity = c.Boolean(nullable: false),
-                        CreditPositive = c.Boolean(nullable: false),
+                        IsGeneral = c.Boolean(nullable: false),
+                        IsInvoice = c.Boolean(nullable: false),
+                        IsPayment = c.Boolean(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.PublicRequirement",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 300),
+                        IsServiceProvider = c.Boolean(nullable: false),
+                        IsAgent = c.Boolean(nullable: false),
+                        IsPolicyHolder = c.Boolean(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -241,49 +318,66 @@ namespace AIMS.DomainModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.JournalTemplate",
+                "dbo.RegionContextParameterValue",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ContextParameterValueID = c.Int(nullable: false),
+                        RegionID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ContextParameterValue", t => t.ContextParameterValueID)
+                .ForeignKey("dbo.Region", t => t.RegionID)
+                .Index(t => t.ContextParameterValueID)
+                .Index(t => t.RegionID);
+            
+            CreateTable(
+                "dbo.ContextParameterValue",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ContextParameterID = c.Int(nullable: false),
+                        EffectiveDate = c.DateTime(nullable: false),
+                        Value = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ContextParameter", t => t.ContextParameterID)
+                .Index(t => t.ContextParameterID);
+            
+            CreateTable(
+                "dbo.LedgerAccount",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         ReportingEntityProfileID = c.Int(nullable: false),
-                        JournalTypeID = c.Int(nullable: false),
-                        Description = c.String(nullable: false, maxLength: 300),
-                        TransactionOrigin = c.String(nullable: false, maxLength: 1),
+                        LedgerAccountTypeID = c.Int(nullable: false),
+                        LedgerID = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.JournalType", t => t.JournalTypeID)
+                .ForeignKey("dbo.Ledger", t => t.LedgerID)
+                .ForeignKey("dbo.LedgerAccountType", t => t.LedgerAccountTypeID)
                 .ForeignKey("dbo.ReportingEntityProfile", t => t.ReportingEntityProfileID)
                 .Index(t => t.ReportingEntityProfileID)
-                .Index(t => t.JournalTypeID);
+                .Index(t => t.LedgerAccountTypeID)
+                .Index(t => t.LedgerID);
             
             CreateTable(
-                "dbo.JournalTemplateInput",
+                "dbo.Ledger",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        JournalTemplateID = c.Int(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 200),
-                        Description = c.String(maxLength: 500),
-                        AttributeDataTypeID = c.Int(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.AttributeDataType", t => t.AttributeDataTypeID)
-                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
-                .Index(t => t.JournalTemplateID)
-                .Index(t => t.AttributeDataTypeID);
-            
-            CreateTable(
-                "dbo.AttributeDataType",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Description = c.String(nullable: false, maxLength: 200),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Code = c.String(nullable: false, maxLength: 10),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -291,59 +385,35 @@ namespace AIMS.DomainModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.JournalTemplateTxn",
+                "dbo.LedgerAccountType",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        JournalTemplateID = c.Int(nullable: false),
-                        Description = c.String(nullable: false, maxLength: 300),
-                        PublicRequirementID = c.Int(),
-                        ServiceProviderTypeID = c.Int(),
-                        AgentTypeID = c.Int(),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        IsCurrent = c.Boolean(nullable: false),
+                        IsAsset = c.Boolean(nullable: false),
+                        IsLiability = c.Boolean(nullable: false),
+                        IsIncome = c.Boolean(nullable: false),
+                        IsExpense = c.Boolean(nullable: false),
+                        IsDebtor = c.Boolean(nullable: false),
+                        IsCredior = c.Boolean(nullable: false),
+                        IsControl = c.Boolean(nullable: false),
+                        IsEquity = c.Boolean(nullable: false),
+                        CreditPositive = c.Boolean(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.AgentType", t => t.AgentTypeID)
-                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
-                .ForeignKey("dbo.PublicRequirement", t => t.PublicRequirementID)
-                .ForeignKey("dbo.ServiceProviderType", t => t.ServiceProviderTypeID)
-                .Index(t => t.JournalTemplateID)
-                .Index(t => t.PublicRequirementID)
-                .Index(t => t.ServiceProviderTypeID)
-                .Index(t => t.AgentTypeID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.JournalTemplateTxnPosting",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        JournalTemplateTxnID = c.Int(nullable: false),
-                        LedgerAccountID = c.Int(nullable: false),
-                        PostType = c.String(nullable: false, maxLength: 1),
-                        AddBaseAmount = c.Boolean(nullable: false),
-                        InheritPolicy = c.Boolean(nullable: false),
-                        InheritPublic = c.Boolean(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.JournalTemplateTxn", t => t.JournalTemplateTxnID)
-                .ForeignKey("dbo.LedgerAccount", t => t.LedgerAccountID)
-                .Index(t => t.JournalTemplateTxnID)
-                .Index(t => t.LedgerAccountID);
-            
-            CreateTable(
-                "dbo.PublicRequirement",
+                "dbo.SequenceNumber",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 300),
-                        IsServiceProvider = c.Boolean(nullable: false),
-                        IsAgent = c.Boolean(nullable: false),
-                        IsPolicyHolder = c.Boolean(nullable: false),
+                        NextValue = c.Int(nullable: false),
+                        FormatMask = c.String(nullable: false, maxLength: 20),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -363,19 +433,79 @@ namespace AIMS.DomainModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "dbo.JournalType",
+                "dbo.JournalTxnClass",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        IsGeneral = c.Boolean(nullable: false),
-                        IsInvoice = c.Boolean(nullable: false),
-                        IsPayment = c.Boolean(nullable: false),
+                        Description = c.String(nullable: false, maxLength: 300),
+                        IsDailyCalc = c.Boolean(nullable: false),
+                        IsDefinedAmount = c.Boolean(nullable: false),
+                        IsPercentage = c.Boolean(nullable: false),
+                        OfLedgerAccount = c.Boolean(nullable: false),
+                        OfContextParameter = c.Boolean(nullable: false),
+                        OfCoveragePremium = c.Boolean(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.JournalTemplateTxnPosting",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        JournalTemplateTxnID = c.Int(nullable: false),
+                        LedgerAccountID = c.Int(),
+                        PostType = c.String(nullable: false, maxLength: 1),
+                        AddBaseAmount = c.Boolean(nullable: false),
+                        InheritPolicy = c.Boolean(nullable: false),
+                        InheritPublic = c.Boolean(nullable: false),
+                        CoverageExpenseAccount = c.Boolean(nullable: false),
+                        CoverageIncomeAccount = c.Boolean(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.JournalTemplateTxn", t => t.JournalTemplateTxnID)
+                .ForeignKey("dbo.LedgerAccount", t => t.LedgerAccountID)
+                .Index(t => t.JournalTemplateTxnID)
+                .Index(t => t.LedgerAccountID);
+            
+            CreateTable(
+                "dbo.LedgerTxn",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ReportingEntityID = c.Int(nullable: false),
+                        JournalTxnID = c.Int(nullable: false),
+                        LedgerAccountID = c.Int(nullable: false),
+                        TxnDate = c.DateTime(nullable: false),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PublicID = c.Int(),
+                        PolicyID = c.Int(),
+                        AgentID = c.Int(),
+                        ReportingEntityBranchID = c.Int(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Agent", t => t.AgentID)
+                .ForeignKey("dbo.JournalTxn", t => t.JournalTxnID)
+                .ForeignKey("dbo.LedgerAccount", t => t.LedgerAccountID)
+                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
+                .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranchID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
+                .ForeignKey("dbo.Public", t => t.PublicID)
+                .Index(t => t.ReportingEntityID)
+                .Index(t => t.JournalTxnID)
+                .Index(t => t.LedgerAccountID)
+                .Index(t => t.PublicID)
+                .Index(t => t.PolicyID)
+                .Index(t => t.AgentID)
+                .Index(t => t.ReportingEntityBranchID);
             
             CreateTable(
                 "dbo.Policy",
@@ -386,7 +516,7 @@ namespace AIMS.DomainModel.Migrations
                         EffectiveDate = c.DateTime(),
                         ExpiryDate = c.DateTime(),
                         PolicySubTypeID = c.Int(nullable: false),
-                        BillingPublicID = c.Int(nullable: false),
+                        BillingPublicID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -465,6 +595,246 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.PublicID);
             
             CreateTable(
+                "dbo.TransactionTrigger",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ReportingEntityID = c.Int(nullable: false),
+                        JournalTemplateID = c.Int(nullable: false),
+                        TransactionTriggerFrequencyID = c.Int(nullable: false),
+                        TransactionTriggerStatusID = c.Int(nullable: false),
+                        Description = c.String(nullable: false, maxLength: 300),
+                        TxnDate = c.DateTime(),
+                        NextExecutionDate = c.DateTime(),
+                        EffectiveFrom = c.DateTime(),
+                        EffectiveTo = c.DateTime(),
+                        OnHold = c.Boolean(nullable: false),
+                        PublicID = c.Int(),
+                        ServiceProviderID = c.Int(),
+                        AgentID = c.Int(),
+                        ReportingEntityBranchID = c.Int(),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Agent", t => t.AgentID)
+                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
+                .ForeignKey("dbo.Public", t => t.PublicID)
+                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
+                .ForeignKey("dbo.ReportingEntityBranch", t => t.ReportingEntityBranchID)
+                .ForeignKey("dbo.ServiceProvider", t => t.ServiceProviderID)
+                .ForeignKey("dbo.TransactionTriggerStatus", t => t.TransactionTriggerStatusID)
+                .ForeignKey("dbo.TransactionTriggerFrequency", t => t.TransactionTriggerFrequencyID)
+                .Index(t => t.ReportingEntityID)
+                .Index(t => t.JournalTemplateID)
+                .Index(t => t.TransactionTriggerFrequencyID)
+                .Index(t => t.TransactionTriggerStatusID)
+                .Index(t => t.PublicID)
+                .Index(t => t.ServiceProviderID)
+                .Index(t => t.AgentID)
+                .Index(t => t.ReportingEntityBranchID);
+            
+            CreateTable(
+                "dbo.TransactionTriggerInput",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        TransactionTriggerID = c.Int(nullable: false),
+                        JournalTemplateInputID = c.Int(nullable: false),
+                        Value = c.String(maxLength: 500),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.JournalTemplateInput", t => t.JournalTemplateInputID)
+                .ForeignKey("dbo.TransactionTrigger", t => t.TransactionTriggerID)
+                .Index(t => t.TransactionTriggerID)
+                .Index(t => t.JournalTemplateInputID);
+            
+            CreateTable(
+                "dbo.TransactionTriggerLog",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        TransactionTriggerID = c.Int(nullable: false),
+                        StartTime = c.DateTime(nullable: false),
+                        EndTime = c.DateTime(),
+                        Thread = c.Int(nullable: false),
+                        MachineName = c.String(),
+                        IsSuccess = c.Boolean(nullable: false),
+                        IsError = c.Boolean(nullable: false),
+                        IsRequeue = c.Boolean(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.TransactionTrigger", t => t.TransactionTriggerID)
+                .Index(t => t.TransactionTriggerID);
+            
+            CreateTable(
+                "dbo.TransactionTriggerException",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        TransactionTriggerLogID = c.Int(nullable: false),
+                        Message = c.String(),
+                        ExceptionType = c.String(nullable: false, maxLength: 1),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.TransactionTriggerLog", t => t.TransactionTriggerLogID)
+                .Index(t => t.TransactionTriggerLogID);
+            
+            CreateTable(
+                "dbo.PolicyTransactionTrigger",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                        TransactionTriggerID = c.Int(nullable: false),
+                        PolicyID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
+                .ForeignKey("dbo.TransactionTrigger", t => t.ID)
+                .Index(t => t.ID)
+                .Index(t => t.PolicyID);
+            
+            CreateTable(
+                "dbo.ReportingEntity",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        PublicID = c.Int(nullable: false),
+                        ReportingEntityProfileID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Public", t => t.PublicID)
+                .ForeignKey("dbo.ReportingEntityProfile", t => t.ReportingEntityProfileID)
+                .Index(t => t.PublicID)
+                .Index(t => t.ReportingEntityProfileID);
+            
+            CreateTable(
+                "dbo.ReportingEntityBankAccount",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ReportingEntityID = c.Int(nullable: false),
+                        BankAccountID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.BankAccount", t => t.BankAccountID)
+                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
+                .Index(t => t.ReportingEntityID)
+                .Index(t => t.BankAccountID);
+            
+            CreateTable(
+                "dbo.ReportingEntityTransactionTrigger",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                        TransactionTriggerID = c.Int(nullable: false),
+                        ReportingEntityID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
+                .ForeignKey("dbo.TransactionTrigger", t => t.ID)
+                .Index(t => t.ID)
+                .Index(t => t.ReportingEntityID);
+            
+            CreateTable(
+                "dbo.ReportingEntityBranch",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ReportingEntityID = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
+                .Index(t => t.ReportingEntityID);
+            
+            CreateTable(
+                "dbo.ServiceProvider",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        PublicID = c.Int(nullable: false),
+                        ServiceProviderTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Public", t => t.PublicID)
+                .ForeignKey("dbo.ServiceProviderType", t => t.ServiceProviderTypeID)
+                .Index(t => t.PublicID)
+                .Index(t => t.ServiceProviderTypeID);
+            
+            CreateTable(
+                "dbo.TransactionTriggerStatus",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 200),
+                        Code = c.String(nullable: false, maxLength: 10),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.TransactionTriggerFrequency",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 200),
+                        Code = c.String(nullable: false, maxLength: 10),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .Index(t => t.Code, unique: true);
+            
+            CreateTable(
+                "dbo.PolicyContextParameterValue",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ContextParameterValueID = c.Int(nullable: false),
+                        PolicyID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ContextParameterValue", t => t.ContextParameterValueID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
+                .Index(t => t.ContextParameterValueID)
+                .Index(t => t.PolicyID);
+            
+            CreateTable(
                 "dbo.PolicyCoverage",
                 c => new
                     {
@@ -472,6 +842,8 @@ namespace AIMS.DomainModel.Migrations
                         PolicyID = c.Int(nullable: false),
                         CoverageTypeID = c.Int(nullable: false),
                         InsurableItemID = c.Int(),
+                        Limit = c.Decimal(precision: 18, scale: 2),
+                        Deductible = c.Decimal(precision: 18, scale: 2),
                         Premium = c.Decimal(precision: 18, scale: 2),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
@@ -491,17 +863,18 @@ namespace AIMS.DomainModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         InsurableItemClassID = c.Int(nullable: false),
+                        PolicyID = c.Int(nullable: false),
                         PolicyRiskLocationID = c.Int(nullable: false),
-                        Description = c.String(nullable: false, maxLength: 200),
-                        SerialNo = c.String(maxLength: 200),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.InsurableItemClass", t => t.InsurableItemClassID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
                 .ForeignKey("dbo.PolicyRiskLocation", t => t.PolicyRiskLocationID)
                 .Index(t => t.InsurableItemClassID)
+                .Index(t => t.PolicyID)
                 .Index(t => t.PolicyRiskLocationID);
             
             CreateTable(
@@ -537,6 +910,7 @@ namespace AIMS.DomainModel.Migrations
                         Required = c.Boolean(nullable: false),
                         IndexField = c.Boolean(nullable: false),
                         Key = c.Boolean(nullable: false),
+                        ShowInList = c.Boolean(nullable: false),
                         InsurableItemClassAttributeGroupID = c.Int(nullable: false),
                         AttributeLookupListID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
@@ -622,6 +996,7 @@ namespace AIMS.DomainModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 200),
+                        DisplayName = c.String(maxLength: 200),
                         ParentInsurableItemClassID = c.Int(),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
@@ -706,23 +1081,41 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.AttributeLookupListID);
             
             CreateTable(
-                "dbo.Operator",
+                "dbo.InsurableItemOperator",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         InsurableItemID = c.Int(nullable: false),
-                        OperatorPublicID = c.Int(nullable: false),
-                        OperatorTypeID = c.Int(nullable: false),
+                        OperatorID = c.Int(nullable: false),
+                        Primary = c.Boolean(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.InsurableItem", t => t.InsurableItemID)
+                .ForeignKey("dbo.Operator", t => t.OperatorID)
+                .Index(t => t.InsurableItemID)
+                .Index(t => t.OperatorID);
+            
+            CreateTable(
+                "dbo.Operator",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        OperatorPublicID = c.Int(nullable: false),
+                        PolicyID = c.Int(nullable: false),
+                        OperatorTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Public", t => t.OperatorPublicID)
                 .ForeignKey("dbo.OperatorType", t => t.OperatorTypeID)
-                .Index(t => t.InsurableItemID)
+                .ForeignKey("dbo.Policy", t => t.PolicyID)
                 .Index(t => t.OperatorPublicID)
+                .Index(t => t.PolicyID)
                 .Index(t => t.OperatorTypeID);
             
             CreateTable(
@@ -768,6 +1161,7 @@ namespace AIMS.DomainModel.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         PublicID = c.Int(nullable: false),
                         PolicyID = c.Int(nullable: false),
+                        BillingPercent = c.Decimal(precision: 18, scale: 2),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -800,6 +1194,40 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.RegionID);
             
             CreateTable(
+                "dbo.PolicySubTypeContextParameterValue",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ContextParameterValueID = c.Int(nullable: false),
+                        PolicySubTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ContextParameterValue", t => t.ContextParameterValueID)
+                .ForeignKey("dbo.PolicySubType", t => t.PolicySubTypeID)
+                .Index(t => t.ContextParameterValueID)
+                .Index(t => t.PolicySubTypeID);
+            
+            CreateTable(
+                "dbo.PolicySubTypeCoverage",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        PolicySubTypeID = c.Int(nullable: false),
+                        CoverageTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.CoverageType", t => t.CoverageTypeID)
+                .ForeignKey("dbo.PolicySubType", t => t.PolicySubTypeID)
+                .Index(t => t.PolicySubTypeID)
+                .Index(t => t.CoverageTypeID);
+            
+            CreateTable(
                 "dbo.PolicyType",
                 c => new
                     {
@@ -830,6 +1258,23 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.AgentTypeID);
             
             CreateTable(
+                "dbo.PolicyTypeContextParameterValue",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ContextParameterValueID = c.Int(nullable: false),
+                        PolicyTypeID = c.Int(nullable: false),
+                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
+                        DateCreatedUTC = c.DateTime(nullable: false),
+                        DateModifiedUTC = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.ContextParameterValue", t => t.ContextParameterValueID)
+                .ForeignKey("dbo.PolicyType", t => t.PolicyTypeID)
+                .Index(t => t.ContextParameterValueID)
+                .Index(t => t.PolicyTypeID);
+            
+            CreateTable(
                 "dbo.PolicyTypeEntityRequirement",
                 c => new
                     {
@@ -851,38 +1296,21 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.DefaultReportingEntityID);
             
             CreateTable(
-                "dbo.ReportingEntity",
+                "dbo.PolicyTypeItemClass",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        PublicID = c.Int(nullable: false),
-                        ReportingEntityProfileID = c.Int(nullable: false),
+                        PolicyTypeID = c.Int(nullable: false),
+                        InsurableItemClassID = c.Int(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Public", t => t.PublicID)
-                .ForeignKey("dbo.ReportingEntityProfile", t => t.ReportingEntityProfileID)
-                .Index(t => t.PublicID)
-                .Index(t => t.ReportingEntityProfileID);
-            
-            CreateTable(
-                "dbo.ReportingEntityBankAccount",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ReportingEntityID = c.Int(nullable: false),
-                        BankAccountID = c.Int(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.BankAccount", t => t.BankAccountID)
-                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
-                .Index(t => t.ReportingEntityID)
-                .Index(t => t.BankAccountID);
+                .ForeignKey("dbo.InsurableItemClass", t => t.InsurableItemClassID)
+                .ForeignKey("dbo.PolicyType", t => t.PolicyTypeID)
+                .Index(t => t.PolicyTypeID)
+                .Index(t => t.InsurableItemClassID);
             
             CreateTable(
                 "dbo.PolicyTypeServiceProvider",
@@ -903,37 +1331,6 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.PolicyTypeID)
                 .Index(t => t.ServiceProviderTypeID)
                 .Index(t => t.DefaultServiceProviderID);
-            
-            CreateTable(
-                "dbo.ServiceProvider",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        PublicID = c.Int(nullable: false),
-                        ServiceProviderTypeID = c.Int(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Public", t => t.PublicID)
-                .ForeignKey("dbo.ServiceProviderType", t => t.ServiceProviderTypeID)
-                .Index(t => t.PublicID)
-                .Index(t => t.ServiceProviderTypeID);
-            
-            CreateTable(
-                "dbo.SequenceNumber",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 300),
-                        NextValue = c.Int(nullable: false),
-                        FormatMask = c.String(nullable: false, maxLength: 20),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.PolicyReportingEntity",
@@ -977,61 +1374,12 @@ namespace AIMS.DomainModel.Migrations
                 .Index(t => t.ServiceProviderID);
             
             CreateTable(
-                "dbo.ReportingEntityBranch",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ReportingEntityID = c.Int(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
-                .Index(t => t.ReportingEntityID);
-            
-            CreateTable(
                 "dbo.BusinessLine",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 200),
                         CSIOCode = c.String(maxLength: 20),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.ContextParameter",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 300),
-                        DecimalPlaces = c.Int(nullable: false),
-                        IsPercentage = c.Boolean(nullable: false),
-                        Code = c.String(nullable: false),
-                        UserPrompt = c.String(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.JournalTxnClass",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Description = c.String(nullable: false, maxLength: 300),
-                        IsDailyCalc = c.Boolean(nullable: false),
-                        IsDefinedAmount = c.Boolean(nullable: false),
-                        IsPercentage = c.Boolean(nullable: false),
-                        OfLedgerAccount = c.Boolean(nullable: false),
-                        OfContextParameter = c.Boolean(nullable: false),
-                        OfCoveragePremium = c.Boolean(nullable: false),
                         RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
                         DateCreatedUTC = c.DateTime(nullable: false),
                         DateModifiedUTC = c.DateTime(nullable: false),
@@ -1053,96 +1401,16 @@ namespace AIMS.DomainModel.Migrations
                     })
                 .PrimaryKey(t => t.ID);
             
-            CreateTable(
-                "dbo.TransactionTriggerFrequency",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 200),
-                        Code = c.String(nullable: false, maxLength: 10),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .Index(t => t.Code, unique: true);
-            
-            CreateTable(
-                "dbo.TransactionTriggerInput",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        TransactionTriggerID = c.Int(nullable: false),
-                        JournalTemplateInputID = c.Int(nullable: false),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.JournalTemplateInput", t => t.JournalTemplateInputID)
-                .ForeignKey("dbo.TransactionTrigger", t => t.TransactionTriggerID)
-                .Index(t => t.TransactionTriggerID)
-                .Index(t => t.JournalTemplateInputID);
-            
-            CreateTable(
-                "dbo.TransactionTrigger",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ReportingEntityID = c.Int(nullable: false),
-                        JournalTemplateID = c.Int(nullable: false),
-                        TransactionTriggerFrequencyID = c.Int(nullable: false),
-                        TransactionTriggerStatusID = c.Int(nullable: false),
-                        Description = c.String(nullable: false, maxLength: 300),
-                        TxnDate = c.DateTime(),
-                        ExecutionDate = c.DateTime(),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.JournalTemplate", t => t.JournalTemplateID)
-                .ForeignKey("dbo.ReportingEntity", t => t.ReportingEntityID)
-                .ForeignKey("dbo.TransactionTriggerFrequency", t => t.TransactionTriggerFrequencyID)
-                .ForeignKey("dbo.TransactionTriggerStatus", t => t.TransactionTriggerStatusID)
-                .Index(t => t.ReportingEntityID)
-                .Index(t => t.JournalTemplateID)
-                .Index(t => t.TransactionTriggerFrequencyID)
-                .Index(t => t.TransactionTriggerStatusID);
-            
-            CreateTable(
-                "dbo.TransactionTriggerStatus",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 200),
-                        Code = c.String(nullable: false, maxLength: 10),
-                        RowVersion = c.Binary(nullable: false, fixedLength: true, timestamp: true, storeType: "rowversion"),
-                        DateCreatedUTC = c.DateTime(nullable: false),
-                        DateModifiedUTC = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.TransactionTrigger", "TransactionTriggerStatusID", "dbo.TransactionTriggerStatus");
-            DropForeignKey("dbo.TransactionTrigger", "TransactionTriggerFrequencyID", "dbo.TransactionTriggerFrequency");
-            DropForeignKey("dbo.TransactionTrigger", "ReportingEntityID", "dbo.ReportingEntity");
-            DropForeignKey("dbo.TransactionTrigger", "JournalTemplateID", "dbo.JournalTemplate");
-            DropForeignKey("dbo.TransactionTriggerInput", "TransactionTriggerID", "dbo.TransactionTrigger");
-            DropForeignKey("dbo.TransactionTriggerInput", "JournalTemplateInputID", "dbo.JournalTemplateInput");
             DropForeignKey("dbo.Agent", "PublicID", "dbo.Public");
-            DropForeignKey("dbo.Journal", "Agent_ID", "dbo.Agent");
             DropForeignKey("dbo.Journal", "JournalTypeID", "dbo.JournalType");
             DropForeignKey("dbo.JournalTxn", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
             DropForeignKey("dbo.JournalTxn", "PublicID", "dbo.Public");
+            DropForeignKey("dbo.JournalTxn", "PolicyCoverageID", "dbo.PolicyCoverage");
             DropForeignKey("dbo.JournalTxn", "PolicyID", "dbo.Policy");
-            DropForeignKey("dbo.ReportingEntityBranch", "ReportingEntityID", "dbo.ReportingEntity");
-            DropForeignKey("dbo.LedgerTxn", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
-            DropForeignKey("dbo.Journal", "ReportingEntityBranch_ID", "dbo.ReportingEntityBranch");
-            DropForeignKey("dbo.Agent", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
             DropForeignKey("dbo.LedgerTxn", "PublicID", "dbo.Public");
             DropForeignKey("dbo.PolicyServiceProvider", "ServiceProviderTypeID", "dbo.ServiceProviderType");
             DropForeignKey("dbo.PolicyServiceProvider", "ServiceProviderID", "dbo.ServiceProvider");
@@ -1156,34 +1424,36 @@ namespace AIMS.DomainModel.Migrations
             DropForeignKey("dbo.PolicyTypeServiceProvider", "ServiceProviderTypeID", "dbo.ServiceProviderType");
             DropForeignKey("dbo.PolicyTypeServiceProvider", "PolicyTypeID", "dbo.PolicyType");
             DropForeignKey("dbo.PolicyTypeServiceProvider", "DefaultServiceProviderID", "dbo.ServiceProvider");
-            DropForeignKey("dbo.ServiceProvider", "ServiceProviderTypeID", "dbo.ServiceProviderType");
-            DropForeignKey("dbo.ServiceProvider", "PublicID", "dbo.Public");
-            DropForeignKey("dbo.Journal", "ServiceProvider_ID", "dbo.ServiceProvider");
             DropForeignKey("dbo.PolicySubType", "PolicyTypeID", "dbo.PolicyType");
+            DropForeignKey("dbo.PolicyTypeItemClass", "PolicyTypeID", "dbo.PolicyType");
+            DropForeignKey("dbo.PolicyTypeItemClass", "InsurableItemClassID", "dbo.InsurableItemClass");
             DropForeignKey("dbo.PolicyTypeEntityRequirement", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
             DropForeignKey("dbo.PolicyTypeEntityRequirement", "PolicyTypeID", "dbo.PolicyType");
             DropForeignKey("dbo.PolicyTypeEntityRequirement", "DefaultReportingEntityID", "dbo.ReportingEntity");
-            DropForeignKey("dbo.ReportingEntity", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
-            DropForeignKey("dbo.ReportingEntityBankAccount", "ReportingEntityID", "dbo.ReportingEntity");
-            DropForeignKey("dbo.ReportingEntityBankAccount", "BankAccountID", "dbo.BankAccount");
-            DropForeignKey("dbo.ReportingEntity", "PublicID", "dbo.Public");
-            DropForeignKey("dbo.LedgerTxn", "ReportingEntityID", "dbo.ReportingEntity");
-            DropForeignKey("dbo.Journal", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.PolicyTypeContextParameterValue", "PolicyTypeID", "dbo.PolicyType");
+            DropForeignKey("dbo.PolicyTypeContextParameterValue", "ContextParameterValueID", "dbo.ContextParameterValue");
             DropForeignKey("dbo.PolicyTypeAgentRequirement", "PolicyTypeID", "dbo.PolicyType");
             DropForeignKey("dbo.PolicyTypeAgentRequirement", "AgentTypeID", "dbo.AgentType");
+            DropForeignKey("dbo.PolicySubTypeCoverage", "PolicySubTypeID", "dbo.PolicySubType");
+            DropForeignKey("dbo.PolicySubTypeCoverage", "CoverageTypeID", "dbo.CoverageType");
+            DropForeignKey("dbo.PolicySubTypeContextParameterValue", "PolicySubTypeID", "dbo.PolicySubType");
+            DropForeignKey("dbo.PolicySubTypeContextParameterValue", "ContextParameterValueID", "dbo.ContextParameterValue");
             DropForeignKey("dbo.PolicyHolder", "PublicID", "dbo.Public");
             DropForeignKey("dbo.PolicyHolder", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.LedgerTxn", "PolicyID", "dbo.Policy");
-            DropForeignKey("dbo.Journal", "Policy_ID", "dbo.Policy");
+            DropForeignKey("dbo.Journal", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.PolicyCoverage", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.PolicyRiskLocation", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.InsurableItem", "PolicyRiskLocationID", "dbo.PolicyRiskLocation");
             DropForeignKey("dbo.PolicyCoverage", "InsurableItemID", "dbo.InsurableItem");
+            DropForeignKey("dbo.InsurableItem", "PolicyID", "dbo.Policy");
+            DropForeignKey("dbo.InsurableItemOperator", "OperatorID", "dbo.Operator");
+            DropForeignKey("dbo.Operator", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.Operator", "OperatorTypeID", "dbo.OperatorType");
             DropForeignKey("dbo.Operator", "OperatorPublicID", "dbo.Public");
-            DropForeignKey("dbo.Operator", "InsurableItemID", "dbo.InsurableItem");
             DropForeignKey("dbo.OperatorAttribute", "OperatorTypeAttributeID", "dbo.OperatorTypeAttribute");
             DropForeignKey("dbo.OperatorAttribute", "OperatorID", "dbo.Operator");
+            DropForeignKey("dbo.InsurableItemOperator", "InsurableItemID", "dbo.InsurableItem");
             DropForeignKey("dbo.InsurableItem", "InsurableItemClassID", "dbo.InsurableItemClass");
             DropForeignKey("dbo.InsurableItemAttribute", "InsurableItemClassAttributeID", "dbo.InsurableItemClassAttribute");
             DropForeignKey("dbo.InsurableItemClass", "ParentInsurableItemClassID", "dbo.InsurableItemClass");
@@ -1202,64 +1472,102 @@ namespace AIMS.DomainModel.Migrations
             DropForeignKey("dbo.InsurableItemClassAttribute", "AttributeDataTypeID", "dbo.AttributeDataType");
             DropForeignKey("dbo.InsurableItemAttribute", "InsurableItemID", "dbo.InsurableItem");
             DropForeignKey("dbo.PolicyCoverage", "CoverageTypeID", "dbo.CoverageType");
+            DropForeignKey("dbo.PolicyContextParameterValue", "PolicyID", "dbo.Policy");
+            DropForeignKey("dbo.PolicyContextParameterValue", "ContextParameterValueID", "dbo.ContextParameterValue");
             DropForeignKey("dbo.Policy", "BillingPublicID", "dbo.Public");
-            DropForeignKey("dbo.Journal", "Public_ID", "dbo.Public");
+            DropForeignKey("dbo.TransactionTrigger", "TransactionTriggerFrequencyID", "dbo.TransactionTriggerFrequency");
+            DropForeignKey("dbo.TransactionTrigger", "TransactionTriggerStatusID", "dbo.TransactionTriggerStatus");
+            DropForeignKey("dbo.TransactionTrigger", "ServiceProviderID", "dbo.ServiceProvider");
+            DropForeignKey("dbo.ServiceProvider", "ServiceProviderTypeID", "dbo.ServiceProviderType");
+            DropForeignKey("dbo.ServiceProvider", "PublicID", "dbo.Public");
+            DropForeignKey("dbo.Journal", "ServiceProviderID", "dbo.ServiceProvider");
+            DropForeignKey("dbo.ReportingEntityTransactionTrigger", "ID", "dbo.TransactionTrigger");
+            DropForeignKey("dbo.TransactionTrigger", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
+            DropForeignKey("dbo.ReportingEntityBranch", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.LedgerTxn", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
+            DropForeignKey("dbo.Journal", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
+            DropForeignKey("dbo.Agent", "ReportingEntityBranchID", "dbo.ReportingEntityBranch");
+            DropForeignKey("dbo.TransactionTrigger", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.ReportingEntityTransactionTrigger", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.ReportingEntity", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
+            DropForeignKey("dbo.ReportingEntityBankAccount", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.ReportingEntityBankAccount", "BankAccountID", "dbo.BankAccount");
+            DropForeignKey("dbo.ReportingEntity", "PublicID", "dbo.Public");
+            DropForeignKey("dbo.LedgerTxn", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.Journal", "ReportingEntityID", "dbo.ReportingEntity");
+            DropForeignKey("dbo.TransactionTrigger", "PublicID", "dbo.Public");
+            DropForeignKey("dbo.PolicyTransactionTrigger", "ID", "dbo.TransactionTrigger");
+            DropForeignKey("dbo.PolicyTransactionTrigger", "PolicyID", "dbo.Policy");
+            DropForeignKey("dbo.TransactionTriggerLog", "TransactionTriggerID", "dbo.TransactionTrigger");
+            DropForeignKey("dbo.TransactionTriggerException", "TransactionTriggerLogID", "dbo.TransactionTriggerLog");
+            DropForeignKey("dbo.TransactionTrigger", "JournalTemplateID", "dbo.JournalTemplate");
+            DropForeignKey("dbo.TransactionTriggerInput", "TransactionTriggerID", "dbo.TransactionTrigger");
+            DropForeignKey("dbo.TransactionTriggerInput", "JournalTemplateInputID", "dbo.JournalTemplateInput");
+            DropForeignKey("dbo.TransactionTrigger", "AgentID", "dbo.Agent");
+            DropForeignKey("dbo.Journal", "PublicID", "dbo.Public");
             DropForeignKey("dbo.ContactDetail", "PublicID", "dbo.Public");
             DropForeignKey("dbo.BankAccount", "PublicID", "dbo.Public");
             DropForeignKey("dbo.PolicyAgent", "PolicyID", "dbo.Policy");
             DropForeignKey("dbo.PolicyAgent", "AgentTypeID", "dbo.AgentType");
             DropForeignKey("dbo.PolicyAgent", "AgentID", "dbo.Agent");
             DropForeignKey("dbo.LedgerTxn", "LedgerAccountID", "dbo.LedgerAccount");
-            DropForeignKey("dbo.LedgerAccount", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
-            DropForeignKey("dbo.JournalTemplate", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
-            DropForeignKey("dbo.JournalTemplate", "JournalTypeID", "dbo.JournalType");
-            DropForeignKey("dbo.JournalTemplateTxn", "ServiceProviderTypeID", "dbo.ServiceProviderType");
-            DropForeignKey("dbo.JournalTemplateTxn", "PublicRequirementID", "dbo.PublicRequirement");
+            DropForeignKey("dbo.LedgerTxn", "JournalTxnID", "dbo.JournalTxn");
+            DropForeignKey("dbo.LedgerTxn", "AgentID", "dbo.Agent");
+            DropForeignKey("dbo.JournalTxn", "JournalTemplateTxnID", "dbo.JournalTemplateTxn");
             DropForeignKey("dbo.JournalTemplateTxnPosting", "LedgerAccountID", "dbo.LedgerAccount");
             DropForeignKey("dbo.JournalTemplateTxnPosting", "JournalTemplateTxnID", "dbo.JournalTemplateTxn");
-            DropForeignKey("dbo.JournalTemplateTxn", "JournalTemplateID", "dbo.JournalTemplate");
-            DropForeignKey("dbo.JournalTemplateTxn", "AgentTypeID", "dbo.AgentType");
+            DropForeignKey("dbo.JournalTemplateTxn", "JournalTxnClassID", "dbo.JournalTxnClass");
+            DropForeignKey("dbo.JournalTemplateTxn", "AmountLedgerAccountID", "dbo.LedgerAccount");
+            DropForeignKey("dbo.JournalTemplateTxn", "AmountInputID", "dbo.JournalTemplateInput");
             DropForeignKey("dbo.JournalTemplateInput", "JournalTemplateID", "dbo.JournalTemplate");
-            DropForeignKey("dbo.JournalTemplateInput", "AttributeDataTypeID", "dbo.AttributeDataType");
+            DropForeignKey("dbo.JournalTemplate", "ServiceProviderTypeID", "dbo.ServiceProviderType");
+            DropForeignKey("dbo.JournalTemplate", "SequenceNumberID", "dbo.SequenceNumber");
+            DropForeignKey("dbo.JournalTemplate", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
             DropForeignKey("dbo.CoverageProfile", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
             DropForeignKey("dbo.CoverageProfile", "IncomeLedgerAccountID", "dbo.LedgerAccount");
             DropForeignKey("dbo.CoverageProfile", "ExpenseLedgerAccountID", "dbo.LedgerAccount");
+            DropForeignKey("dbo.LedgerAccount", "ReportingEntityProfileID", "dbo.ReportingEntityProfile");
+            DropForeignKey("dbo.LedgerAccount", "LedgerAccountTypeID", "dbo.LedgerAccountType");
+            DropForeignKey("dbo.LedgerAccount", "LedgerID", "dbo.Ledger");
             DropForeignKey("dbo.CoverageProfile", "CoverageTypeID", "dbo.CoverageType");
             DropForeignKey("dbo.CoverageType", "RegionID", "dbo.Region");
-            DropForeignKey("dbo.LedgerAccount", "LedgerAccountTypeID", "dbo.LedgerAccountType");
-            DropForeignKey("dbo.LedgerTxn", "JournalTxnID", "dbo.JournalTxn");
-            DropForeignKey("dbo.LedgerTxn", "AgentID", "dbo.Agent");
+            DropForeignKey("dbo.RegionContextParameterValue", "RegionID", "dbo.Region");
+            DropForeignKey("dbo.RegionContextParameterValue", "ContextParameterValueID", "dbo.ContextParameterValue");
+            DropForeignKey("dbo.ContextParameterValue", "ContextParameterID", "dbo.ContextParameter");
+            DropForeignKey("dbo.JournalTemplate", "ReferenceInputID", "dbo.JournalTemplateInput");
+            DropForeignKey("dbo.JournalTemplate", "PublicRequirementID", "dbo.PublicRequirement");
+            DropForeignKey("dbo.JournalTemplate", "JournalTypeID", "dbo.JournalType");
+            DropForeignKey("dbo.JournalTemplateTxn", "JournalTemplateID", "dbo.JournalTemplate");
+            DropForeignKey("dbo.JournalTemplateInput", "JournalTemplate_ID", "dbo.JournalTemplate");
+            DropForeignKey("dbo.JournalTemplate", "AgentTypeID", "dbo.AgentType");
+            DropForeignKey("dbo.JournalTemplateInput", "AttributeDataTypeID", "dbo.AttributeDataType");
+            DropForeignKey("dbo.JournalTemplateTxn", "AmountContextParameterID", "dbo.ContextParameter");
             DropForeignKey("dbo.JournalTxn", "JournalID", "dbo.Journal");
             DropForeignKey("dbo.JournalTxn", "AgentID", "dbo.Agent");
+            DropForeignKey("dbo.Journal", "AgentID", "dbo.Agent");
             DropForeignKey("dbo.Agent", "AgentTypeID", "dbo.AgentType");
-            DropIndex("dbo.TransactionTrigger", new[] { "TransactionTriggerStatusID" });
-            DropIndex("dbo.TransactionTrigger", new[] { "TransactionTriggerFrequencyID" });
-            DropIndex("dbo.TransactionTrigger", new[] { "JournalTemplateID" });
-            DropIndex("dbo.TransactionTrigger", new[] { "ReportingEntityID" });
-            DropIndex("dbo.TransactionTriggerInput", new[] { "JournalTemplateInputID" });
-            DropIndex("dbo.TransactionTriggerInput", new[] { "TransactionTriggerID" });
-            DropIndex("dbo.TransactionTriggerFrequency", new[] { "Code" });
-            DropIndex("dbo.ReportingEntityBranch", new[] { "ReportingEntityID" });
             DropIndex("dbo.PolicyServiceProvider", new[] { "ServiceProviderID" });
             DropIndex("dbo.PolicyServiceProvider", new[] { "ServiceProviderTypeID" });
             DropIndex("dbo.PolicyServiceProvider", new[] { "PolicyID" });
             DropIndex("dbo.PolicyReportingEntity", new[] { "ReportingEntityID" });
             DropIndex("dbo.PolicyReportingEntity", new[] { "PolicyTypeEntityRequirementID" });
             DropIndex("dbo.PolicyReportingEntity", new[] { "PolicyID" });
-            DropIndex("dbo.ServiceProvider", new[] { "ServiceProviderTypeID" });
-            DropIndex("dbo.ServiceProvider", new[] { "PublicID" });
             DropIndex("dbo.PolicyTypeServiceProvider", new[] { "DefaultServiceProviderID" });
             DropIndex("dbo.PolicyTypeServiceProvider", new[] { "ServiceProviderTypeID" });
             DropIndex("dbo.PolicyTypeServiceProvider", new[] { "PolicyTypeID" });
-            DropIndex("dbo.ReportingEntityBankAccount", new[] { "BankAccountID" });
-            DropIndex("dbo.ReportingEntityBankAccount", new[] { "ReportingEntityID" });
-            DropIndex("dbo.ReportingEntity", new[] { "ReportingEntityProfileID" });
-            DropIndex("dbo.ReportingEntity", new[] { "PublicID" });
+            DropIndex("dbo.PolicyTypeItemClass", new[] { "InsurableItemClassID" });
+            DropIndex("dbo.PolicyTypeItemClass", new[] { "PolicyTypeID" });
             DropIndex("dbo.PolicyTypeEntityRequirement", new[] { "DefaultReportingEntityID" });
             DropIndex("dbo.PolicyTypeEntityRequirement", new[] { "ReportingEntityProfileID" });
             DropIndex("dbo.PolicyTypeEntityRequirement", new[] { "PolicyTypeID" });
+            DropIndex("dbo.PolicyTypeContextParameterValue", new[] { "PolicyTypeID" });
+            DropIndex("dbo.PolicyTypeContextParameterValue", new[] { "ContextParameterValueID" });
             DropIndex("dbo.PolicyTypeAgentRequirement", new[] { "AgentTypeID" });
             DropIndex("dbo.PolicyTypeAgentRequirement", new[] { "PolicyTypeID" });
+            DropIndex("dbo.PolicySubTypeCoverage", new[] { "CoverageTypeID" });
+            DropIndex("dbo.PolicySubTypeCoverage", new[] { "PolicySubTypeID" });
+            DropIndex("dbo.PolicySubTypeContextParameterValue", new[] { "PolicySubTypeID" });
+            DropIndex("dbo.PolicySubTypeContextParameterValue", new[] { "ContextParameterValueID" });
             DropIndex("dbo.PolicySubType", new[] { "RegionID" });
             DropIndex("dbo.PolicySubType", new[] { "SequenceNumberID" });
             DropIndex("dbo.PolicySubType", new[] { "PolicyTypeID" });
@@ -1269,8 +1577,10 @@ namespace AIMS.DomainModel.Migrations
             DropIndex("dbo.OperatorAttribute", new[] { "OperatorTypeAttributeID" });
             DropIndex("dbo.OperatorAttribute", new[] { "OperatorID" });
             DropIndex("dbo.Operator", new[] { "OperatorTypeID" });
+            DropIndex("dbo.Operator", new[] { "PolicyID" });
             DropIndex("dbo.Operator", new[] { "OperatorPublicID" });
-            DropIndex("dbo.Operator", new[] { "InsurableItemID" });
+            DropIndex("dbo.InsurableItemOperator", new[] { "OperatorID" });
+            DropIndex("dbo.InsurableItemOperator", new[] { "InsurableItemID" });
             DropIndex("dbo.OperatorTypeAttribute", new[] { "AttributeLookupListID" });
             DropIndex("dbo.OperatorTypeAttribute", new[] { "OperatorTypeAttributeGroupID" });
             DropIndex("dbo.OperatorTypeAttribute", new[] { "AttributeDataTypeID" });
@@ -1288,10 +1598,37 @@ namespace AIMS.DomainModel.Migrations
             DropIndex("dbo.InsurableItemAttribute", new[] { "InsurableItemClassAttributeID" });
             DropIndex("dbo.InsurableItemAttribute", new[] { "InsurableItemID" });
             DropIndex("dbo.InsurableItem", new[] { "PolicyRiskLocationID" });
+            DropIndex("dbo.InsurableItem", new[] { "PolicyID" });
             DropIndex("dbo.InsurableItem", new[] { "InsurableItemClassID" });
             DropIndex("dbo.PolicyCoverage", new[] { "InsurableItemID" });
             DropIndex("dbo.PolicyCoverage", new[] { "CoverageTypeID" });
             DropIndex("dbo.PolicyCoverage", new[] { "PolicyID" });
+            DropIndex("dbo.PolicyContextParameterValue", new[] { "PolicyID" });
+            DropIndex("dbo.PolicyContextParameterValue", new[] { "ContextParameterValueID" });
+            DropIndex("dbo.TransactionTriggerFrequency", new[] { "Code" });
+            DropIndex("dbo.ServiceProvider", new[] { "ServiceProviderTypeID" });
+            DropIndex("dbo.ServiceProvider", new[] { "PublicID" });
+            DropIndex("dbo.ReportingEntityBranch", new[] { "ReportingEntityID" });
+            DropIndex("dbo.ReportingEntityTransactionTrigger", new[] { "ReportingEntityID" });
+            DropIndex("dbo.ReportingEntityTransactionTrigger", new[] { "ID" });
+            DropIndex("dbo.ReportingEntityBankAccount", new[] { "BankAccountID" });
+            DropIndex("dbo.ReportingEntityBankAccount", new[] { "ReportingEntityID" });
+            DropIndex("dbo.ReportingEntity", new[] { "ReportingEntityProfileID" });
+            DropIndex("dbo.ReportingEntity", new[] { "PublicID" });
+            DropIndex("dbo.PolicyTransactionTrigger", new[] { "PolicyID" });
+            DropIndex("dbo.PolicyTransactionTrigger", new[] { "ID" });
+            DropIndex("dbo.TransactionTriggerException", new[] { "TransactionTriggerLogID" });
+            DropIndex("dbo.TransactionTriggerLog", new[] { "TransactionTriggerID" });
+            DropIndex("dbo.TransactionTriggerInput", new[] { "JournalTemplateInputID" });
+            DropIndex("dbo.TransactionTriggerInput", new[] { "TransactionTriggerID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "ReportingEntityBranchID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "AgentID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "ServiceProviderID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "PublicID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "TransactionTriggerStatusID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "TransactionTriggerFrequencyID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "JournalTemplateID" });
+            DropIndex("dbo.TransactionTrigger", new[] { "ReportingEntityID" });
             DropIndex("dbo.ContactDetail", new[] { "PublicID" });
             DropIndex("dbo.BankAccount", new[] { "PublicID" });
             DropIndex("dbo.PolicyAgent", new[] { "AgentID" });
@@ -1299,23 +1636,6 @@ namespace AIMS.DomainModel.Migrations
             DropIndex("dbo.PolicyAgent", new[] { "PolicyID" });
             DropIndex("dbo.Policy", new[] { "BillingPublicID" });
             DropIndex("dbo.Policy", new[] { "PolicySubTypeID" });
-            DropIndex("dbo.JournalTemplateTxnPosting", new[] { "LedgerAccountID" });
-            DropIndex("dbo.JournalTemplateTxnPosting", new[] { "JournalTemplateTxnID" });
-            DropIndex("dbo.JournalTemplateTxn", new[] { "AgentTypeID" });
-            DropIndex("dbo.JournalTemplateTxn", new[] { "ServiceProviderTypeID" });
-            DropIndex("dbo.JournalTemplateTxn", new[] { "PublicRequirementID" });
-            DropIndex("dbo.JournalTemplateTxn", new[] { "JournalTemplateID" });
-            DropIndex("dbo.JournalTemplateInput", new[] { "AttributeDataTypeID" });
-            DropIndex("dbo.JournalTemplateInput", new[] { "JournalTemplateID" });
-            DropIndex("dbo.JournalTemplate", new[] { "JournalTypeID" });
-            DropIndex("dbo.JournalTemplate", new[] { "ReportingEntityProfileID" });
-            DropIndex("dbo.CoverageType", new[] { "RegionID" });
-            DropIndex("dbo.CoverageProfile", new[] { "ExpenseLedgerAccountID" });
-            DropIndex("dbo.CoverageProfile", new[] { "IncomeLedgerAccountID" });
-            DropIndex("dbo.CoverageProfile", new[] { "CoverageTypeID" });
-            DropIndex("dbo.CoverageProfile", new[] { "ReportingEntityProfileID" });
-            DropIndex("dbo.LedgerAccount", new[] { "LedgerAccountTypeID" });
-            DropIndex("dbo.LedgerAccount", new[] { "ReportingEntityProfileID" });
             DropIndex("dbo.LedgerTxn", new[] { "ReportingEntityBranchID" });
             DropIndex("dbo.LedgerTxn", new[] { "AgentID" });
             DropIndex("dbo.LedgerTxn", new[] { "PolicyID" });
@@ -1323,45 +1643,69 @@ namespace AIMS.DomainModel.Migrations
             DropIndex("dbo.LedgerTxn", new[] { "LedgerAccountID" });
             DropIndex("dbo.LedgerTxn", new[] { "JournalTxnID" });
             DropIndex("dbo.LedgerTxn", new[] { "ReportingEntityID" });
+            DropIndex("dbo.JournalTemplateTxnPosting", new[] { "LedgerAccountID" });
+            DropIndex("dbo.JournalTemplateTxnPosting", new[] { "JournalTemplateTxnID" });
+            DropIndex("dbo.LedgerAccount", new[] { "LedgerID" });
+            DropIndex("dbo.LedgerAccount", new[] { "LedgerAccountTypeID" });
+            DropIndex("dbo.LedgerAccount", new[] { "ReportingEntityProfileID" });
+            DropIndex("dbo.ContextParameterValue", new[] { "ContextParameterID" });
+            DropIndex("dbo.RegionContextParameterValue", new[] { "RegionID" });
+            DropIndex("dbo.RegionContextParameterValue", new[] { "ContextParameterValueID" });
+            DropIndex("dbo.CoverageType", new[] { "RegionID" });
+            DropIndex("dbo.CoverageProfile", new[] { "ExpenseLedgerAccountID" });
+            DropIndex("dbo.CoverageProfile", new[] { "IncomeLedgerAccountID" });
+            DropIndex("dbo.CoverageProfile", new[] { "CoverageTypeID" });
+            DropIndex("dbo.CoverageProfile", new[] { "ReportingEntityProfileID" });
+            DropIndex("dbo.JournalTemplate", new[] { "AgentTypeID" });
+            DropIndex("dbo.JournalTemplate", new[] { "ServiceProviderTypeID" });
+            DropIndex("dbo.JournalTemplate", new[] { "PublicRequirementID" });
+            DropIndex("dbo.JournalTemplate", new[] { "ReferenceInputID" });
+            DropIndex("dbo.JournalTemplate", new[] { "SequenceNumberID" });
+            DropIndex("dbo.JournalTemplate", new[] { "JournalTypeID" });
+            DropIndex("dbo.JournalTemplate", new[] { "ReportingEntityProfileID" });
+            DropIndex("dbo.JournalTemplateInput", new[] { "JournalTemplate_ID" });
+            DropIndex("dbo.JournalTemplateInput", new[] { "AttributeDataTypeID" });
+            DropIndex("dbo.JournalTemplateInput", new[] { "JournalTemplateID" });
+            DropIndex("dbo.JournalTemplateTxn", new[] { "AmountLedgerAccountID" });
+            DropIndex("dbo.JournalTemplateTxn", new[] { "AmountContextParameterID" });
+            DropIndex("dbo.JournalTemplateTxn", new[] { "AmountInputID" });
+            DropIndex("dbo.JournalTemplateTxn", new[] { "JournalTxnClassID" });
+            DropIndex("dbo.JournalTemplateTxn", new[] { "JournalTemplateID" });
+            DropIndex("dbo.JournalTxn", new[] { "PolicyCoverageID" });
+            DropIndex("dbo.JournalTxn", new[] { "JournalTemplateTxnID" });
             DropIndex("dbo.JournalTxn", new[] { "ReportingEntityBranchID" });
             DropIndex("dbo.JournalTxn", new[] { "AgentID" });
             DropIndex("dbo.JournalTxn", new[] { "PolicyID" });
             DropIndex("dbo.JournalTxn", new[] { "PublicID" });
             DropIndex("dbo.JournalTxn", new[] { "JournalID" });
-            DropIndex("dbo.Journal", new[] { "Agent_ID" });
-            DropIndex("dbo.Journal", new[] { "ReportingEntityBranch_ID" });
-            DropIndex("dbo.Journal", new[] { "ServiceProvider_ID" });
-            DropIndex("dbo.Journal", new[] { "Policy_ID" });
-            DropIndex("dbo.Journal", new[] { "Public_ID" });
+            DropIndex("dbo.Journal", new[] { "AgentID" });
+            DropIndex("dbo.Journal", new[] { "ReportingEntityBranchID" });
+            DropIndex("dbo.Journal", new[] { "ServiceProviderID" });
+            DropIndex("dbo.Journal", new[] { "PublicID" });
+            DropIndex("dbo.Journal", new[] { "PolicyID" });
             DropIndex("dbo.Journal", new[] { "JournalTypeID" });
             DropIndex("dbo.Journal", new[] { "ReportingEntityID" });
             DropIndex("dbo.Agent", new[] { "AgentTypeID" });
             DropIndex("dbo.Agent", new[] { "PublicID" });
             DropIndex("dbo.Agent", new[] { "ReportingEntityBranchID" });
-            DropTable("dbo.TransactionTriggerStatus");
-            DropTable("dbo.TransactionTrigger");
-            DropTable("dbo.TransactionTriggerInput");
-            DropTable("dbo.TransactionTriggerFrequency");
             DropTable("dbo.PolicyStatus");
-            DropTable("dbo.JournalTxnClass");
-            DropTable("dbo.ContextParameter");
             DropTable("dbo.BusinessLine");
-            DropTable("dbo.ReportingEntityBranch");
             DropTable("dbo.PolicyServiceProvider");
             DropTable("dbo.PolicyReportingEntity");
-            DropTable("dbo.SequenceNumber");
-            DropTable("dbo.ServiceProvider");
             DropTable("dbo.PolicyTypeServiceProvider");
-            DropTable("dbo.ReportingEntityBankAccount");
-            DropTable("dbo.ReportingEntity");
+            DropTable("dbo.PolicyTypeItemClass");
             DropTable("dbo.PolicyTypeEntityRequirement");
+            DropTable("dbo.PolicyTypeContextParameterValue");
             DropTable("dbo.PolicyTypeAgentRequirement");
             DropTable("dbo.PolicyType");
+            DropTable("dbo.PolicySubTypeCoverage");
+            DropTable("dbo.PolicySubTypeContextParameterValue");
             DropTable("dbo.PolicySubType");
             DropTable("dbo.PolicyHolder");
             DropTable("dbo.PolicyRiskLocation");
             DropTable("dbo.OperatorAttribute");
             DropTable("dbo.Operator");
+            DropTable("dbo.InsurableItemOperator");
             DropTable("dbo.OperatorTypeAttribute");
             DropTable("dbo.OperatorTypeAttributeGroup");
             DropTable("dbo.OperatorType");
@@ -1375,26 +1719,45 @@ namespace AIMS.DomainModel.Migrations
             DropTable("dbo.InsurableItemAttribute");
             DropTable("dbo.InsurableItem");
             DropTable("dbo.PolicyCoverage");
+            DropTable("dbo.PolicyContextParameterValue");
+            DropTable("dbo.TransactionTriggerFrequency");
+            DropTable("dbo.TransactionTriggerStatus");
+            DropTable("dbo.ServiceProvider");
+            DropTable("dbo.ReportingEntityBranch");
+            DropTable("dbo.ReportingEntityTransactionTrigger");
+            DropTable("dbo.ReportingEntityBankAccount");
+            DropTable("dbo.ReportingEntity");
+            DropTable("dbo.PolicyTransactionTrigger");
+            DropTable("dbo.TransactionTriggerException");
+            DropTable("dbo.TransactionTriggerLog");
+            DropTable("dbo.TransactionTriggerInput");
+            DropTable("dbo.TransactionTrigger");
             DropTable("dbo.ContactDetail");
             DropTable("dbo.BankAccount");
             DropTable("dbo.Public");
             DropTable("dbo.PolicyAgent");
             DropTable("dbo.Policy");
-            DropTable("dbo.JournalType");
-            DropTable("dbo.ServiceProviderType");
-            DropTable("dbo.PublicRequirement");
+            DropTable("dbo.LedgerTxn");
             DropTable("dbo.JournalTemplateTxnPosting");
-            DropTable("dbo.JournalTemplateTxn");
-            DropTable("dbo.AttributeDataType");
-            DropTable("dbo.JournalTemplateInput");
-            DropTable("dbo.JournalTemplate");
+            DropTable("dbo.JournalTxnClass");
+            DropTable("dbo.ServiceProviderType");
+            DropTable("dbo.SequenceNumber");
+            DropTable("dbo.LedgerAccountType");
+            DropTable("dbo.Ledger");
+            DropTable("dbo.LedgerAccount");
+            DropTable("dbo.ContextParameterValue");
+            DropTable("dbo.RegionContextParameterValue");
             DropTable("dbo.Region");
             DropTable("dbo.CoverageType");
             DropTable("dbo.CoverageProfile");
             DropTable("dbo.ReportingEntityProfile");
-            DropTable("dbo.LedgerAccountType");
-            DropTable("dbo.LedgerAccount");
-            DropTable("dbo.LedgerTxn");
+            DropTable("dbo.PublicRequirement");
+            DropTable("dbo.JournalType");
+            DropTable("dbo.JournalTemplate");
+            DropTable("dbo.AttributeDataType");
+            DropTable("dbo.JournalTemplateInput");
+            DropTable("dbo.ContextParameter");
+            DropTable("dbo.JournalTemplateTxn");
             DropTable("dbo.JournalTxn");
             DropTable("dbo.Journal");
             DropTable("dbo.AgentType");

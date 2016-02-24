@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public abstract class ContextParameterValue : BaseEntity
+    public class ContextParameterValue : BaseEntity
     {
         public int ContextParameterID { get; set; }
         public virtual ContextParameter ContextParameter { get; set; }

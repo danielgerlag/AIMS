@@ -44,7 +44,7 @@ export class TransactionTriggers extends SubViewList {
 
     protected createChildEntity(type): any {
         var item = this.dataService.createEntity(this.type, {});  
-        alert(this.type);      
+        item.TransactionTrigger = this.dataService.createEntity("TransactionTrigger", {});  
         return item;
     }
 

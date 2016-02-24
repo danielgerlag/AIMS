@@ -12,7 +12,7 @@ namespace AIMS.DomainModel.Entities
 {
     [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnAddAfterCommit, Order = 1)]
     [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnChangeAfterCommit, Order = 1)]
-    public abstract class TransactionTrigger : BaseEntity
+    public class TransactionTrigger : BaseEntity
     {
         public int ReportingEntityID { get; set; }
         public virtual ReportingEntity ReportingEntity { get; set; }
@@ -62,5 +62,12 @@ namespace AIMS.DomainModel.Entities
 
         public int? ReportingEntityBranchID { get; set; }
         public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
+
+
+
+        
+        public virtual ReportingEntityTransactionTrigger ReportingEntityTransactionTrigger { get; set; }
+        
+        public virtual PolicyTransactionTrigger PolicyTransactionTrigger { get; set; }
     }
 }

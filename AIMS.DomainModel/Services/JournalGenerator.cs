@@ -24,7 +24,7 @@ namespace AIMS.DomainModel.Services
         {
             JournalRunResult result = new JournalRunResult();
 
-            if (transactionTrigger is ReportingEntityTransactionTrigger)
+            if (transactionTrigger.ReportingEntityTransactionTrigger != null)
             {
                 Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
                 _journalPoster.Run(db, journal);
@@ -32,9 +32,9 @@ namespace AIMS.DomainModel.Services
             }
 
 
-            if (transactionTrigger is PolicyTransactionTrigger)
+            if (transactionTrigger.PolicyTransactionTrigger != null)
             {
-                var policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
+                var policyTransactionTrigger = (transactionTrigger.PolicyTransactionTrigger);
                 if (transactionTrigger.JournalTemplate.PublicRequirement != null)
                 {
                     if (transactionTrigger.JournalTemplate.PublicRequirement.IsPolicyHolder)
@@ -115,8 +115,8 @@ namespace AIMS.DomainModel.Services
             journal.ReportingEntity = transactionTrigger.ReportingEntity;
             //journal.TransactionOrigin = transactionTrigger.TransactionOrigin;
 
-            if (transactionTrigger is PolicyTransactionTrigger)
-                journal.Policy = (transactionTrigger as PolicyTransactionTrigger).Policy;
+            if (transactionTrigger.PolicyTransactionTrigger != null)
+                journal.Policy = transactionTrigger.PolicyTransactionTrigger.Policy;
 
             journal.Public = resolvedPublic;
             journal.ServiceProvider = serviceProvider;
@@ -152,8 +152,8 @@ namespace AIMS.DomainModel.Services
                 txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, transactionTrigger, templateTxn, resolvedPublic)) * percentage);
 
             txn.Description = templateTxn.Description;
-            if (transactionTrigger is PolicyTransactionTrigger)
-                journal.Policy = (transactionTrigger as PolicyTransactionTrigger).Policy;
+            if (transactionTrigger.PolicyTransactionTrigger != null)
+                journal.Policy = transactionTrigger.PolicyTransactionTrigger.Policy;
 
             txn.Public = resolvedPublic;
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
@@ -166,9 +166,9 @@ namespace AIMS.DomainModel.Services
         
         private void BuildCoverageTxns(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn, decimal percentage)
         {
-            if (transactionTrigger is PolicyTransactionTrigger)
+            if (transactionTrigger.PolicyTransactionTrigger != null)
             {
-                var policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
+                var policyTransactionTrigger = (transactionTrigger.PolicyTransactionTrigger);
                 foreach (var coverage in policyTransactionTrigger.Policy.Coverages)
                 {
                     if (!coverage.Premium.HasValue)
@@ -234,8 +234,8 @@ namespace AIMS.DomainModel.Services
                 throw new Exception("Ledger account not specified");
 
             PolicyTransactionTrigger policyTransactionTrigger = null;
-            if (transactionTrigger is PolicyTransactionTrigger)
-                policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
+            if (transactionTrigger.PolicyTransactionTrigger != null)
+                policyTransactionTrigger = (transactionTrigger.PolicyTransactionTrigger);
 
                 var query = db.LedgerTxns.Where(x => x.ReportingEntityID == transactionTrigger.ReportingEntityID && x.LedgerAccountID == templateTxn.AmountLedgerAccountID && x.TxnDate <= transactionTrigger.TxnDate);
 
@@ -258,9 +258,9 @@ namespace AIMS.DomainModel.Services
 
         private decimal ResolveContextParameter(IDataContext db, TransactionTrigger trigger, JournalTemplateTxn templateTxn, Public resolvedPublic)
         {
-            if (trigger is PolicyTransactionTrigger)
+            if (trigger.PolicyTransactionTrigger != null)
             {
-                var policyTransactionTrigger = (trigger as PolicyTransactionTrigger);
+                var policyTransactionTrigger = (trigger.PolicyTransactionTrigger);
                 if (policyTransactionTrigger.Policy != null)
                 {
                     return _contextParameterResolver.Resolve(db, trigger.TxnDate.Value, templateTxn.AmountContextParameterID.Value, policyTransactionTrigger.Policy);

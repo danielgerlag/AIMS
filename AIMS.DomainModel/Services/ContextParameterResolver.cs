@@ -13,12 +13,12 @@ namespace AIMS.DomainModel.Services
 
         public decimal Resolve(IDataContext db, DateTime effectiveDate, int contextParameterID, Policy policy)
         {
-            var value = policy.ContextParameterValues.Where(x => x.ContextParameterID == contextParameterID && x.EffectiveDate <= effectiveDate)
-                .OrderByDescending(x => x.EffectiveDate)
+            var value = policy.ContextParameterValues.Where(x => x.ContextParameterValue.ContextParameterID == contextParameterID && x.ContextParameterValue.EffectiveDate <= effectiveDate)
+                .OrderByDescending(x => x.ContextParameterValue.EffectiveDate)
                 .FirstOrDefault();
 
             if (value != null)
-                return value.Value;
+                return value.ContextParameterValue.Value;
 
             return Resolve(db, effectiveDate, contextParameterID, policy.PolicySubType);
         }
@@ -26,24 +26,24 @@ namespace AIMS.DomainModel.Services
 
         public decimal Resolve(IDataContext db, DateTime effectiveDate, int contextParameterID, PolicySubType policySubType)
         {
-            var value = policySubType.ContextParameterValues.Where(x => x.ContextParameterID == contextParameterID && x.EffectiveDate <= effectiveDate)
-                .OrderByDescending(x => x.EffectiveDate)
+            var value = policySubType.ContextParameterValues.Where(x => x.ContextParameterValue.ContextParameterID == contextParameterID && x.ContextParameterValue.EffectiveDate <= effectiveDate)
+                .OrderByDescending(x => x.ContextParameterValue.EffectiveDate)
                 .FirstOrDefault();
 
             if (value != null)
-                return value.Value;
+                return value.ContextParameterValue.Value;
 
             return Resolve(db, effectiveDate, contextParameterID, policySubType.PolicyType, policySubType.Region);
         }
 
         public decimal Resolve(IDataContext db, DateTime effectiveDate, int contextParameterID, PolicyType policyType, Region region)
         {
-            var value = policyType.ContextParameterValues.Where(x => x.ContextParameterID == contextParameterID && x.EffectiveDate <= effectiveDate)
-                .OrderByDescending(x => x.EffectiveDate)
+            var value = policyType.ContextParameterValues.Where(x => x.ContextParameterValue.ContextParameterID == contextParameterID && x.ContextParameterValue.EffectiveDate <= effectiveDate)
+                .OrderByDescending(x => x.ContextParameterValue.EffectiveDate)
                 .FirstOrDefault();
 
             if (value != null)
-                return value.Value;
+                return value.ContextParameterValue.Value;
 
             return Resolve(db, effectiveDate, contextParameterID, region);
         }
@@ -51,12 +51,12 @@ namespace AIMS.DomainModel.Services
 
         public decimal Resolve(IDataContext db, DateTime effectiveDate, int contextParameterID, Region region)
         {
-            var value = region.ContextParameterValues.Where(x => x.ContextParameterID == contextParameterID && x.EffectiveDate <= effectiveDate)
-                .OrderByDescending(x => x.EffectiveDate)
+            var value = region.ContextParameterValues.Where(x => x.ContextParameterValue.ContextParameterID == contextParameterID && x.ContextParameterValue.EffectiveDate <= effectiveDate)
+                .OrderByDescending(x => x.ContextParameterValue.EffectiveDate)
                 .FirstOrDefault();
 
             if (value != null)
-                return value.Value;
+                return value.ContextParameterValue.Value;
 
             return 0;
         }

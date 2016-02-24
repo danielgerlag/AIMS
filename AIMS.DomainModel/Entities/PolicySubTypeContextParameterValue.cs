@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class PolicySubTypeContextParameterValue : ContextParameterValue
-    { 
+    public class PolicySubTypeContextParameterValue : BaseEntity
+    {
+
+        public int ContextParameterValueID { get; set; }
+        public virtual ContextParameterValue ContextParameterValue { get; set; }
+
         public int PolicySubTypeID { get; set; }
         public virtual PolicySubType PolicySubType { get; set; }
                 

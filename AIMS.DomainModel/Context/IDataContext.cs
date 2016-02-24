@@ -18,6 +18,13 @@ namespace AIMS.DomainModel.Context
         DbSet<BusinessLine> BusinessLines { get; set; }
         DbSet<ContactDetail> ContactDetails { get; set; }
         DbSet<ContextParameter> ContextParameters { get; set; }
+
+        DbSet<ContextParameterValue> ContextParameterValues { get; set; }
+        DbSet<RegionContextParameterValue> RegionContextParameterValues { get; set; }
+        DbSet<PolicyTypeContextParameterValue> PolicyTypeContextParameterValues { get; set; }
+        DbSet<PolicySubTypeContextParameterValue> PolicySubTypeContextParameterValues { get; set; }
+        DbSet<PolicyContextParameterValue> PolicyContextParameterValues { get; set; }
+
         DbSet<CoverageProfile> CoverageProfiles { get; set; }
         DbSet<CoverageType> CoverageTypes { get; set; }
         DbSet<InsurableItem> InsurableItems { get; set; }
@@ -76,8 +83,8 @@ namespace AIMS.DomainModel.Context
 
         DbSet<TransactionTrigger> TransactionTriggers { get; set; }
 
-        //DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
-        //DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
+        DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
+        DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
 
 
         DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }

@@ -44,7 +44,9 @@ export class ContextParameterValues extends SubViewList {
 
     protected createChildEntity(type): any {
         var item = this.dataService.createEntity(this.childType, {});
-        item.EffectiveDate = moment().startOf('day').toDate();
+        item.ContextParameterValue = this.dataService.createEntity("ContextParameterValue", {});  
+        item.ContextParameterValue.EffectiveDate = moment().startOf('day').toDate();        
+
         return item;
     }
 

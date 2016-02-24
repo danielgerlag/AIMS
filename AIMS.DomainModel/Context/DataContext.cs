@@ -24,6 +24,12 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<BusinessLine> BusinessLines { get; set; }
         public virtual DbSet<ContactDetail> ContactDetails { get; set; }
         public virtual DbSet<ContextParameter> ContextParameters { get; set; }
+        public virtual DbSet<ContextParameterValue> ContextParameterValues { get; set; }
+        public virtual DbSet<RegionContextParameterValue> RegionContextParameterValues { get; set; }
+        public virtual DbSet<PolicyTypeContextParameterValue> PolicyTypeContextParameterValues { get; set; }
+        public virtual DbSet<PolicySubTypeContextParameterValue> PolicySubTypeContextParameterValues { get; set; }
+        public virtual DbSet<PolicyContextParameterValue> PolicyContextParameterValues { get; set; }
+
         public virtual DbSet<CoverageProfile> CoverageProfiles { get; set; }
         public virtual DbSet<CoverageType> CoverageTypes { get; set; }
         public virtual DbSet<InsurableItem> InsurableItems { get; set; }
@@ -82,8 +88,8 @@ namespace AIMS.DomainModel.Context
 
         public virtual DbSet<TransactionTrigger> TransactionTriggers { get; set; }
 
-        //public virtual DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
-        //public virtual DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
+        public virtual DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
+        public virtual DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
 
 
         public virtual DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
@@ -123,8 +129,17 @@ namespace AIMS.DomainModel.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.ComplexType<Models.LedgerAccountBalance>();
+
+            modelBuilder.Entity<TransactionTrigger>()
+               .HasOptional(s => s.PolicyTransactionTrigger)
+               .WithRequired(ad => ad.TransactionTrigger);
+
+            modelBuilder.Entity<TransactionTrigger>()
+               .HasOptional(s => s.ReportingEntityTransactionTrigger)
+               .WithRequired(ad => ad.TransactionTrigger);
+
+
             base.OnModelCreating(modelBuilder);            
         }
 

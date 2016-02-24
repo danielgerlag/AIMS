@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class RegionContextParameterValue : ContextParameterValue
-    { 
+    public class RegionContextParameterValue : BaseEntity
+    {
+        public int ContextParameterValueID { get; set; }
+        public virtual ContextParameterValue ContextParameterValue { get; set; }
+
         public int RegionID { get; set; }
         public virtual Region Region { get; set; }
                 
