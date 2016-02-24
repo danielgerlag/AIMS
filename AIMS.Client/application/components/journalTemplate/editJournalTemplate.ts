@@ -58,9 +58,8 @@ export class EditJournalTemplate implements OnInit, ICustomModalComponent {
         this.dialog.close(null);
     }
 
-    protected addInput() {
+    protected addInput() {       
         var item = this.dataService.createEntity("JournalTemplateInput", {});        
-        //item.JournalTemplate = this.entity;
         this.entity.Inputs.push(item);
     }
 

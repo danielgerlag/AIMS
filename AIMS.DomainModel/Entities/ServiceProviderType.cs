@@ -15,6 +15,8 @@ namespace AIMS.DomainModel.Entities
         [MaxLength(300)]
         public string Name { get; set; }
 
+        public virtual ICollection<ServiceProvider> ServiceProviders { get; set; } = new HashSet<ServiceProvider>();
+
         public override string GetLookupText()
         {
             return Name;

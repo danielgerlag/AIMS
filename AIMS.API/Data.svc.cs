@@ -100,6 +100,11 @@ namespace AIMS.DomainModel
             return task.Result.AsQueryable();
         }
 
+        [WebGet]
+        public IQueryable<JournalTemplate> GetAvailableJournalTemplates(string origin, int reportingEntityID)
+        {
+            return CurrentDataSource.JournalTemplates.Where(x => x.TransactionOrigin == origin && x.ReportingEntityProfile.ReportingEntities.Any(y => y.ID == reportingEntityID));
+        }
 
         [WebGet]        
         public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, string effectiveDate)

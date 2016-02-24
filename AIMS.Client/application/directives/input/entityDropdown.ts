@@ -11,7 +11,7 @@ import {ODataWrapper} from '../../core/interfaces'
 })
 @View({
     template: `    
-    <select type="text" class="form-control"  [ngModel]="value" (change)="changeValue($event.target.value)" >
+    <select type="text" class="form-control"  [ngModel]="entityId" (change)="changeValue($event.target.value)" >
         <option *ngIf="nullable" value="">(None)</option>
         <option *ngFor="#o of selectList" [value]="o.key">{{o.name}}</option>
     </select>
@@ -28,6 +28,8 @@ export class EntityDropdown implements OnInit {
     private keyField: string;
     private displayField: string;
     private nullable: boolean;
+    //private dirtyValue: any;
+
     public valueChange: EventEmitter<any> = new EventEmitter();
         
     private _boundList: Array<any> = [];
@@ -52,10 +54,8 @@ export class EntityDropdown implements OnInit {
     public get value() {
         return this.entityId;
     }
-    public set value(value) {
-        //console.log('firing setValue: ' + value);
+    public set value(value) {        
         this.entityId = value;
-        this.onEntityChanged();
     }
 
     public get boundList() {
@@ -76,12 +76,15 @@ export class EntityDropdown implements OnInit {
     }
 
     public changeValue(value) {
-        this.value = value;
+        this.entityId = value;
+        this.onEntityChanged();
     }
 
     onEntityChanged() {
         //console.log('firing valueChange: ' + this.entityId);
-        this.valueChange.next(this.entityId);
+        //this.valueChange.next(this.entityId);
+        this.valueChange.emit(this.entityId);
+        //this.valueChange.em
     }        
 
     protected loadRemoteList() {

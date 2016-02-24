@@ -56,9 +56,17 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
         this.entity = data;
         this.trigger = this.entity.TransactionTrigger;
         this.dataService = dataService;
-        this.step = 1;
-        this.origin = 'P';
         this.templateInputsLoaded = false;
+        var e: breeze.Entity = this.entity;
+        if (e.entityType.shortName == "PolicyTransactionTrigger") {
+            this.step = 1;
+            this.origin = 'P';
+        }
+
+        if (e.entityType.shortName == "ReportingEntityTransactionTrigger") {
+            this.step = 2;
+            this.origin = 'G';
+        }
     }
 
 
@@ -91,11 +99,12 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
 
     protected initTxnTrigger(journalTemplateID: number) {
 
-        this.dataService.getEntity(this, "JournalTemplates", journalTemplateID, "Inputs, Inputs.AttributeDataType", false, this.onLoadConfig, this.onConfigFailure);
+        this.dataService.getEntity(this, "JournalTemplates", journalTemplateID, "Inputs, Inputs.AttributeDataType, PublicRequirement, ServiceProviderType, AgentType", false, this.onLoadConfig, this.onConfigFailure);
     }
 
     protected onLoadConfig(sender: NewTransactionTrigger, data: breeze.QueryResult): any {
         sender.trigger.JournalTemplate = data.results[0];
+        sender.trigger.Description = sender.trigger.JournalTemplate.Description;
         sender.templateInputsLoaded = true;
         //sender.entity.TransactionOrigin = sender.entity.JournalTemplate.TransactionOrigin;
     }

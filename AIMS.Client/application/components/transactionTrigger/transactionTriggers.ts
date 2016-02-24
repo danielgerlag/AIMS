@@ -46,6 +46,10 @@ export class TransactionTriggers extends SubViewList {
         var item = this.dataService.createEntity(this.type, {
             TransactionTrigger: this.dataService.createEntity("TransactionTrigger", {})
         });
+
+        if (this.value.entityType.shortName == "ReportingEntity") {
+            item.TransactionTrigger.ReportingEntityID = this.value['ID'];
+        }
         return item;
     }
 

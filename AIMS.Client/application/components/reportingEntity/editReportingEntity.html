@@ -6,8 +6,7 @@
 
                 <form-input [entity]="entity" name="PublicID" title="Public">
                     <publicSelector [(value)]="entity.Public" [dataService]="dataService"></publicSelector>
-                </form-input>
-
+                </form-input>                
 
                 <form-input [entity]="entity" name="ReportingEntityProfileID" title="Configuration Profile">
                     <entity-dropdown [(value)]="entity.ReportingEntityProfileID"
@@ -18,13 +17,12 @@
                                      nullable="false">
                     </entity-dropdown>
                 </form-input>
-
+                    
 
             </tab>
+            
             <tab heading="Transaction Triggers">
-                <!--
-                <transactionTriggers [(value)]="entity" [dataService]="dataService" origin="G"></transactionTriggers>
-                    -->
+                <transactionTriggers [(value)]="entity" [dataService]="dataService" type="ReportingEntityTransactionTrigger"></transactionTriggers>
             </tab>
 
             <tab heading="Balances">
@@ -42,7 +40,7 @@
                     </tab>
                 </tabset>
 
-                
+
             </tab>
 
             <tab heading="Journals">
@@ -50,8 +48,6 @@
 
                 <div journalExplorer path="ReportingEntities({{entity.ID}})/Journals"></div>
             </tab>
-
-
         </tabset>
 
     </div>

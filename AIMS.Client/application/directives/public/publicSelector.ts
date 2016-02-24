@@ -43,8 +43,14 @@ export class PublicSelector implements OnInit {
         return this.entity;
     }
     set value(value) {
-        this.entity = value;
-        this.onEntityChanged();
+        this.entity = value;    
+        if (this.entity) {
+            var e: any = this.entity;
+            this.lookupText = e.fullName();            
+        }
+        else {
+            this.lookupText = "";
+        }    
     }
 
     constructor(
@@ -59,14 +65,7 @@ export class PublicSelector implements OnInit {
 
 
     onEntityChanged() {
-        if (this.entity) {
-            this.lookupText = this.entity['Name'];
-            //
-        }
-        else {
-            this.lookupText = "";
-        }
-        this.valueChange.next(this.entity);
+        this.valueChange.emit(this.entity);
     }
     
     protected new() {
@@ -90,8 +89,10 @@ export class PublicSelector implements OnInit {
 
         dialog.then((resultPromise) => {
             return resultPromise.result.then((result) => {
-                if (result)
+                if (result) {
                     self.value = result;
+                    self.onEntityChanged();
+                }            
                 else
                     newItem.entityAspect.setDetached();
             }, () => {
@@ -127,8 +128,10 @@ export class PublicSelector implements OnInit {
 
         dialog.then((resultPromise) => {
             return resultPromise.result.then((result) => {
-                if (result)
-                    self.value = result;                
+                if (result) {
+                    self.value = result;
+                    self.onEntityChanged();
+                }
             }, () => {
                 //
             });

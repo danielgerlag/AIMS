@@ -21,6 +21,7 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<JournalTemplate> JournalTemplates { get; set; } = new HashSet<JournalTemplate>();
 
+        public virtual ICollection<ReportingEntity> ReportingEntities { get; set; } = new HashSet<ReportingEntity>();
 
     }
 }

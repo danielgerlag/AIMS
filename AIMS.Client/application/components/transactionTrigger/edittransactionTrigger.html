@@ -59,6 +59,38 @@
             </div>
         </form-input>
 
+        <div *ngIf="origin == 'G' && trigger.JournalTemplate.PublicRequirement">
+
+            <form-input *ngIf="trigger.JournalTemplate.PublicRequirement.IsServiceProvider"
+                        [entity]="trigger" name="ServiceProviderID"
+                        title="{{ trigger.JournalTemplate.ServiceProviderType.Name }}"
+                        labelClass="col-sm-2">
+                <div class="col-sm-10">
+                    <entity-dropdown [(value)]="trigger.ServiceProviderID"
+                                     query="ServiceProviderTypes({{trigger.JournalTemplate.ServiceProviderTypeID}})/ServiceProviders?$expand=Public&$orderby=Public/Name"
+                                     keyField="ID"
+                                     displayField="Public.Name"
+                                     nullable="true">
+                    </entity-dropdown>
+                </div>
+            </form-input>
+
+            <form-input *ngIf="trigger.JournalTemplate.PublicRequirement.IsAgent"
+                        [entity]="trigger" name="AgentID"
+                        title="{{ trigger.JournalTemplate.AgentType.Name }}"
+                        labelClass="col-sm-2">
+                <div class="col-sm-10">
+                    <entity-dropdown [(value)]="trigger.AgentID"
+                                     query="AgentTypes({{trigger.JournalTemplate.AgentTypeID}})/Agents?$expand=Public&$orderby=Public/Name"
+                                     keyField="ID"
+                                     displayField="Public.Name"
+                                     nullable="true">
+                    </entity-dropdown>
+                </div>
+            </form-input>
+
+        </div>
+
         <transactionTriggerInputs [(value)]="trigger" [dataService]="dataService" [journalTemplate]="trigger.JournalTemplate" ></transactionTriggerInputs>
 
 

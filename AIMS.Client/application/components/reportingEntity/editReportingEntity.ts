@@ -48,10 +48,14 @@ export class EditReportingEntity extends CRUDController {
         var result = super.expandFields();
         result.push("Public");
 
-        //result.push("TransactionTriggers");
-        //result.push("TransactionTriggers.JournalTemplate");
-        //result.push("TransactionTriggers.Inputs");        
-
+        result.push("TransactionTriggers");
+        result.push("TransactionTriggers.TransactionTrigger");        
+        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate");
+        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate.ServiceProviderType");
+        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate.AgentType");
+        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate.PublicRequirement");
+        result.push("TransactionTriggers.TransactionTrigger.Inputs");
+        
         return result;
     }
 

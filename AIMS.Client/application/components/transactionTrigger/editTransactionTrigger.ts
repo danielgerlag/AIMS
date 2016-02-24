@@ -29,6 +29,7 @@ export class EditTransactionTrigger implements OnInit, ICustomModalComponent {
     entity: any;
     trigger: any;
     dialog: ModalDialogInstance;    
+    origin: string;
 
     ngOnInit() {
     }
@@ -42,6 +43,15 @@ export class EditTransactionTrigger implements OnInit, ICustomModalComponent {
         this.entity = data;
         this.trigger = this.entity.TransactionTrigger;
         this.dataService = dataService;
+
+        var e: breeze.Entity = this.entity;
+        if (e.entityType.shortName == "PolicyTransactionTrigger") {
+            this.origin = 'P';
+        }
+
+        if (e.entityType.shortName == "ReportingEntityTransactionTrigger") {
+            this.origin = 'G';
+        }
     }
 
 

@@ -26,7 +26,17 @@ namespace AIMS.DomainModel.Services
 
             if (transactionTrigger.ReportingEntityTransactionTrigger != null)
             {
-                Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
+                var resolvedPublic = transactionTrigger.Public;
+                if (transactionTrigger.JournalTemplate.PublicRequirement != null)
+                {
+                    if (transactionTrigger.JournalTemplate.PublicRequirement.IsServiceProvider)
+                        resolvedPublic = transactionTrigger.ServiceProvider.Public;
+
+                    if (transactionTrigger.JournalTemplate.PublicRequirement.IsAgent)
+                        resolvedPublic = transactionTrigger.Agent.Public;
+                }
+
+                Journal journal = BuildJournal(db, transactionTrigger, resolvedPublic, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
                 _journalPoster.Run(db, journal);
                 result.Journals.Add(journal);
             }
@@ -245,9 +255,15 @@ namespace AIMS.DomainModel.Services
                     query = query.Where(x => x.PolicyID == policyTransactionTrigger.PolicyID);
                     break;
                 case "U":
+                    if (resolvedPublic == null)
+                        throw new Exception("No public to resolve ledger balance for");
+
                     query = query.Where(x => x.PublicID == resolvedPublic.ID);
                     break;
                 case "X":
+                    if (resolvedPublic == null)
+                        throw new Exception("No public to resolve ledger balance for");
+
                     query = query.Where(x => x.PublicID == resolvedPublic.ID && x.PolicyID == policyTransactionTrigger.PolicyID);
                     break;
                     //todo: agents, sps, etc...
