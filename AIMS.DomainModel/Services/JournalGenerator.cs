@@ -162,6 +162,9 @@ namespace AIMS.DomainModel.Services
         {
             foreach (var coverage in transactionTrigger.Policy.Coverages)
             {
+                if (!coverage.Premium.HasValue)
+                    throw new Exception("Coverage premium not set");
+
                 JournalTxn txn = new JournalTxn();
                 txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value) * percentage);
                 txn.Description = templateTxn.Description + " - " + coverage.CoverageType.Name;

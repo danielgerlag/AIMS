@@ -24,3 +24,4 @@
 /AIMS.DistributedServices.Infrastructure/obj
 /AIMS.Services.TransactionProcessing/obj
 /AIMS.Services.TransactionProcessing/bin
+/AIMS.Services.TransactionProcessing/*.user

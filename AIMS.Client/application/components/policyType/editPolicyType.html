@@ -209,9 +209,18 @@
                                     </tr>
                                 </table>
                             </tab>
+
+                            <tab heading="Context Parameters">
+                                <contextParameterValues [value]="subType" [dataService]="dataService" childType="PolicySubTypeContextParameterValue"></contextParameterValues>
+                            </tab>
+
                         </tabset>
                     </tab>
                 </tabset>
+            </tab>
+
+            <tab heading="Context Parameters">
+                <contextParameterValues [value]="entity" [dataService]="dataService" childType="PolicyTypeContextParameterValue"></contextParameterValues>
             </tab>
         </tabset>
 

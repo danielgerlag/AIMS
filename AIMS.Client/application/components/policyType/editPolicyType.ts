@@ -6,6 +6,7 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
+import {ContextParameterValues} from '../../components/contextParameter/contextParameterValues';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -15,7 +16,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policyType/editPolicyType.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues],
     pipes: [JsonPipe]
 })
 export class EditPolicyType extends CRUDController {

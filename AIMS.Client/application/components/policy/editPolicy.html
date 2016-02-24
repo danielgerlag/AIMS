@@ -59,6 +59,9 @@
             <div ledgerBalances source="Policy" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
         </tab>
 
+        <tab heading="Context Parameters">
+            <contextParameterValues [value]="entity" [dataService]="dataService" childType="PolicyContextParameterValue"></contextParameterValues>
+        </tab>
 
     </tabset>
 

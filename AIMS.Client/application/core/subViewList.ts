@@ -36,8 +36,8 @@ export abstract class SubViewList implements OnInit {
     }
 
 
-    onEntityChanged() {
-        this.valueChange.next(this.entity);
+    protected onEntityChanged() {
+        //this.valueChange.next(this.entity);
     }
 
 

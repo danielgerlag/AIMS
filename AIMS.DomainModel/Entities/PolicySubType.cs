@@ -24,5 +24,7 @@ namespace AIMS.DomainModel.Entities
         public virtual Region Region { get; set; }
 
         public virtual ICollection<PolicySubTypeCoverage> Coverages { get; set; } = new HashSet<PolicySubTypeCoverage>();
+
+        public virtual ICollection<PolicySubTypeContextParameterValue> ContextParameterValues { get; set; } = new HashSet<PolicySubTypeContextParameterValue>();
     }
 }

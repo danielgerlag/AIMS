@@ -52,6 +52,12 @@ export class ContextParameterValues extends SubViewList {
         this.entity['ContextParameterValues'].push(item);
         //this.onEntityChanged();
     }
+
+    protected onEntityChanged() {
+        super.onEntityChanged();
+        if (this.entity.entityAspect.entityState.isUnchangedOrModified())
+            this.entity.entityAspect.loadNavigationProperty("ContextParameterValues");
+    }
     
     
 }

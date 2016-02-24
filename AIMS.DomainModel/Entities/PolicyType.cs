@@ -24,5 +24,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<PolicySubType> PolicySubTypes { get; set; } = new HashSet<PolicySubType>();
 
         public virtual ICollection<PolicyTypeItemClass> ItemClasses { get; set; } = new HashSet<PolicyTypeItemClass>();
+
+        public virtual ICollection<PolicyTypeContextParameterValue> ContextParameterValues { get; set; } = new HashSet<PolicyTypeContextParameterValue>();
     }
 }

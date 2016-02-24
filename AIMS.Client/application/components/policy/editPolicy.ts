@@ -8,6 +8,8 @@ import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 import {DateInput} from '../../directives/input/dateInput';
 
+import {ContextParameterValues} from '../../components/contextParameter/contextParameterValues';
+
 import {PolicyReportingEntities} from '../../directives/policy/policyReportingEntities';
 import {PolicyServiceProviders} from '../../directives/policy/policyServiceProviders';
 import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
@@ -28,7 +30,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policy/editPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput, ContextParameterValues],
     pipes: [JsonPipe]
 })
 export class EditPolicy extends CRUDController {
