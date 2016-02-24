@@ -49,6 +49,15 @@ declare var System:any;
         new Route({ path: '/EditPublic', component: Components.EditPublic, name: 'EditPublic' }),
         new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),
 
+
+        new Route({ path: '/ListRegion', component: Components.ListRegion, name: 'ListRegion' }),
+        new Route({ path: '/EditRegion', component: Components.EditRegion, name: 'EditRegion' }),
+        new Route({ path: '/EditRegion/:Id', component: Components.EditRegion, name: 'EditRegion' }),
+
+        new Route({ path: '/ListContextParameter', component: Components.ListContextParameter, name: 'ListContextParameter' }),
+        new Route({ path: '/EditContextParameter', component: Components.EditContextParameter, name: 'EditContextParameter' }),
+        new Route({ path: '/EditContextParameter/:Id', component: Components.EditContextParameter, name: 'EditContextParameter' }),
+
         new Route({ path: '/ListReportingEntity', component: Components.ListReportingEntity, name: 'ListReportingEntity' }),
         new Route({ path: '/EditReportingEntity', component: Components.EditReportingEntity, name: 'EditReportingEntity' }),
         new Route({ path: '/EditReportingEntity/:Id', component: Components.EditReportingEntity, name: 'EditReportingEntity' }),

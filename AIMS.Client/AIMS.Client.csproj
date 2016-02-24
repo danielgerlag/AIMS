@@ -27,6 +27,9 @@
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
+    <Content Include="application\components\contextParameter\editContextParameter.html" />
+    <Content Include="application\components\contextParameter\contextParameterValues.html" />
+    <Content Include="application\components\contextParameter\editContextParameterValue.html" />
     <Content Include="application\components\errorDialog\errorDialog.html" />
     <Content Include="application\components\insurableItem\editInsurableItem.html" />
     <Content Include="application\components\insurableItem\insurableItemAttributes.html" />
@@ -1011,6 +1014,10 @@
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="application\Web.config" />
+    <TypeScriptCompile Include="application\components\contextParameter\editContextParameter.ts" />
+    <TypeScriptCompile Include="application\components\contextParameter\editContextParameterValue.ts" />
+    <TypeScriptCompile Include="application\components\contextParameter\listContextParameter.ts" />
+    <TypeScriptCompile Include="application\components\contextParameter\contextParameterValues.ts" />
     <TypeScriptCompile Include="application\components\errorDialog\errorDialog.ts" />
     <TypeScriptCompile Include="application\components\journal\debtorCreditorBalances.ts" />
     <TypeScriptCompile Include="application\components\journal\ledgerBalances.ts" />
@@ -1258,6 +1265,7 @@
     <TypeScriptCompile Include="application\core\subViewList.ts" />
     <TypeScriptCompile Include="application\directives\input\gridControl.ts" />
     <TypeScriptCompile Include="application\directives\input\dateInput.ts" />
+    <TypeScriptCompile Include="application\directives\input\numericInput.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyInsurableItems.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyOperators.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyHolders.ts" />

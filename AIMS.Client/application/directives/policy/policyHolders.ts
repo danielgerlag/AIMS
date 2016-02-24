@@ -4,6 +4,7 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {PublicSelector} from '../../directives/public/publicSelector';
 import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
+import {NumericInput} from '../../directives/input/numericInput';
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
 
@@ -15,7 +16,7 @@ import {ODataWrapper} from '../../core/interfaces'
 })
 @View({
     templateUrl: './application/directives/policy/policyHolders.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, PublicSelector, FormInput, LookupText]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, PublicSelector, FormInput, LookupText, NumericInput]
 })
 export class PolicyHolders implements OnInit {
 
@@ -50,6 +51,12 @@ export class PolicyHolders implements OnInit {
     
     protected add() {
         var item = this.dataService.createEntity("PolicyHolder", {});
+        
+        if (this.policy.PolicyHolders.length == 0)
+            item.BillingPercent = 1;
+        else
+            item.BillingPercent = 0;
+
         this.policy.PolicyHolders.push(item);
     }
 

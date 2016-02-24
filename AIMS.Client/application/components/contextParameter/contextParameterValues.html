@@ -1,0 +1,25 @@
+﻿<table class="table">
+    <tr>
+        <th>Parameter</th>
+        <th>Effective Date</th>
+        <th>Value</th>
+        <th>
+            <button type="button" class="btn" (click)="add(null)">Add</button>
+        </th>
+    </tr>
+    <tr *ngFor="#item of entity.ContextParameterValues">
+        <td>
+            {{ item.contextParameterName() }}
+        </td>
+        <td>
+            {{ item.EffectiveDate }}
+        </td>
+        <td>
+            {{ item.Value }}
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
+            <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+    </tr>
+</table>

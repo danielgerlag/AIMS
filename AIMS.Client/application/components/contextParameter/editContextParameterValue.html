@@ -1,0 +1,39 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+        <h4 class="modal-title">Context Parameter Value</h4>
+    </div>
+    <div class="modal-body form-horizontal">
+
+        <form-input [entity]="entity" name="ContextParameterID" title="Parameter" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <entity-dropdown [(value)]="entity.ContextParameterID"
+                                 name="ContextParameterID"
+                                 query="ContextParameters?$orderby=Name"
+                                 keyField="ID"
+                                 displayField="Name"
+                                 nullable="false">
+                </entity-dropdown>
+            </div>
+        </form-input>
+
+
+        <form-input [entity]="entity" name="EffectiveDate" title="Effective Date" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <input dateInput name="EffectiveDate" [(value)]="entity.EffectiveDate" />
+            </div>
+        </form-input>
+
+        <form-input [entity]="entity" name="Value" title="Value" labelClass="col-sm-2">
+            <div class="col-sm-10">
+                <input numericInput name="Value" [(value)]="entity.Value" />
+            </div>
+        </form-input>
+        
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="save()">OK</button>
+    </div>
+</div>

@@ -24,7 +24,7 @@ namespace AIMS.DomainModel.Services
         {
             JournalRunResult result = new JournalRunResult();
 
-            if (transactionTrigger.TransactionOrigin == "G")
+            if ((transactionTrigger.TransactionOrigin == "G") || (transactionTrigger.TransactionOrigin == "U"))
             {
                 Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
                 _journalPoster.Run(db, journal);
@@ -149,7 +149,7 @@ namespace AIMS.DomainModel.Services
 
             txn.Description = templateTxn.Description;
             txn.Policy = transactionTrigger.Policy;
-            txn.Public = transactionTrigger.Public;
+            txn.Public = resolvedPublic;
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
             txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
             txn.TxnDate = transactionTrigger.TxnDate.Value;
@@ -166,7 +166,7 @@ namespace AIMS.DomainModel.Services
                 txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value) * percentage);
                 txn.Description = templateTxn.Description + " - " + coverage.CoverageType.Name;
                 txn.Policy = transactionTrigger.Policy;
-                txn.Public = transactionTrigger.Public;
+                txn.Public = resolvedPublic;
                 //sp ??
                 txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
                 txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
@@ -229,6 +229,9 @@ namespace AIMS.DomainModel.Services
                     break;
                 case "U":
                     query = query.Where(x => x.PublicID == resolvedPublic.ID);
+                    break;
+                case "X":
+                    query = query.Where(x => x.PublicID == resolvedPublic.ID && x.PolicyID == transactionTrigger.PolicyID);
                     break;
                     //todo: agents, sps, etc...
             }

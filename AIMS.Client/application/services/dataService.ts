@@ -56,6 +56,7 @@ export class DataService implements IDataService {
         this.servicePath = configService.getSettings().api + "Data.svc"; 
         this.rootManager = new breeze.EntityManager(this.servicePath);
         this.rootManager.metadataStore.registerEntityTypeCtor("TransactionTrigger", EntityExts.TransactionTrigger, initEntity);
+        this.rootManager.metadataStore.registerEntityTypeCtor("RegionContextParameterValue", EntityExts.ContextParameterValue, initEntity);
 
         this.rootManager.fetchMetadata().then((value) => { self.manager = self.rootManager.createEmptyCopy(); }, (reason) => { });
 

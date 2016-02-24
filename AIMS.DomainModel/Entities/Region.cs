@@ -14,5 +14,7 @@ namespace AIMS.DomainModel.Entities
         [Required]
         [MaxLength(300)]
         public string Name { get; set; }
+
+        public virtual ICollection<RegionContextParameterValue> ContextParameterValues { get; set; } = new HashSet<RegionContextParameterValue>();
     }
 }

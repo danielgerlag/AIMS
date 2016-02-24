@@ -100,6 +100,7 @@
     <Compile Include="Entities\OperatorTypeAttributeGroup.cs" />
     <Compile Include="Entities\PolicyReportingEntity.cs" />
     <Compile Include="Entities\PolicyAgent.cs" />
+    <Compile Include="Entities\RegionContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeCoverage.cs" />
     <Compile Include="Entities\PolicySubType.cs" />
     <Compile Include="Entities\PolicyTypeAgentRequirement.cs" />
@@ -249,6 +250,14 @@
     <Compile Include="Migrations\201602222237378_b3.Designer.cs">
       <DependentUpon>201602222237378_b3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602232226490_b31.cs" />
+    <Compile Include="Migrations\201602232226490_b31.Designer.cs">
+      <DependentUpon>201602232226490_b31.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602232333034_b4.cs" />
+    <Compile Include="Migrations\201602232333034_b4.Designer.cs">
+      <DependentUpon>201602232333034_b4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -363,6 +372,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602222237378_b3.resx">
       <DependentUpon>201602222237378_b3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602232226490_b31.resx">
+      <DependentUpon>201602232226490_b31.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602232333034_b4.resx">
+      <DependentUpon>201602232333034_b4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

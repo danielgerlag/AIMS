@@ -17,6 +17,12 @@ import {EditReportingEntity} from './components/reportingEntity/editReportingEnt
 import {ListServiceProvider} from './components/serviceProvider/listServiceProvider'
 import {EditServiceProvider} from './components/serviceProvider/editServiceProvider'
 
+import {ListContextParameter} from './components/contextParameter/listContextParameter'
+import {EditContextParameter} from './components/contextParameter/editContextParameter'
+
+import {ListRegion} from './components/region/listRegion'
+import {EditRegion} from './components/region/editRegion'
+
 
 import {EditPublic} from './components/public/editPublic'
 import {NewPublic} from './components/public/newPublic'
@@ -28,6 +34,12 @@ var Components = {
 
     NewPolicy: NewPolicy,
     EditPolicy: EditPolicy,
+
+    ListRegion: ListRegion,
+    EditRegion: EditRegion,
+
+    ListContextParameter: ListContextParameter,
+    EditContextParameter: EditContextParameter,
 
     ListReportingEntity: ListReportingEntity,
     EditReportingEntity: EditReportingEntity,

@@ -7,8 +7,6 @@ import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 
-import {ContextParameterValues} from '../../components/contextParameter/contextParameterValues';
-
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -16,34 +14,27 @@ import {ILogService} from '../../services/logService';
 import {CRUDController} from '../../core/crudController';
 
 @Component({    
-    templateUrl: './application/components/region/editRegion.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues],
+    templateUrl: './application/components/contextParameter/editContextParameter.html',
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES],
     pipes: [JsonPipe]
 })
-export class EditRegion extends CRUDController {
+export class EditContextParameter extends CRUDController {
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
-        this.title = "Region";
+        this.title = "Context Parameter";
     }
 
     protected typeName(): string {
-        return "Region";
+        return "ContextParameter";
     }
 
     protected setName(): string {
-        return "Regions";
-    }
-
-    protected expandFields(): string[] {
-        var result = super.expandFields();
-        result.push("ContextParameterValues");
-        
-        return result;
+        return "ContextParameters";
     }
 
 
-    protected afterSave(sender: EditRegion, data: any) {
+    protected afterSave(sender: EditContextParameter, data: any) {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
     }

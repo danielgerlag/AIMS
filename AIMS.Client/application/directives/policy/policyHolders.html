@@ -9,7 +9,7 @@
             <publicSelector [(value)]="holder.Public" [dataService]="dataService"></publicSelector>
         </td>
         <td>
-            <input type="number" class="form-control" name="BillingPercent" [(ngModel)]="holder.BillingPercent">
+            <input numericInput name="BillingPercent" [(value)]="holder.BillingPercent" format="p0" min="0" max="1" step="0.01" >
         </td>
         <td>
             <button type="button" class="btn" (click)="remove(holder)"><i class="fa fa-trash fa-fw"></i></button>

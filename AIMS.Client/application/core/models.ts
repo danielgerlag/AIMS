@@ -145,4 +145,39 @@ export namespace EntityExts {
 
         }
     }
+
+
+    export class ContextParameterValue {
+
+        _contextParameterLoading: boolean = false;
+
+        init() {
+            var self: any = this;
+            var entity: breeze.Entity = self;
+            entity.entityAspect.propertyChanged.subscribe(
+                function (propertyChangedArgs) {
+                    if (propertyChangedArgs.propertyName == "ContextParameterID") {
+                        self._contextParameterLoading = true;
+                        entity.entityAspect.loadNavigationProperty("ContextParameter");
+                    }
+                });
+        }
+
+        contextParameterName() {
+            var self: any = this;
+            var entity: breeze.Entity = self;
+
+            if (self["ContextParameter"]) {
+                self._contextParameterLoading = false;
+                return self["ContextParameter"].Name;
+            }
+            else {
+                if (!self._contextParameterLoading) {
+                    self._contextParameterLoading = true;
+                    entity.entityAspect.loadNavigationProperty("ContextParameter");
+                }
+            }
+
+        }
+    }
 }
