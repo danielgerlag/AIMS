@@ -29,6 +29,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
         
     dataService: IDataService;
     entity: any;
+    trigger: any;
     dialog: ModalDialogInstance;
     origin: string;
     templateInputsLoaded: boolean;
@@ -53,6 +54,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
     constructor(dialog: ModalDialogInstance, data: ICustomModal, dataService: IDataService) {
         this.dialog = dialog;
         this.entity = data;
+        this.trigger = this.entity.TransactionTrigger;
         this.dataService = dataService;
         this.step = 1;
         this.origin = 'P';
@@ -78,7 +80,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
 
     protected nextStep() {
         if (this.step == 2)
-            this.initTxnTrigger(this.entity.JournalTemplateID);
+            this.initTxnTrigger(this.trigger.JournalTemplateID);
         this.step++;
     }
 
@@ -93,7 +95,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
     }
 
     protected onLoadConfig(sender: NewTransactionTrigger, data: breeze.QueryResult): any {
-        sender.entity.JournalTemplate = data.results[0];
+        sender.trigger.JournalTemplate = data.results[0];
         sender.templateInputsLoaded = true;
         //sender.entity.TransactionOrigin = sender.entity.JournalTemplate.TransactionOrigin;
     }

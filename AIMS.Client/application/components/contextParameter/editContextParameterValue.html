@@ -5,9 +5,9 @@
     </div>
     <div class="modal-body form-horizontal">
 
-        <form-input [entity]="entity" name="ContextParameterID" title="Parameter" labelClass="col-sm-2">
+        <form-input [entity]="entity.ContextParameterValue" name="ContextParameterID" title="Parameter" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <entity-dropdown [(value)]="entity.ContextParameterID"
+                <entity-dropdown [(value)]="entity.ContextParameterValue.ContextParameterID"
                                  name="ContextParameterID"
                                  query="ContextParameters?$orderby=Name"
                                  keyField="ID"
@@ -18,15 +18,15 @@
         </form-input>
 
 
-        <form-input [entity]="entity" name="EffectiveDate" title="Effective Date" labelClass="col-sm-2">
+        <form-input [entity]="entity.ContextParameterValue" name="EffectiveDate" title="Effective Date" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input dateInput name="EffectiveDate" [(value)]="entity.EffectiveDate" />
+                <input dateInput name="EffectiveDate" [(value)]="entity.ContextParameterValue.EffectiveDate" />
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="Value" title="Value" labelClass="col-sm-2">
+        <form-input [entity]="entity.ContextParameterValue" name="Value" title="Value" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input numericInput name="Value" [(ngModel)]="entity.Value" />
+                <input numericInput name="Value" [(ngModel)]="entity.ContextParameterValue.Value" />
             </div>
         </form-input>
         

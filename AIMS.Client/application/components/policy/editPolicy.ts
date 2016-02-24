@@ -81,6 +81,9 @@ export class EditPolicy extends CRUDController {
         result.push("TransactionTriggers.TransactionTrigger");
         result.push("TransactionTriggers.TransactionTrigger.JournalTemplate");
         result.push("TransactionTriggers.TransactionTrigger.Inputs");        
+
+        result.push("ContextParameterValues");
+        result.push("ContextParameterValues.ContextParameterValue");
         
         result.push("PolicySubType");
 

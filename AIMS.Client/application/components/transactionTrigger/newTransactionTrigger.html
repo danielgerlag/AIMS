@@ -3,8 +3,8 @@
 <div class="panel panel-default" *ngIf="step == 1">
     <div class="panel-heading">Step {{step}} - Reporting Entity</div>
     <div class="panel-body">
-        <form-input [entity]="entity" name="ReportingEntityID" title="Reporting Entity">
-            <entity-dropdown [(value)]="entity.ReportingEntityID"
+        <form-input [entity]="trigger" name="ReportingEntityID" title="Reporting Entity">
+            <entity-dropdown [(value)]="trigger.ReportingEntityID"
                              name="ReportingEntityID"
                              query="ReportingEntities?$expand=Public"
                              keyField="ID"
@@ -18,8 +18,8 @@
 <div class="panel panel-default" *ngIf="step == 2">
     <div class="panel-heading">Step {{step}} - Template</div>
     <div class="panel-body">
-        <form-input [entity]="entity" name="JournalTemplateID" title="Template">
-            <entity-dropdown [(value)]="entity.JournalTemplateID"
+        <form-input [entity]="trigger" name="JournalTemplateID" title="Template">
+            <entity-dropdown [(value)]="trigger.JournalTemplateID"
                              name="JournalTemplateID"
                              query="JournalTemplates?$filter=TransactionOrigin eq '{{origin}}'"
                              keyField="ID"
@@ -33,15 +33,15 @@
 <div class="panel panel-default" *ngIf="step == 3 && templateInputsLoaded">
     <div class="panel-heading">Step {{step}} - Details</div>
     <div class="panel-body form-horizontal">
-        <form-input [entity]="entity" name="Description" title="Name" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="Description" title="Name" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="Description" [(ngModel)]="entity.Description" />
+                <input type="text" class="form-control" name="Description" [(ngModel)]="trigger.Description" />
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TransactionTriggerFrequencyID" title="Frequency" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="TransactionTriggerFrequencyID" title="Frequency" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <entity-dropdown [(value)]="entity.TransactionTriggerFrequencyID"
+                <entity-dropdown [(value)]="trigger.TransactionTriggerFrequencyID"
                                  name="TransactionTriggerFrequencyID"
                                  query="TransactionTriggerFrequencies"
                                  keyField="ID"
@@ -51,9 +51,9 @@
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TransactionTriggerStatusID" title="Status" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="TransactionTriggerStatusID" title="Status" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <entity-dropdown [(value)]="entity.TransactionTriggerStatusID"
+                <entity-dropdown [(value)]="trigger.TransactionTriggerStatusID"
                                  name="TransactionTriggerStatusID"
                                  query="TransactionTriggerStatuses"
                                  keyField="ID"
@@ -63,31 +63,31 @@
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="EffectiveFrom" title="Effective From" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="EffectiveFrom" title="Effective From" labelClass="col-sm-2">
             <div class="col-sm-10">                
-                <input dateInput [(value)]="entity.EffectiveFrom" />
+                <input dateInput [(value)]="trigger.EffectiveFrom" />
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="EffectiveTo" title="Effective To" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="EffectiveTo" title="Effective To" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input dateInput [(value)]="entity.EffectiveTo" />
+                <input dateInput [(value)]="trigger.EffectiveTo" />
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="TxnDate" title="Transaction Date" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="TxnDate" title="Transaction Date" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input dateInput [(value)]="entity.TxnDate" />
+                <input dateInput [(value)]="trigger.TxnDate" />
             </div>
         </form-input>
 
-        <form-input [entity]="entity" name="NextExecutionDate" title="Next Execution Date" labelClass="col-sm-2">
+        <form-input [entity]="trigger" name="NextExecutionDate" title="Next Execution Date" labelClass="col-sm-2">
             <div class="col-sm-10">
-                <input dateInput [(value)]="entity.NextExecutionDate" />
+                <input dateInput [(value)]="trigger.NextExecutionDate" />
             </div>
         </form-input>
 
-        <transactionTriggerInputs [(value)]="entity" [dataService]="dataService" [journalTemplate]="entity.JournalTemplate"></transactionTriggerInputs>
+        <transactionTriggerInputs [(value)]="trigger" [dataService]="dataService" [journalTemplate]="trigger.JournalTemplate"></transactionTriggerInputs>
 
     </div>
 </div>
@@ -97,7 +97,7 @@
     <div class="panel-body">
         Summary
 
-        <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
+        <error-summary [canShow]="showErrorSummary" [entity]="trigger"></error-summary>
     </div>
 </div>
 

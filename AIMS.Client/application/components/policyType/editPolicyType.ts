@@ -47,6 +47,13 @@ export class EditPolicyType extends CRUDController {
         result.push("ServiceProviders");
         result.push("PolicySubTypes");
         result.push("ItemClasses");
+
+        result.push("ContextParameterValues");
+        result.push("ContextParameterValues.ContextParameterValue");
+
+        result.push("PolicySubTypes.Coverages");
+        result.push("PolicySubTypes.ContextParameterValues");
+        result.push("PolicySubTypes.ContextParameterValues.ContextParameterValue");
         
         return result;
     }

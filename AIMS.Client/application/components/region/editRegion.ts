@@ -37,7 +37,8 @@ export class EditRegion extends CRUDController {
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        //result.push("ContextParameterValues");
+        result.push("ContextParameterValues");
+        result.push("ContextParameterValues.ContextParameterValue");
         
         return result;
     }

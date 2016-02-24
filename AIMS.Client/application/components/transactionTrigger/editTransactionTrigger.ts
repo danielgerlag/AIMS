@@ -27,6 +27,7 @@ export class EditTransactionTrigger implements OnInit, ICustomModalComponent {
         
     dataService: IDataService;
     entity: any;
+    trigger: any;
     dialog: ModalDialogInstance;    
 
     ngOnInit() {
@@ -39,6 +40,7 @@ export class EditTransactionTrigger implements OnInit, ICustomModalComponent {
     constructor(dialog: ModalDialogInstance, data: ICustomModal, dataService: IDataService) {
         this.dialog = dialog;
         this.entity = data;
+        this.trigger = this.entity.TransactionTrigger;
         this.dataService = dataService;
     }
 

@@ -8,10 +8,10 @@
     </tr>
     <tr *ngFor="#item of entity.TransactionTriggers">
         <td>
-            {{ item.Description }}
+            {{ item.TransactionTrigger.Description }}
         </td>
         <td>
-            {{ item.statusText() }}
+            {{ item.TransactionTrigger.statusText() }}
         </td>
         <td>
             <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>

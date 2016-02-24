@@ -9,13 +9,13 @@
     </tr>
     <tr *ngFor="#item of entity.ContextParameterValues">
         <td>
-            {{ item.contextParameterName() }}
+            {{ item.ContextParameterValue.contextParameterName() }}
         </td>
         <td>
-            {{ item.EffectiveDate }}
+            {{ item.ContextParameterValue.EffectiveDate }}
         </td>
         <td>
-            {{ item.Value }}
+            {{ item.ContextParameterValue.Value }}
         </td>
         <td>
             <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>

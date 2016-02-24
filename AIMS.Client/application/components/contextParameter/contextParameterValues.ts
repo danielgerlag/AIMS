@@ -44,8 +44,8 @@ export class ContextParameterValues extends SubViewList {
 
     protected createChildEntity(type): any {
         var item = this.dataService.createEntity(this.childType, {});
-        item.ContextParameterValue = this.dataService.createEntity("ContextParameterValue", {});  
-        item.ContextParameterValue.EffectiveDate = moment().startOf('day').toDate();        
+        item.ContextParameterValue = this.dataService.createEntity("ContextParameterValue", {});
+        item.ContextParameterValue.EffectiveDate = moment().startOf('day').toDate();
 
         return item;
     }
@@ -57,10 +57,20 @@ export class ContextParameterValues extends SubViewList {
 
     protected onEntityChanged() {
         super.onEntityChanged();
-        if (this.entity.entityAspect.entityState.isUnchangedOrModified())
-            this.entity.entityAspect.loadNavigationProperty("ContextParameterValues");
+        //var self = this;
+        //if (this.entity.entityAspect.entityState.isUnchangedOrModified())
+        //    this.entity.entityAspect.loadNavigationProperty("ContextParameterValues",
+        //        () => {
+        //            var e: any = self.entity;
+        //            for (let cpv of e.ContextParameterValues) {
+        //                cpv.entityAspect.loadNavigationProperty("ContextParameterValue");
+        //            }
+        //        },
+        //        () => {
+        //            alert("error");
+        //        });
     }
-    
-    
+
+
 }
 

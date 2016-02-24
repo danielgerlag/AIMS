@@ -121,7 +121,7 @@ namespace AIMS.DomainModel.Services
             journal.Public = resolvedPublic;
             journal.ServiceProvider = serviceProvider;
             journal.Agent = agent;
-            journal.TxnDate = transactionTrigger.TxnDate.Value;
+            journal.TxnDate = transactionTrigger.TxnDate.Value.Date;
             journal.Reference = ResolveReference(db, transactionTrigger);
 
             db.Journals.Add(journal);
@@ -158,7 +158,7 @@ namespace AIMS.DomainModel.Services
             txn.Public = resolvedPublic;
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
             //txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
-            txn.TxnDate = transactionTrigger.TxnDate.Value;
+            txn.TxnDate = transactionTrigger.TxnDate.Value.Date;
             txn.JournalTemplateTxn = templateTxn;
 
             journal.JournalTxns.Add(txn);
@@ -182,7 +182,7 @@ namespace AIMS.DomainModel.Services
                     //sp ??
                     txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
                     //txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
-                    txn.TxnDate = transactionTrigger.TxnDate.Value;
+                    txn.TxnDate = transactionTrigger.TxnDate.Value.Date;
                     txn.JournalTemplateTxn = templateTxn;
                     txn.PolicyCoverage = coverage;
 

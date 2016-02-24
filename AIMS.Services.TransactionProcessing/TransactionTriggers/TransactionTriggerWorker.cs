@@ -13,7 +13,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 {
     public class TransactionTriggerWorker : DistributedWorker
     {
-        IJournalGenerator _journalGenerator;        
+        IJournalGenerator _journalGenerator;
 
         IDataContext _db;
         IDataContext _controlDb;
@@ -43,7 +43,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
             {
                 var policyTransactionTrigger = (trigger.PolicyTransactionTrigger);
                 //if (policyTransactionTrigger.PolicyID.HasValue)
-                    _lockKeys.Add("Policy:" + policyTransactionTrigger.PolicyID.ToString());
+                _lockKeys.Add("Policy:" + policyTransactionTrigger.PolicyID.ToString());
             }
 
         }
@@ -57,7 +57,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
 
             var txOptions = new System.Transactions.TransactionOptions();
-            txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;            
+            txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;
 
             System.Transactions.TransactionScope txnScope = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, txOptions);
             try
@@ -170,7 +170,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
             if (trigger.PolicyTransactionTrigger != null)
             {
                 var policyTransactionTrigger = (trigger.PolicyTransactionTrigger);
-                subSet = _db.Entry<Policy>(policyTransactionTrigger.Policy).Collection<TransactionTrigger>("TransactionTriggers").Query();
+                subSet = _db.Entry<Policy>(policyTransactionTrigger.Policy).Collection<PolicyTransactionTrigger>("TransactionTriggers").Query().Select(x => x.TransactionTrigger);
             }
 
             if (subSet == null)

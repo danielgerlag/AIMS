@@ -167,6 +167,10 @@
     <Compile Include="Migrations\201602241900101_Initial.Designer.cs">
       <DependentUpon>201602241900101_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602242008143_a1.cs" />
+    <Compile Include="Migrations\201602242008143_a1.Designer.cs">
+      <DependentUpon>201602242008143_a1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +219,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602241900101_Initial.resx">
       <DependentUpon>201602241900101_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602242008143_a1.resx">
+      <DependentUpon>201602242008143_a1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
