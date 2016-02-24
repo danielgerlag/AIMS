@@ -102,6 +102,7 @@
     <Compile Include="Entities\PolicyAgent.cs" />
     <Compile Include="Entities\PolicySubTypeContextParameterValue.cs" />
     <Compile Include="Entities\PolicyContextParameterValue.cs" />
+    <Compile Include="Entities\PolicyTransactionTrigger.cs" />
     <Compile Include="Entities\PolicyTypeContextParameterValue.cs" />
     <Compile Include="Entities\RegionContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeCoverage.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Entities\ReportingEntity.cs" />
     <Compile Include="Entities\ReportingEntityBankAccount.cs" />
     <Compile Include="Entities\ReportingEntityProfile.cs" />
+    <Compile Include="Entities\ReportingEntityTransactionTrigger.cs" />
     <Compile Include="Entities\SequenceNumber.cs" />
     <Compile Include="Entities\Agent.cs" />
     <Compile Include="Entities\ServiceProvider.cs" />
@@ -264,6 +266,26 @@
     <Compile Include="Migrations\201602240033085_b5.cs" />
     <Compile Include="Migrations\201602240033085_b5.Designer.cs">
       <DependentUpon>201602240033085_b5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240311262_ptt.cs" />
+    <Compile Include="Migrations\201602240311262_ptt.Designer.cs">
+      <DependentUpon>201602240311262_ptt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240317321_ptt2.cs" />
+    <Compile Include="Migrations\201602240317321_ptt2.Designer.cs">
+      <DependentUpon>201602240317321_ptt2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240330235_ptt3.cs" />
+    <Compile Include="Migrations\201602240330235_ptt3.Designer.cs">
+      <DependentUpon>201602240330235_ptt3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240409095_c1.cs" />
+    <Compile Include="Migrations\201602240409095_c1.Designer.cs">
+      <DependentUpon>201602240409095_c1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602241704098_c2.cs" />
+    <Compile Include="Migrations\201602241704098_c2.Designer.cs">
+      <DependentUpon>201602241704098_c2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
@@ -388,6 +410,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602240033085_b5.resx">
       <DependentUpon>201602240033085_b5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240311262_ptt.resx">
+      <DependentUpon>201602240311262_ptt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240317321_ptt2.resx">
+      <DependentUpon>201602240317321_ptt2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240330235_ptt3.resx">
+      <DependentUpon>201602240330235_ptt3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240409095_c1.resx">
+      <DependentUpon>201602240409095_c1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602241704098_c2.resx">
+      <DependentUpon>201602241704098_c2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

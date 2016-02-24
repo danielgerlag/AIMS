@@ -81,6 +81,11 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<ServiceProviderType> ServiceProviderTypes { get; set; }
 
         public virtual DbSet<TransactionTrigger> TransactionTriggers { get; set; }
+
+        //public virtual DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
+        //public virtual DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
+
+
         public virtual DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
         public virtual DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
         public virtual DbSet<TransactionTriggerStatus> TransactionTriggerStatuses { get; set; }

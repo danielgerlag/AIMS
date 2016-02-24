@@ -55,13 +55,19 @@ export class DataService implements IDataService {
         var self = this;
         this.servicePath = configService.getSettings().api + "Data.svc"; 
         this.rootManager = new breeze.EntityManager(this.servicePath);
-        this.rootManager.metadataStore.registerEntityTypeCtor("TransactionTrigger", EntityExts.TransactionTrigger, initEntity);
+        this.rootManager.metadataStore.registerEntityTypeCtor("Public", EntityExts.Public, initEntity);
+        this.rootManager.metadataStore.registerEntityTypeCtor("PolicyTransactionTrigger", EntityExts.TransactionTrigger, initEntity);
+        this.rootManager.metadataStore.registerEntityTypeCtor("ReportingEntityTransactionTrigger", EntityExts.TransactionTrigger, initEntity);
         this.rootManager.metadataStore.registerEntityTypeCtor("RegionContextParameterValue", EntityExts.ContextParameterValue, initEntity);
         this.rootManager.metadataStore.registerEntityTypeCtor("PolicyContextParameterValue", EntityExts.ContextParameterValue, initEntity);
         this.rootManager.metadataStore.registerEntityTypeCtor("PolicyTypeContextParameterValue", EntityExts.ContextParameterValue, initEntity);
         this.rootManager.metadataStore.registerEntityTypeCtor("PolicySubTypeContextParameterValue", EntityExts.ContextParameterValue, initEntity);
 
-        this.rootManager.fetchMetadata().then((value) => { self.manager = self.rootManager.createEmptyCopy(); }, (reason) => { });
+        this.rootManager.fetchMetadata().then((value) => {
+            self.rootManager.metadataStore.setEntityTypeForResourceName("TransactionTriggers/AIMS.DomainModel.PolicyTransactionTrigger", "PolicyTransactionTrigger");
+            self.rootManager.metadataStore.setEntityTypeForResourceName("TransactionTriggers/AIMS.DomainModel.ReportingEntityTransactionTrigger", "ReportingEntityTransactionTrigger");
+            self.manager = self.rootManager.createEmptyCopy();
+        }, (reason) => { });
 
         var valOpts = this.rootManager.validationOptions.using({ validateOnAttach: false, validateOnPropertyChange: false, validateOnSave: false });        
         this.rootManager.setProperties({ validationOptions: valOpts });

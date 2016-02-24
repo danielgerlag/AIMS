@@ -24,7 +24,7 @@ export class EntityDropdown implements OnInit {
     private nullValue: any;
     private entityId: number;
     private name: string;
-    private query: string;
+    private _query: string;
     private keyField: string;
     private displayField: string;
     private nullable: boolean;
@@ -39,7 +39,7 @@ export class EntityDropdown implements OnInit {
 
     ngOnInit() {
         if (this.query) {
-            this.remoteService.get(this, 'Data.svc/' + this.query, this.onLoadResponse);
+            this.loadRemoteList();
         } else {
             this.loadBoundList();
         }
@@ -66,6 +66,15 @@ export class EntityDropdown implements OnInit {
         this.loadBoundList();
     }
 
+    public get query() {
+        return this._query;
+    }
+
+    public set query(value) {
+        this._query = value;
+        this.loadRemoteList();
+    }
+
     public changeValue(value) {
         this.value = value;
     }
@@ -74,6 +83,10 @@ export class EntityDropdown implements OnInit {
         //console.log('firing valueChange: ' + this.entityId);
         this.valueChange.next(this.entityId);
     }        
+
+    protected loadRemoteList() {
+        this.remoteService.get(this, 'Data.svc/' + this.query, this.onLoadResponse);
+    }
 
     protected loadBoundList() {
         var self = this;

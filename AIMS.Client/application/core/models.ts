@@ -119,6 +119,9 @@ export namespace EntityExts {
         init() {
             var self: any = this;
             var entity: breeze.Entity = self;
+
+            //entity.entityType.defaultResourceName
+
             entity.entityAspect.propertyChanged.subscribe(
                 function (propertyChangedArgs) {
                     if (propertyChangedArgs.propertyName == "TransactionTriggerStatusID") {
@@ -177,6 +180,22 @@ export namespace EntityExts {
                     entity.entityAspect.loadNavigationProperty("ContextParameter");
                 }
             }
+
+        }
+    }
+
+    export class Public {
+                
+        init() {
+            
+        }
+
+        fullName() {
+            var self: any = this;
+            if (self.PartyType == 'I')
+                return self.Name + ", " + self.FirstName;
+
+            return self.Name;
 
         }
     }

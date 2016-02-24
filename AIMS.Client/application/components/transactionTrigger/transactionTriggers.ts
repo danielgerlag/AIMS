@@ -18,7 +18,7 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 @Component({
     selector: 'transactionTriggers',    
     providers: [Modal],
-    inputs: ['value', 'dataService', 'origin'],
+    inputs: ['value', 'dataService', 'type'],
     outputs: ['valueChange']
 })
 @View({
@@ -27,6 +27,7 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 })
 export class TransactionTriggers extends SubViewList {      
     
+    type: string;
     
     constructor(modal: Modal, elementRef: ElementRef, injector: Injector, _renderer: Renderer) {
         super(modal, elementRef, injector, _renderer);
@@ -42,7 +43,8 @@ export class TransactionTriggers extends SubViewList {
     }
 
     protected createChildEntity(type): any {
-        var item = this.dataService.createEntity("TransactionTrigger", {});        
+        var item = this.dataService.createEntity(this.type, {});  
+        alert(this.type);      
         return item;
     }
 
@@ -51,20 +53,7 @@ export class TransactionTriggers extends SubViewList {
         //this.onEntityChanged();
     }
 
-    //getStatus(item: breeze.Entity) {
-    //    //if (item.entityAspect.isNavigationPropertyLoaded("Status")) {
-    //    if (item["Status"]) {
-    //        return item["Status"].Name;
-    //    }
-    //    else {
-    //        if (item["TransactionTriggerStatusID"]) {
-    //            //item.entityAspect.
-    //            item.entityAspect.loadNavigationProperty("Status");
-    //        }
-    //        return null;
-    //    }
-        
-    //}
     
+     
 }
 

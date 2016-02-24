@@ -39,8 +39,12 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
             _lockKeys.Add("TransactionTrigger:" + trigger.ID.ToString());
 
-            if (trigger.PolicyID.HasValue)
-                _lockKeys.Add("Policy:" + trigger.PolicyID.ToString());
+            if (trigger is PolicyTransactionTrigger)
+            {
+                var policyTransactionTrigger = (trigger as PolicyTransactionTrigger);
+                //if (policyTransactionTrigger.PolicyID.HasValue)
+                    _lockKeys.Add("Policy:" + policyTransactionTrigger.PolicyID.ToString());
+            }
 
         }
 
@@ -163,11 +167,10 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
             int blockingGenerators = 0;
             IQueryable<TransactionTrigger> subSet = null;
 
-            switch (trigger.TransactionOrigin)
+            if (trigger is PolicyTransactionTrigger)
             {
-                case "P":
-                    subSet = _db.Entry<Policy>(trigger.Policy).Collection<TransactionTrigger>("TransactionTriggers").Query();
-                    break;
+                var policyTransactionTrigger = (trigger as PolicyTransactionTrigger);
+                subSet = _db.Entry<Policy>(policyTransactionTrigger.Policy).Collection<TransactionTrigger>("TransactionTriggers").Query();
             }
 
             if (subSet == null)

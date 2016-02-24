@@ -24,7 +24,7 @@ namespace AIMS.DomainModel.Services
         {
             JournalRunResult result = new JournalRunResult();
 
-            if ((transactionTrigger.TransactionOrigin == "G") || (transactionTrigger.TransactionOrigin == "U"))
+            if (transactionTrigger is ReportingEntityTransactionTrigger)
             {
                 Journal journal = BuildJournal(db, transactionTrigger, transactionTrigger.Public, transactionTrigger.ServiceProvider, transactionTrigger.Agent, 1);
                 _journalPoster.Run(db, journal);
@@ -32,14 +32,15 @@ namespace AIMS.DomainModel.Services
             }
 
 
-            if (transactionTrigger.TransactionOrigin == "P")
+            if (transactionTrigger is PolicyTransactionTrigger)
             {
+                var policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
                 if (transactionTrigger.JournalTemplate.PublicRequirement != null)
                 {
                     if (transactionTrigger.JournalTemplate.PublicRequirement.IsPolicyHolder)
                     {
                         decimal totalPerc = 0;
-                        foreach (var policyHolder in transactionTrigger.Policy.PolicyHolders)
+                        foreach (var policyHolder in policyTransactionTrigger.Policy.PolicyHolders)
                         {
                             if (policyHolder.BillingPercent.HasValue)
                             {
@@ -59,7 +60,7 @@ namespace AIMS.DomainModel.Services
                     if (transactionTrigger.JournalTemplate.PublicRequirement.IsServiceProvider)
                     {
                         decimal totalPerc = 0;
-                        foreach (var sp in transactionTrigger.Policy.ServiceProviders.Where(x => x.ServiceProviderTypeID == transactionTrigger.JournalTemplate.ServiceProviderTypeID))
+                        foreach (var sp in policyTransactionTrigger.Policy.ServiceProviders.Where(x => x.ServiceProviderTypeID == transactionTrigger.JournalTemplate.ServiceProviderTypeID))
                         {                            
                             if (sp.Percentage != 0)
                             {
@@ -77,7 +78,7 @@ namespace AIMS.DomainModel.Services
                     if (transactionTrigger.JournalTemplate.PublicRequirement.IsAgent)
                     {
                         decimal totalPerc = 0;
-                        foreach (var agent in transactionTrigger.Policy.Agents.Where(x => x.AgentTypeID == transactionTrigger.JournalTemplate.AgentTypeID))
+                        foreach (var agent in policyTransactionTrigger.Policy.Agents.Where(x => x.AgentTypeID == transactionTrigger.JournalTemplate.AgentTypeID))
                         {
                             if (agent.Percentage != 0)
                             {
@@ -112,8 +113,11 @@ namespace AIMS.DomainModel.Services
             journal.Description = transactionTrigger.Description;
             journal.JournalType = transactionTrigger.JournalTemplate.JournalType;
             journal.ReportingEntity = transactionTrigger.ReportingEntity;
-            journal.TransactionOrigin = transactionTrigger.TransactionOrigin;
-            journal.Policy = transactionTrigger.Policy;
+            //journal.TransactionOrigin = transactionTrigger.TransactionOrigin;
+
+            if (transactionTrigger is PolicyTransactionTrigger)
+                journal.Policy = (transactionTrigger as PolicyTransactionTrigger).Policy;
+
             journal.Public = resolvedPublic;
             journal.ServiceProvider = serviceProvider;
             journal.Agent = agent;
@@ -148,10 +152,12 @@ namespace AIMS.DomainModel.Services
                 txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * ResolveLedgerBalance(db, transactionTrigger, templateTxn, resolvedPublic)) * percentage);
 
             txn.Description = templateTxn.Description;
-            txn.Policy = transactionTrigger.Policy;
+            if (transactionTrigger is PolicyTransactionTrigger)
+                journal.Policy = (transactionTrigger as PolicyTransactionTrigger).Policy;
+
             txn.Public = resolvedPublic;
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
-            txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
+            //txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
             txn.TxnDate = transactionTrigger.TxnDate.Value;
             txn.JournalTemplateTxn = templateTxn;
 
@@ -160,25 +166,29 @@ namespace AIMS.DomainModel.Services
         
         private void BuildCoverageTxns(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, Journal journal, JournalTemplateTxn templateTxn, decimal percentage)
         {
-            foreach (var coverage in transactionTrigger.Policy.Coverages)
+            if (transactionTrigger is PolicyTransactionTrigger)
             {
-                if (!coverage.Premium.HasValue)
-                    throw new Exception("Coverage premium not set");
+                var policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
+                foreach (var coverage in policyTransactionTrigger.Policy.Coverages)
+                {
+                    if (!coverage.Premium.HasValue)
+                        throw new Exception("Coverage premium not set");
 
-                JournalTxn txn = new JournalTxn();
-                txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value) * percentage);
-                txn.Description = templateTxn.Description + " - " + coverage.CoverageType.Name;
-                txn.Policy = transactionTrigger.Policy;
-                txn.Public = resolvedPublic;
-                //sp ??
-                txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
-                txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
-                txn.TxnDate = transactionTrigger.TxnDate.Value;
-                txn.JournalTemplateTxn = templateTxn;
-                txn.PolicyCoverage = coverage;
+                    JournalTxn txn = new JournalTxn();
+                    txn.Amount = ((ResolveAmount(db, transactionTrigger, resolvedPublic, templateTxn) * coverage.Premium.Value) * percentage);
+                    txn.Description = templateTxn.Description + " - " + coverage.CoverageType.Name;
+                    txn.Policy = policyTransactionTrigger.Policy;
+                    txn.Public = resolvedPublic;
+                    //sp ??
+                    txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
+                    //txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
+                    txn.TxnDate = transactionTrigger.TxnDate.Value;
+                    txn.JournalTemplateTxn = templateTxn;
+                    txn.PolicyCoverage = coverage;
 
-                journal.JournalTxns.Add(txn);
-            }            
+                    journal.JournalTxns.Add(txn);
+                }
+            }  
         }
 
         private decimal ResolveAmount(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, JournalTemplateTxn templateTxn)
@@ -223,18 +233,22 @@ namespace AIMS.DomainModel.Services
             if (templateTxn.AmountLedgerAccount == null)
                 throw new Exception("Ledger account not specified");
 
-            var query = db.LedgerTxns.Where(x => x.ReportingEntityID == transactionTrigger.ReportingEntityID && x.LedgerAccountID == templateTxn.AmountLedgerAccountID && x.TxnDate <= transactionTrigger.TxnDate);
+            PolicyTransactionTrigger policyTransactionTrigger = null;
+            if (transactionTrigger is PolicyTransactionTrigger)
+                policyTransactionTrigger = (transactionTrigger as PolicyTransactionTrigger);
+
+                var query = db.LedgerTxns.Where(x => x.ReportingEntityID == transactionTrigger.ReportingEntityID && x.LedgerAccountID == templateTxn.AmountLedgerAccountID && x.TxnDate <= transactionTrigger.TxnDate);
 
             switch (templateTxn.BalanceOrigin)
             {
                 case "P":
-                    query = query.Where(x => x.PolicyID == transactionTrigger.PolicyID);
+                    query = query.Where(x => x.PolicyID == policyTransactionTrigger.PolicyID);
                     break;
                 case "U":
                     query = query.Where(x => x.PublicID == resolvedPublic.ID);
                     break;
                 case "X":
-                    query = query.Where(x => x.PublicID == resolvedPublic.ID && x.PolicyID == transactionTrigger.PolicyID);
+                    query = query.Where(x => x.PublicID == resolvedPublic.ID && x.PolicyID == policyTransactionTrigger.PolicyID);
                     break;
                     //todo: agents, sps, etc...
             }
@@ -244,9 +258,13 @@ namespace AIMS.DomainModel.Services
 
         private decimal ResolveContextParameter(IDataContext db, TransactionTrigger trigger, JournalTemplateTxn templateTxn, Public resolvedPublic)
         {
-            if (trigger.Policy != null)
+            if (trigger is PolicyTransactionTrigger)
             {
-                return _contextParameterResolver.Resolve(db, trigger.TxnDate.Value, templateTxn.AmountContextParameterID.Value, trigger.Policy);
+                var policyTransactionTrigger = (trigger as PolicyTransactionTrigger);
+                if (policyTransactionTrigger.Policy != null)
+                {
+                    return _contextParameterResolver.Resolve(db, trigger.TxnDate.Value, templateTxn.AmountContextParameterID.Value, policyTransactionTrigger.Policy);
+                }
             }
 
             throw new NotImplementedException();

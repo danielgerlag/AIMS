@@ -1,11 +1,21 @@
 ﻿<table class="table">
     <tr>
-        <th>Name</th>
-        <th>Entity</th>
+        <th>Type</th>
+        <th>Service Provider</th>
+        <th>Percentage</th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
     </tr>
     <tr *ngFor="#sp of policy.ServiceProviders">
         <td>
-            <lookupText set="ServiceProviderTypes" [key]="sp.ServiceProviderTypeID"></lookupText>            
+            
+            <entity-dropdown [(value)]="sp.ServiceProviderTypeID"
+                             name="ServiceProviderTypeID"
+                             query="ServiceProviderTypes"
+                             keyField="ID"
+                             displayField="Name"
+                             nullable="false">
+            </entity-dropdown>
+
         </td>
         <td>
             <entity-dropdown 
@@ -18,7 +28,10 @@
             </entity-dropdown>
         </td>
         <td>
-            <input type="number" class="form-control" name="Percentage" [(ngModel)]="sp.Percentage">
+            <input numericInput name="Percentage" [(ngModel)]="sp.Percentage" format="p0" min="0" max="1" step="0.01">
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="remove(sp)"><i class="fa fa-trash fa-fw"></i></button>
         </td>
     </tr>
 </table>

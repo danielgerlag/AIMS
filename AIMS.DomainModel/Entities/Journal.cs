@@ -26,9 +26,9 @@ namespace AIMS.DomainModel.Entities
 
         public DateTime TxnDate { get; set; }
 
-        [Required]
-        [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
-        public string TransactionOrigin { get; set; }
+        //[Required]
+        //[MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
+        //public string TransactionOrigin { get; set; }
 
         public int? PolicyID { get; set; }
         public virtual Policy Policy { get; set; }

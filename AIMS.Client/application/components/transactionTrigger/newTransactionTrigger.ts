@@ -95,7 +95,7 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
     protected onLoadConfig(sender: NewTransactionTrigger, data: breeze.QueryResult): any {
         sender.entity.JournalTemplate = data.results[0];
         sender.templateInputsLoaded = true;
-        sender.entity.TransactionOrigin = sender.entity.JournalTemplate.TransactionOrigin;
+        //sender.entity.TransactionOrigin = sender.entity.JournalTemplate.TransactionOrigin;
     }
 
     protected onConfigFailure(sender: NewTransactionTrigger, data: any): any {

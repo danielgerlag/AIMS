@@ -18,13 +18,14 @@ using System.Linq;
 using System.ServiceModel.Web;
 using System.Threading.Tasks;
 using System.Web;
+using AIMS.API;
 
-namespace AIMS.API
+namespace AIMS.DomainModel
 {
     public class WCFDataContext : DataContext
     {
         public WCFDataContext()
-            : base(Services.IoC.Container.Resolve<IIndexQueue>(), Services.IoC.Container.Resolve<IIndexRegister>())
+            : base(AIMS.Services.IoC.Container.Resolve<IIndexQueue>(), AIMS.Services.IoC.Container.Resolve<IIndexRegister>())
         {
             //hack to get DI to work properly for WCF
             //hack to workaround WCF bug in .net 4  - https://social.msdn.microsoft.com/Forums/en-US/4025b688-2e46-4a08-998c-228c6a11d659/adonet-c-poco-entity-generator-and-data-services?forum=adodotnetdataservices
@@ -46,9 +47,10 @@ namespace AIMS.API
             config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.SetServiceActionAccessRule("*", ServiceActionRights.Invoke);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
+            //config.DataServiceBehavior.
         }
 
-        private ISearchService _searchService = Services.IoC.Container.Resolve<ISearchService>();
+        private ISearchService _searchService = AIMS.Services.IoC.Container.Resolve<ISearchService>();
 
 
         [WebGet]

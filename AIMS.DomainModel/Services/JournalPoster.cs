@@ -33,7 +33,7 @@ namespace AIMS.DomainModel.Services
                         throw new Exception("Ledger account not specified");
                                        
                     ledgerTxn.TxnDate = journalTxn.TxnDate;
-                    ledgerTxn.TransactionOrigin = journal.TransactionOrigin;
+                    //ledgerTxn.TransactionOrigin = journal.TransactionOrigin;
                     ledgerTxn.ReportingEntityID = journal.ReportingEntityID;
                     ledgerTxn.ReportingEntityBranch = journalTxn.ReportingEntityBranch;
                     ledgerTxn.Agent = journalTxn.Agent;

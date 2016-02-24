@@ -75,6 +75,11 @@ namespace AIMS.DomainModel.Context
         DbSet<ServiceProviderType> ServiceProviderTypes { get; set; }
 
         DbSet<TransactionTrigger> TransactionTriggers { get; set; }
+
+        //DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
+        //DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
+
+
         DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
         DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
         DbSet<TransactionTriggerStatus> TransactionTriggerStatuses { get; set; }
