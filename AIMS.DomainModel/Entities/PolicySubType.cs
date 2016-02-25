@@ -23,10 +23,8 @@ namespace AIMS.DomainModel.Entities
         public int RegionID { get; set; }
         public virtual Region Region { get; set; }
 
-        public int? RatingProfileID { get; set; }
-        public virtual RatingProfile RatingProfile { get; set; }
 
-        
+        public virtual ICollection<PolicySubTypeRatingProfile> RatingProfiles { get; set; } = new HashSet<PolicySubTypeRatingProfile>();        
 
         public virtual ICollection<PolicySubTypeCoverage> Coverages { get; set; } = new HashSet<PolicySubTypeCoverage>();
 

@@ -5,6 +5,7 @@ import {TAB_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
+import {DateInput} from '../../directives/input/dateInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 import {ContextParameterValues} from '../../components/contextParameter/contextParameterValues';
 
@@ -16,7 +17,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policyType/editPolicyType.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues, DateInput],
     pipes: [JsonPipe]
 })
 export class EditPolicyType extends CRUDController {
@@ -52,6 +53,7 @@ export class EditPolicyType extends CRUDController {
         result.push("ContextParameterValues.ContextParameterValue");
 
         result.push("PolicySubTypes.Coverages");
+        result.push("PolicySubTypes.RatingProfiles");
         result.push("PolicySubTypes.ContextParameterValues");
         result.push("PolicySubTypes.ContextParameterValues.ContextParameterValue");
         
@@ -87,6 +89,11 @@ export class EditPolicyType extends CRUDController {
         var item = this.dataService.createEntity("PolicySubTypeCoverage", {});
         policySubType.Coverages.push(item);
     }
+
+    protected addRatingProfile(policySubType) {
+        var item = this.dataService.createEntity("PolicySubTypeRatingProfile", {});
+        policySubType.RatingProfiles.push(item);
+    }
     
     protected removePolicySubTypeCoverage(item: breeze.Entity) {
         item.entityAspect.setDeleted();
@@ -105,6 +112,10 @@ export class EditPolicyType extends CRUDController {
     }
 
     protected removeItemClass(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeRatingProfile(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }
 }

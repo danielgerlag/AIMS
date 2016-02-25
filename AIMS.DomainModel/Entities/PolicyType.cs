@@ -13,7 +13,11 @@ namespace AIMS.DomainModel.Entities
 
         [Required]
         [MaxLength(300)]
-        public string Name { get; set; }                
+        public string Name { get; set; }
+
+
+        public int? InitialStatusID { get; set; }
+        public virtual PolicyTypeStatus InitialStatus { get; set; }
 
         public virtual ICollection<PolicyTypeEntityRequirement> EntityRequirements { get; set; } = new HashSet<PolicyTypeEntityRequirement>();
 
@@ -26,5 +30,9 @@ namespace AIMS.DomainModel.Entities
         public virtual ICollection<PolicyTypeItemClass> ItemClasses { get; set; } = new HashSet<PolicyTypeItemClass>();
 
         public virtual ICollection<PolicyTypeContextParameterValue> ContextParameterValues { get; set; } = new HashSet<PolicyTypeContextParameterValue>();
+
+        public virtual ICollection<PolicyTypeStatus> Statuses { get; set; } = new HashSet<PolicyTypeStatus>();
+
+        public virtual ICollection<PolicyTypeTransition> Transitions { get; set; } = new HashSet<PolicyTypeTransition>();
     }
 }

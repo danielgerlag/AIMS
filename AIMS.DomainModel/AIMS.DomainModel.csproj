@@ -102,8 +102,13 @@
     <Compile Include="Entities\PolicyAgent.cs" />
     <Compile Include="Entities\PolicySubTypeContextParameterValue.cs" />
     <Compile Include="Entities\PolicyContextParameterValue.cs" />
+    <Compile Include="Entities\PolicySubTypeRatingProfile.cs" />
     <Compile Include="Entities\PolicyTransactionTrigger.cs" />
     <Compile Include="Entities\PolicyTypeContextParameterValue.cs" />
+    <Compile Include="Entities\PolicyTypeTransitionJournalTemplateInput.cs" />
+    <Compile Include="Entities\PolicyTypeTransitionJournalTemplate.cs" />
+    <Compile Include="Entities\PolicyTypeTransitionInput.cs" />
+    <Compile Include="Entities\PolicyTypeTransition.cs" />
     <Compile Include="Entities\RatingProfile.cs" />
     <Compile Include="Entities\RegionContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeCoverage.cs" />
@@ -139,7 +144,7 @@
     <Compile Include="Entities\PolicyCoverage.cs" />
     <Compile Include="Entities\PolicyRiskLocation.cs" />
     <Compile Include="Entities\PolicyServiceProvider.cs" />
-    <Compile Include="Entities\PolicyStatus.cs" />
+    <Compile Include="Entities\PolicyTypeStatus.cs" />
     <Compile Include="Entities\PolicyType.cs" />
     <Compile Include="Entities\PolicyTypeEntityRequirement.cs" />
     <Compile Include="Entities\PolicyTypeServiceProvider.cs" />
@@ -183,6 +188,14 @@
     <Compile Include="Migrations\201602251750494_wtf3.cs" />
     <Compile Include="Migrations\201602251750494_wtf3.Designer.cs">
       <DependentUpon>201602251750494_wtf3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602252035590_r1.cs" />
+    <Compile Include="Migrations\201602252035590_r1.Designer.cs">
+      <DependentUpon>201602252035590_r1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602252306317_statuses.cs" />
+    <Compile Include="Migrations\201602252306317_statuses.Designer.cs">
+      <DependentUpon>201602252306317_statuses.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
@@ -251,6 +264,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602251750494_wtf3.resx">
       <DependentUpon>201602251750494_wtf3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602252035590_r1.resx">
+      <DependentUpon>201602252035590_r1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602252306317_statuses.resx">
+      <DependentUpon>201602252306317_statuses.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

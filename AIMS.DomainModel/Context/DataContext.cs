@@ -99,9 +99,14 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<TransactionTriggerLog> TransactionTriggerLogs { get; set; }
         public virtual DbSet<TransactionTriggerException> TransactionTriggerExceptions { get; set; }
 
-        public virtual DbSet<PolicyStatus> PolicyStatuses { get; set; }
+        public virtual DbSet<PolicyTypeStatus> PolicyTypeStatuses { get; set; }
 
-        
+        public virtual DbSet<PolicyTypeTransition> PolicyTypeTransitions { get; set; }
+        public virtual DbSet<PolicyTypeTransitionInput> PolicyTypeTransitionInputs { get; set; }
+        public virtual DbSet<PolicyTypeTransitionJournalTemplate> PolicyTypeTransitionJournalTemplates { get; set; }
+        public virtual DbSet<PolicyTypeTransitionJournalTemplateInput> PolicyTypeTransitionJournalTemplateInputs { get; set; }
+
+
 
         protected override Type GetInterfaceType()
         {

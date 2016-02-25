@@ -8,23 +8,26 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    public class PolicyStatus : BaseEntity
+    public class PolicyTypeStatus : BaseEntity
     {
 
         [Required]
         [StringLength(200)]
-        public string Description { get; set; }
+        public string Name { get; set; }
 
-        public bool IsQuote { get; set; }
+        public bool AllowRating { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool AllowChanges { get; set; }
 
-        public bool IsCancelled { get; set; }
+        public bool AllowTransactions { get; set; }
+
+        public int PolicyTypeID { get; set; }
+        public virtual PolicyType PolicyType { get; set; }
 
 
         public override string GetLookupText()
         {
-            return Description;
+            return Name;
         }
     }
 }

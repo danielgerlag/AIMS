@@ -6,7 +6,7 @@
                 <form-input [entity]="entity" name="Name" title="Name">
                     <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                 </form-input>
-                                
+
 
             </tab>
             <tab heading="Entity Requirements">
@@ -25,8 +25,7 @@
                             <input type="text" class="form-control" name="Name" [(ngModel)]="entityReq.Name">
                         </td>
                         <td>
-                            <entity-dropdown 
-                                             [(value)]="entityReq.ReportingEntityProfileID"
+                            <entity-dropdown [(value)]="entityReq.ReportingEntityProfileID"
                                              name="ReportingEntityProfileID"
                                              query="ReportingEntityProfiles"
                                              keyField="ID"
@@ -35,8 +34,7 @@
                             </entity-dropdown>
                         </td>
                         <td>
-                            <entity-dropdown 
-                                             [(value)]="entityReq.DefaultReportingEntityID"
+                            <entity-dropdown [(value)]="entityReq.DefaultReportingEntityID"
                                              name="DefaultReportingEntityID"
                                              query="ReportingEntities?$expand=Public"
                                              keyField="ID"
@@ -63,10 +61,9 @@
                             <button type="button" class="btn" (click)="addAgentRequirement()">Add</button>
                         </th>
                     </tr>
-                    <tr *ngFor="#agentReq of entity.AgentRequirements">                        
+                    <tr *ngFor="#agentReq of entity.AgentRequirements">
                         <td>
-                            <entity-dropdown 
-                                             [(value)]="agentReq.AgentTypeID"
+                            <entity-dropdown [(value)]="agentReq.AgentTypeID"
                                              name="AgentTypeID"
                                              query="AgentTypes"
                                              keyField="ID"
@@ -86,7 +83,7 @@
                 </table>
             </tab>
 
-        
+
             <tab heading="Service Providers">
                 <table>
                     <tr>
@@ -99,8 +96,7 @@
                     </tr>
                     <tr *ngFor="#sp of entity.ServiceProviders">
                         <td>
-                            <entity-dropdown 
-                                             [(value)]="sp.ServiceProviderTypeID"
+                            <entity-dropdown [(value)]="sp.ServiceProviderTypeID"
                                              name="ServiceProviderTypeID"
                                              query="ServiceProviderTypes"
                                              keyField="ID"
@@ -123,7 +119,7 @@
             <tab heading="Insurable Item Classes">
                 <table>
                     <tr>
-                        <th>Item</th>                        
+                        <th>Item</th>
                         <th></th>
                         <th>
                             <button type="button" class="btn" (click)="addItemClass()">Add</button>
@@ -138,7 +134,7 @@
                                              displayField="Name"
                                              nullable="false">
                             </entity-dropdown>
-                        </td>                        
+                        </td>
                         <td></td>
                         <td>
                             <button type="button" class="btn" (click)="removeItemClass(sp)"><i class="fa fa-trash fa-fw"></i></button>
@@ -162,8 +158,7 @@
                                 </form-input>
 
                                 <form-input [entity]="subType" name="SequenceNumber" title="Sequence Number">
-                                    <entity-dropdown 
-                                                     [(value)]="subType.SequenceNumberID"
+                                    <entity-dropdown [(value)]="subType.SequenceNumberID"
                                                      name="SequenceNumberID"
                                                      query="SequenceNumbers"
                                                      keyField="ID"
@@ -173,20 +168,9 @@
                                 </form-input>
 
                                 <form-input [entity]="subType" name="Region" title="Region">
-                                    <entity-dropdown 
-                                                     [(value)]="subType.RegionID"
+                                    <entity-dropdown [(value)]="subType.RegionID"
                                                      name="RegionID"
                                                      query="Regions"
-                                                     keyField="ID"
-                                                     displayField="Name"
-                                                     nullable="false">
-                                    </entity-dropdown>
-                                </form-input>
-
-                                <form-input [entity]="subType" name="RatingProfileID" title="Rating Profile">
-                                    <entity-dropdown [(value)]="subType.RatingProfileID"
-                                                     name="RatingProfileID"
-                                                     query="RatingProfiles"
                                                      keyField="ID"
                                                      displayField="Name"
                                                      nullable="false">
@@ -197,7 +181,7 @@
                             <tab heading="Coverages">
                                 <table class="table">
                                     <tr>
-                                        <th>Coverage</th>                                        
+                                        <th>Coverage</th>
                                         <th>
                                             <button type="button" class="btn" (click)="addPolicySubTypeCoverage(subType)">Add</button>
                                         </th>
@@ -222,6 +206,38 @@
 
                             <tab heading="Context Parameters">
                                 <contextParameterValues [value]="subType" [dataService]="dataService" childType="PolicySubTypeContextParameterValue"></contextParameterValues>
+                            </tab>
+                            <tab heading="Rating Profiles">
+                                <table>
+                                    <tr>
+                                        <th>Profile</th>
+                                        <th>Effective Date</th>
+                                        <th></th>
+                                        <th>
+                                            <button type="button" class="btn" (click)="addRatingProfile(subType)">Add</button>
+                                        </th>
+                                    </tr>
+                                    <tr *ngFor="#rating of subType.RatingProfiles">
+                                        <td>
+                                            <entity-dropdown [(value)]="rating.RatingProfileID"
+                                                             name="RatingProfileID"
+                                                             query="RatingProfiles"
+                                                             keyField="ID"
+                                                             displayField="Name"
+                                                             nullable="false">
+                                            </entity-dropdown>
+                                        </td>
+                                        <td>
+                                            <input dateInput  [(value)]="rating.EffectiveDate" />
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <button type="button" class="btn" (click)="removeRatingProfile(rating)"><i class="fa fa-trash fa-fw"></i></button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
                             </tab>
 
                         </tabset>

@@ -22,12 +22,17 @@ namespace AIMS.DomainModel.Entities
 
         public DateTime? ExpiryDate { get; set; }
 
+        public DateTime? RatesDate { get; set; }
+
         public int PolicySubTypeID { get; set; }
         public virtual PolicySubType PolicySubType { get; set; }
 
         [Index]
         public int? BillingPublicID { get; set; }
         public virtual Public BillingPublic { get; set; }
+
+        public int? StatusID { get; set; }
+        public virtual PolicyTypeStatus Status { get; set; }
 
 
         public virtual ICollection<PolicyHolder> PolicyHolders { get; set; } = new HashSet<PolicyHolder>();

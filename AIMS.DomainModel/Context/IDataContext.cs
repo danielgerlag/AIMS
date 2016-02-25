@@ -96,9 +96,14 @@ namespace AIMS.DomainModel.Context
         DbSet<TransactionTriggerException> TransactionTriggerExceptions { get; set; }
 
 
-        DbSet<PolicyStatus> PolicyStatuses { get; set; }       
+        DbSet<PolicyTypeStatus> PolicyTypeStatuses { get; set; }
 
-        
-        
+        DbSet<PolicyTypeTransition> PolicyTypeTransitions { get; set; }
+        DbSet<PolicyTypeTransitionInput> PolicyTypeTransitionInputs { get; set; }
+        DbSet<PolicyTypeTransitionJournalTemplate> PolicyTypeTransitionJournalTemplates { get; set; }
+        DbSet<PolicyTypeTransitionJournalTemplateInput> PolicyTypeTransitionJournalTemplateInputs { get; set; }
+
+
+
     }
 }

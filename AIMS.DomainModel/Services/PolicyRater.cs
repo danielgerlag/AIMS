@@ -25,12 +25,17 @@ namespace AIMS.DomainModel.Services
             try
             {
                 var policy = _db.Policies.Find(policyID);
-                switch (policy.PolicySubType.RatingProfile.Engine)
+                var profile = GetEffectiveProfile(policy);
+
+                if (profile == null)
+                    return false;
+
+                switch (profile.Engine)
                 {
                     case "InRule":
                         throw new NotImplementedException();
                     case "Script":
-                        var scriptResult = _scriptEngine.Run<Policy>(policy, _db, policy.PolicySubType.RatingProfile.Script, policy.PolicySubType.RatingProfile.ScriptLanguage);
+                        var scriptResult = _scriptEngine.Run<Policy>(policy, _db, profile.Script, profile.ScriptLanguage);
                         if (scriptResult.Success)
                             _db.SaveChanges();
                         return scriptResult.Success;
@@ -44,6 +49,20 @@ namespace AIMS.DomainModel.Services
                 return false;
             }
             
+        }
+
+        private RatingProfile GetEffectiveProfile(Policy policy)
+        {
+            DateTime effectiveDate = (policy.RatesDate ?? DateTime.Now);
+            var rating = policy.PolicySubType.RatingProfiles
+                .Where(x => x.EffectiveDate <= effectiveDate)
+                .OrderByDescending(x => x.EffectiveDate)
+                .FirstOrDefault();
+
+            if (rating == null)
+                return null;
+
+            return rating.RatingProfile;
         }
     }
 }
