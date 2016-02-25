@@ -124,9 +124,6 @@ export class DebtorCreditorBalances implements OnInit {
                             'PolicyID': { type: "number" },
                             'EffectiveDate': { type: "date" },
                             'Balance': { type: "number" }
-                        },
-                        get: function (name) {
-                            return 1;
                         }
                     },
                     data: function (data) {
@@ -149,7 +146,6 @@ export class DebtorCreditorBalances implements OnInit {
         var self = this;
         var queryOptions = "";
         return function (e) {
-            //alert(JSON.stringify(e.Data));
             var dateStr = moment(e.data.EffectiveDate).format("YYYY-MM-DD");            
             var query = "/GetLedgerTxnBalances?reportingEntityID=" + e.data.ReportingEntityID + "&ledgerAccountID=" + e.data.LedgerAccountID + "&effectiveDate='" + dateStr + "'";
             
@@ -179,6 +175,7 @@ export class DebtorCreditorBalances implements OnInit {
                                 'Balance': { type: "number" },
                                 'Description': { type: "string" },
                                 'Reference': { type: "string" },
+                                'PolicyNumber': { type: "string" },
                                 'TxnDate': { type: "date" }
                             }
                         },
@@ -205,7 +202,8 @@ export class DebtorCreditorBalances implements OnInit {
                     columns: [
                         { field: "TxnDate", title: "Date", format: "{0: yyyy-MM-dd}" },
                         { field: "Description", title: "Description" },
-                        { field: "Reference", title: "Reference" },                        
+                        { field: "Reference", title: "Reference" },
+                        { field: "PolicyNumber", title: "Policy" },
                         { field: "Amount", title: "Amount" },
                         { field: "Balance", title: "Balance" }]
                 }]

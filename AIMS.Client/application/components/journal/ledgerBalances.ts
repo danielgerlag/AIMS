@@ -51,7 +51,8 @@ export class LedgerBalances implements OnInit {
         var self = this;
         var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
         var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
-        var element = jQuery(this.elementRef.nativeElement);        
+        var element = jQuery(this.elementRef.nativeElement);    
+        var ledgerTxnDetail = this.buildInitLedgerTxnDetail();    
 
         element.kendoGrid({
             dataSource: self.dataSource,
@@ -59,6 +60,7 @@ export class LedgerBalances implements OnInit {
             scrollable: true,
             sortable: true,
             filterable: true,
+            detailInit: ledgerTxnDetail,
             columns: self.buildColumns()
         });
 
@@ -115,16 +117,14 @@ export class LedgerBalances implements OnInit {
                     model: {
                         fields: {
                             'ReportingEntityName': { type: "string" },
+                            'ReportingEntityID': { type: "number" },
+                            'LedgerAccountID': { type: "number" },
                             'LedgerAccountName': { type: "string" },
                             'PublicName': { type: "string" },
-                            'PolicyNumber': { type: "string" },
-                            'LedgerAccountID': { type: "number" },
                             'PublicID': { type: "number" },
                             'PolicyID': { type: "number" },
+                            'EffectiveDate': { type: "date" },
                             'Balance': { type: "number" }
-                        },
-                        get: function (name) {
-                            return 1;
                         }
                     },
                     data: function (data) {
@@ -142,5 +142,72 @@ export class LedgerBalances implements OnInit {
         
     }
     
+    buildInitLedgerTxnDetail() {
+        var self = this;
+        var queryOptions = "";
+        return function (e) {
+            var dateStr = moment(e.data.EffectiveDate).format("YYYY-MM-DD");
+            var query = "/GetLedgerTxnBalances?reportingEntityID=" + e.data.ReportingEntityID + "&ledgerAccountID=" + e.data.LedgerAccountID + "&effectiveDate='" + dateStr + "'";
 
+            if (e.data.PublicID) {
+                query = query + "&publicID=" + e.data.PublicID;
+            }
+
+            if (e.data.PolicyID) {
+                query = query + "&policyID=" + e.data.PolicyID;
+            }
+
+            jQuery("<div/>").appendTo(e.detailCell).kendoGrid({
+
+                dataSource: {
+                    //type: "odata",
+                    transport: {
+                        read: {
+                            url: self.servicePath + query,
+                            dataType: "json"
+                        }
+                    },
+
+                    schema: {
+                        model: {
+                            fields: {
+                                'Amount': { type: "number" },
+                                'Balance': { type: "number" },
+                                'Description': { type: "string" },
+                                'Reference': { type: "string" },
+                                'PolicyNumber': { type: "string" },
+                                'TxnDate': { type: "date" }
+                            }
+                        },
+                        data: function (data) {
+                            return data.value;
+                        },
+                        total: function (data) {
+                            return data['odata.count'];
+                        }
+                    },
+                    pageSize: 20,
+                    serverPaging: true,
+                    serverFiltering: true,
+                    serverSorting: true
+                },
+
+                scrollable: {
+                    virtual: true
+                },
+                sortable: true,
+
+                columns: [{
+                    title: "Ledger",
+                    columns: [
+                        { field: "TxnDate", title: "Date", format: "{0: yyyy-MM-dd}" },
+                        { field: "Description", title: "Description" },
+                        { field: "Reference", title: "Reference" },
+                        { field: "PolicyNumber", title: "Policy" },
+                        { field: "Amount", title: "Amount" },
+                        { field: "Balance", title: "Balance" }]
+                }]
+            });
+        }
+    }
 }

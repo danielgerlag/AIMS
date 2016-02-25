@@ -239,14 +239,15 @@ namespace AIMS.DomainModel
                 {
                     Amount = x.Amount,
                     Description = x.JournalTxn.Description,
-                    Reference = x.JournalTxn.Journal.Description,
+                    Reference = x.JournalTxn.Journal.Reference,
                     TxnDate = x.TxnDate,
+                    Policy = x.JournalTxn.Journal.Policy,
                     Balance = query.Where(y => y.TxnDate <= x.TxnDate && y.ID <= x.ID).Sum(y => y.Amount)
                 });
 
 
             return sumQuery.ToList()
-                .Select(x => new LedgerTxnBalance()
+                .Select(x => new LedgerTxnBalance(x.Policy)
                 {
                     Balance = x.Balance,
                     Amount = x.Amount,
