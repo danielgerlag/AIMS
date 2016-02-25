@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.DistributedServices.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Services.TransactionProcessing", "AIMS.Services.TransactionProcessing\AIMS.Services.TransactionProcessing.csproj", "{69212075-ECD3-418C-82F6-C909FD21330A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIMS.Services.Scripting", "AIMS.Services.Scripting\AIMS.Services.Scripting.csproj", "{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{69212075-ECD3-418C-82F6-C909FD21330A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69212075-ECD3-418C-82F6-C909FD21330A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69212075-ECD3-418C-82F6-C909FD21330A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +98,6 @@ Global
 		{23219ED5-4AF3-49B3-953C-1C69DC2B5B6E} = {81C0EE56-C7A2-4B90-876B-B809EF2F6E8F}
 		{6027ADF0-25D7-4ED9-86AC-F7E4478F720B} = {58F4C39D-B91D-453A-BEAC-9A1EA280879C}
 		{69212075-ECD3-418C-82F6-C909FD21330A} = {58F4C39D-B91D-453A-BEAC-9A1EA280879C}
+		{7F7BCF88-5CB9-4B16-BB3C-F57E74C40C1C} = {58F4C39D-B91D-453A-BEAC-9A1EA280879C}
 	EndGlobalSection
 EndGlobal

@@ -71,6 +71,8 @@ namespace AIMS.DomainModel.Context
         DbSet<Public> Publics { get; set; }
         DbSet<PublicRequirement> PublicRequirements { get; set; }
 
+        DbSet<RatingProfile> RatingProfiles { get; set; }
+
         DbSet<Region> Regions { get; set; }
         DbSet<ReportingEntity> ReportingEntities { get; set; }
         DbSet<ReportingEntityBankAccount> ReportingEntityBankAccounts { get; set; }

@@ -104,6 +104,7 @@
     <Compile Include="Entities\PolicyContextParameterValue.cs" />
     <Compile Include="Entities\PolicyTransactionTrigger.cs" />
     <Compile Include="Entities\PolicyTypeContextParameterValue.cs" />
+    <Compile Include="Entities\RatingProfile.cs" />
     <Compile Include="Entities\RegionContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeCoverage.cs" />
     <Compile Include="Entities\PolicySubType.cs" />
@@ -179,6 +180,10 @@
     <Compile Include="Migrations\201602250055463_wtf2.Designer.cs">
       <DependentUpon>201602250055463_wtf2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602251750494_wtf3.cs" />
+    <Compile Include="Migrations\201602251750494_wtf3.Designer.cs">
+      <DependentUpon>201602251750494_wtf3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -193,7 +198,9 @@
     <Compile Include="Services\IContextParameterResolver.cs" />
     <Compile Include="Services\IJournalGenerator.cs" />
     <Compile Include="Services\IJournalPoster.cs" />
+    <Compile Include="Services\IPolicyRater.cs" />
     <Compile Include="Services\ISequenceNumberGeneator.cs" />
+    <Compile Include="Services\PolicyRater.cs" />
     <Compile Include="Services\JournalPoster.cs" />
     <Compile Include="Services\JournalGenerator.cs" />
     <Compile Include="Services\SequenceNumberGeneator.cs" />
@@ -219,6 +226,10 @@
       <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
       <Name>AIMS.Services.IoC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services.Scripting\AIMS.Services.Scripting.csproj">
+      <Project>{7f7bcf88-5cb9-4b16-bb3c-f57e74c40c1c}</Project>
+      <Name>AIMS.Services.Scripting</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -237,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602250055463_wtf2.resx">
       <DependentUpon>201602250055463_wtf2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602251750494_wtf3.resx">
+      <DependentUpon>201602251750494_wtf3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

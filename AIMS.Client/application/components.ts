@@ -23,6 +23,9 @@ import {EditContextParameter} from './components/contextParameter/editContextPar
 import {ListRegion} from './components/region/listRegion'
 import {EditRegion} from './components/region/editRegion'
 
+import {ListRatingProfile} from './components/ratingProfile/listRatingProfile'
+import {EditRatingProfile} from './components/ratingProfile/editRatingProfile'
+
 
 import {EditPublic} from './components/public/editPublic'
 import {NewPublic} from './components/public/newPublic'
@@ -34,6 +37,9 @@ var Components = {
 
     NewPolicy: NewPolicy,
     EditPolicy: EditPolicy,
+
+    ListRatingProfile: ListRatingProfile,
+    EditRatingProfile: EditRatingProfile,
 
     ListRegion: ListRegion,
     EditRegion: EditRegion,

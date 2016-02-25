@@ -50,6 +50,10 @@ declare var System:any;
         new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),
 
 
+        new Route({ path: '/ListRatingProfile', component: Components.ListRatingProfile, name: 'ListRatingProfile' }),
+        new Route({ path: '/EditRatingProfile', component: Components.EditRatingProfile, name: 'EditRatingProfile' }),
+        new Route({ path: '/EditRatingProfile/:Id', component: Components.EditRatingProfile, name: 'EditRatingProfile' }),
+
         new Route({ path: '/ListRegion', component: Components.ListRegion, name: 'ListRegion' }),
         new Route({ path: '/EditRegion', component: Components.EditRegion, name: 'EditRegion' }),
         new Route({ path: '/EditRegion/:Id', component: Components.EditRegion, name: 'EditRegion' }),

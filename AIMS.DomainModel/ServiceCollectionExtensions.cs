@@ -19,6 +19,7 @@ namespace AIMS.DomainModel
             services.RegisterType<SequenceNumberGeneator>().As<ISequenceNumberGeneator>().InstancePerDependency();
             services.RegisterType<JournalPoster>().As<IJournalPoster>().InstancePerDependency();
             services.RegisterType<ContextParameterResolver>().As<IContextParameterResolver>().InstancePerDependency();
+            services.RegisterType<PolicyRater>().As<IPolicyRater>().InstancePerDependency();
 
             return services;
         }

@@ -25,3 +25,5 @@
 /AIMS.Services.TransactionProcessing/obj
 /AIMS.Services.TransactionProcessing/bin
 /AIMS.Services.TransactionProcessing/*.user
+/AIMS.Services.Scripting/bin
+/AIMS.Services.Scripting/obj

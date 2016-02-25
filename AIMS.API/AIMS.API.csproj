@@ -217,6 +217,10 @@
       <Project>{2207caf8-f541-4342-8bbb-cb2f6b3a4c29}</Project>
       <Name>AIMS.Services.IoC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AIMS.Services.Scripting\AIMS.Services.Scripting.csproj">
+      <Project>{7f7bcf88-5cb9-4b16-bb3c-f57e74c40c1c}</Project>
+      <Name>AIMS.Services.Scripting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIMS.Services.TransactionProcessing\AIMS.Services.TransactionProcessing.csproj">
       <Project>{69212075-ecd3-418c-82f6-c909fd21330a}</Project>
       <Name>AIMS.Services.TransactionProcessing</Name>

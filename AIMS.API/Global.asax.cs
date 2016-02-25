@@ -4,6 +4,7 @@ using AIMS.DomainModel.Context;
 using AIMS.Services.Indexer;
 using AIMS.Services.Indexer.Interface;
 using AIMS.Services.TransactionProcessing;
+using AIMS.Services.Scripting;
 using Autofac;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,7 @@ namespace AIMS.API
             builder.AddSearchIndexerServices();
             builder.AddSearchIndexers(typeof(DataContext).Assembly);
             builder.AddTransactionProcessingServices();
+            builder.AddScriptingServices();
 
             Services.IoC.Container.IOCContainer = builder.Build();
             //AutofacHostFactory.Container = Westland.Documents.IoC.Container.IOCContainer;

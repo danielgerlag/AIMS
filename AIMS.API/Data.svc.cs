@@ -19,6 +19,7 @@ using System.ServiceModel.Web;
 using System.Threading.Tasks;
 using System.Web;
 using AIMS.API;
+using AIMS.DomainModel.Services;
 
 namespace AIMS.DomainModel
 {
@@ -256,6 +257,15 @@ namespace AIMS.DomainModel
                     TxnDate = x.TxnDate
                 }).AsQueryable();
 
+        }
+
+
+
+        [WebGet]
+        public bool RatePolicy(int policyID)
+        {
+            IPolicyRater rater = AIMS.Services.IoC.Container.Resolve<IPolicyRater>();
+            return rater.Rate(policyID);
         }
 
 

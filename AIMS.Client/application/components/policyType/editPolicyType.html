@@ -183,6 +183,16 @@
                                     </entity-dropdown>
                                 </form-input>
 
+                                <form-input [entity]="subType" name="RatingProfileID" title="Rating Profile">
+                                    <entity-dropdown [(value)]="subType.RatingProfileID"
+                                                     name="RatingProfileID"
+                                                     query="RatingProfiles"
+                                                     keyField="ID"
+                                                     displayField="Name"
+                                                     nullable="false">
+                                    </entity-dropdown>
+                                </form-input>
+
                             </tab>
                             <tab heading="Coverages">
                                 <table class="table">
