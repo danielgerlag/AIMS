@@ -106,7 +106,7 @@ namespace AIMS.DomainModel
             return CurrentDataSource.JournalTemplates.Where(x => x.TransactionOrigin == origin && x.ReportingEntityProfile.ReportingEntities.Any(y => y.ID == reportingEntityID));
         }
 
-        [WebGet]        
+        [WebGet]
         public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, string effectiveDate)
         {
             DateTime effDate = DateTime.Parse(effectiveDate);
@@ -132,7 +132,8 @@ namespace AIMS.DomainModel
                                 LedgerAccountID = x.LedgerAccountID,
                                 LedgerAccountName = x.LedgerAccountName,
                                 ReportingEntityID = x.ReportingEntityID,
-                                ReportingEntityName = x.ReportingEntityName
+                                ReportingEntityName = x.ReportingEntityName,
+                                EffectiveDate = effDate
                             }).AsQueryable();
 
                 case "Policy":
@@ -163,7 +164,8 @@ namespace AIMS.DomainModel
                     LedgerAccountID = x.LedgerAccountID,
                     LedgerAccountName = x.LedgerAccountName,
                     ReportingEntityID = x.ReportingEntityID,
-                    ReportingEntityName = x.ReportingEntityName
+                    ReportingEntityName = x.ReportingEntityName,
+                    EffectiveDate = effDate
                 }).AsQueryable();
 
         }
@@ -200,7 +202,7 @@ namespace AIMS.DomainModel
                     LedgerAccountID = x.Key.LedgerAccount.ID,
                     LedgerAccountName = x.Key.LedgerAccount.Name,
                     ReportingEntityID = x.Key.ReportingEntity.ID,
-                    ReportingEntityName = x.Key.ReportingEntity.Public.Name,                    
+                    ReportingEntityName = x.Key.ReportingEntity.Public.Name,
                     Public = x.Key.Public
                 }).ToList()
                 .Select(x => new LedgerAccountBalance(x.Public)
@@ -209,11 +211,51 @@ namespace AIMS.DomainModel
                     LedgerAccountID = x.LedgerAccountID,
                     LedgerAccountName = x.LedgerAccountName,
                     ReportingEntityID = x.ReportingEntityID,
-                    ReportingEntityName = x.ReportingEntityName
+                    ReportingEntityName = x.ReportingEntityName,
+                    EffectiveDate = effDate
                 }).AsQueryable();
 
         }
 
+
+               
+
+        [WebGet]
+        public IQueryable<LedgerTxnBalance> GetLedgerTxnBalances(int reportingEntityID, int ledgerAccountID, int? publicID, int? policyID, string effectiveDate)
+        {
+            DateTime effDate = DateTime.Parse(effectiveDate);
+            var query = CurrentDataSource.LedgerTxns.Where(x => x.ReportingEntityID == reportingEntityID && x.LedgerAccountID == ledgerAccountID && x.TxnDate <= effDate);
+
+            if (publicID.HasValue)
+                query = query.Where(x => x.PublicID == publicID);
+
+            if (policyID.HasValue)
+                query = query.Where(x => x.PolicyID == policyID);
+
+
+            var sumQuery = query
+                .OrderByDescending(x => x.TxnDate).ThenByDescending(x => x.ID)
+                .Select(x => new
+                {
+                    Amount = x.Amount,
+                    Description = x.JournalTxn.Description,
+                    Reference = x.JournalTxn.Journal.Description,
+                    TxnDate = x.TxnDate,
+                    Balance = query.Where(y => y.TxnDate <= x.TxnDate && y.ID <= x.ID).Sum(y => y.Amount)
+                });
+
+
+            return sumQuery.ToList()
+                .Select(x => new LedgerTxnBalance()
+                {
+                    Balance = x.Balance,
+                    Amount = x.Amount,
+                    Description = x.Description,
+                    Reference = x.Reference,
+                    TxnDate = x.TxnDate
+                }).AsQueryable();
+
+        }
 
 
     }

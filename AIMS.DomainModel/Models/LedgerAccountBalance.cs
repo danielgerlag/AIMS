@@ -47,6 +47,8 @@ namespace AIMS.DomainModel.Models
         }
 
 
+        public DateTime EffectiveDate { get; set; }
+
         public int LedgerAccountID { get; set; }
         public string LedgerAccountName { get; set; }
         public int ReportingEntityID { get; set; }

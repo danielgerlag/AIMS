@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<JournalTemplateTxn> JournalTemplateTxns { get; set; } = new HashSet<JournalTemplateTxn>();
 
+        [InverseProperty("JournalTemplate")]
         public virtual ICollection<JournalTemplateInput> Inputs { get; set; } = new HashSet<JournalTemplateInput>();
 
     }

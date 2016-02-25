@@ -148,6 +148,8 @@ namespace AIMS.DomainModel.Services
                 }
             }
 
+            journal.Amount = journal.JournalTxns.Sum(x => x.Amount);
+
             return journal;
         }
 

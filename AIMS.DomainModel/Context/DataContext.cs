@@ -130,6 +130,7 @@ namespace AIMS.DomainModel.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.ComplexType<Models.LedgerAccountBalance>();
+            modelBuilder.ComplexType<Models.LedgerTxnBalance>();
 
             modelBuilder.Entity<TransactionTrigger>()
                .HasOptional(s => s.PolicyTransactionTrigger)

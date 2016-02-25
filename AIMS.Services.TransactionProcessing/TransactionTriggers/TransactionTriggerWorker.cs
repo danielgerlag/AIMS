@@ -65,7 +65,6 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                 JournalRunResult runResult;
                 using (txnScope)
                 {
-
                     runResult = _journalGenerator.Run(_db, trigger);
                     if ((runResult.Errors.Count() == 0) && (runResult.Holders.Count() == 0) && (runResult.Deferrals.Count() == 0))
                     {

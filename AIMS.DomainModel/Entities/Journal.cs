@@ -45,6 +45,8 @@ namespace AIMS.DomainModel.Entities
         public int? AgentID { get; set; }
         public virtual Agent Agent { get; set; }
 
+        public decimal? Amount { get; set; }
+
         public virtual ICollection<JournalTxn> JournalTxns { get; set; } = new HashSet<JournalTxn>();
 
     }
