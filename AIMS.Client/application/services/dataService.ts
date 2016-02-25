@@ -34,6 +34,7 @@ export abstract class IDataService {
     abstract reset();
     abstract cacheEntities(sender: any, setName: string, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
+    
 }
 
 function initEntity(entity) {
@@ -79,10 +80,9 @@ export class DataService implements IDataService {
             self.manager = self.rootManager.createEmptyCopy();
         }, (reason) => { });
 
-        var valOpts = this.rootManager.validationOptions.using({ validateOnAttach: false, validateOnPropertyChange: false, validateOnSave: false });        
+        var valOpts = this.rootManager.validationOptions.using({ validateOnAttach: false, validateOnPropertyChange: false, validateOnSave: false });
         this.rootManager.setProperties({ validationOptions: valOpts });
-
-        
+                
     }
     
     reset() {

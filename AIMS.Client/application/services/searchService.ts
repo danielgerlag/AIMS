@@ -41,10 +41,7 @@ export class SearchService implements ISearchService {
     public suggest(query, sender: any, callback: (sender: any, data: dto.SuggestionResponse) => any): void {
         var request: dto.SearchRequest = new dto.SearchRequest();
         request.SearchQuery = query;
-        this.shellService.showLoader("Searching...");
-
-        this.remoteService.post(this, 'Search.svc/Suggest', request, (sender1: SearchService, data1: dto.SuggestionResponse, status: number) => {
-            sender1.shellService.hideLoader();
+        this.remoteService.post(this, 'Search.svc/Suggest', request, (sender1: SearchService, data1: dto.SuggestionResponse, status: number) => {            
             callback(sender, data1);
         });
     }

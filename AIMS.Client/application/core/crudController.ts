@@ -151,6 +151,8 @@ export abstract class CRUDController extends BaseController {
                 first = false;
             });
         }        
+
+        this.shellService.showLoader("Loading...");
         this.dataService.getEntity(this, this.setName(), id, expandQuery, true, this.onLoadSuccess, this.onLoadFailure);
     }
 

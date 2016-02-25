@@ -3,6 +3,7 @@ import {FormBuilder, Validators, ControlGroup, Control, NgClass, FORM_BINDINGS, 
 import {RouteParams} from 'angular2/router';
 import {TAB_DIRECTIVES, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {Component, View} from 'angular2/core';
+import {ODataWrapper} from '../../core/interfaces'
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
@@ -25,6 +26,7 @@ import {LedgerBalances} from '../../components/journal/ledgerBalances';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
+import {IRemoteService} from '../../services/remoteService';
 import {ILogService} from '../../services/logService';
 import {CRUDController} from '../../core/crudController';
 
@@ -37,11 +39,13 @@ export class EditPolicy extends CRUDController {
 
     private ready: boolean;
     ledgerBalanceDate: Date;
+    remoteService: IRemoteService;
 
-    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
+    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService, remoteService: IRemoteService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
+        this.remoteService = remoteService;
         this.title = "Policy";
-        this.ready = false;
+        this.ready = false;        
         this.ledgerBalanceDate = moment().toDate();
     }
 
@@ -107,6 +111,20 @@ export class EditPolicy extends CRUDController {
     protected onLoadSuccess(sender: EditPolicy, data: breeze.QueryResult): any {
         super.onLoadSuccess(sender, data)
         sender.ready = true;
+    }
+
+    protected ratePolicy() {
+        this.shellService.showLoader("Rating...");
+        this.remoteService.post(this, "Data.svc/RatePolicy?policyID=" + this.entity.ID, null, (sender: EditPolicy, data: ODataWrapper<boolean>, status) => {
+            this.shellService.hideLoader();
+            if (data.value) {
+                sender.shellService.toastSuccess("Rating", "Rating Successful");
+                sender.load(sender.entity.ID);
+            }
+            else {
+                sender.shellService.toastError("Rating", "Rating Failed");
+            }
+        });
     }
     
 }

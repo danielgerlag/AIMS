@@ -261,7 +261,7 @@ namespace AIMS.DomainModel
 
 
 
-        [WebGet]
+        [WebInvoke]
         public bool RatePolicy(int policyID)
         {
             IPolicyRater rater = AIMS.Services.IoC.Container.Resolve<IPolicyRater>();

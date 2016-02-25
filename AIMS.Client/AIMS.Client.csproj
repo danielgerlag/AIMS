@@ -70,6 +70,7 @@
     <Content Include="application\directives\public\publicGeneral.html" />
     <Content Include="application\directives\public\publicWizard.html" />
     <Content Include="application\home\home.html" />
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="index.html" />
     <Content Include="Scripts\datajs-1.1.3.js" />
     <Content Include="Scripts\datajs-1.1.3.min.js" />

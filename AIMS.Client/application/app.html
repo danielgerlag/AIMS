@@ -51,18 +51,18 @@
 </div>
 
 <div class="container">
-    <div>
+    
+    <br />
+    <router-outlet [hidden]="shellService.info.isLoading" style="padding-top:4em" class="workspace body-content"></router-outlet>
 
-        <!--
+    <div [hidden]="!shellService.info.isLoading">
+                
         <div class="progress" [hidden]="!shellService.info.isLoading">
             <div class="progress-bar progress-bar-striped active" role="progressbar" style="width:100%">
                 {{ shellService.info.loadingMessage }}
             </div>
-        </div>
-            -->
+        </div>        
 
     </div>
-    <br />
-    <router-outlet style="padding-top:4em" class="workspace body-content"></router-outlet>
 </div>
 
