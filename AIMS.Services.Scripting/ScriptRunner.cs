@@ -12,17 +12,18 @@ namespace AIMS.Services.Scripting
     {
 
 
-        public ScriptResult Run<TContext>(TContext context, IDbContext db, string code, string language)
+        public ScriptResult Run<TContext>(TContext context, string contextName, IDbContext db, string code, string language)
         {
             ScriptResult result = new ScriptResult();
             try
             {
-                var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);
+                var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);                
                 var scope = engine.CreateScope();
-                scope.SetVariable("context", context);
+                scope.SetVariable(contextName, context);
                 scope.SetVariable("db", db);
+                scope.SetVariable("ioc", new IoC.Adaptor());
                 scope.SetVariable("log", result.Log);
-                engine.Execute(code, scope);
+                engine.Execute(PrepareScript(code, language), scope);
                 result.Success = true;
             }
             catch (Exception ex)
@@ -33,5 +34,21 @@ namespace AIMS.Services.Scripting
             return result;
         }
 
+
+
+        private string PrepareScript(string script, string language)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (language == "Python")
+            {
+                sb.Append("import clr\r\n");
+                sb.Append("import System\r\n");
+                sb.Append("clr.AddReference(\"System.Core\")\r\n");
+                sb.Append("clr.ImportExtensions(System.Linq)\r\n");
+            }
+            sb.Append(script);
+            return sb.ToString();
+
+        }
     }
 }

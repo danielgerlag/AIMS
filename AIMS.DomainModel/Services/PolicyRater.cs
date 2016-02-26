@@ -10,21 +10,19 @@ using System.Threading.Tasks;
 namespace AIMS.DomainModel.Services
 {
     public class PolicyRater : IPolicyRater
-    {
-        IDataContext _db;
+    {        
         IScriptRunner _scriptEngine;
 
-        public PolicyRater(IDataContext db, IScriptRunner scriptEngine)
+        public PolicyRater(IScriptRunner scriptEngine)
         {
-            _db = db;
             _scriptEngine = scriptEngine;
         }
 
-        public bool Rate(int policyID)
+        public bool Rate(Policy policy, IDataContext db)
         {
             try
             {
-                var policy = _db.Policies.Find(policyID);
+                //var policy = _db.Policies.Find(policyID);
                 var profile = GetEffectiveProfile(policy);
 
                 if (profile == null)
@@ -35,9 +33,9 @@ namespace AIMS.DomainModel.Services
                     case "InRule":
                         throw new NotImplementedException();
                     case "Script":
-                        var scriptResult = _scriptEngine.Run<Policy>(policy, _db, profile.Script, profile.ScriptLanguage);
-                        if (scriptResult.Success)
-                            _db.SaveChanges();
+                        var scriptResult = _scriptEngine.Run<Policy>(policy, "policy", db, profile.Script, profile.ScriptLanguage);
+                        //if (scriptResult.Success)
+                        //    _db.SaveChanges();
                         return scriptResult.Success;
                     default:
                         return false;

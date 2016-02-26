@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    [Intercept(Intercept = typeof(GeneratePolicyNumber), Stage = Stage.OnAddBeforeCommit, Order = 1)]
+    [Intercept(typeof(GeneratePolicyNumber), Stage.OnAddBeforeCommit, 1)]
+    [Intercept(typeof(SetPolicyInitialStatus), Stage.OnAddBeforeCommit, 2)]
     public class Policy : BaseEntity
     {
 

@@ -265,7 +265,8 @@ namespace AIMS.DomainModel
         public bool RatePolicy(int policyID)
         {
             IPolicyRater rater = AIMS.Services.IoC.Container.Resolve<IPolicyRater>();
-            return rater.Rate(policyID);
+            var policy = CurrentDataSource.Policies.Find(policyID);
+            return rater.Rate(policy, CurrentDataSource);
         }
 
         

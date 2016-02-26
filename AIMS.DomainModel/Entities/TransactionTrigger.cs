@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace AIMS.DomainModel.Entities
 {
-    [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnAddAfterCommit, Order = 1)]
-    [Intercept(Intercept = typeof(EnqueueTransactionTrigger), Stage = Stage.OnChangeAfterCommit, Order = 1)]
+    [Intercept(typeof(EnqueueTransactionTrigger), Stage.OnAddAfterCommit, 1)]
+    [Intercept(typeof(EnqueueTransactionTrigger), Stage.OnChangeAfterCommit, 1)]
     public class TransactionTrigger : BaseEntity
     {
         public int ReportingEntityID { get; set; }

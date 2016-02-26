@@ -12,6 +12,13 @@ namespace AIMS.DomainModel.Abstractions.Intercepts
         public Type Intercept { get; set; }        
         public Stage Stage { get; set; }
         public int Order { get; set; }
+
+        public InterceptAttribute(Type intercept, Stage stage, int order)
+        {
+            Intercept = intercept;
+            Stage = stage;
+            Order = order;
+        }
     }
 
     public enum Stage { OnAddBeforeCommit, OnChangeBeforeCommit, OnAddAfterCommit, OnChangeAfterCommit }

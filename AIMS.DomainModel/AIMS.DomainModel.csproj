@@ -167,6 +167,7 @@
     <Compile Include="Entities\TransactionTriggerInput.cs" />
     <Compile Include="Indexers\PolicyIndexer.cs" />
     <Compile Include="Indexers\PublicIndexer.cs" />
+    <Compile Include="Intercepts\SetPolicyInitialStatus.cs" />
     <Compile Include="Intercepts\GeneratePolicyNumber.cs" />
     <Compile Include="Intercepts\EnqueueTransactionTrigger.cs" />
     <Compile Include="Migrations\201602241900101_Initial.cs" />
