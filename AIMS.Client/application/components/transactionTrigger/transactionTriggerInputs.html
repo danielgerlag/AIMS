@@ -21,9 +21,8 @@
 
 
             <p *ngSwitchWhen="'YEA'">year...</p>
-            <input *ngSwitchWhen="'BLN'" [(checked)]="findInput(attr.ID).Value" type="checkbox" class="form-control">
+            <input *ngSwitchWhen="'BLN'" [(ngModel)]="findInput(templateInput.ID).Value" type="checkbox" class="form-control">
             <p *ngSwitchWhen="'CLS'">csio list...</p>
         </div>
     </form-input>
-
 </div>

@@ -266,10 +266,22 @@ namespace AIMS.DomainModel
         {
             IPolicyRater rater = AIMS.Services.IoC.Container.Resolve<IPolicyRater>();
             var policy = CurrentDataSource.Policies.Find(policyID);
-            return rater.Rate(policy, CurrentDataSource);
+            bool result = rater.Rate(policy, CurrentDataSource);
+            CurrentDataSource.SaveChanges();
+            return result;
         }
 
-        
+
+        [WebInvoke]
+        public PolicyTransitionResponse TransitionPolicy(string request)
+        {
+            IPolicyTransitionManager manager = AIMS.Services.IoC.Container.Resolve<IPolicyTransitionManager>();
+            var requestObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PolicyTransitionRequest>(request);
+            var result = manager.Transition(requestObj, CurrentDataSource);
+            CurrentDataSource.SaveChanges();
+            return result;
+        }
+
 
     }
 

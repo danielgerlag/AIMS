@@ -17,7 +17,7 @@ namespace AIMS.Services.Scripting
             ScriptResult result = new ScriptResult();
             try
             {
-                var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);                
+                var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);
                 var scope = engine.CreateScope();
                 scope.SetVariable(contextName, context);
                 scope.SetVariable("db", db);
@@ -35,6 +35,16 @@ namespace AIMS.Services.Scripting
         }
 
 
+        public object ResolveExpression<TContext>(TContext context, string contextName, IDbContext db, string code, string language)
+        {
+            var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);
+            var scope = engine.CreateScope();
+            scope.SetVariable(contextName, context);
+            scope.SetVariable("db", db);
+            scope.SetVariable("ioc", new IoC.Adaptor());
+            
+            return engine.Execute(PrepareScript(code, language), scope);
+        }
 
         private string PrepareScript(string script, string language)
         {

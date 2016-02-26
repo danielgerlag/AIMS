@@ -28,15 +28,18 @@ namespace AIMS.DomainModel.Services
                 var policy = db.Policies.Find(request.PolicyID);
                 var transition = db.PolicyTypeTransitions.Find(request.PolicyTypeTransitionID);
 
-
                 foreach (var journal in transition.JournalTemplates)
                 {
                     var targetEntities = policy.ReportingEntities.Where(x => x.PolicyTypeEntityRequirementID == journal.EntityRequirementID).ToList();
 
                     foreach (var entity in targetEntities)
                     {
-                        //entity.ReportingEntityID
                         TransactionTrigger txnTrigger = new TransactionTrigger();
+                        PolicyTransactionTrigger ptxTrigger = new PolicyTransactionTrigger();
+                        ptxTrigger.TransactionTrigger = txnTrigger;
+                        policy.TransactionTriggers.Add(ptxTrigger);
+
+                        txnTrigger.ReportingEntity = entity.ReportingEntity;                        
                         txnTrigger.Description = journal.JournalTemplate.Description;
                         txnTrigger.JournalTemplate = journal.JournalTemplate;
                         txnTrigger.Status = journal.TransactionTriggerStatus;
@@ -52,6 +55,7 @@ namespace AIMS.DomainModel.Services
                         foreach (var input in journal.Inputs)
                         {
                             TransactionTriggerInput txInput = new TransactionTriggerInput();
+                            txnTrigger.Inputs.Add(txInput);
                             txInput.JournalTemplateInputID = input.JournalTemplateInputID;                            
 
                             if (input.PolicyTypeTransitionInputID.HasValue)
@@ -62,18 +66,11 @@ namespace AIMS.DomainModel.Services
 
                             if (!String.IsNullOrEmpty(input.Expression))
                             {
-
-                            }
-
-                            txnTrigger.Inputs.Add(txInput);
-                        }
-
-
-                        PolicyTransactionTrigger ptxTrigger = new PolicyTransactionTrigger();
-                        ptxTrigger.TransactionTrigger = txnTrigger;
-                        policy.TransactionTriggers.Add(ptxTrigger);
-                    }
-                    
+                                var exprResult = _scriptEngine.ResolveExpression<TransactionTriggerInput>(txInput, "input", db, input.Expression, "Python");
+                                txInput.Value = Convert.ToString(exprResult);
+                            }                            
+                        }                                                                       
+                    }                    
                 }
 
                 if (!String.IsNullOrEmpty(transition.Script))
@@ -89,6 +86,7 @@ namespace AIMS.DomainModel.Services
                 }
 
                 policy.Status = transition.TargetStatus;
+                response.Success = true;
             }
             catch (Exception ex)
             {

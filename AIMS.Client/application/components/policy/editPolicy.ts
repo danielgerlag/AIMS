@@ -2,7 +2,7 @@
 import {FormBuilder, Validators, ControlGroup, Control, NgClass, FORM_BINDINGS, CORE_DIRECTIVES, FORM_DIRECTIVES, JsonPipe} from 'angular2/common';
 import {RouteParams} from 'angular2/router';
 import {TAB_DIRECTIVES, ACCORDION_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
-import {Component, View} from 'angular2/core';
+import {Component, View, Injector, provide, IterableDiffers, KeyValueDiffers, Renderer} from 'angular2/core';
 import {ODataWrapper} from '../../core/interfaces'
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
@@ -17,6 +17,7 @@ import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
 import {PolicyOperators} from '../../directives/policy/policyOperators';
 import {PolicyInsurableItems} from '../../directives/policy/policyInsurableItems';
 import {PolicyHolders} from '../../directives/policy/policyHolders';
+import {TransitionPolicyWizard} from './transitionPolicy';
 
 import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
 import {JournalExplorer} from '../../components/journal/journalExplorer';
@@ -30,6 +31,8 @@ import {IRemoteService} from '../../services/remoteService';
 import {ILogService} from '../../services/logService';
 import {CRUDController} from '../../core/crudController';
 
+import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-modal/angular2-modal';
+
 @Component({    
     templateUrl: './application/components/policy/editPolicy.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput, ContextParameterValues],
@@ -41,7 +44,9 @@ export class EditPolicy extends CRUDController {
     ledgerBalanceDate: Date;
     remoteService: IRemoteService;
 
-    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService, remoteService: IRemoteService) {
+    constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService, remoteService: IRemoteService,
+        private modal: Modal, private injector: Injector, private _renderer: Renderer) {
+
         super(params, router, location, dataService, shellService, authService, fb, logService);
         this.remoteService = remoteService;
         this.title = "Policy";
@@ -124,6 +129,37 @@ export class EditPolicy extends CRUDController {
             else {
                 sender.shellService.toastError("Rating", "Rating Failed");
             }
+        });
+    }
+
+    protected transitionPolicy(transitionID) {
+        let dialog: Promise<ModalDialogInstance>;
+        let component = TransitionPolicyWizard;
+        var self = this;
+        var item = { policyID: self.entity.ID, transitionID: transitionID };
+
+        let bindings = Injector.resolve([
+            provide(IDataService, { useValue: this.dataService }),
+            provide(ICustomModal, { useValue: item }),
+            provide(IterableDiffers, { useValue: this.injector.get(IterableDiffers) }),
+            provide(KeyValueDiffers, { useValue: this.injector.get(KeyValueDiffers) }),
+            provide(Renderer, { useValue: this._renderer })
+        ]);
+
+        dialog = this.modal.open(
+            <any>component,
+            bindings,
+            new ModalConfig("lg", false, 27));
+
+
+        dialog.then((resultPromise) => {
+            return resultPromise.result.then((result) => {
+                if (result) {
+                    self.load(self.entity.ID);
+                }
+            }, () => {
+                //
+            });
         });
     }
     

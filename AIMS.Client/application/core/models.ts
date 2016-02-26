@@ -52,61 +52,17 @@ export namespace Account {
         
 }
 
-export namespace DocumentArchiverModels {
+export namespace OperationModels {
 
-    export class DocumentArchiveRequest extends DecoratedModel {
-    }
-}
-
-export namespace DocumentBuilderModels {
-
-
-    export class DocumentFragment extends DecoratedModel {     
-        ContentFragmentID: number;
-        Order: number;
-        Custom: boolean;
-        CustomContent: string;
+    export class PolicyTransitionRequest {
+        PolicyID: number;
+        PolicyTypeTransitionID: number;
+        Inputs: PolicyTransitionRequestInput[] = [];
     }
 
-    export class AddressData extends DecoratedModel {
-
-        @ServerValidate
-        public Name: string;
-
-        @ServerValidate
-        public AddressLine1: string;
-
-        @ServerValidate
-        public AddressLine2: string;
-
-        @ServerValidate
-        public City: string;
-
-        @ServerValidate
-        public Province: string;
-
-        @ServerValidate
-        public Country: string;
-
-        @ServerValidate
-        public PostalCode: string;
-    }
-
-    export class DocumentBuildRequest extends DecoratedModel {
-
-        @ServerValidate
-        public DocumentDefinitionID: number;
-
-        @AddToForm
-        public MergeData: string;
-
-        //@ChildForm
-        public Address: AddressData = new AddressData();
-
-        public HeaderFragments: DocumentFragment[] = [];
-        public FooterFragments: DocumentFragment[] = [];
-        public BodyFragments: DocumentFragment[] = [];
-
+    export class PolicyTransitionRequestInput {
+        PolicyTypeTransitionInputID: number;
+        Value: string;
     }
 }
 

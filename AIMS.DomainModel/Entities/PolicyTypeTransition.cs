@@ -29,6 +29,10 @@ namespace AIMS.DomainModel.Entities
 
         public string Script { get; set; }
 
+        public string IntroText { get; set; }
+
+        public string SummaryText { get; set; }
+
 
         public virtual ICollection<PolicyTypeTransitionInput> Inputs { get; set; } = new HashSet<PolicyTypeTransitionInput>();
 

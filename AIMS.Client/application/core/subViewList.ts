@@ -11,8 +11,7 @@ export abstract class SubViewList implements OnInit {
     public valueChange: EventEmitter<any> = new EventEmitter();
 
 
-    constructor(private modal: Modal, private elementRef: ElementRef,
-        private injector: Injector, private _renderer: Renderer) {
+    constructor(private modal: Modal, private elementRef: ElementRef, private injector: Injector, private _renderer: Renderer) {
     }
 
     protected abstract getNewSubView(): any;

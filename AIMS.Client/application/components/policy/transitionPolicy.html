@@ -1,0 +1,56 @@
+﻿
+
+<div class="panel panel-default" *ngIf="step == 1">
+    <div class="panel-heading">Step {{step}} - Introduction</div>
+    <div class="panel-body">
+        {{ transitionConfig.IntroText }}
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="step == 2">
+    <div class="panel-heading">Step {{step}} - Inputs</div>
+    <div class="panel-body form-horizontal">
+
+        <form-input *ngFor="#srcInput of transitionConfig.Inputs"
+                    [entity]="findInput(srcInput.ID)"
+                    title="{{ srcInput.Prompt }}"
+                    labelClass="col-sm-2"
+                    [ngSwitch]="srcInput.AttributeDataType.Code">
+            <div class="col-sm-10">
+                <input *ngSwitchWhen="'STR'" [(ngModel)]="findInput(srcInput.ID).Value" type="text" class="form-control">
+                <input *ngSwitchWhen="'NUM'" [(ngModel)]="findInput(srcInput.ID).Value" type="number" class="form-control">
+                <input *ngSwitchWhen="'DEC'" [(ngModel)]="findInput(srcInput.ID).Value" type="number" class="form-control">
+                <input *ngSwitchWhen="'PER'" [(ngModel)]="findInput(srcInput.ID).Value" type="number" class="form-control">
+                <input *ngSwitchWhen="'DTE'" [(ngModel)]="findInput(srcInput.ID).Value" type="date" class="form-control">
+                <entity-dropdown *ngSwitchWhen="'LIS'"
+                                 [(value)]="findInput(srcInput.ID).Value"
+                                 query="AttributeLookupItems?$filter=AttributeLookupListID eq {{srcInput.AttributeLookupListID}}&$orderby=Description"
+                                 keyField="ID"
+                                 displayField="Description"
+                                 nullable="true">
+                </entity-dropdown>
+
+
+                <p *ngSwitchWhen="'YEA'">year...</p>
+                <input *ngSwitchWhen="'BLN'" [(ngModel)]="findInput(srcInput.ID).Value" type="checkbox" class="form-control">
+                <p *ngSwitchWhen="'CLS'">csio list...</p>
+            </div>
+        </form-input>
+
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="step == 3">
+    <div class="panel-heading">Step {{step}} - Summary</div>
+    <div class="panel-body">
+        {{ transitionConfig.SummaryText }}
+    </div>
+</div>
+
+
+<div class="modal-footer">
+    <button type="button" class="btn" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn" (click)="prevStep()">Back</button>
+    <button type="button" class="btn btn-primary" (click)="nextStep()">Next</button>
+    <button type="button" class="btn btn-primary" (click)="finish()">Finish</button>
+</div>
