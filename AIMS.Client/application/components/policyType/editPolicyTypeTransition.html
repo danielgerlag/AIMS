@@ -1,0 +1,108 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+        <h4 class="modal-title">Transition - {{ entity.Name }}</h4>
+    </div>
+    <div class="modal-body">
+        <tabset>
+            <tab heading="General">
+                <div class="form-horizontal">
+
+                    <form-input [entity]="entity" title="Name" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" [(ngModel)]="entity.Name" />
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="ButtonText" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" [(ngModel)]="entity.ButtonText" />
+                        </div>
+                    </form-input>
+                    
+                    
+                    <form-input [entity]="entity" title="Initial Status" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.InitialStatusID"
+                                             name="InitialStatusID"
+                                             [boundList]="entity.PolicyType.Statuses"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="Target Status" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.TargetStatusID"
+                                             name="TargetStatusID"
+                                             [boundList]="entity.PolicyType.Statuses"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    
+                </div>
+
+            </tab>
+           
+            <tab heading="Inputs">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Prompt</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addInput()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#input of entity.Inputs">
+                        <td>
+                            <input type="text" class="form-control" name="Name" [(ngModel)]="input.Name">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Prompt" [(ngModel)]="input.Prompt">
+                        </td>
+                        <td>
+                            <entity-dropdown [(value)]="input.AttributeDataTypeID"
+                                             name="AttributeDataTypeID"
+                                             query="AttributeDataTypes"
+                                             keyField="ID"
+                                             displayField="Description"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" name="Required" [(ngModel)]="input.Required">
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeInput(input)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+
+            <tab heading="Auto-Create Transction Triggers">
+                <policyTypeTransitionJournalTemplates [value]="entity" [dataService]="dataService" ></policyTypeTransitionJournalTemplates>
+            </tab>
+
+            <tab heading="Script">
+                <div class="span6">
+                    <textarea [(ngModel)]="entity.Script" style="width: 100%; max-width: 100%;" cols="120" rows="12" spellcheck="false"></textarea>
+                </div>
+            </tab>
+
+        </tabset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="save()">OK</button>
+    </div>
+</div>

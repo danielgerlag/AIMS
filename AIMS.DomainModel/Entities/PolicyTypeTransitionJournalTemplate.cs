@@ -10,6 +10,9 @@ namespace AIMS.DomainModel.Entities
 {
     public class PolicyTypeTransitionJournalTemplate : BaseEntity
     {
+        [MaxLength(100)]
+        public string Description { get; set; }
+
         public int PolicyTypeTransitionID { get; set; }
         public virtual PolicyTypeTransition PolicyTypeTransition { get; set; }
         

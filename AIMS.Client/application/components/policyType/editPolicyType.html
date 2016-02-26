@@ -245,6 +245,43 @@
                 </tabset>
             </tab>
 
+            <tab heading="Statuses">
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Allow Rating</th>
+                        <th>Allow Changes</th>
+                        <th>Allow Transactions</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addStatus()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#status of entity.Statuses">
+                        <td>
+                            <input type="text" class="form-control" name="Name" [(ngModel)]="status.Name">
+                        </td>                        
+                        <td>
+                            <input type="checkbox" class="form-control" [(ngModel)]="status.AllowRating">
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" [(ngModel)]="status.AllowChanges">
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-control" [(ngModel)]="status.AllowTransactions">
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeStatus(status)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+
+            <tab heading="Transitions">
+                <policyTypeTransitions [value]="entity" [dataService]="dataService" ></policyTypeTransitions>
+            </tab>
+
             <tab heading="Context Parameters">
                 <contextParameterValues [value]="entity" [dataService]="dataService" childType="PolicyTypeContextParameterValue"></contextParameterValues>
             </tab>

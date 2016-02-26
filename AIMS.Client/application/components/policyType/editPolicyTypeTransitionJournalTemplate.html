@@ -1,0 +1,137 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" (click)="cancel()">&times;</button>
+        <h4 class="modal-title">Auto Create Transation Trigger</h4>
+    </div>
+    <div class="modal-body">
+        <tabset>
+            <tab heading="General">
+                <div class="form-horizontal">
+
+                    <form-input [entity]="entity" title="Description" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" [(ngModel)]="entity.Description" />
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="Entity" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.EntityRequirementID"
+                                             name="EntityRequirementID"
+                                             [boundList]="entity.PolicyTypeTransition.PolicyType.EntityRequirements"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="Journal Template" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.JournalTemplateID"
+                                             name="JournalTemplateID"
+                                             query="JournalTemplates?$filter=ReportingEntityProfileID eq {{entity.EntityRequirement.ReportingEntityProfileID}}"
+                                             keyField="ID"
+                                             displayField="Description"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="Date Mapping" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.TxnDateInputID"
+                                             name="TxnDateInputID"
+                                             [boundList]="entity.PolicyTypeTransition.Inputs"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+
+                    <form-input [entity]="entity" title="Initial Status" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.TransactionTriggerStatusID"
+                                             name="TransactionTriggerStatusID"
+                                             query="TransactionTriggerStatuses"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+                    <form-input [entity]="entity" title="Frequency" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <entity-dropdown [(value)]="entity.TransactionTriggerFrequencyID"
+                                             name="TransactionTriggerFrequencyID"
+                                             query="TransactionTriggerFrequencies"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </div>
+                    </form-input>
+
+
+                </div>
+
+            </tab>
+
+            <tab heading="Input Mappings">
+                <table class="table">
+                    <tr>
+                        <th>Journal Input</th>
+                        <th>Transition Input</th>
+                        <th>Expression</th>
+                        <th></th>
+                        <th>
+                            <button type="button" class="btn" (click)="addInput()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#input of entity.Inputs">
+                        <td>
+                            <entity-dropdown [(value)]="input.JournalTemplateInputID"
+                                             name="JournalTemplateInputID"
+                                             query="JournalTemplate({{entity.JournalTemplateID}})/Inputs"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <entity-dropdown [(value)]="input.PolicyTypeTransitionInputID"
+                                             name="PolicyTypeTransitionInputID"
+                                             [boundList]="entity.PolicyTypeTransition.Inputs"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" [(ngModel)]="input.Expression">
+                        </td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeInput(input)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+
+
+            <tab heading="Script">
+                <div class="span6">
+                    <textarea [(ngModel)]="entity.Script" style="width: 100%; max-width: 100%;" cols="120" rows="12" spellcheck="false"></textarea>
+                </div>
+            </tab>
+
+        </tabset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="save()">OK</button>
+    </div>
+</div>

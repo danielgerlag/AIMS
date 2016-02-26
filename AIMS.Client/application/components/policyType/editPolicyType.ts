@@ -8,6 +8,7 @@ import {FormInput} from '../../directives/input/formInput';
 import {DateInput} from '../../directives/input/dateInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 import {ContextParameterValues} from '../../components/contextParameter/contextParameterValues';
+import {PolicyTypeTransitions} from './policyTypeTransitions';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -17,7 +18,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/policyType/editPolicyType.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues, DateInput],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ContextParameterValues, DateInput, PolicyTypeTransitions],
     pipes: [JsonPipe]
 })
 export class EditPolicyType extends CRUDController {
@@ -48,9 +49,14 @@ export class EditPolicyType extends CRUDController {
         result.push("ServiceProviders");
         result.push("PolicySubTypes");
         result.push("ItemClasses");
-
+        result.push("Statuses");
         result.push("ContextParameterValues");
         result.push("ContextParameterValues.ContextParameterValue");
+
+        result.push("Transitions");
+        result.push("Transitions.Inputs");
+        result.push("Transitions.JournalTemplates");
+        result.push("Transitions.JournalTemplates.Inputs");
 
         result.push("PolicySubTypes.Coverages");
         result.push("PolicySubTypes.RatingProfiles");
@@ -94,6 +100,11 @@ export class EditPolicyType extends CRUDController {
         var item = this.dataService.createEntity("PolicySubTypeRatingProfile", {});
         policySubType.RatingProfiles.push(item);
     }
+
+    protected addStatus() {
+        var item = this.dataService.createEntity("PolicyTypeStatus", {});
+        this.entity.Statuses.push(item);
+    }
     
     protected removePolicySubTypeCoverage(item: breeze.Entity) {
         item.entityAspect.setDeleted();
@@ -116,6 +127,10 @@ export class EditPolicyType extends CRUDController {
     }
 
     protected removeRatingProfile(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
+
+    protected removeStatus(item: breeze.Entity) {
         item.entityAspect.setDeleted();
     }
 }

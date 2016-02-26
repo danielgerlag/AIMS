@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<PolicyTypeContextParameterValue> ContextParameterValues { get; set; } = new HashSet<PolicyTypeContextParameterValue>();
 
+        [InverseProperty("PolicyType")]
         public virtual ICollection<PolicyTypeStatus> Statuses { get; set; } = new HashSet<PolicyTypeStatus>();
 
         public virtual ICollection<PolicyTypeTransition> Transitions { get; set; } = new HashSet<PolicyTypeTransition>();

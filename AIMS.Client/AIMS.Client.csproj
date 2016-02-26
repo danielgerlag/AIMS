@@ -39,6 +39,10 @@
     <Content Include="application\components\journalTemplate\journalTemplateTxns.html" />
     <Content Include="application\components\operator\operatorAttributes.html" />
     <Content Include="application\components\operator\editOperator.html" />
+    <Content Include="application\components\policyType\editPolicyTypeTransitionJournalTemplate.html" />
+    <Content Include="application\components\policyType\editPolicyTypeTransition.html" />
+    <Content Include="application\components\policyType\policyTypeTransitionJournalTemplates.html" />
+    <Content Include="application\components\policyType\policyTypeTransitions.html" />
     <Content Include="application\components\policy\newPolicy.html" />
     <Content Include="application\components\policy\editPolicy.html" />
     <Content Include="application\components\public\editPublic.html" />
@@ -1024,6 +1028,10 @@
     <TypeScriptCompile Include="application\components\journal\debtorCreditorBalances.ts" />
     <TypeScriptCompile Include="application\components\journal\ledgerBalances.ts" />
     <TypeScriptCompile Include="application\components\journal\journalExplorer.ts" />
+    <TypeScriptCompile Include="application\components\policyType\editPolicyTypeTransitionJournalTemplate.ts" />
+    <TypeScriptCompile Include="application\components\policyType\editPolicyTypeTransition.ts" />
+    <TypeScriptCompile Include="application\components\policyType\policyTypeTransitionJournalTemplates.ts" />
+    <TypeScriptCompile Include="application\components\policyType\policyTypeTransitions.ts" />
     <TypeScriptCompile Include="application\components\ratingProfile\editRatingProfile.ts" />
     <TypeScriptCompile Include="application\components\ratingProfile\listRatingProfile.ts" />
     <TypeScriptCompile Include="application\components\transactionTrigger\transactionTriggers.ts" />

@@ -27,6 +27,8 @@ namespace AIMS.DomainModel.Entities
         public int TargetStatusID { get; set; }
         public virtual PolicyTypeStatus TargetStatus { get; set; }
 
+        public string Script { get; set; }
+
 
         public virtual ICollection<PolicyTypeTransitionInput> Inputs { get; set; } = new HashSet<PolicyTypeTransitionInput>();
 
