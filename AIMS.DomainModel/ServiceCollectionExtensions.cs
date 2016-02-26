@@ -21,6 +21,9 @@ namespace AIMS.DomainModel
             services.RegisterType<ContextParameterResolver>().As<IContextParameterResolver>().InstancePerDependency();
             services.RegisterType<PolicyRater>().As<IPolicyRater>().InstancePerDependency();
             services.RegisterType<PolicyTransitionManager>().As<IPolicyTransitionManager>().InstancePerDependency();
+            services.RegisterType<PolicyCommandBuilder>().As<IPolicyCommandBuilder>().InstancePerDependency();
+
+            
 
             return services;
         }

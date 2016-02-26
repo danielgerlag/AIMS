@@ -139,6 +139,7 @@ namespace AIMS.DomainModel.Context
             modelBuilder.ComplexType<Models.LedgerTxnBalance>();
             modelBuilder.ComplexType<Models.PolicyTransitionRequest>();
             modelBuilder.ComplexType<Models.PolicyTransitionResponse>();
+            modelBuilder.ComplexType<Models.PolicyTransitionCommand>();
             
 
             modelBuilder.Entity<TransactionTrigger>()

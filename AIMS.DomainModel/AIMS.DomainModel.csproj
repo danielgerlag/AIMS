@@ -213,6 +213,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
+    <Compile Include="Models\PolicyTransitionCommand.cs" />
     <Compile Include="Models\PolicyTransitionRequest.cs" />
     <Compile Include="Models\PolicyTransitionResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -226,9 +227,11 @@
     <Compile Include="Services\IContextParameterResolver.cs" />
     <Compile Include="Services\IJournalGenerator.cs" />
     <Compile Include="Services\IJournalPoster.cs" />
+    <Compile Include="Services\IPolicyCommandBuilder.cs" />
     <Compile Include="Services\IPolicyRater.cs" />
     <Compile Include="Services\IPolicyTransitionManager.cs" />
     <Compile Include="Services\ISequenceNumberGeneator.cs" />
+    <Compile Include="Services\PolicyCommandBuilder.cs" />
     <Compile Include="Services\PolicyRater.cs" />
     <Compile Include="Services\JournalPoster.cs" />
     <Compile Include="Services\JournalGenerator.cs" />

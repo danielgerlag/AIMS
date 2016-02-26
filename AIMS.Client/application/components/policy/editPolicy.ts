@@ -43,6 +43,7 @@ export class EditPolicy extends CRUDController {
     private ready: boolean;
     ledgerBalanceDate: Date;
     remoteService: IRemoteService;
+    commands: any[] = [];
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService, remoteService: IRemoteService,
         private modal: Modal, private injector: Injector, private _renderer: Renderer) {
@@ -115,7 +116,14 @@ export class EditPolicy extends CRUDController {
 
     protected onLoadSuccess(sender: EditPolicy, data: breeze.QueryResult): any {
         super.onLoadSuccess(sender, data)
+        sender.loadCommands();
         sender.ready = true;
+    }
+
+    protected loadCommands() {
+        this.remoteService.get(this, "Data.svc/GetPolicyCommands?policyID=" + this.entity.ID, (sender: EditPolicy, data: ODataWrapper<any>, status: number) => {
+            sender.commands = data.value;
+        });
     }
 
     protected ratePolicy() {

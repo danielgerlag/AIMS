@@ -283,6 +283,14 @@ namespace AIMS.DomainModel
         }
 
 
+        [WebGet]
+        public IEnumerable<PolicyTransitionCommand> GetPolicyCommands(int policyID)
+        {
+            IPolicyCommandBuilder builder = AIMS.Services.IoC.Container.Resolve<IPolicyCommandBuilder>();
+            Policy policy = CurrentDataSource.Policies.Find(policyID);
+            return builder.Build(policy);
+        }
+
     }
 
 }
