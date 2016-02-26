@@ -205,6 +205,10 @@
       <Project>{7ff08f75-1853-4af4-b269-0491b4babcf1}</Project>
       <Name>AIMS.DomainModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AIMS.EFActionProvider\AIMS.EFActionProvider.csproj">
+      <Project>{7e730c2c-a5ec-4df7-8525-db45924555d1}</Project>
+      <Name>AIMS.EFActionProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AIMS.Services.Indexer.Interface\AIMS.Services.Indexer.Interface.csproj">
       <Project>{0ddcbb0d-1a33-4d67-af8d-b1224a6c05e1}</Project>
       <Name>AIMS.Services.Indexer.Interface</Name>

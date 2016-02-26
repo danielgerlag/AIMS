@@ -57,6 +57,7 @@ export class TransitionPolicyWizard implements OnInit, ICustomModalComponent {
         this.dataService = dataService;
         this.configLoaded = false;
         this.loadConfig();
+        this.step = 1;
     }
 
 
@@ -70,17 +71,16 @@ export class TransitionPolicyWizard implements OnInit, ICustomModalComponent {
 
     protected finish() {
 
-        //this.shellService.showLoader("Transitioning...");
-        var requestStr = JSON.stringify(this.request);
+        //this.shellService.showLoader("Transitioning...");        
 
-        this.remoteService.post(this, "Data.svc/TransitionPolicy?request=" + requestStr, null, (sender: TransitionPolicyWizard, data: ODataWrapper<any>, status) => {
+        this.remoteService.post(this, "Data.svc/Policies(" + this.policyID + ")/Transition", this.request, (sender: TransitionPolicyWizard, data: any, status) => {
             //this.shellService.hideLoader();
-            if (data.value.Success) {
+            if (data.Success) {
                 //sender.shellService.toastSuccess("Transition", "Transition Successful");
                 this.dialog.close(true);
             }
             else {
-                alert(data.value.Message);
+                alert(data.Message);
                 //sender.shellService.toastError("Transition", data.value.Message);
             }
         });
@@ -107,7 +107,6 @@ export class TransitionPolicyWizard implements OnInit, ICustomModalComponent {
     protected onLoadConfig(sender: TransitionPolicyWizard, data: breeze.QueryResult): any {
         sender.transitionConfig = data.results[0];
         sender.request = new OperationModels.PolicyTransitionRequest();
-        sender.request.PolicyID = sender.policyID;
         sender.request.PolicyTypeTransitionID = sender.transitionID;
 
         for (let srcInput of sender.transitionConfig.Inputs) {

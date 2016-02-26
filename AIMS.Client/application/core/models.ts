@@ -55,7 +55,6 @@ export namespace Account {
 export namespace OperationModels {
 
     export class PolicyTransitionRequest {
-        PolicyID: number;
         PolicyTypeTransitionID: number;
         Inputs: PolicyTransitionRequestInput[] = [];
     }

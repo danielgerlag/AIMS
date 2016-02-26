@@ -138,6 +138,7 @@ namespace AIMS.DomainModel.Context
             modelBuilder.ComplexType<Models.LedgerAccountBalance>();
             modelBuilder.ComplexType<Models.LedgerTxnBalance>();
             modelBuilder.ComplexType<Models.PolicyTransitionRequest>();
+            modelBuilder.ComplexType<Models.PolicyTransitionRequestInput>();
             modelBuilder.ComplexType<Models.PolicyTransitionResponse>();
             modelBuilder.ComplexType<Models.PolicyTransitionCommand>();
             

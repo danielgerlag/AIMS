@@ -8,7 +8,7 @@ namespace AIMS.DomainModel.Models
 {
     public class PolicyTransitionRequest
     {
-        public int PolicyID { get; set; }
+        //public int PolicyID { get; set; }
 
         public int PolicyTypeTransitionID { get; set; }
 

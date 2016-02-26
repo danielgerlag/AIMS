@@ -20,12 +20,11 @@ namespace AIMS.DomainModel.Services
         }
 
 
-        public PolicyTransitionResponse Transition(PolicyTransitionRequest request, IDataContext db)
+        public PolicyTransitionResponse Transition(Policy policy, PolicyTransitionRequest request, IDataContext db)
         {
             PolicyTransitionResponse response = new PolicyTransitionResponse();
             try
             {
-                var policy = db.Policies.Find(request.PolicyID);
                 var transition = db.PolicyTypeTransitions.Find(request.PolicyTypeTransitionID);
 
                 foreach (var journal in transition.JournalTemplates)

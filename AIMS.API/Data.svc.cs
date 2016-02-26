@@ -20,8 +20,9 @@ using System.Threading.Tasks;
 using System.Web;
 using AIMS.API;
 using AIMS.DomainModel.Services;
+using AIMS.EFActionProvider;
 
-namespace AIMS.DomainModel
+namespace AIMS.DomainModel.Entities
 {
     public class WCFDataContext : DataContext
     {
@@ -31,11 +32,29 @@ namespace AIMS.DomainModel
             //hack to get DI to work properly for WCF
             //hack to workaround WCF bug in .net 4  - https://social.msdn.microsoft.com/Forums/en-US/4025b688-2e46-4a08-998c-228c6a11d659/adonet-c-poco-entity-generator-and-data-services?forum=adodotnetdataservices
             //Configuration.ProxyCreationEnabled = false;
+
+            //System.Data.Services.Providers.ServiceAction x = new ServiceAction().
         }
+
+
+        [Action]
+        public PolicyTransitionResponse Transition(Policy policy, int PolicyTypeTransitionID, IEnumerable<PolicyTransitionRequestInput> Inputs)
+        {
+            IPolicyTransitionManager manager = AIMS.Services.IoC.Container.Resolve<IPolicyTransitionManager>();
+            PolicyTransitionRequest request = new PolicyTransitionRequest();
+            request.PolicyTypeTransitionID = PolicyTypeTransitionID;
+            request.Inputs = Inputs.ToList();
+            var result = manager.Transition(policy, request, this);
+            SaveChanges();
+            return result;
+        }
+
+
+
     }
 
     [System.ServiceModel.ServiceBehavior(IncludeExceptionDetailInFaults = true)]
-    public class Data : EntityFrameworkDataService<WCFDataContext>
+    public class Data : EntityFrameworkDataService<WCFDataContext>, IServiceProvider
     {
         //System.Data.Services.Providers.ServiceAction
         // This method is called only once to initialize service-wide policies.
@@ -52,6 +71,15 @@ namespace AIMS.DomainModel
         }
 
         private ISearchService _searchService = AIMS.Services.IoC.Container.Resolve<ISearchService>();
+
+        public object GetService(Type serviceType)
+        {
+            if (typeof(IDataServiceActionProvider) == serviceType)
+            {
+                return new EntityFrameworkActionProvider(CurrentDataSource);
+            }
+            return null;
+        }
 
 
         [WebGet]
@@ -270,18 +298,7 @@ namespace AIMS.DomainModel
             CurrentDataSource.SaveChanges();
             return result;
         }
-
-
-        [WebInvoke]
-        public PolicyTransitionResponse TransitionPolicy(string request)
-        {
-            IPolicyTransitionManager manager = AIMS.Services.IoC.Container.Resolve<IPolicyTransitionManager>();
-            var requestObj = Newtonsoft.Json.JsonConvert.DeserializeObject<PolicyTransitionRequest>(request);
-            var result = manager.Transition(requestObj, CurrentDataSource);
-            CurrentDataSource.SaveChanges();
-            return result;
-        }
-
+                       
 
         [WebGet]
         public IEnumerable<PolicyTransitionCommand> GetPolicyCommands(int policyID)

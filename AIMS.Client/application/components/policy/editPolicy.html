@@ -72,7 +72,7 @@
         <button *ngFor="#cmd of commands" 
                 type="button" 
                 class="btn" 
-                [hidden]="!cmd.CanExecute"
+                [disabled]="!cmd.CanExecute"
                 (click)="transitionPolicy(cmd.PolicyTypeTransitionID)">
             {{ cmd.Text }} 
         </button>

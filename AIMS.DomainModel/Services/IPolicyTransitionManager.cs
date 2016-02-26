@@ -1,10 +1,11 @@
 ﻿using AIMS.DomainModel.Context;
+using AIMS.DomainModel.Entities;
 using AIMS.DomainModel.Models;
 
 namespace AIMS.DomainModel.Services
 {
     public interface IPolicyTransitionManager
     {
-        PolicyTransitionResponse Transition(PolicyTransitionRequest request, IDataContext db);
+        PolicyTransitionResponse Transition(Policy policy, PolicyTransitionRequest request, IDataContext db);
     }
 }

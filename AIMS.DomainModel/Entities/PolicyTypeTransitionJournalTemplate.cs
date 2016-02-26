@@ -20,7 +20,7 @@ namespace AIMS.DomainModel.Entities
         public PolicyTypeEntityRequirement EntityRequirement { get; set; }
 
         public int JournalTemplateID { get; set; }
-        public JournalTemplate JournalTemplate { get; set; }
+        public virtual JournalTemplate JournalTemplate { get; set; }
         
         public string Script { get; set; }
 
