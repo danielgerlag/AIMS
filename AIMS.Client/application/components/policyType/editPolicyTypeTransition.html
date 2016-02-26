@@ -19,8 +19,8 @@
                             <input type="text" class="form-control" [(ngModel)]="entity.ButtonText" />
                         </div>
                     </form-input>
-                    
-                    
+
+
                     <form-input [entity]="entity" title="Initial Status" labelClass="col-sm-2">
                         <div class="col-sm-10">
                             <entity-dropdown [(value)]="entity.InitialStatusID"
@@ -45,11 +45,11 @@
                         </div>
                     </form-input>
 
-                    
+
                 </div>
 
             </tab>
-           
+
             <tab heading="Inputs">
                 <table class="table">
                     <tr>
@@ -90,7 +90,11 @@
             </tab>
 
             <tab heading="Auto-Create Transction Triggers">
-                <policyTypeTransitionJournalTemplates [value]="entity" [dataService]="dataService" ></policyTypeTransitionJournalTemplates>
+                <policyTypeTransitionJournalTemplates [value]="entity" [dataService]="dataService"></policyTypeTransitionJournalTemplates>
+            </tab>
+
+            <tab heading="Auto-Create Documents">
+                TODO
             </tab>
 
             <tab heading="Script">

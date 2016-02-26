@@ -39,8 +39,10 @@ export class EditPolicyTypeTransitionJournalTemplate implements OnInit, ICustomM
         this.dialog = dialog;
         this.entity = data;
         this.dataService = dataService;
+
+        this.entityReqChanged();
     }
-    //query="JournalTemplates?$filter=ReportingEntityProfileID eq {{entity.EntityRequirement.ReportingEntityProfileID}}"
+    
 
     beforeDismiss(): boolean {
         return true;
@@ -69,11 +71,22 @@ export class EditPolicyTypeTransitionJournalTemplate implements OnInit, ICustomM
 
 
     protected entityReqChanged() {
+        var entityRequirementID = this.entity.EntityRequirementID;
+        if (entityRequirementID > 0) {
+            var er = _.findWhere(this.entity.PolicyTypeTransition.PolicyType.EntityRequirements, { ID: entityRequirementID });
+            var profileID = er['ReportingEntityProfileID'];
+            var query = breeze.EntityQuery.from("JournalTemplates")
+                .where(breeze.Predicate
+                    .create('ReportingEntityProfileID', breeze.FilterQueryOp.Equals, profileID)
+                    .and('TransactionOrigin', breeze.FilterQueryOp.Equals, 'P'));
 
-        breeze.EntityQuery.from("JournalTemplates")
-            .where
-
-        this.dataService.query(this, 
+            this.dataService.query(this, query, (sender: EditPolicyTypeTransitionJournalTemplate, data) => {
+                sender.journalTemplates = data.results;
+            }, (sender, data) => {
+                //fail
+                //todo: log
+            });
+        }
     }
     
 }

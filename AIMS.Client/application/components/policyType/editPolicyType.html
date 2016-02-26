@@ -7,6 +7,16 @@
                     <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                 </form-input>
 
+                <form-input [entity]="entity" title="Initial Status">
+                    <entity-dropdown [(value)]="entity.InitialStatusID"
+                                     name="InitialStatusID"
+                                     [boundList]="entity.Statuses"
+                                     keyField="ID"
+                                     displayField="Name"
+                                     nullable="true">
+                    </entity-dropdown>
+                </form-input>
+
 
             </tab>
             <tab heading="Entity Requirements">
@@ -228,7 +238,7 @@
                                             </entity-dropdown>
                                         </td>
                                         <td>
-                                            <input dateInput  [(value)]="rating.EffectiveDate" />
+                                            <input dateInput [(value)]="rating.EffectiveDate" />
                                         </td>
                                         <td></td>
                                         <td>
@@ -260,7 +270,7 @@
                     <tr *ngFor="#status of entity.Statuses">
                         <td>
                             <input type="text" class="form-control" name="Name" [(ngModel)]="status.Name">
-                        </td>                        
+                        </td>
                         <td>
                             <input type="checkbox" class="form-control" [(ngModel)]="status.AllowRating">
                         </td>
@@ -279,7 +289,7 @@
             </tab>
 
             <tab heading="Transitions">
-                <policyTypeTransitions [value]="entity" [dataService]="dataService" ></policyTypeTransitions>
+                <policyTypeTransitions [value]="entity" [dataService]="dataService"></policyTypeTransitions>
             </tab>
 
             <tab heading="Context Parameters">
