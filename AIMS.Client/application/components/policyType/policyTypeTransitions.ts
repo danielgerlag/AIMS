@@ -49,6 +49,11 @@ export class PolicyTypeTransitions extends SubViewList {
         this.entity['Transitions'].push(item);
     }
 
+    protected edit(item: breeze.Entity) {
+        //item['PolicyType'] = this.value;
+        super.edit(item);
+    }
+
     
      
 }

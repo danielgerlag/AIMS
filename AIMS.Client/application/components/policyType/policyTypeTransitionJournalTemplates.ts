@@ -8,7 +8,7 @@ import {FormInput} from '../../directives/input/formInput';
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
 
-import {EditPolicyTypeTransition} from './editPolicyTypeTransition'
+import {EditPolicyTypeTransitionJournalTemplate} from './editPolicyTypeTransitionJournalTemplate'
 
 import {SubViewList} from '../../core/subViewList'
 
@@ -32,11 +32,11 @@ export class PolicyTypeTransitionJournalTemplates extends SubViewList {
      
     
     protected getNewSubView(): any {
-        return EditPolicyTypeTransition;
+        return EditPolicyTypeTransitionJournalTemplate;
     }
       
     protected getEditSubView(): any {
-        return EditPolicyTypeTransition;
+        return EditPolicyTypeTransitionJournalTemplate;
     }
 
     protected createChildEntity(type): any {

@@ -26,6 +26,7 @@ export class EditPolicyTypeTransitionJournalTemplate implements OnInit, ICustomM
     dataService: IDataService;
     entity: any;
     dialog: ModalDialogInstance;    
+    journalTemplates: any = [];
 
     ngOnInit() {
     }
@@ -39,7 +40,7 @@ export class EditPolicyTypeTransitionJournalTemplate implements OnInit, ICustomM
         this.entity = data;
         this.dataService = dataService;
     }
-
+    //query="JournalTemplates?$filter=ReportingEntityProfileID eq {{entity.EntityRequirement.ReportingEntityProfileID}}"
 
     beforeDismiss(): boolean {
         return true;
@@ -66,6 +67,14 @@ export class EditPolicyTypeTransitionJournalTemplate implements OnInit, ICustomM
         item.entityAspect.setDeleted();
     }
 
+
+    protected entityReqChanged() {
+
+        breeze.EntityQuery.from("JournalTemplates")
+            .where
+
+        this.dataService.query(this, 
+    }
     
 }
 

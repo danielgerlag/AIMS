@@ -30,7 +30,7 @@ export class EntityDropdown implements OnInit {
     private nullable: boolean;
     //private dirtyValue: any;
 
-    public valueChange: EventEmitter<any> = new EventEmitter();
+    public valueChange: EventEmitter<any> = new EventEmitter();    
         
     private _boundList: Array<any> = [];
     private selectList: Array<any> = [];

@@ -21,7 +21,8 @@
                                              [boundList]="entity.PolicyTypeTransition.PolicyType.EntityRequirements"
                                              keyField="ID"
                                              displayField="Name"
-                                             nullable="false">
+                                             nullable="false"
+                                             (valueChange)="entityReqChanged()">
                             </entity-dropdown>
                         </div>
                     </form-input>
@@ -30,7 +31,7 @@
                         <div class="col-sm-10">
                             <entity-dropdown [(value)]="entity.JournalTemplateID"
                                              name="JournalTemplateID"
-                                             query="JournalTemplates?$filter=ReportingEntityProfileID eq {{entity.EntityRequirement.ReportingEntityProfileID}}"
+                                             [boundList]="journalTemplates"
                                              keyField="ID"
                                              displayField="Description"
                                              nullable="false">
