@@ -214,12 +214,17 @@
     <Compile Include="Migrations\201602262126255_statuses5.Designer.cs">
       <DependentUpon>201602262126255_statuses5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602262351026_ccode.cs" />
+    <Compile Include="Migrations\201602262351026_ccode.Designer.cs">
+      <DependentUpon>201602262351026_ccode.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
     <Compile Include="Models\PolicyTransitionCommand.cs" />
     <Compile Include="Models\PolicyTransitionRequest.cs" />
     <Compile Include="Models\PolicyTransitionResponse.cs" />
+    <Compile Include="Models\RateResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -306,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602262126255_statuses5.resx">
       <DependentUpon>201602262126255_statuses5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602262351026_ccode.resx">
+      <DependentUpon>201602262351026_ccode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

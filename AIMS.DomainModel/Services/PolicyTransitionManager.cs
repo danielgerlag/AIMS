@@ -74,7 +74,10 @@ namespace AIMS.DomainModel.Services
 
                 if (!String.IsNullOrEmpty(transition.Script))
                 {
-                    var scriptResult = _scriptEngine.Run<Policy>(policy, "policy", db, transition.Script, "Python");
+                    Dictionary<string, object> scriptParameters = new Dictionary<string, object>();
+                    scriptParameters.Add("policy", policy);
+                    scriptParameters.Add("request", request);
+                    var scriptResult = _scriptEngine.Run(scriptParameters, db, transition.Script, "Python");
                     if (!scriptResult.Success)
                     {
                         string errMsg = string.Empty;

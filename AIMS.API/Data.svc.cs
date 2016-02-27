@@ -294,9 +294,9 @@ namespace AIMS.DomainModel.Entities
         {
             IPolicyRater rater = AIMS.Services.IoC.Container.Resolve<IPolicyRater>();
             var policy = CurrentDataSource.Policies.Find(policyID);
-            bool result = rater.Rate(policy, CurrentDataSource);
+            var result = rater.Rate(policy, CurrentDataSource);
             CurrentDataSource.SaveChanges();
-            return result;
+            return result.Success;
         }
                        
 

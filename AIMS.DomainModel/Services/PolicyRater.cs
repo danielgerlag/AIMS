@@ -1,5 +1,6 @@
 ﻿using AIMS.DomainModel.Context;
 using AIMS.DomainModel.Entities;
+using AIMS.DomainModel.Models;
 using AIMS.Services.Scripting;
 using System;
 using System.Collections.Generic;
@@ -18,35 +19,39 @@ namespace AIMS.DomainModel.Services
             _scriptEngine = scriptEngine;
         }
 
-        public bool Rate(Policy policy, IDataContext db)
+        public RateResult Rate(Policy policy, IDataContext db)
         {
+            RateResult result = new RateResult();
+            result.Success = false;
             try
             {
                 //var policy = _db.Policies.Find(policyID);
                 var profile = GetEffectiveProfile(policy);
 
                 if (profile == null)
-                    return false;
+                {
+                    result.Message = "No rating profile";
+                    return result;
+                }
 
                 switch (profile.Engine)
                 {
                     case "InRule":
                         throw new NotImplementedException();
                     case "Script":
-                        var scriptResult = _scriptEngine.Run<Policy>(policy, "policy", db, profile.Script, profile.ScriptLanguage);
-                        //if (scriptResult.Success)
-                        //    _db.SaveChanges();
-                        return scriptResult.Success;
-                    default:
-                        return false;
+                        var scriptResult = _scriptEngine.Run<Policy>(policy, "policy", db, profile.Script, profile.ScriptLanguage);                        
+                        result.Success = scriptResult.Success;
+                        result.Log.AddRange(scriptResult.Log);
+                        break;
                 }
             }
             catch (Exception ex)
             {
-                //todo: logs / return msg
-                return false;
+                result.Message = ex.Message;
+                result.Log.Add(ex.Message);                
             }
-            
+
+            return result;   
         }
 
         private RatingProfile GetEffectiveProfile(Policy policy)

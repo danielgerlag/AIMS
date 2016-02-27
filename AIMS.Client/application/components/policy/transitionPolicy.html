@@ -24,7 +24,7 @@
                     <entity-dropdown *ngSwitchWhen="'LIS'"
                                      [(value)]="findInput(srcInput.ID).Value"
                                      query="AttributeLookupItems?$filter=AttributeLookupListID eq {{srcInput.AttributeLookupListID}}&$orderby=Description"
-                                     keyField="ID"
+                                     keyField="Code"
                                      displayField="Description"
                                      nullable="true">
                     </entity-dropdown>

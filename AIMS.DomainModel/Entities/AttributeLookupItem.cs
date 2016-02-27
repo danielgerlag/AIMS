@@ -18,6 +18,9 @@ namespace AIMS.DomainModel.Entities
         [StringLength(100)]
         public string CSIOCode { get; set; }
 
+        [StringLength(100)]
+        public string Code { get; set; }
+
         [Index]
         public int AttributeLookupListID { get; set; }
         public virtual AttributeLookupList AttributeLookupList { get; set; }

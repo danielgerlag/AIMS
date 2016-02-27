@@ -1,10 +1,11 @@
 ﻿using AIMS.DomainModel.Context;
 using AIMS.DomainModel.Entities;
+using AIMS.DomainModel.Models;
 
 namespace AIMS.DomainModel.Services
 {
     public interface IPolicyRater
     {
-        bool Rate(Policy policy, IDataContext db);
+        RateResult Rate(Policy policy, IDataContext db);
     }
 }

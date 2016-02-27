@@ -14,12 +14,22 @@ namespace AIMS.Services.Scripting
 
         public ScriptResult Run<TContext>(TContext context, string contextName, IDbContext db, string code, string language)
         {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add(contextName, context);
+            return Run(parameters, db, code, language);
+        }
+
+        public ScriptResult Run(Dictionary<string, object> parameters, IDbContext db, string code, string language)
+        {
             ScriptResult result = new ScriptResult();
             try
             {
                 var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);
                 var scope = engine.CreateScope();
-                scope.SetVariable(contextName, context);
+                
+                foreach (var param in parameters)
+                    scope.SetVariable(param.Key, param.Value);
+
                 scope.SetVariable("db", db);
                 scope.SetVariable("ioc", new IoC.Adaptor());
                 scope.SetVariable("log", result.Log);
@@ -55,6 +65,8 @@ namespace AIMS.Services.Scripting
                 sb.Append("import System\r\n");
                 sb.Append("clr.AddReference(\"System.Core\")\r\n");
                 sb.Append("clr.ImportExtensions(System.Linq)\r\n");
+                sb.Append("clr.AddReference(\"AIMS.DomainModel\")\r\n");
+                sb.Append("import AIMS.DomainModel.Services\r\n");
             }
             sb.Append(script);
             return sb.ToString();
