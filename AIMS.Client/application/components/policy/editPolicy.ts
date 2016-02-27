@@ -71,46 +71,20 @@ export class EditPolicy extends CRUDController {
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        result.push("PolicyHolders");
-        result.push("PolicyHolders.Public");
+        //result.push("PolicyHolders");
+        //result.push("PolicyHolders.Public");
         result.push("Coverages");
         result.push("RiskLocations");
-        //result.push("InsurableItems");
-        //result.push("InsurableItems.Attributes");
-        //result.push("InsurableItems.Operators");
-        //result.push("InsurableItems.Operators.Operator");
-        //result.push("InsurableItems.Operators.Operator.OperatorPublic");
-        //result.push("InsurableItems.PolicyCoverages");
-        //result.push("InsurableItems.PolicyRiskLocation");
         result.push("Agents");
-        //result.push("Operators");
-        //result.push("Operators.OperatorPublic");
         result.push("ReportingEntities");
         result.push("ServiceProviders");
-
-        result.push("TransactionTriggers");
-        result.push("TransactionTriggers.TransactionTrigger");
-        result.push("TransactionTriggers.TransactionTrigger.ReportingEntity.Public");
-        result.push("TransactionTriggers.TransactionTrigger.JournalTemplate");
-        result.push("TransactionTriggers.TransactionTrigger.Inputs");        
-
-        //result.push("ContextParameterValues");
-        //result.push("ContextParameterValues.ContextParameterValue");
-        
+                
         result.push("PolicySubType");
         result.push("PolicySubType.PolicyType");
 
         result.push("PolicySubType.PolicyType.EntityRequirements");
         result.push("PolicySubType.PolicyType.AgentRequirements");
         result.push("PolicySubType.PolicyType.ServiceProviders");
-        //result.push("PolicySubType.PolicyType.ItemClasses");
-        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass");
-        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes");
-        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType");
-        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups");
-        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes");
-        result.push("PolicySubType.Coverages");
-        result.push("PolicySubType.Coverages.CoverageType");        
         
         return result;
     }
@@ -119,6 +93,14 @@ export class EditPolicy extends CRUDController {
         super.onLoadSuccess(sender, data)
         sender.loadCommands();
         sender.loadNavigationGraph(sender.entity.PolicySubType.PolicyType, "ItemClasses", "InsurableItemClass, InsurableItemClass.OperatorTypes, InsurableItemClass.OperatorTypes.OperatorType, InsurableItemClass.Groups, InsurableItemClass.Groups.Attributes");
+        //sender.loadNavigationGraph(sender.entity.PolicySubType.PolicyType, "EntityRequirements", "");
+        //sender.loadNavigationGraph(sender.entity.PolicySubType.PolicyType, "AgentRequirements", "");
+        //sender.loadNavigationGraph(sender.entity.PolicySubType.PolicyType, "ServiceProviders", "");
+        sender.loadNavigationGraph(sender.entity.PolicySubType, "Coverages", "CoverageType");
+        sender.loadNavigationGraph(sender.entity, "PolicyHolders", "Public");
+        //sender.loadNavigationGraph(sender.entity, "RiskLocations", "");
+        
+
         sender.ready = true;
     }
 
@@ -126,6 +108,16 @@ export class EditPolicy extends CRUDController {
         this.remoteService.get(this, "Data.svc/GetPolicyCommands?policyID=" + this.entity.ID, (sender: EditPolicy, data: ODataWrapper<any>, status: number) => {
             sender.commands = data.value;
         });
+    }
+
+    protected policyTypeName() {
+        if (this.entity) {
+            if (this.entity.PolicySubType) {
+                if (this.entity.PolicySubType.PolicyType) {
+                    return this.entity.PolicySubType.PolicyType.Name + " - " + this.entity.PolicySubType.Name;
+                }
+            }
+        }
     }
 
     protected ratePolicy() {

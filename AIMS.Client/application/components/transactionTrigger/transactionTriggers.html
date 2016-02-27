@@ -1,47 +1,49 @@
-﻿<table class="table" *ngIf="type == 'ReportingEntityTransactionTrigger'">
-    <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>
-            <button type="button" class="btn" (click)="add(null)">Add</button>
-        </th>
-    </tr>
-    <tr *ngFor="#item of entity.TransactionTriggers">
-        <td>
-            {{ item.TransactionTrigger.Description }}
-        </td>
-        <td>
-            {{ item.TransactionTrigger.statusText() }}
-        </td>
-        <td>
-            <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
-            <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
-        </td>
-    </tr>
-</table>
+﻿<div *ngIf="isInit">
+    <table class="table" *ngIf="type == 'ReportingEntityTransactionTrigger'">
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>
+                <button type="button" class="btn" (click)="add(null)">Add</button>
+            </th>
+        </tr>
+        <tr *ngFor="#item of entity.TransactionTriggers">
+            <td>
+                {{ item.TransactionTrigger.Description }}
+            </td>
+            <td>
+                {{ item.TransactionTrigger.statusText() }}
+            </td>
+            <td>
+                <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
+                <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
+            </td>
+        </tr>
+    </table>
 
-<table class="table" *ngIf="type == 'PolicyTransactionTrigger'">
-    <tr>
-        <th>Reporting Entity</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>
-            <button type="button" class="btn" (click)="add(null)">Add</button>
-        </th>
-    </tr>
-    <tr *ngFor="#item of entity.TransactionTriggers">
-        <td>
-            {{ item.TransactionTrigger.ReportingEntity.Public.Name }}
-        </td>
-        <td>
-            {{ item.TransactionTrigger.Description }}
-        </td>
-        <td>
-            {{ item.TransactionTrigger.statusText() }}
-        </td>
-        <td>
-            <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
-            <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
-        </td>
-    </tr>
-</table>
+    <table class="table" *ngIf="type == 'PolicyTransactionTrigger'">
+        <tr>
+            <th>Reporting Entity</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>
+                <button type="button" class="btn" (click)="add(null)">Add</button>
+            </th>
+        </tr>
+        <tr *ngFor="#item of entity.TransactionTriggers">
+            <td>
+                {{ item.TransactionTrigger.ReportingEntity.Public.Name }}
+            </td>
+            <td>
+                {{ item.TransactionTrigger.Description }}
+            </td>
+            <td>
+                {{ item.TransactionTrigger.statusText() }}
+            </td>
+            <td>
+                <button type="button" class="btn" (click)="edit(item)"><i class="fa fa-edit fa-fw"></i></button>
+                <button type="button" class="btn" (click)="remove(item)"><i class="fa fa-trash fa-fw"></i></button>
+            </td>
+        </tr>
+    </table>
+</div>

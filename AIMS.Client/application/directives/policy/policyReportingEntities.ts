@@ -9,7 +9,7 @@ import {ODataWrapper} from '../../core/interfaces'
 
 @Component({
     selector: 'policyReportingEntities',    
-    inputs: ['value'],
+    inputs: ['value', 'dataService'],
     outputs: ['valueChange']
 })
 @View({
@@ -20,7 +20,8 @@ export class PolicyReportingEntities implements OnInit {
 
     private remoteService: IRemoteService;
     private policy: any;
-    public valueChange: EventEmitter<any> = new EventEmitter();        
+    public valueChange: EventEmitter<any> = new EventEmitter();
+    public dataService: any;        
     
     
     constructor(remoteService: IRemoteService) {     
@@ -44,9 +45,21 @@ export class PolicyReportingEntities implements OnInit {
     
 
     onEntityChanged() {        
-        this.valueChange.next(this.policy);
-    }        
         
+    }        
+
+    //protected loadNavigationGraph(navProperty, navExpand) {
+    //    if (this.value.entityAspect.entityState.isUnchangedOrModified()) {
+    //        if (!this.value.entityAspect.isNavigationPropertyLoaded(navProperty)) {
+    //            var np = this.value.entityType.getNavigationProperty(navProperty);
+    //            this.dataService.loadNavigationGraph(this, this.entity, np, navExpand, this.navFail);
+    //        }
+    //    }
+    //}
+        
+    isReady() {
+        return true;
+    }
     
 
     

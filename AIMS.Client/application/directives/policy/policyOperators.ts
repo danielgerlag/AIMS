@@ -51,7 +51,7 @@ export class PolicyOperators extends SubViewList {
     
     protected onEntityChanged() {
         super.onEntityChanged();
-        this.loadNavigationGraph("Operators", "OperatorPublic");
+        this.loadNavigationGraph("Operators", "OperatorPublic, OperatorType");
     }
     
 }

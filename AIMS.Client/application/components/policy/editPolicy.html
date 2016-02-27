@@ -6,12 +6,9 @@
             <table class="table">
                 <tr>
                     <td>Policy Type</td>
-                    <td>{{ entity.PolicySubType.PolicyType.Name }}</td>
+                    <td>{{ policyTypeName() }}</td>
                 </tr>
-                <tr>
-                    <td>Policy Sub Type</td>
-                    <td>{{ entity.PolicySubType.Name }}</td>
-                </tr>
+                
                 <tr>
                     <td>Policy Number</td>
                     <td>{{ entity.PolicyNumber }}</td>
@@ -26,8 +23,8 @@
             <policyRiskLocations [(value)]="entity" [dataService]="dataService"></policyRiskLocations>
         </tab>
 
-        <tab heading="Operators">
-            <policyOperators [(value)]="entity" [dataService]="dataService"></policyOperators>
+        <tab heading="Operators">            
+            <policyOperators [(value)]="entity" [dataService]="dataService"></policyOperators>            
         </tab>
 
         <tab heading="Insurable Items" >

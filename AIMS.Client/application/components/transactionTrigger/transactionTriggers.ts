@@ -58,6 +58,10 @@ export class TransactionTriggers extends SubViewList {
         //this.onEntityChanged();
     }
 
+    protected onEntityChanged() {
+        super.onEntityChanged();
+        this.loadNavigationGraph("TransactionTriggers", "TransactionTrigger, TransactionTrigger.ReportingEntity.Public, TransactionTrigger.JournalTemplate, TransactionTrigger.Inputs");
+    }
     
      
 }
