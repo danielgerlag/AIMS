@@ -6,12 +6,14 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 
 export abstract class SubViewList implements OnInit {
 
+    protected isInit: boolean;
     protected dataService: IDataService;
     public entity: breeze.Entity;    
     public valueChange: EventEmitter<any> = new EventEmitter();
 
 
     constructor(private modal: Modal, private elementRef: ElementRef, private injector: Injector, private _renderer: Renderer) {
+        this.isInit = false;
     }
 
     protected abstract getNewSubView(): any;
@@ -20,6 +22,8 @@ export abstract class SubViewList implements OnInit {
     protected abstract onAdd(item);
 
     ngOnInit() {
+        this.isInit = true;
+        this.onEntityChanged();
     }
 
     onInit() {
@@ -31,12 +35,13 @@ export abstract class SubViewList implements OnInit {
     }
     public set value(value) {
         this.entity = value;
-        this.onEntityChanged();
+        if (this.isInit)
+            this.onEntityChanged();
     }
 
 
     protected onEntityChanged() {
-        //this.valueChange.next(this.entity);
+        
     }
 
 
@@ -72,6 +77,19 @@ export abstract class SubViewList implements OnInit {
             });
         });
 
+    }
+
+    protected loadNavigationGraph(navProperty, navExpand) {
+        if (this.entity.entityAspect.entityState.isUnchangedOrModified()) {
+            if (!this.entity.entityAspect.isNavigationPropertyLoaded(navProperty)) {
+                var np = this.entity.entityType.getNavigationProperty(navProperty);
+                this.dataService.loadNavigationGraph(this, this.entity, np, navExpand, this.navFail);
+            }
+        }
+    }
+
+    protected navFail(sender, data) {
+        alert(data);
     }
 
     protected edit(item: breeze.Entity) {

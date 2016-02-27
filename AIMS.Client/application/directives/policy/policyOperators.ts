@@ -49,6 +49,10 @@ export class PolicyOperators extends SubViewList {
         this.entity['Operators'].push(item);
     }
     
+    protected onEntityChanged() {
+        super.onEntityChanged();
+        this.loadNavigationGraph("Operators", "OperatorPublic");
+    }
     
 }
 

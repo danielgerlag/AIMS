@@ -57,18 +57,7 @@ export class ContextParameterValues extends SubViewList {
 
     protected onEntityChanged() {
         super.onEntityChanged();
-        //var self = this;
-        //if (this.entity.entityAspect.entityState.isUnchangedOrModified())
-        //    this.entity.entityAspect.loadNavigationProperty("ContextParameterValues",
-        //        () => {
-        //            var e: any = self.entity;
-        //            for (let cpv of e.ContextParameterValues) {
-        //                cpv.entityAspect.loadNavigationProperty("ContextParameterValue");
-        //            }
-        //        },
-        //        () => {
-        //            alert("error");
-        //        });
+        this.loadNavigationGraph("ContextParameterValues", "ContextParameterValue");
     }
 
 

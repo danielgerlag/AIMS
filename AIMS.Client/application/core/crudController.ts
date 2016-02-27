@@ -166,6 +166,19 @@ export abstract class CRUDController extends BaseController {
         sender.logService.showErrorDialog({ message: data });
     }
 
+
+    protected loadNavigationGraph(entity: breeze.Entity, navProperty, navExpand) {
+        if (entity.entityAspect.entityState.isUnchangedOrModified()) {
+            if (!entity.entityAspect.isNavigationPropertyLoaded(navProperty)) {
+                var np = entity.entityType.getNavigationProperty(navProperty);
+                this.dataService.loadNavigationGraph(this, entity, np, navExpand, this.navFail);
+            }
+        }
+    }
+
+    protected navFail(sender, data) {
+        alert(data);
+    }
 }
 
    

@@ -34,7 +34,7 @@ export abstract class IDataService {
     abstract reset();
     abstract cacheEntities(sender: any, setName: string, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
-    
+    abstract loadNavigationGraph(sender: any, entity: breeze.Entity, path: breeze.NavigationProperty, expand: string, failure: (sender: any, data: any) => any);
 }
 
 function initEntity(entity) {
@@ -183,4 +183,15 @@ export class DataService implements IDataService {
             });
     }
    
+
+    loadNavigationGraph(sender: any, entity: breeze.Entity, path: breeze.NavigationProperty, expand: string, failure: (sender: any, data: any) => any) {
+        
+        var navQuery = breeze.EntityQuery
+            .fromEntityNavigation(entity, path)
+            .expand(expand);
+
+        this.manager.executeQuery(navQuery)
+            .catch((reason) => { failure(sender, reason) });
+        
+    }
 }

@@ -72,5 +72,13 @@ export class PolicyInsurableItems extends SubViewList {
             return value.Value;
         return null;
     }
+        
+
+    protected onEntityChanged() {
+        super.onEntityChanged();
+        this.loadNavigationGraph("InsurableItems", "Attributes, Operators, Operators.Operator, Operators.Operator.OperatorPublic, PolicyCoverages, PolicyRiskLocation");
+    }
+
+    
 }
 

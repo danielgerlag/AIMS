@@ -75,15 +75,16 @@ export class EditPolicy extends CRUDController {
         result.push("PolicyHolders.Public");
         result.push("Coverages");
         result.push("RiskLocations");
-        result.push("InsurableItems");
-        result.push("InsurableItems.Attributes");
-        result.push("InsurableItems.Operators");
-        result.push("InsurableItems.Operators.Operator");
-        result.push("InsurableItems.Operators.Operator.OperatorPublic");
-        result.push("InsurableItems.PolicyCoverages");
-        result.push("InsurableItems.PolicyRiskLocation");
+        //result.push("InsurableItems");
+        //result.push("InsurableItems.Attributes");
+        //result.push("InsurableItems.Operators");
+        //result.push("InsurableItems.Operators.Operator");
+        //result.push("InsurableItems.Operators.Operator.OperatorPublic");
+        //result.push("InsurableItems.PolicyCoverages");
+        //result.push("InsurableItems.PolicyRiskLocation");
         result.push("Agents");
-        result.push("Operators");
+        //result.push("Operators");
+        //result.push("Operators.OperatorPublic");
         result.push("ReportingEntities");
         result.push("ServiceProviders");
 
@@ -93,21 +94,21 @@ export class EditPolicy extends CRUDController {
         result.push("TransactionTriggers.TransactionTrigger.JournalTemplate");
         result.push("TransactionTriggers.TransactionTrigger.Inputs");        
 
-        result.push("ContextParameterValues");
-        result.push("ContextParameterValues.ContextParameterValue");
+        //result.push("ContextParameterValues");
+        //result.push("ContextParameterValues.ContextParameterValue");
         
         result.push("PolicySubType");
-
         result.push("PolicySubType.PolicyType");
+
         result.push("PolicySubType.PolicyType.EntityRequirements");
         result.push("PolicySubType.PolicyType.AgentRequirements");
         result.push("PolicySubType.PolicyType.ServiceProviders");
-        result.push("PolicySubType.PolicyType.ItemClasses");
-        result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass");
-        result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes");
-        result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType");
-        result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups");
-        result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes");
+        //result.push("PolicySubType.PolicyType.ItemClasses");
+        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass");
+        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes");
+        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.OperatorTypes.OperatorType");
+        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups");
+        //result.push("PolicySubType.PolicyType.ItemClasses.InsurableItemClass.Groups.Attributes");
         result.push("PolicySubType.Coverages");
         result.push("PolicySubType.Coverages.CoverageType");        
         
@@ -117,6 +118,7 @@ export class EditPolicy extends CRUDController {
     protected onLoadSuccess(sender: EditPolicy, data: breeze.QueryResult): any {
         super.onLoadSuccess(sender, data)
         sender.loadCommands();
+        sender.loadNavigationGraph(sender.entity.PolicySubType.PolicyType, "ItemClasses", "InsurableItemClass, InsurableItemClass.OperatorTypes, InsurableItemClass.OperatorTypes.OperatorType, InsurableItemClass.Groups, InsurableItemClass.Groups.Attributes");
         sender.ready = true;
     }
 
