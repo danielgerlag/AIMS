@@ -81,6 +81,7 @@ export class EditPolicy extends CRUDController {
         result.push("Agents");
         result.push("ReportingEntities");
         result.push("ServiceProviders");
+        result.push("Status");
                 
         result.push("PolicySubType");
         result.push("PolicySubType.PolicyType");
@@ -120,6 +121,13 @@ export class EditPolicy extends CRUDController {
                     return this.entity.PolicySubType.PolicyType.Name + " - " + this.entity.PolicySubType.Name;
                 }
             }
+        }
+    }
+
+    protected policyStatus() {
+        if (this.entity) {
+            if (this.entity.Status)
+                return this.entity.Status.Name;
         }
     }
 

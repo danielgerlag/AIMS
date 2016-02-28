@@ -5,11 +5,10 @@
         <div *ngIf="ready" class="tabbable">
             <ul class="nav nav-pills nav-stacked col-md-3">
                 <li class="active"><a href="#general" data-toggle="tab">General</a></li>
-                <li><a href="#risklocations" data-toggle="tab">Risk Locations</a></li>
-
-                <li><a href="#Operators" data-toggle="tab">Operators</a></li>
-                <li><a href="#InsurableItems" data-toggle="tab">Insurable Items</a></li>
                 <li><a href="#PolicyHolders" data-toggle="tab">Policy Holders</a></li>
+                <li><a href="#risklocations" data-toggle="tab">Risk Locations</a></li>
+                <li><a href="#InsurableItems" data-toggle="tab">Insurable Items</a></li>
+                <li><a href="#Operators" data-toggle="tab">Operators</a></li>
                 <li><a href="#ServiceProviders" data-toggle="tab">Service Providers</a></li>
                 <li><a href="#Agents" data-toggle="tab">Agents</a></li>
                 <li><a href="#TransactionTriggers" data-toggle="tab">Transaction Triggers</a></li>
@@ -19,7 +18,7 @@
             </ul>
             <div class="tab-content col-md-9">
                 <div class="tab-pane active" id="general">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <tr>
                             <td>Policy Type</td>
                             <td>{{ policyTypeName() }}</td>
@@ -31,7 +30,15 @@
                         </tr>
                         <tr>
                             <td>Status</td>
-                            <td></td>
+                            <td>{{ policyStatus() }}</td>
+                        </tr>
+                        <tr>
+                            <td>Start Date</td>
+                            <td>{{ entity.EffectiveDate }}</td>
+                        </tr>
+                        <tr>
+                            <td>End Date</td>
+                            <td>{{ entity.ExpiryDate }}</td>
                         </tr>
                     </table>
                     <entity-dropdown></entity-dropdown>

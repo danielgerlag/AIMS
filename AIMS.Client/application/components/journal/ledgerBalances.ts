@@ -66,7 +66,9 @@ export class LedgerBalances implements OnInit {
 
         element.kendoGrid({
             dataSource: self.dataSource,
-            height: 300,
+            toolbar: ["excel"],
+            groupable: true,
+            height: 350,
             scrollable: true,
             sortable: true,
             filterable: true,

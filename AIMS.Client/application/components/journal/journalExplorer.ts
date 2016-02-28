@@ -59,12 +59,11 @@ export class JournalExplorer implements AfterContentInit {
             },
             
             //pageSize: 20,
-            height: 300,
-            scrollable: {
-                virtual: true
-            },
+            height: 350,            
             sortable: true,
             filterable: true,
+            toolbar: ["excel"],
+            groupable: true,
             detailInit: txnDetailInit,
             columns: [
                 { field: "ReportingEntity.Public.Name", title: "Reporting Entity" },
@@ -114,7 +113,7 @@ export class JournalExplorer implements AfterContentInit {
                 scrollable: {
                     virtual: true
                 },
-                sortable: true,
+                sortable: true,                
                 detailInit: ledgerTxnDetail,                    
                 columns: [{
                         title: "Transactions",
