@@ -222,6 +222,10 @@
     <Compile Include="Migrations\201602280000126_agents.Designer.cs">
       <DependentUpon>201602280000126_agents.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602281558524_agent3.cs" />
+    <Compile Include="Migrations\201602281558524_agent3.Designer.cs">
+      <DependentUpon>201602281558524_agent3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -321,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602280000126_agents.resx">
       <DependentUpon>201602280000126_agents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602281558524_agent3.resx">
+      <DependentUpon>201602281558524_agent3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

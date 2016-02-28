@@ -24,6 +24,6 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<ReportingEntityTransactionTrigger> TransactionTriggers { get; set; } = new HashSet<ReportingEntityTransactionTrigger>();
 
-        public virtual ICollection<Agent> Agents { get; set; } = new HashSet<Agent>();
+        //public virtual ICollection<Agent> Agents { get; set; } = new HashSet<Agent>();
     }
 }

@@ -13,6 +13,7 @@ import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
 import {PolicyOperators} from '../../directives/policy/policyOperators';
 import {PolicyInsurableItems} from '../../directives/policy/policyInsurableItems';
 import {PolicyHolders} from '../../directives/policy/policyHolders';
+import {PolicyAgents} from '../../directives/policy/policyAgents';
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -22,7 +23,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({
     templateUrl: './application/components/policy/newPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, PolicyAgents],
     pipes: [JsonPipe]
 })
 export class NewPolicy extends CRUDController {
@@ -89,7 +90,14 @@ export class NewPolicy extends CRUDController {
             sender.entity.ServiceProviders.push(item);
         }
 
-        
+        for (let agent of sender.policyType.AgentRequirements) {
+            if (agent.Required) {
+                var item = sender.dataService.createEntity("PolicyAgent", {});
+                item.AgentTypeID = agent.AgentTypeID;                
+                item.Percentage = 1;
+                sender.entity.Agents.push(item);
+            }
+        }        
 
         //sender.entity.ReportingEntities
         //sender.entity.ServiceProviders

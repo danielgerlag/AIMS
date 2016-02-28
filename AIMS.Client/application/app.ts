@@ -50,6 +50,19 @@ declare var System:any;
         new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),
 
 
+        new Route({ path: '/ListAgent', component: Components.ListAgent, name: 'ListAgent' }),
+        new Route({ path: '/EditAgent', component: Components.EditAgent, name: 'EditAgent' }),
+        new Route({ path: '/EditAgent/:Id', component: Components.EditAgent, name: 'EditAgent' }),
+
+        new Route({ path: '/ListAgentType', component: Components.ListAgentType, name: 'ListAgentType' }),
+        new Route({ path: '/EditAgentType', component: Components.EditAgentType, name: 'EditAgentType' }),
+        new Route({ path: '/EditAgentType/:Id', component: Components.EditAgentType, name: 'EditAgentType' }),
+
+        new Route({ path: '/ListServiceProviderType', component: Components.ListServiceProviderType, name: 'ListServiceProviderType' }),
+        new Route({ path: '/EditServiceProviderType', component: Components.EditServiceProviderType, name: 'EditServiceProviderType' }),
+        new Route({ path: '/EditServiceProviderType/:Id', component: Components.EditServiceProviderType, name: 'EditServiceProviderType' }),
+
+
         new Route({ path: '/ListRatingProfile', component: Components.ListRatingProfile, name: 'ListRatingProfile' }),
         new Route({ path: '/EditRatingProfile', component: Components.EditRatingProfile, name: 'EditRatingProfile' }),
         new Route({ path: '/EditRatingProfile/:Id', component: Components.EditRatingProfile, name: 'EditRatingProfile' }),

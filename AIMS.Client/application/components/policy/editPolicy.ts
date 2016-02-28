@@ -17,6 +17,7 @@ import {PolicyRiskLocations} from '../../directives/policy/policyRiskLocations';
 import {PolicyOperators} from '../../directives/policy/policyOperators';
 import {PolicyInsurableItems} from '../../directives/policy/policyInsurableItems';
 import {PolicyHolders} from '../../directives/policy/policyHolders';
+import {PolicyAgents} from '../../directives/policy/policyAgents';
 import {TransitionPolicyWizard} from './transitionPolicy';
 
 import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
@@ -35,7 +36,7 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 
 @Component({    
     templateUrl: './application/components/policy/editPolicy.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput, ContextParameterValues],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, ACCORDION_DIRECTIVES, PolicyReportingEntities, PolicyServiceProviders, PolicyRiskLocations, PolicyOperators, PolicyInsurableItems, PolicyHolders, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput, ContextParameterValues, PolicyAgents],
     pipes: [JsonPipe]
 })
 export class EditPolicy extends CRUDController {

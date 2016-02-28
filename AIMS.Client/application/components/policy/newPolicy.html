@@ -43,7 +43,7 @@
     <div class="panel panel-default" *ngIf="step == 4">
         <div class="panel-heading">Step {{step}} - Agents</div>
         <div class="panel-body">
-            agents
+            <policyAgents [(value)]="entity" [dataService]="dataService"></policyAgents>
         </div>
     </div>
 

@@ -35,37 +35,32 @@
                         </tr>
                     </table>
                 </div>
-                <div class="tab-pane" id="risklocations">
-                    <policyRiskLocations [(value)]="entity" [dataService]="dataService"></policyRiskLocations>
-                </div>
-
-                <div class="tab-pane" id="Operators">
-                    <policyOperators [(value)]="entity" [dataService]="dataService"></policyOperators>
-                </div>
-
-                <div class="tab-pane" id="InsurableItems">
-                    <policyInsurableItems [(value)]="entity" [dataService]="dataService"></policyInsurableItems>
-                </div>
                 <div class="tab-pane" id="PolicyHolders">
                     <policyHolders [(value)]="entity" [dataService]="dataService"></policyHolders>
                 </div>
 
+                <div class="tab-pane" id="risklocations">
+                    <policyRiskLocations [(value)]="entity" [dataService]="dataService"></policyRiskLocations>
+                </div>
+                <div class="tab-pane" id="InsurableItems">
+                    <policyInsurableItems [(value)]="entity" [dataService]="dataService"></policyInsurableItems>
+                </div>
+                <div class="tab-pane" id="Operators">
+                    <policyOperators [(value)]="entity" [dataService]="dataService"></policyOperators>
+                </div>
                 <div class="tab-pane" id="ServiceProviders">
                     <policyServiceProviders [(value)]="entity" [dataService]="dataService"></policyServiceProviders>
                 </div>
-
                 <div class="tab-pane" id="Agents">
+                    <policyAgents [(value)]="entity" [dataService]="dataService"></policyAgents>
                 </div>
-
                 <div class="tab-pane" id="TransactionTriggers">
                     <transactionTriggers [(value)]="entity" [dataService]="dataService" type="PolicyTransactionTrigger"></transactionTriggers>
                 </div>
-
                 <div class="tab-pane" id="Journals">
                     <div journalExplorer path="Policies({{entity.ID}})/Journals"></div>
                 </div>
-
-                <div class="tab-pane"  id="Balances">
+                <div class="tab-pane" id="Balances">
                     Effective Date:
                     <input dateInput [(value)]="ledgerBalanceDate" />
                     <div ledgerBalances source="Policy" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>

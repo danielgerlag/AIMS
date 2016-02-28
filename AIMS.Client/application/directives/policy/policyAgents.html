@@ -1,0 +1,37 @@
+﻿<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Agent</th>
+        <th>Percentage</th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
+    </tr>
+    <tr *ngFor="#agent of policy.Agent">
+        <td>
+            
+            <entity-dropdown [(value)]="agent.AgentTypeID"
+                             name="AgentTypeID"
+                             query="AgentTypes"
+                             keyField="ID"
+                             displayField="Name"
+                             nullable="false">
+            </entity-dropdown>
+
+        </td>
+        <td>
+            <entity-dropdown 
+                             [(value)]="agent.AgentID"
+                             name="AgentID"
+                             query="Agents?$filter=AgentTypeID eq {{agent.AgentTypeID}}&$expand=Public"
+                             keyField="ID"
+                             displayField="Public.Name"
+                             nullable="false">
+            </entity-dropdown>
+        </td>
+        <td>
+            <input numericInput name="Percentage" [(ngModel)]="agent.Percentage" format="p0" min="0" max="1" step="0.01">
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="remove(agent)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+    </tr>
+</table>
