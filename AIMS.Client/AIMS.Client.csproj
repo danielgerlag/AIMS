@@ -26,6 +26,7 @@
     <Content Include="application\app.html" />
     <Content Include="application\components\account\login.html" />
     <Content Include="application\app.css" />
+    <Content Include="application\components\agent\editAgent.html" />
     <Content Include="application\components\attributeLookupList\editAttributeLookupList.html" />
     <Content Include="application\components\contextParameter\editContextParameter.html" />
     <Content Include="application\components\contextParameter\contextParameterValues.html" />
@@ -1021,6 +1022,8 @@
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="application\Web.config" />
+    <TypeScriptCompile Include="application\components\agent\editAgent.ts" />
+    <TypeScriptCompile Include="application\components\agent\listAgent.ts" />
     <TypeScriptCompile Include="application\components\contextParameter\editContextParameter.ts" />
     <TypeScriptCompile Include="application\components\contextParameter\editContextParameterValue.ts" />
     <TypeScriptCompile Include="application\components\contextParameter\listContextParameter.ts" />

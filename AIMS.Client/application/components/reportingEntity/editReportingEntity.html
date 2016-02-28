@@ -1,54 +1,58 @@
 ﻿<form (submit)="save()" [hidden]="complete">
     <h4>{{ title }}</h4>
     <div class="row">
-        <tabset>
-            <tab heading="General">
+        <div class="tabbable">
 
-                <form-input [entity]="entity" name="PublicID" title="Public">
-                    <publicSelector [(value)]="entity.Public" [dataService]="dataService"></publicSelector>
-                </form-input>                
+            <ul class="nav nav-pills nav-stacked col-md-3">
+                <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                <li><a href="#txnTriggers" data-toggle="tab">Transaction Triggers</a></li>
+                <li><a href="#Balances" data-toggle="tab">Balances</a></li>
+                <li><a href="#Journals" data-toggle="tab">Journals</a></li>                
+            </ul>
 
-                <form-input [entity]="entity" name="ReportingEntityProfileID" title="Configuration Profile">
-                    <entity-dropdown [(value)]="entity.ReportingEntityProfileID"
-                                     name="ReportingEntityProfileID"
-                                     query="ReportingEntityProfiles"
-                                     keyField="ID"
-                                     displayField="Name"
-                                     nullable="false">
-                    </entity-dropdown>
-                </form-input>
-                    
+            <div class="tab-content col-md-9">
+                <div class="tab-pane active" id="general">
+                    <form-input [entity]="entity" name="PublicID" title="Public">
+                        <publicSelector [(value)]="entity.Public" [dataService]="dataService"></publicSelector>
+                    </form-input>
 
-            </tab>
+                    <form-input [entity]="entity" name="ReportingEntityProfileID" title="Configuration Profile">
+                        <entity-dropdown [(value)]="entity.ReportingEntityProfileID"
+                                         name="ReportingEntityProfileID"
+                                         query="ReportingEntityProfiles"
+                                         keyField="ID"
+                                         displayField="Name"
+                                         nullable="false">
+                        </entity-dropdown>
+                    </form-input>
+                </div>
+
+                <div class="tab-pane" id="txnTriggers">
+                    <transactionTriggers [(value)]="entity" [dataService]="dataService" type="ReportingEntityTransactionTrigger"></transactionTriggers>
+                </div>
+
+                <div class="tab-pane" id="Balances">
+                    Effective Date:
+                    <input dateInput [(value)]="ledgerBalanceDate" />
+                    <tabset>
+                        <tab heading="Ledger">
+                            <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                        </tab>
+                        <tab heading="Debtors">
+                            <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="true" isCreditor="false"></div>
+                        </tab>
+                        <tab heading="Creditors">
+                            <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="false" isCreditor="true"></div>
+                        </tab>
+                    </tabset>
+                </div>
+
+                <div class="tab-pane" id="Journals">
+                    <div journalExplorer path="ReportingEntities({{entity.ID}})/Journals"></div>
+                </div>
+            </div>                        
             
-            <tab heading="Transaction Triggers">
-                <transactionTriggers [(value)]="entity" [dataService]="dataService" type="ReportingEntityTransactionTrigger"></transactionTriggers>
-            </tab>
-
-            <tab heading="Balances">
-                Effective Date:
-                <input dateInput [(value)]="ledgerBalanceDate" />
-                <tabset>
-                    <tab heading="Ledger">
-                        <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
-                    </tab>
-                    <tab heading="Debtors">
-                        <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="true" isCreditor="false" ></div>
-                    </tab>
-                    <tab heading="Creditors">
-                        <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="false" isCreditor="true" ></div>
-                    </tab>
-                </tabset>
-
-
-            </tab>
-
-            <tab heading="Journals">
-                id = {{entity.ID}}
-
-                <div journalExplorer path="ReportingEntities({{entity.ID}})/Journals"></div>
-            </tab>
-        </tabset>
+        </div>
 
     </div>
 

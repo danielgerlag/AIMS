@@ -15,23 +15,23 @@ import {ILogService} from '../../services/logService';
 import {CRUDController} from '../../core/crudController';
 
 @Component({    
-    templateUrl: './application/components/serviceProvider/editServiceProvider.html',
+    templateUrl: './application/components/agent/editAgent.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector],
     pipes: [JsonPipe]
 })
-export class EditServiceProvider extends CRUDController {
+export class EditAgent extends CRUDController {
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
-        this.title = "Service Provider";
+        this.title = "Agent";
     }
 
     protected typeName(): string {
-        return "ServiceProvider";
+        return "Agent";
     }
 
     protected setName(): string {
-        return "ServiceProviders";
+        return "Agents";
     }
 
 
@@ -42,7 +42,7 @@ export class EditServiceProvider extends CRUDController {
         return result;
     }
 
-    protected afterSave(sender: EditServiceProvider, data: any) {
+    protected afterSave(sender: EditAgent, data: any) {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
     }

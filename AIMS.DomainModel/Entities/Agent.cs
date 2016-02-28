@@ -9,7 +9,11 @@ namespace AIMS.DomainModel.Entities
 {
     public class Agent : BaseEntity
     {
-        public int ReportingEntityBranchID { get; set; }
+
+        public int ReportingEntityID { get; set; }
+        public virtual ReportingEntity ReportingEntity { get; set; }
+
+        public int? ReportingEntityBranchID { get; set; }
         public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
 
         public int PublicID { get; set; }
