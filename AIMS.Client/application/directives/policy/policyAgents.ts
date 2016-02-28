@@ -48,7 +48,7 @@ export class PolicyAgents implements OnInit {
     
 
     onEntityChanged() {        
-        this.valueChange.next(this.policy);
+        //this.valueChange.next(this.policy);
     }        
         
     protected add() {

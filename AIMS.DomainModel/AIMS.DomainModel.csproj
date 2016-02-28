@@ -103,6 +103,7 @@
     <Compile Include="Entities\PolicySubTypeContextParameterValue.cs" />
     <Compile Include="Entities\PolicyContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeRatingProfile.cs" />
+    <Compile Include="Entities\AgentTransactionTrigger.cs" />
     <Compile Include="Entities\PolicyTransactionTrigger.cs" />
     <Compile Include="Entities\PolicyTypeContextParameterValue.cs" />
     <Compile Include="Entities\PolicyTypeTransitionJournalTemplateInput.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Entities\PolicyTypeTransitionInput.cs" />
     <Compile Include="Entities\PolicyTypeTransition.cs" />
     <Compile Include="Entities\RatingProfile.cs" />
+    <Compile Include="Entities\RegionTax.cs" />
     <Compile Include="Entities\RegionContextParameterValue.cs" />
     <Compile Include="Entities\PolicySubTypeCoverage.cs" />
     <Compile Include="Entities\PolicySubType.cs" />
@@ -226,6 +228,18 @@
     <Compile Include="Migrations\201602281558524_agent3.Designer.cs">
       <DependentUpon>201602281558524_agent3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602281835462_dp1.cs" />
+    <Compile Include="Migrations\201602281835462_dp1.Designer.cs">
+      <DependentUpon>201602281835462_dp1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602282010441_agent4.cs" />
+    <Compile Include="Migrations\201602282010441_agent4.Designer.cs">
+      <DependentUpon>201602282010441_agent4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602282013051_agent5.cs" />
+    <Compile Include="Migrations\201602282013051_agent5.Designer.cs">
+      <DependentUpon>201602282013051_agent5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -328,6 +342,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602281558524_agent3.resx">
       <DependentUpon>201602281558524_agent3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602281835462_dp1.resx">
+      <DependentUpon>201602281835462_dp1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602282010441_agent4.resx">
+      <DependentUpon>201602282010441_agent4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602282013051_agent5.resx">
+      <DependentUpon>201602282013051_agent5.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

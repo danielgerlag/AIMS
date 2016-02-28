@@ -42,6 +42,15 @@ namespace AIMS.DomainModel.Services
             }
 
 
+            if (transactionTrigger.AgentTransactionTrigger != null)
+            {
+                var resolvedPublic = transactionTrigger.AgentTransactionTrigger.Agent.Public;                
+
+                Journal journal = BuildJournal(db, transactionTrigger, resolvedPublic, transactionTrigger.ServiceProvider, transactionTrigger.AgentTransactionTrigger.Agent, 1);
+                _journalPoster.Run(db, journal);
+                result.Journals.Add(journal);
+            }
+
             if (transactionTrigger.PolicyTransactionTrigger != null)
             {
                 var policyTransactionTrigger = (transactionTrigger.PolicyTransactionTrigger);
@@ -172,6 +181,7 @@ namespace AIMS.DomainModel.Services
             //txn.TransactionOrigin = transactionTrigger.TransactionOrigin;
             txn.TxnDate = transactionTrigger.TxnDate.Value.Date;
             txn.JournalTemplateTxn = templateTxn;
+            txn.Agent = journal.Agent;
 
             journal.JournalTxns.Add(txn);
         }
@@ -197,6 +207,7 @@ namespace AIMS.DomainModel.Services
                     txn.TxnDate = transactionTrigger.TxnDate.Value.Date;
                     txn.JournalTemplateTxn = templateTxn;
                     txn.PolicyCoverage = coverage;
+                    txn.Agent = journal.Agent;
 
                     journal.JournalTxns.Add(txn);
                 }

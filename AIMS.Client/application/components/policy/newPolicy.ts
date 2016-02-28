@@ -91,7 +91,7 @@ export class NewPolicy extends CRUDController {
         }
 
         for (let agent of sender.policyType.AgentRequirements) {
-            if (agent.Required) {
+            if (agent.IsRequired) {
                 var item = sender.dataService.createEntity("PolicyAgent", {});
                 item.AgentTypeID = agent.AgentTypeID;                
                 item.Percentage = 1;

@@ -69,6 +69,7 @@
     <Content Include="application\directives\policy\policyOperators.html" />
     <Content Include="application\directives\policy\policyHolders.html" />
     <Content Include="application\directives\policy\policyRiskLocations.html" />
+    <Content Include="application\directives\policy\policyAgents.html" />
     <Content Include="application\directives\policy\policyServiceProviders.html" />
     <Content Include="application\directives\policy\policyReportingEntities.html" />
     <Content Include="application\directives\public\publicSelector.html" />
@@ -1286,6 +1287,7 @@
     <TypeScriptCompile Include="application\directives\policy\policyInsurableItems.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyOperators.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyHolders.ts" />
+    <TypeScriptCompile Include="application\directives\policy\policyAgents.ts" />
     <TypeScriptCompile Include="application\directives\public\newPublicWizard.ts" />
     <TypeScriptCompile Include="application\components\public\newPublic.ts" />
     <TypeScriptCompile Include="application\components\public\editPublic.ts" />

@@ -171,6 +171,9 @@ namespace AIMS.DomainModel.Entities
                 case "Public":
                     query = query.Where(x => x.PublicID == id);
                     break;
+                case "Agent":
+                    query = query.Where(x => x.AgentID == id);
+                    break;
                 default:
                     return new List<LedgerAccountBalance>().AsQueryable();
             }
@@ -218,6 +221,9 @@ namespace AIMS.DomainModel.Entities
                     break;
                 case "Public":
                     query = query.Where(x => x.PublicID == id);
+                    break;
+                case "Agent":
+                    query = query.Where(x => x.AgentID == id);
                     break;
                 default:
                     return new List<LedgerAccountBalance>().AsQueryable();

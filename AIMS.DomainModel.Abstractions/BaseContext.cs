@@ -1,4 +1,5 @@
-﻿using AIMS.DomainModel.Abstractions.Entities;
+﻿using AIMS.DomainModel.Abstractions.Annotations;
+using AIMS.DomainModel.Abstractions.Entities;
 using AIMS.DomainModel.Abstractions.Intercepts;
 using AIMS.DomainModel.Interface;
 using AIMS.Services.Indexer.Interface;
@@ -8,8 +9,11 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +58,36 @@ namespace AIMS.DomainModel.Abstractions
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+                                    
+            foreach (Type classType in GetInterfaceType().Assembly.GetTypes().Where(x => x.IsClass))                                       
+            {
+                foreach (var propAttr in classType.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.GetCustomAttribute<DecimalPrecisionAttribute>() != null).Select(
+                       p => new { prop = p, attr = p.GetCustomAttribute<DecimalPrecisionAttribute>(true) }))
+                {
+
+                    var entityConfig = modelBuilder.GetType().GetMethod("Entity").MakeGenericMethod(classType).Invoke(modelBuilder, null);
+                    ParameterExpression param = ParameterExpression.Parameter(classType, "c");
+                    Expression property = Expression.Property(param, propAttr.prop.Name);
+                    LambdaExpression lambdaExpression = Expression.Lambda(property, true,
+                                                                             new ParameterExpression[]
+                                                                                 {param});
+                    DecimalPropertyConfiguration decimalConfig;
+                    if (propAttr.prop.PropertyType.IsGenericType && propAttr.prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[7];
+                        decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
+                    }
+                    else
+                    {
+                        MethodInfo methodInfo = entityConfig.GetType().GetMethods().Where(p => p.Name == "Property").ToList()[6];
+                        decimalConfig = methodInfo.Invoke(entityConfig, new[] { lambdaExpression }) as DecimalPropertyConfiguration;
+                    }
+
+                    decimalConfig.HasPrecision(propAttr.attr.Precision, propAttr.attr.Scale);
+                }
+            }
+
+
         }
 
         public override int SaveChanges()

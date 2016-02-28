@@ -88,6 +88,8 @@ namespace AIMS.DomainModel.Context
         DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
         DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
 
+        DbSet<AgentTransactionTrigger> AgentTransactionTriggers { get; set; }
+
 
         DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
         DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
@@ -103,6 +105,8 @@ namespace AIMS.DomainModel.Context
         DbSet<PolicyTypeTransitionJournalTemplate> PolicyTypeTransitionJournalTemplates { get; set; }
         DbSet<PolicyTypeTransitionJournalTemplateInput> PolicyTypeTransitionJournalTemplateInputs { get; set; }
 
+
+        DbSet<RegionTax> RegionTaxes { get; set; }
 
 
     }

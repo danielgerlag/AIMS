@@ -92,6 +92,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<PolicyTransactionTrigger> PolicyTransactionTriggers { get; set; }
         public virtual DbSet<ReportingEntityTransactionTrigger> ReportingEntityTransactionTriggers { get; set; }
 
+        public virtual DbSet<AgentTransactionTrigger> AgentTransactionTriggers { get; set; }
 
         public virtual DbSet<TransactionTriggerFrequency> TransactionTriggerFrequencies { get; set; }
         public virtual DbSet<TransactionTriggerInput> TransactionTriggerInputs { get; set; }
@@ -105,8 +106,8 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<PolicyTypeTransitionInput> PolicyTypeTransitionInputs { get; set; }
         public virtual DbSet<PolicyTypeTransitionJournalTemplate> PolicyTypeTransitionJournalTemplates { get; set; }
         public virtual DbSet<PolicyTypeTransitionJournalTemplateInput> PolicyTypeTransitionJournalTemplateInputs { get; set; }
-
-
+        
+        public virtual DbSet<RegionTax> RegionTaxes { get; set; }
 
         protected override Type GetInterfaceType()
         {
@@ -149,6 +150,10 @@ namespace AIMS.DomainModel.Context
 
             modelBuilder.Entity<TransactionTrigger>()
                .HasOptional(s => s.ReportingEntityTransactionTrigger)
+               .WithRequired(ad => ad.TransactionTrigger);
+
+            modelBuilder.Entity<TransactionTrigger>()
+               .HasOptional(s => s.AgentTransactionTrigger)
                .WithRequired(ad => ad.TransactionTrigger);
 
 

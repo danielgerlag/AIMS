@@ -16,5 +16,6 @@ namespace AIMS.DomainModel.Entities
         public string Name { get; set; }
 
         public virtual ICollection<RegionContextParameterValue> ContextParameterValues { get; set; } = new HashSet<RegionContextParameterValue>();
+        public virtual ICollection<RegionTax> Taxes { get; set; } = new HashSet<RegionTax>();
     }
 }

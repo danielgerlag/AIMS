@@ -29,10 +29,12 @@
 
                     <form-input [entity]="entity" name="BalanceOrigin" title="Balance Origin" labelClass="col-sm-2">
                         <div class="col-sm-10">
-                            <select class="form-control" [(ngModel)]="entity.BalanceOrigin">                                
+                            <select class="form-control" [(ngModel)]="entity.BalanceOrigin">
+                                <option value="N">None</option>
                                 <option value="P">Policy</option>
                                 <option value="U">Public</option>
                                 <option value="X">Public-Policy Combo</option>
+                                <option value="A">Agent</option>
                                 <option value="B">Branch</option>
                             </select>
                         </div>

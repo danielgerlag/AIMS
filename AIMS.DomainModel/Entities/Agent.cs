@@ -26,6 +26,6 @@ namespace AIMS.DomainModel.Entities
 
         public virtual ICollection<LedgerTxn> LedgerTxns { get; set; } = new HashSet<LedgerTxn>();
 
-        public virtual ICollection<TransactionTrigger> TransactionTriggers { get; set; } = new HashSet<TransactionTrigger>();
+        public virtual ICollection<AgentTransactionTrigger> TransactionTriggers { get; set; } = new HashSet<AgentTransactionTrigger>();
     }
 }

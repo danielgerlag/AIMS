@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\DecimalPrecisionAttribute.cs" />
     <Compile Include="BaseContext.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Intercepts\IEntityIntercept.cs" />

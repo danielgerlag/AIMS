@@ -1,11 +1,14 @@
 ﻿<form (submit)="save()" [hidden]="complete">
     <h4>{{ title }}</h4>
-    <div class="row">
+    <div *ngIf="isLoaded"  class="row">
 
         <div class="tabbable">
             <ul class="nav nav-pills nav-stacked col-md-3">
                 <li class="active"><a href="#general" data-toggle="tab">General</a></li>
                 <li><a href="#policies" data-toggle="tab">Policies</a></li>
+                <li><a href="#txnTriggers" data-toggle="tab">Transaction Triggers</a></li>
+                <li><a href="#Balances" data-toggle="tab">Balances</a></li>
+                <li><a href="#Journals" data-toggle="tab">Journals</a></li>
             </ul>
 
             <div class="tab-content col-md-9">
@@ -28,6 +31,25 @@
                 <div class="tab-pane" id="policies">
                     todo
                 </div>
+
+                <div class="tab-pane" id="txnTriggers">
+                    <transactionTriggers [(value)]="entity" [dataService]="dataService" type="AgentTransactionTrigger"></transactionTriggers>
+                </div>
+
+                <div class="tab-pane" id="Balances">
+                    Effective Date:
+                    <input dateInput [(value)]="ledgerBalanceDate" />
+                    <tabset>
+                        <tab heading="Ledger">
+                            <div ledgerBalances source="Agent" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                        </tab>                        
+                    </tabset>
+                </div>
+
+                <div class="tab-pane" id="Journals">
+                    <div journalExplorer path="Agents({{entity.ID}})/Journals"></div>
+                </div>
+
             </div>
         </div>              
 

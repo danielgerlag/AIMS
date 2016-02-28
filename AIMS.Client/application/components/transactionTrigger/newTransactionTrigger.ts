@@ -63,6 +63,11 @@ export class NewTransactionTrigger implements OnInit, ICustomModalComponent {
             this.origin = 'P';
         }
 
+        if (e.entityType.shortName == "AgentTransactionTrigger") {
+            this.step = 1;
+            this.origin = 'A';
+        }
+
         if (e.entityType.shortName == "ReportingEntityTransactionTrigger") {
             this.step = 2;
             this.origin = 'G';

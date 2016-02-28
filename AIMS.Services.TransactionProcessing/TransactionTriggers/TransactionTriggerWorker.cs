@@ -207,7 +207,8 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
         private void MarkError()
         {
-            //_db.SaveChanges();
+            var txnTrigger = _controlDb.TransactionTriggers.Find(trigger.ID);
+            txnTrigger.Status = _controlDb.TransactionTriggerStatuses.Single(x => x.Code == "E");
         }
 
         private void MarkHold()

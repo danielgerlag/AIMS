@@ -5,7 +5,7 @@
         <th>Percentage</th>
         <th><button type="button" class="btn" (click)="add()">Add</button></th>
     </tr>
-    <tr *ngFor="#agent of policy.Agent">
+    <tr *ngFor="#agent of policy.Agents">
         <td>
             
             <entity-dropdown [(value)]="agent.AgentTypeID"

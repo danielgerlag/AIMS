@@ -69,5 +69,7 @@ namespace AIMS.DomainModel.Entities
         public virtual ReportingEntityTransactionTrigger ReportingEntityTransactionTrigger { get; set; }
         
         public virtual PolicyTransactionTrigger PolicyTransactionTrigger { get; set; }
+
+        public virtual AgentTransactionTrigger AgentTransactionTrigger { get; set; }
     }
 }

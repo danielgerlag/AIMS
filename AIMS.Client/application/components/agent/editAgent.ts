@@ -6,7 +6,12 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {PublicSelector} from '../../directives/public/publicSelector';
 import {FormInput} from '../../directives/input/formInput';
+import {DateInput} from '../../directives/input/dateInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
+import {TransactionTriggers} from '../../components/transactionTrigger/transactionTriggers';
+import {JournalExplorer} from '../../components/journal/journalExplorer';
+import {LedgerBalances} from '../../components/journal/ledgerBalances';
+
 
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
@@ -16,14 +21,17 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/agent/editAgent.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicSelector, TransactionTriggers, JournalExplorer, LedgerBalances, DateInput],
     pipes: [JsonPipe]
 })
 export class EditAgent extends CRUDController {
 
+    ledgerBalanceDate: Date;
+
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Agent";
+        this.ledgerBalanceDate = moment().toDate();
     }
 
     protected typeName(): string {

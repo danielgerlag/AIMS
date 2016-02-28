@@ -55,7 +55,6 @@ export class TransactionTriggers extends SubViewList {
 
     protected onAdd(item) {
         this.entity['TransactionTriggers'].push(item);
-        //this.onEntityChanged();
     }
 
     protected onEntityChanged() {

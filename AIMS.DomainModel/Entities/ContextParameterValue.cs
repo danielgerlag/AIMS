@@ -1,4 +1,5 @@
-﻿using AIMS.DomainModel.Abstractions.Entities;
+﻿using AIMS.DomainModel.Abstractions.Annotations;
+using AIMS.DomainModel.Abstractions.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,7 @@ namespace AIMS.DomainModel.Entities
         public DateTime EffectiveDate { get; set; }
 
         [Required]
-        //[Column(TypeName = "decimal(14,4)")]
+        [DecimalPrecision(14, 4)]        
         public decimal Value { get; set; }
 
         

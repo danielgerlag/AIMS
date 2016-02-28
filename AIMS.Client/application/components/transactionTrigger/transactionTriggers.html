@@ -21,7 +21,7 @@
         </tr>
     </table>
 
-    <table class="table" *ngIf="type == 'PolicyTransactionTrigger'">
+    <table class="table" *ngIf="(type == 'PolicyTransactionTrigger') || (type == 'AgentTransactionTrigger')">
         <tr>
             <th>Reporting Entity</th>
             <th>Name</th>

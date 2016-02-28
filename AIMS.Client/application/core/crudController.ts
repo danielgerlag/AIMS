@@ -25,9 +25,11 @@ export abstract class CRUDController extends BaseController {
     protected location: Location;    
     protected authService: IAuthService;
     protected title: string;
+    protected isLoaded: boolean;
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(shellService);
+        this.isLoaded = false;
         dataService.reset();
         this.dataService = dataService;
         this.logService = logService;
@@ -81,7 +83,7 @@ export abstract class CRUDController extends BaseController {
                 self.onLoading(id);
             }
             else {
-                //
+                self.isLoaded = true;
             }
         });
     }
@@ -159,6 +161,7 @@ export abstract class CRUDController extends BaseController {
     protected onLoadSuccess(sender: CRUDController, data: breeze.QueryResult): any {
         sender.shellService.hideLoader();
         sender.entity = data.results[0];
+        sender.isLoaded = true;
     }
 
     protected onLoadFailure(sender: CRUDController, data: any): any {
