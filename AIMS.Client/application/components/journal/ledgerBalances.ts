@@ -3,13 +3,14 @@ import {IConfigService, ConfigService} from '../../services/configService';
 
 @Directive({
     selector: '[ledgerBalances]',
-    inputs: ['source', 'id', 'effectiveDate']
+    inputs: ['source', 'id', 'effectiveDate', 'ledgerID']
 })
 export class LedgerBalances implements OnInit {
     
     source: string;
     _id: number;
     _effectiveDate: Date;
+    _ledgerID: number;
 
     elementRef: ElementRef;
     configService: IConfigService;
@@ -38,6 +39,15 @@ export class LedgerBalances implements OnInit {
         this.refresh();
     }
 
+    get ledgerID() {
+        return this._ledgerID;
+    }
+
+    set ledgerID(value) {
+        this._ledgerID = value;
+        this.refresh();
+    }
+
     constructor(elementRef: ElementRef, configService: IConfigService) {
         this.elementRef = elementRef;
         this.configService = configService;
@@ -49,8 +59,8 @@ export class LedgerBalances implements OnInit {
 
     ngOnInit() {
         var self = this;
-        var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
-        var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
+        //var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
+        //var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
         var element = jQuery(this.elementRef.nativeElement);    
         var ledgerTxnDetail = this.buildInitLedgerTxnDetail();    
 
@@ -93,6 +103,14 @@ export class LedgerBalances implements OnInit {
                 { field: "Balance", title: "Balance" }
             ];
         }
+
+        if (this.source == 'Agent') {
+            return [
+                { field: "ReportingEntityName", title: "Reporting Entity" },
+                { field: "LedgerAccountName", title: "Account" },
+                { field: "Balance", title: "Balance" }
+            ];
+        }
     }
 
     refresh() {
@@ -103,7 +121,7 @@ export class LedgerBalances implements OnInit {
         if (grid) {
 
             var dateStr = moment(self.effectiveDate).format('YYYY-MM-DD');
-            var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&effectiveDate='" + dateStr + "'";
+            var path = "GetLedgerAccountBalances?source='" + self.source + "'&id=" + self.id + "&ledgerID=" + self.ledgerID + "&effectiveDate='" + dateStr + "'";
             
             self.dataSource = new kendo.data.DataSource({
                 transport: {

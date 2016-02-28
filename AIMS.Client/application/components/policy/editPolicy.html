@@ -64,9 +64,29 @@
                     <div journalExplorer path="Policies({{entity.ID}})/Journals"></div>
                 </div>
                 <div class="tab-pane" id="Balances">
-                    Effective Date:
-                    <input dateInput [(value)]="ledgerBalanceDate" />
-                    <div ledgerBalances source="Policy" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                    <table>
+                        <tr>
+                            <td>
+                                Effective Date:
+                            </td>
+                            <td>
+                                <input dateInput [(value)]="ledgerBalanceDate" />
+                            </td>
+                            <td>
+                                Ledger:
+                            </td>
+                            <td>
+                                <entity-dropdown [(value)]="ledgerID"
+                                                 query="Ledgers"
+                                                 keyField="ID"
+                                                 displayField="Name">
+                                </entity-dropdown>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <div ledgerBalances source="Policy" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" [ledgerID]="ledgerID"></div>
                 </div>
 
                 <div class="tab-pane" id="ContextParameters">

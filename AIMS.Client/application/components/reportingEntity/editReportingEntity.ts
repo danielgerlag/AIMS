@@ -29,6 +29,7 @@ import {CRUDController} from '../../core/crudController';
 export class EditReportingEntity extends CRUDController {
 
     ledgerBalanceDate: Date;
+    ledgerID: number;
 
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);

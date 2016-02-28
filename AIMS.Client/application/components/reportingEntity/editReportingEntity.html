@@ -32,11 +32,30 @@
                 </div>
 
                 <div class="tab-pane" id="Balances">
-                    Effective Date:
-                    <input dateInput [(value)]="ledgerBalanceDate" />
+                    <table>
+                        <tr>
+                            <td>
+                                Effective Date:
+                            </td>
+                            <td>
+                                <input dateInput [(value)]="ledgerBalanceDate" />
+                            </td>
+                            <td>
+                                Ledger:
+                            </td>
+                            <td>
+                                <entity-dropdown [(value)]="ledgerID"
+                                                 query="Ledgers"
+                                                 keyField="ID"
+                                                 displayField="Name">
+                                </entity-dropdown>
+                            </td>
+                        </tr>
+                    </table>
+
                     <tabset>
                         <tab heading="Ledger">
-                            <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate"></div>
+                            <div ledgerBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" [ledgerID]="ledgerID"></div>
                         </tab>
                         <tab heading="Debtors">
                             <div debtorCreditorBalances source="ReportingEntity" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" isDebtor="true" isCreditor="false"></div>

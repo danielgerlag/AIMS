@@ -136,10 +136,10 @@ namespace AIMS.DomainModel.Entities
         }
 
         [WebGet]
-        public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, string effectiveDate)
+        public IQueryable<LedgerAccountBalance> GetLedgerAccountBalances(string source, int id, int ledgerID, string effectiveDate)
         {
             DateTime effDate = DateTime.Parse(effectiveDate);
-            var query = CurrentDataSource.LedgerTxns.Where(x => x.TxnDate <= effDate);
+            var query = CurrentDataSource.LedgerTxns.Where(x => x.TxnDate <= effDate && x.LedgerAccount.LedgerID == ledgerID);
 
             switch (source)
             {
@@ -173,7 +173,25 @@ namespace AIMS.DomainModel.Entities
                     break;
                 case "Agent":
                     query = query.Where(x => x.AgentID == id);
-                    break;
+                    return query
+                            .GroupBy(x => new { x.ReportingEntity, x.LedgerAccount })
+                            .Select(x => new
+                            {
+                                Balance = x.Sum(t => t.Amount),
+                                LedgerAccountID = x.Key.LedgerAccount.ID,
+                                LedgerAccountName = x.Key.LedgerAccount.Name,
+                                ReportingEntityID = x.Key.ReportingEntity.ID,
+                                ReportingEntityName = x.Key.ReportingEntity.Public.Name
+                            }).ToList()
+                            .Select(x => new LedgerAccountBalance()
+                            {
+                                Balance = x.Balance,
+                                LedgerAccountID = x.LedgerAccountID,
+                                LedgerAccountName = x.LedgerAccountName,
+                                ReportingEntityID = x.ReportingEntityID,
+                                ReportingEntityName = x.ReportingEntityName,
+                                EffectiveDate = effDate
+                            }).AsQueryable();
                 default:
                     return new List<LedgerAccountBalance>().AsQueryable();
             }

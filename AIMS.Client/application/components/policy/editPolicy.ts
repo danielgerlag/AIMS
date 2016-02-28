@@ -43,6 +43,7 @@ export class EditPolicy extends CRUDController {
 
     private ready: boolean;
     ledgerBalanceDate: Date;
+    ledgerID: number;
     remoteService: IRemoteService;
     commands: any[] = [];
 
@@ -54,6 +55,7 @@ export class EditPolicy extends CRUDController {
         this.title = "Policy";
         this.ready = false;        
         this.ledgerBalanceDate = moment().toDate();
+        this.ledgerID = 1;
     }
 
     protected typeName(): string {
