@@ -6,9 +6,11 @@ import {Component, View} from 'angular2/core';
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
+import {DateInput} from '../../directives/input/dateInput';
 import {PublicGeneral} from '../../directives/public/publicGeneral';
 import {PublicContactDetails} from '../../directives/public/publicContactDetails';
 import {PublicBankAccounts} from '../../directives/public/publicBankAccounts';
+import {LedgerBalances} from '../../components/journal/ledgerBalances';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -17,14 +19,19 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/public/editPublic.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicGeneral, PublicContactDetails, PublicBankAccounts],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicGeneral, PublicContactDetails, PublicBankAccounts, LedgerBalances, DateInput],
     pipes: [JsonPipe]
 })
 export class EditPublic extends CRUDController {
 
+    ledgerBalanceDate: Date;
+    ledgerID: number;
+
     constructor(params: RouteParams, router: Router, location: Location, dataService: IDataService, shellService: IShellService, authService: IAuthService, fb: FormBuilder, logService: ILogService) {
         super(params, router, location, dataService, shellService, authService, fb, logService);
         this.title = "Public";
+        this.ledgerBalanceDate = moment().toDate();
+        this.ledgerID = 1;
     }
 
     protected typeName(): string {

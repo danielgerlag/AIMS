@@ -91,6 +91,7 @@ export class PublicSelector implements OnInit {
         dialog.then((resultPromise) => {
             return resultPromise.result.then((result) => {
                 if (result) {
+                    result.FullName = result.Name + ", " + result.FirstName;
                     self.value = result;
                     self.onEntityChanged();
                 }            

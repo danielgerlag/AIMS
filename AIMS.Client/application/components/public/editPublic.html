@@ -1,15 +1,17 @@
-﻿<form (submit)="save()" [hidden]="complete">
+﻿<form (submit)="save()" *ngIf="isLoaded">
     <h4>{{ title }}</h4>
     <div class="row">
         <div class="tabbable">
             <ul class="nav nav-pills nav-stacked col-md-3">
                 <li class="active"><a href="#general" data-toggle="tab">General</a></li>
                 <li><a href="#ContactDetails" data-toggle="tab">Contact Details</a></li>
-                <li><a href="#BankAccounts" data-toggle="tab">Bank Accounts</a></li>                
+                <li><a href="#BankAccounts" data-toggle="tab">Bank Accounts</a></li>
+                <li><a href="#Balances" data-toggle="tab">Balances</a></li>
             </ul>
             <div class="tab-content col-md-9">
                 <div class="tab-pane active" id="general">
                     <publicGeneral [(value)]="entity" [dataService]="dataService"></publicGeneral>
+                    <entity-dropdown></entity-dropdown>
                 </div>
                 <div class="tab-pane" id="ContactDetails">
                     <publicContactDetails [(value)]="entity" [dataService]="dataService"></publicContactDetails>
@@ -17,10 +19,34 @@
                 <div class="tab-pane" id="BankAccounts">
                     <publicBankAccounts [(value)]="entity" [dataService]="dataService"></publicBankAccounts>
                 </div>
+                <div class="tab-pane" id="Balances">
+                    <table>
+                        <tr>
+                            <td>
+                                Effective Date:
+                            </td>
+                            <td><
+                                <input dateInput [(value)]="ledgerBalanceDate" />
+                            </td>
+                            <td>
+                                Ledger:
+                            </td>
+                            <td>
+                                <entity-dropdown [(value)]="ledgerID"
+                                                 query="Ledgers"
+                                                 keyField="ID"
+                                                 displayField="Name">
+                                </entity-dropdown>
+                            </td>
+                        </tr>
+                    </table>
+                    <div ledgerBalances source="Public" [id]="entity.ID" [effectiveDate]="ledgerBalanceDate" [ledgerID]="ledgerID"></div>
+                </div>
             </div>
         </div>
 
     </div>
+        
 
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 

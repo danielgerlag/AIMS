@@ -9,7 +9,7 @@
                 <li><a href="#AgentRequirements" data-toggle="tab">Agent Requirements</a></li>
                 <li><a href="#ServiceProviders" data-toggle="tab">Service Providers</a></li>
                 <li><a href="#InsurableItems" data-toggle="tab">Insurable Items</a></li>                
-                <li><a href="#SubTypes" data-toggle="tab">Plicy Sub-Types</a></li>
+                <li><a href="#SubTypes" data-toggle="tab">Policy Sub-Types</a></li>
                 <li><a href="#Statuses" data-toggle="tab">Statuses</a></li>
                 <li><a href="#Transitions" data-toggle="tab">Transitions</a></li>                
                 <li><a href="#ContextParameters" data-toggle="tab">Context Parameters</a></li>
@@ -126,7 +126,12 @@
                                 </entity-dropdown>
                             </td>
                             <td>
-                                <!-- default -->
+                                <entity-dropdown [(value)]="sp.DefaultServiceProviderID"
+                                                 query="ServiceProviders?$filter=ServiceProviderTypeID eq {{sp.ServiceProviderTypeID}}&$expand=Public"
+                                                 keyField="ID"
+                                                 displayField="Public.Name"
+                                                 nullable="false">
+                                </entity-dropdown>
                             </td>
                             <td></td>
                             <td>

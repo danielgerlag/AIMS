@@ -26,8 +26,10 @@ export class LedgerBalances implements OnInit {
     }
 
     set effectiveDate(value) {
-        this._effectiveDate = value;
-        this.refresh();
+        if (this._effectiveDate != value) {
+            this._effectiveDate = value;
+            this.refresh();
+        }
     }
 
     get id() {
@@ -35,8 +37,10 @@ export class LedgerBalances implements OnInit {
     }
 
     set id(value) {
-        this._id = value;
-        this.refresh();
+        if (this._id != value) {
+            this._id = value;
+            this.refresh();
+        }
     }
 
     get ledgerID() {
@@ -44,8 +48,10 @@ export class LedgerBalances implements OnInit {
     }
 
     set ledgerID(value) {
-        this._ledgerID = value;
-        this.refresh();
+        if (this._ledgerID != value) {
+            this._ledgerID = value;
+            this.refresh();
+        }
     }
 
     constructor(elementRef: ElementRef, configService: IConfigService) {
