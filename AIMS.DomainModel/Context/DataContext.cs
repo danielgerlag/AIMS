@@ -23,6 +23,7 @@ namespace AIMS.DomainModel.Context
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
         public virtual DbSet<BusinessLine> BusinessLines { get; set; }
         public virtual DbSet<ContactDetail> ContactDetails { get; set; }
+        public virtual DbSet<ContactDetailType> ContactDetailTypes { get; set; }
         public virtual DbSet<ContextParameter> ContextParameters { get; set; }
         public virtual DbSet<ContextParameterValue> ContextParameterValues { get; set; }
         public virtual DbSet<RegionContextParameterValue> RegionContextParameterValues { get; set; }

@@ -27,6 +27,9 @@ namespace AIMS.Services.Indexer
             List<SearchResult> result = new List<SearchResult>();
             string[] keywords = new string[0];
 
+            if (searchString == null)
+                return result;
+
             if (searchString.Count(c => c == ' ') >= (searchString.Length / 2))
             {
                 keywords = new string[1] { searchString.ToUpper().Trim() };

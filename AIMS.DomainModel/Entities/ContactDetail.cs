@@ -16,6 +16,10 @@ namespace AIMS.DomainModel.Entities
 
         public virtual Public Public { get; set; }
 
+        public int ContactDetailTypeID { get; set; }
+
+        public virtual ContactDetailType ContactDetailType { get; set; }
+
         [StringLength(500)]
         public string Data { get; set; }
         

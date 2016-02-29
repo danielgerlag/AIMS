@@ -9,11 +9,11 @@
 </form-input>
 
 <div *ngIf="entity.PartyType == 'I'">
-    <form-input [entity]="entity" name="Name" title="Surname">
-        <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
-    </form-input>
     <form-input [entity]="entity" name="FirstName" title="FirstName">
         <input type="text" class="form-control" name="FirstName" [(ngModel)]="entity.FirstName">
+    </form-input>
+    <form-input [entity]="entity" name="Name" title="Surname">
+        <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
     </form-input>
 </div>
 

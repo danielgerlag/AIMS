@@ -1,15 +1,27 @@
 ﻿<form (submit)="save()" [hidden]="complete">
     <h4>{{ title }}</h4>
-    
-    <tabset>
-        <tab heading="General">            
-            <publicGeneral [(value)]="entity" [dataService]="dataService"></publicGeneral>
-        </tab>
-        <tab heading="Contact Details">
-            <publicContactDetails [(value)]="entity" [dataService]="dataService"></publicContactDetails>
-        </tab>
-    </tabset>
-    
+    <div class="row">
+        <div class="tabbable">
+            <ul class="nav nav-pills nav-stacked col-md-3">
+                <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                <li><a href="#ContactDetails" data-toggle="tab">Contact Details</a></li>
+                <li><a href="#BankAccounts" data-toggle="tab">Bank Accounts</a></li>                
+            </ul>
+            <div class="tab-content col-md-9">
+                <div class="tab-pane active" id="general">
+                    <publicGeneral [(value)]="entity" [dataService]="dataService"></publicGeneral>
+                </div>
+                <div class="tab-pane" id="ContactDetails">
+                    <publicContactDetails [(value)]="entity" [dataService]="dataService"></publicContactDetails>
+                </div>
+                <div class="tab-pane" id="BankAccounts">
+                    <publicBankAccounts [(value)]="entity" [dataService]="dataService"></publicBankAccounts>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <error-summary [canShow]="showErrorSummary" [entity]="entity"></error-summary>
 
     <div class="modal-footer">

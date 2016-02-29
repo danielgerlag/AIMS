@@ -1,0 +1,23 @@
+﻿<table class="table">
+    <tr>
+        <th>Institution</th>
+        <th>Branch</th>
+        <th>Account</th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
+    </tr>
+    <tr *ngFor="#acct of entity.BankAccounts">
+        <td>
+            <input type="text" [(ngModel)]="acct.InstitutionCode" class="form-control" />
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="acct.BranchCode" class="form-control" />
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="acct.AccountNumber" class="form-control" />
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="remove(acct)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
+
+    </tr>
+</table>

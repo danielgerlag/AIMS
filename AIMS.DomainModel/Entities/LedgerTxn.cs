@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +19,14 @@ namespace AIMS.DomainModel.Entities
 
         public int LedgerAccountID { get; set; }
         public virtual LedgerAccount LedgerAccount { get; set; }
-                
+
 
         //[Required]
         //[MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
         //public string TransactionOrigin { get; set; }
 
         public DateTime TxnDate { get; set; }
-        
+
         public decimal Amount { get; set; }
 
         public int? PublicID { get; set; }
@@ -39,6 +40,48 @@ namespace AIMS.DomainModel.Entities
 
         public int? ReportingEntityBranchID { get; set; }
         public virtual ReportingEntityBranch ReportingEntityBranch { get; set; }
+
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public decimal AbsAmount
+        {
+            get
+            {
+                return Math.Abs(Amount); 
+            }
+            private set { }
+        }
+
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string Description
+        {
+            get
+            {
+                if (LedgerAccount != null)
+                {
+                    if (LedgerAccount.LedgerAccountType != null)
+                    {
+                        if (LedgerAccount.LedgerAccountType.CreditPositive)
+                        {
+                            if (Amount >= 0)
+                                return "Credit";
+                            else
+                                return "Debit";
+                        }
+                        else
+                        {
+                            if (Amount >= 0)
+                                return "Debit";
+                            else
+                                return "Credit";
+                        }
+                    }
+                }
+                return string.Empty;
+            }
+            private set { }
+        }
 
     }
 }

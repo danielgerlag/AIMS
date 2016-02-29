@@ -8,6 +8,7 @@ import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
 import {PublicGeneral} from '../../directives/public/publicGeneral';
 import {PublicContactDetails} from '../../directives/public/publicContactDetails';
+import {PublicBankAccounts} from '../../directives/public/publicBankAccounts';
 
 @Component({
     selector: 'publicWizard',
@@ -16,7 +17,7 @@ import {PublicContactDetails} from '../../directives/public/publicContactDetails
 })
 @View({
     templateUrl: './application/directives/public/publicWizard.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicGeneral, PublicContactDetails]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput, PublicGeneral, PublicContactDetails, PublicBankAccounts]
 })
 export class PublicWizard implements OnInit {
 

@@ -91,6 +91,7 @@
     <Compile Include="Entities\AttributeDataType.cs" />
     <Compile Include="Entities\BankAccount.cs" />
     <Compile Include="Entities\AgentType.cs" />
+    <Compile Include="Entities\ContactDetailType.cs" />
     <Compile Include="Entities\InsurableItemOperator.cs" />
     <Compile Include="Entities\InsurableItemAttribute.cs" />
     <Compile Include="Entities\InsurableItemClassAttributeGroup.cs" />
@@ -240,6 +241,18 @@
     <Compile Include="Migrations\201602282013051_agent5.Designer.cs">
       <DependentUpon>201602282013051_agent5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602291858452_dbg.cs" />
+    <Compile Include="Migrations\201602291858452_dbg.Designer.cs">
+      <DependentUpon>201602291858452_dbg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602291922036_cd.cs" />
+    <Compile Include="Migrations\201602291922036_cd.Designer.cs">
+      <DependentUpon>201602291922036_cd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602291944288_cd2.cs" />
+    <Compile Include="Migrations\201602291944288_cd2.Designer.cs">
+      <DependentUpon>201602291944288_cd2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -351,6 +364,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602282013051_agent5.resx">
       <DependentUpon>201602282013051_agent5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291858452_dbg.resx">
+      <DependentUpon>201602291858452_dbg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291922036_cd.resx">
+      <DependentUpon>201602291922036_cd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291944288_cd2.resx">
+      <DependentUpon>201602291944288_cd2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

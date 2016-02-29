@@ -8,6 +8,7 @@ import {FormInput} from '../../directives/input/formInput';
 import {EntitySummary} from '../../directives/input/entitySummary';
 import {PublicGeneral} from '../../directives/public/publicGeneral';
 import {PublicContactDetails} from '../../directives/public/publicContactDetails';
+import {PublicBankAccounts} from '../../directives/public/publicBankAccounts';
 import {IShellService} from '../../services/shellService';
 import {IAuthService} from '../../services/authService';
 import {IDataService} from '../../services/dataService';
@@ -16,7 +17,7 @@ import {CRUDController} from '../../core/crudController';
 
 @Component({    
     templateUrl: './application/components/public/editPublic.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicGeneral, PublicContactDetails],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, FormInput, NgClass, EntitySummary, EntityDropdown, TAB_DIRECTIVES, PublicGeneral, PublicContactDetails, PublicBankAccounts],
     pipes: [JsonPipe]
 })
 export class EditPublic extends CRUDController {
@@ -34,6 +35,14 @@ export class EditPublic extends CRUDController {
         return "Publics";
     }
 
+
+    protected expandFields(): string[] {
+        var result = super.expandFields();        
+        result.push("ContactDetails");
+        result.push("BankAccounts");
+
+        return result;
+    }
 
     protected afterSave(sender: EditPublic, data: any) {
         super.afterSave(sender, data);

@@ -128,7 +128,7 @@ export class JournalExplorer implements AfterContentInit {
 
     buildInitLedgerTxnDetail() {
         var self = this;
-        var queryOptions = "?$expand=LedgerAccount&$select=Amount,TxnDate,LedgerAccount/Name";
+        var queryOptions = "?$expand=LedgerAccount";
         return function (e) {
             jQuery("<div/>").appendTo(e.detailCell).kendoGrid({
 
@@ -144,7 +144,8 @@ export class JournalExplorer implements AfterContentInit {
                     schema: {
                         model: {
                             fields: {
-                                'Amount': { type: "number" },
+                                'AbsAmount': { type: "number" },
+                                'Description': { type: "string" },
                                 'LedgerAccount.Name': { type: "string" }
                             }
                         },
@@ -169,8 +170,9 @@ export class JournalExplorer implements AfterContentInit {
                 columns: [{
                     title: "Ledger",
                     columns: [
+                        { field: "Description", title: "Type" },
                         { field: "LedgerAccount.Name", title: "Account" },
-                        { field: "Amount", title: "Amount" }]
+                        { field: "AbsAmount", title: "Amount" }]
                 }]                
             });
         }

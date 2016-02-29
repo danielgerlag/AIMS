@@ -1,6 +1,24 @@
-﻿
+﻿<table class="table">
+    <tr>
+        <th>Type</th>
+        <th></th>
+        <th><button type="button" class="btn" (click)="add()">Add</button></th>
+    </tr>
+    <tr *ngFor="#cd of entity.ContactDetails">
+        <td>
+            <entity-dropdown [(value)]="cd.ContactDetailTypeID"
+                             query="ContactDetailTypes"
+                             keyField="ID"
+                             displayField="Name"
+                             nullable="false">
+            </entity-dropdown>
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="cd.Data" class="form-control" />
+        </td>
+        <td>
+            <button type="button" class="btn" (click)="remove(cd)"><i class="fa fa-trash fa-fw"></i></button>
+        </td>
 
-<div>
-    contacts
-</div>
-
+    </tr>
+</table>

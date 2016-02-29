@@ -15,6 +15,13 @@
 </div>
 
 <div class="panel panel-default" *ngIf="step == 3">
+    <div class="panel-heading">Step {{step}} - Bank Accounts</div>
+    <div class="panel-body">
+        <publicBankAccounts [(value)]="entity" [dataService]="dataService"></publicBankAccounts>
+    </div>
+</div>
+
+<div class="panel panel-default" *ngIf="step == 4">
     <div class="panel-heading">Step {{step}} - Summary</div>
     <div class="panel-body">
         Summary

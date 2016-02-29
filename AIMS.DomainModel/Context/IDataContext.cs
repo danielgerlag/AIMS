@@ -17,6 +17,9 @@ namespace AIMS.DomainModel.Context
         DbSet<BankAccount> BankAccounts { get; set; }
         DbSet<BusinessLine> BusinessLines { get; set; }
         DbSet<ContactDetail> ContactDetails { get; set; }
+
+        DbSet<ContactDetailType> ContactDetailTypes { get; set; }
+
         DbSet<ContextParameter> ContextParameters { get; set; }
 
         DbSet<ContextParameterValue> ContextParameterValues { get; set; }

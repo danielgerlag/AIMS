@@ -72,6 +72,7 @@
     <Content Include="application\directives\policy\policyAgents.html" />
     <Content Include="application\directives\policy\policyServiceProviders.html" />
     <Content Include="application\directives\policy\policyReportingEntities.html" />
+    <Content Include="application\directives\public\publicBankAccounts.html" />
     <Content Include="application\directives\public\publicSelector.html" />
     <Content Include="application\directives\public\publicContactDetails.html" />
     <Content Include="application\directives\public\publicGeneral.html" />
@@ -1331,6 +1332,7 @@
     <TypeScriptCompile Include="application\directives\policy\policyRiskLocations.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyServiceProviders.ts" />
     <TypeScriptCompile Include="application\directives\policy\policyReportingEntities.ts" />
+    <TypeScriptCompile Include="application\directives\public\publicBankAccounts.ts" />
     <TypeScriptCompile Include="application\directives\public\publicSelector.ts" />
     <TypeScriptCompile Include="application\directives\public\publicContactDetails.ts" />
     <TypeScriptCompile Include="application\directives\public\publicGeneral.ts" />

@@ -9,15 +9,15 @@ import {ODataWrapper} from '../../core/interfaces'
 
 
 @Component({
-    selector: 'publicContactDetails',
+    selector: 'publicBankAccounts',
     inputs: ['value', 'dataService'],
     outputs: ['valueChange']
 })
 @View({
-    templateUrl: './application/directives/public/publicContactDetails.html',
+    templateUrl: './application/directives/public/publicBankAccounts.html',
     directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, TAB_DIRECTIVES, EntityDropdown, FormInput]
 })
-export class PublicContactDetails implements OnInit {
+export class PublicBankAccounts implements OnInit {
 
     private remoteService: IRemoteService;
     private dataService: IDataService;
@@ -52,8 +52,8 @@ export class PublicContactDetails implements OnInit {
     }
 
     protected add() {
-        var item = this.dataService.createEntity("ContactDetail", {});
-        this.entity.ContactDetails.push(item);
+        var item = this.dataService.createEntity("BankAccount", {});
+        this.entity.BankAccounts.push(item);
     }
 
     protected remove(item: breeze.Entity) {
