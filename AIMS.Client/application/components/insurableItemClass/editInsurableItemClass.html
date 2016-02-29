@@ -12,7 +12,7 @@
                 </form-input>
 
                 <form-input [entity]="entity" name="ParentInsurableItemClassID" title="Parent Class">
-                    <entity-dropdown class="form-control"
+                    <entity-dropdown 
                                      [(value)]="entity.ParentInsurableItemClassID"
                                      name="ParentInsurableItemClassID"
                                      query="InsurableItemClasses"
@@ -39,7 +39,7 @@
                             <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="group.DisplayOrder">
                         </form-input>
 
-                        <table>
+                        <table class="table table-bordered">
                             <tr>
                                 <th>Name</th>
                                 <th>Prompt</th>

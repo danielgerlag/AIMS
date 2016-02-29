@@ -25,7 +25,7 @@
                             <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="group.DisplayOrder">
                         </form-input>
 
-                        <table class="table">
+                        <table class="table table-bordered">
                             <tr>
                                 <th>Name</th>
                                 <th>Prompt</th>
@@ -57,7 +57,7 @@
                                     <input type="number" class="form-control" name="DisplayOrder" [(ngModel)]="attribute.DisplayOrder">
                                 </td>
                                 <td>
-                                    <entity-dropdown class="form-control"
+                                    <entity-dropdown 
                                                      [(value)]="attribute.AttributeDataTypeID"
                                                      name="AttributeDataTypeID"
                                                      query="AttributeDataTypes"
@@ -70,7 +70,7 @@
                                     <input type="number" class="form-control" name="DecimalPlaces" [(ngModel)]="attribute.DecimalPlaces">
                                 </td>
                                 <td>
-                                    <entity-dropdown class="form-control"
+                                    <entity-dropdown 
                                                      [(value)]="attribute.AttributeLookupListID"
                                                      name="AttributeLookupListID"
                                                      query="AttributeLookupLists"

@@ -55,6 +55,7 @@ export class Home {
         this.shellInfo = shellService.info;
         this.searchResponse = new dto.SearchResponse();
         this.testDate = new Date(2001, 1, 1);
+        this.searchType = "";
     }    
 
     public search() {

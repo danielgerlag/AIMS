@@ -36,7 +36,9 @@ namespace AIMS.DomainModel.Indexers
                 default:
                     result.Name = entity.Name;
                     break;
-            }           
+            }
+
+            result.Reference = result.Name;
 
             return result;
         }

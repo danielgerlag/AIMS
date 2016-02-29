@@ -63,6 +63,19 @@ namespace AIMS.DomainModel.Indexers
                 }
             }
 
+            result.Summary = "";
+
+            if (entity.PolicySubType != null)
+            {
+                if (entity.PolicySubType.Region != null)
+                    result.Summary += entity.PolicySubType.Region.Name + " - ";
+
+                if (entity.PolicySubType.PolicyType != null)
+                    result.Summary += entity.PolicySubType.PolicyType.Name + " - ";
+
+                result.Summary += entity.PolicySubType.Name;
+            }
+
             return result;
         }
     }
