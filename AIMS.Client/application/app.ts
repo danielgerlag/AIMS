@@ -45,6 +45,14 @@ declare var System:any;
         new Route({ path: '/NewPolicy', component: Components.NewPolicy, name: 'NewPolicy' }),
         new Route({ path: '/EditPolicy/:Id', component: Components.EditPolicy, name: 'EditPolicy' }),
 
+        new Route({ path: '/ListSequenceNumber', component: Components.ListSequenceNumber, name: 'ListSequenceNumber' }),
+        new Route({ path: '/EditSequenceNumber', component: Components.EditSequenceNumber, name: 'EditSequenceNumber' }),
+        new Route({ path: '/EditSequenceNumber/:Id', component: Components.EditSequenceNumber, name: 'EditSequenceNumber' }),
+
+        new Route({ path: '/ListAttributeLookupList', component: Components.ListAttributeLookupList, name: 'ListAttributeLookupList' }),
+        new Route({ path: '/EditAttributeLookupList', component: Components.EditAttributeLookupList, name: 'EditAttributeLookupList' }),
+        new Route({ path: '/EditAttributeLookupList/:Id', component: Components.EditAttributeLookupList, name: 'EditAttributeLookupList' }),
+
         new Route({ path: '/NewPublic', component: Components.NewPublic, name: 'NewPublic' }),
         new Route({ path: '/EditPublic', component: Components.EditPublic, name: 'EditPublic' }),
         new Route({ path: '/EditPublic/:Id', component: Components.EditPublic, name: 'EditPublic' }),

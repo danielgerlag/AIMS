@@ -28,7 +28,8 @@ export class ListAttributeLookupList extends ListController {
 
     protected getColumns(): any {
         return [
-            { Title: 'Name', Name: 'Name' }
+            { Title: 'Name', Name: 'Name' },
+            { Title: 'Code', Name: 'CSIOCode' }
         ];
     }
     

@@ -37,8 +37,7 @@ export class EditRegion extends CRUDController {
 
     protected expandFields(): string[] {
         var result = super.expandFields();
-        //result.push("ContextParameterValues");
-        //result.push("ContextParameterValues.ContextParameterValue");
+        result.push("Taxes");        
         
         return result;
     }
@@ -49,5 +48,13 @@ export class EditRegion extends CRUDController {
         sender.router.navigate(["Home"]);
     }
 
+    protected addTax() {
+        var item = this.dataService.createEntity("RegionTax", {});
+        this.entity.Taxes.push(item);
+    }
+
+    protected removeTax(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
+    }
    
 }

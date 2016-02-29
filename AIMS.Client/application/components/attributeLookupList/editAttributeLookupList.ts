@@ -33,10 +33,25 @@ export class EditAttributeLookupList extends CRUDController {
         return "AttributeLookupLists";
     }
 
+    protected expandFields(): string[] {
+        var result = super.expandFields();
+        result.push("Items");
+        return result;
+    }
+
 
     protected afterSave(sender: EditAttributeLookupList, data: any) {
         super.afterSave(sender, data);
         sender.router.navigate(["Home"]);
+    }
+
+    protected addItem() {
+        var item = this.dataService.createEntity("AttributeLookupItem", {});
+        this.entity.Items.push(item);
+    }
+
+    protected removeItem(item: breeze.Entity) {
+        item.entityAspect.setDeleted();
     }
 
    

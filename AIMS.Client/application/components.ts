@@ -36,6 +36,12 @@ import {EditAgent} from './components/agent/editAgent'
 import {ListAgentType} from './components/agentType/listAgentType'
 import {EditAgentType} from './components/agentType/editAgentType'
 
+import {ListAttributeLookupList} from './components/attributeLookupList/listAttributeLookupList'
+import {EditAttributeLookupList} from './components/attributeLookupList/editAttributeLookupList'
+
+import {ListSequenceNumber} from './components/sequenceNumber/listSequenceNumber'
+import {EditSequenceNumber} from './components/sequenceNumber/editSequenceNumber'
+
 
 import {EditPublic} from './components/public/editPublic'
 import {NewPublic} from './components/public/newPublic'
@@ -47,6 +53,12 @@ var Components = {
 
     NewPolicy: NewPolicy,
     EditPolicy: EditPolicy,
+
+    ListSequenceNumber: ListSequenceNumber,
+    EditSequenceNumber: EditSequenceNumber,
+
+    ListAttributeLookupList: ListAttributeLookupList,
+    EditAttributeLookupList: EditAttributeLookupList,
 
     ListAgent: ListAgent,
     EditAgent: EditAgent,

@@ -8,6 +8,36 @@
                 </form-input>
             </tab>
 
+            <tab heading="Taxes">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name</th>
+                        <th>Maaped to Context Parameter</th>                        
+                        <th>
+                            <button type="button" class="btn" (click)="addTax()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#tax of entity.Taxes">
+                        <td>
+                            <input type="text" class="form-control" [(ngModel)]="tax.Name">
+                        </td>
+                        <td>
+                            <entity-dropdown [(value)]="tax.ContextParameterID"
+                                             name="ContextParameterID"
+                                             query="ContextParameters"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="false">
+                            </entity-dropdown>
+                        </td>                        
+                        <td>
+                            <button type="button" class="btn" (click)="removeTax(tax)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+                    </tr>
+                </table>
+
+            </tab>
+
             <tab heading="Context Parameters">
                 <contextParameterValues [(value)]="entity" [dataService]="dataService" childType="RegionContextParameterValue"></contextParameterValues>
             </tab>

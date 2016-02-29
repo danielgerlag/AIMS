@@ -6,9 +6,38 @@
                 <form-input [entity]="entity" name="Name" title="Name">
                     <input type="text" class="form-control" name="Name" [(ngModel)]="entity.Name">
                 </form-input>
-                                
-                                
-            </tab>            
+
+                <form-input [entity]="entity" name="CSIOCode" title="CSIO Code">
+                    <input type="text" class="form-control" name="CSIOCode" [(ngModel)]="entity.CSIOCode">
+                </form-input>
+            </tab>
+            <tab heading="Items">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Text</th>
+                        <th>CSIO Code</th>
+                        <th>Internal Code</th>                        
+                        <th>
+                            <button type="button" class="btn" (click)="addItem()">Add</button>
+                        </th>
+                    </tr>
+                    <tr *ngFor="#item of entity.Items">
+                        <td>
+                            <input type="text" class="form-control" [(ngModel)]="item.Description">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" [(ngModel)]="item.CSIOCode">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" [(ngModel)]="item.Code">
+                        </td>
+                        <td>
+                            <button type="button" class="btn" (click)="removeItem(item)"><i class="fa fa-trash fa-fw"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+
         </tabset>
 
     </div>
