@@ -83,6 +83,12 @@
                             <input type="number" class="form-control" name="Amount" [(ngModel)]="entity.Amount" />
                         </div>
                     </form-input>
+
+                    <form-input [entity]="entity" name="ReconRequired" title="Requires Bank Recon" labelClass="col-sm-2">
+                        <div class="col-sm-10">
+                            <input type="checkbox" class="form-control" name="ReconRequired" [(ngModel)]="entity.ReconRequired" />
+                        </div>
+                    </form-input>
                 </div>
 
             </tab>

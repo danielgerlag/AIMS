@@ -35,6 +35,7 @@ export abstract class IDataService {
     abstract cacheEntities(sender: any, setName: string, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract getCollection(sender: any, setName: string, id: number, expand: string, success: (sender: any, data: breeze.QueryResult) => any, failure: (sender: any, data: any) => any);
     abstract loadNavigationGraph(sender: any, entity: breeze.Entity, path: breeze.NavigationProperty, expand: string, failure: (sender: any, data: any) => any);
+    abstract getCachedEntities(typeName: string);
 }
 
 function initEntity(entity) {
@@ -193,5 +194,9 @@ export class DataService implements IDataService {
         this.manager.executeQuery(navQuery)
             .catch((reason) => { failure(sender, reason) });
         
+    }
+
+    getCachedEntities(typeName: string) {
+        return this.manager.getEntities(typeName);
     }
 }

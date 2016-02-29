@@ -44,6 +44,11 @@ namespace AIMS.DomainModel.Entities
         public int? PolicyCoverageID { get; set; }
         public virtual PolicyCoverage PolicyCoverage { get; set; }
 
+        [Required]
+        public bool IsReconciled { get; set; }
+
         public virtual ICollection<LedgerTxn> LedgerTxns { get; set; } = new HashSet<LedgerTxn>();
+
+
     }
 }

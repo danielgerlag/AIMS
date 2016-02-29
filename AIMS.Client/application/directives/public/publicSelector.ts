@@ -76,6 +76,7 @@ export class PublicSelector implements OnInit {
 
         let bindings = Injector.resolve([
             provide(ICustomModal, { useValue: newItem }),
+            provide(IDataService, { useValue: self.dataService }),
             provide(IterableDiffers, { useValue: this.injector.get(IterableDiffers) }),
             provide(KeyValueDiffers, { useValue: this.injector.get(KeyValueDiffers) }),
             provide(Renderer, { useValue: this._renderer })
@@ -184,7 +185,7 @@ export class PublicSelector implements OnInit {
                         <th *ngFor="#col of columns">{{ col.Title }}</th>
                     </tr>
                     <tbody>
-                        <tr *ngFor="#item of searchResult" (click)="select(item.ID)">
+                        <tr *ngFor="#item of searchResult" (click)="select(item)">
                             <td *ngFor="#col of columns">{{ drillObject(item, col.Name) }}</td>
                         </tr>
                     </tbody>
@@ -211,6 +212,7 @@ class SearchPopup implements ICustomModalComponent {
         this.dialog = dialog;
         this.caller = <PublicSelector>data;
         this.columns = this.caller.columns;
+        this.searchResult = this.caller.dataService.getCachedEntities("Public");
     }
 
 
@@ -248,8 +250,11 @@ class SearchPopup implements ICustomModalComponent {
         sender.searchResult = data.value;
     }
 
-    select(id: number) {
-        this.caller.dataService.getEntity(this, this.caller.path, id, "", false, this.onAttachResponse, this.onAttachFailure);
+    select(item) {
+        if (item.ID > 1)
+            this.caller.dataService.getEntity(this, this.caller.path, item.ID, "", false, this.onAttachResponse, this.onAttachFailure);
+        else
+            this.dialog.close(item);
     }
 
     protected onAttachResponse(sender: SearchPopup, data: breeze.QueryResult) {

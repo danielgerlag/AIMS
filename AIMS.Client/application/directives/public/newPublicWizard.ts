@@ -9,7 +9,7 @@ import {Component, Input, View, provide, ElementRef, Injector, IterableDiffers, 
 import {PublicWizard} from './publicWizard';
 //import {IShellService} from '../../services/shellService';
 //import {IAuthService} from '../../services/authService';
-//import {IDataService} from '../../services/dataService';
+import {IDataService} from '../../services/dataService';
 
 
 import {Modal} from 'angular2-modal/angular2-modal';
@@ -39,10 +39,12 @@ export class NewPublicWizard implements ICustomModalComponent {
 
     dialog: ModalDialogInstance;
     context: breeze.Entity;
+    dataService: IDataService;
 
-    constructor(dialog: ModalDialogInstance, data: ICustomModal) {
+    constructor(dialog: ModalDialogInstance, data: ICustomModal, dataService: IDataService) {
         this.dialog = dialog;
         this.context = <breeze.Entity>data;
+        this.dataService = dataService;
     }
         
 

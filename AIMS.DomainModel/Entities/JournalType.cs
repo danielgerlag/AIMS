@@ -23,6 +23,7 @@ namespace AIMS.DomainModel.Entities
 
         [Required]
         public bool IsPayment { get; set; }
+                
 
     }
 }

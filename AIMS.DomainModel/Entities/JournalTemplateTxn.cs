@@ -39,6 +39,9 @@ namespace AIMS.DomainModel.Entities
         [MaxLength(1)]  // G - Global, P - Policy, U - Public, A - Agent, B - Branch
         public string BalanceOrigin { get; set; }
 
+        [Required]
+        public bool ReconRequired { get; set; }
+
 
         public virtual ICollection<JournalTemplateTxnPosting> Postings { get; set; } = new HashSet<JournalTemplateTxnPosting>();
     }

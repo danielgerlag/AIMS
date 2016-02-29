@@ -8,11 +8,11 @@
                         labelClass="col-sm-2"
                         [ngSwitch]="attr.AttributeDataType.Code">
                 <div class="col-sm-10">
-                    <input *ngSwitchWhen="'STR'" [(ngModel)]="findAttribute(attr.ID).Value" type="text" class="form-control">
-                    <input *ngSwitchWhen="'NUM'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
-                    <input *ngSwitchWhen="'DEC'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
-                    <input *ngSwitchWhen="'PER'" [(ngModel)]="findAttribute(attr.ID).Value" type="number" class="form-control">
-                    <input *ngSwitchWhen="'DTE'" [(ngModel)]="findAttribute(attr.ID).Value" type="date" class="form-control">                    
+                    <input *ngSwitchWhen="'STR'" [(ngModel)]="findAttribute(attr.ID).Value" required="{{attr.Required}}" type="text" class="form-control">
+                    <input *ngSwitchWhen="'NUM'" [(ngModel)]="findAttribute(attr.ID).Value" required="{{attr.Required}}" type="number" class="form-control">
+                    <input *ngSwitchWhen="'DEC'" [(ngModel)]="findAttribute(attr.ID).Value" required="{{attr.Required}}" type="number" class="form-control">
+                    <input *ngSwitchWhen="'PER'" [(ngModel)]="findAttribute(attr.ID).Value" required="{{attr.Required}}" type="number" class="form-control">
+                    <input *ngSwitchWhen="'DTE'" [(ngModel)]="findAttribute(attr.ID).Value" required="{{attr.Required}}" type="date" class="form-control">                    
                     <entity-dropdown *ngSwitchWhen="'LIS'"
                                      [(value)]="findAttribute(attr.ID).Value"
                                      query="AttributeLookupItems?$filter=AttributeLookupListID eq {{attr.AttributeLookupListID}}&$orderby=Description"
