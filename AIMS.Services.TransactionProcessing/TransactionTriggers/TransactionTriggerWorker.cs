@@ -55,6 +55,8 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
 
             _db.Entry(trigger).Reload();
 
+            if (!CanExecuteNow())
+                return;
 
             var txOptions = new System.Transactions.TransactionOptions();
             txOptions.IsolationLevel = System.Transactions.IsolationLevel.Snapshot;
@@ -160,6 +162,12 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
                 return false;
 
             if (trigger.NextExecutionDate.Value > DateTime.Now)
+                return false;
+
+            if (trigger.Status != null)
+                return false;
+
+            if (trigger.Status.Code != "A")
                 return false;
 
             int priority = trigger.JournalTemplate.Priority;

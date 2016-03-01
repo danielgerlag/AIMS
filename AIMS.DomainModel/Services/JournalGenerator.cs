@@ -174,7 +174,7 @@ namespace AIMS.DomainModel.Services
 
             txn.Description = templateTxn.Description;
             if (transactionTrigger.PolicyTransactionTrigger != null)
-                journal.Policy = transactionTrigger.PolicyTransactionTrigger.Policy;
+                txn.Policy = transactionTrigger.PolicyTransactionTrigger.Policy;
 
             txn.Public = resolvedPublic;
             txn.ReportingEntityBranch = transactionTrigger.ReportingEntityBranch;
