@@ -198,16 +198,13 @@ export class DebtorCreditorBalances implements OnInit {
                 },
                 filterable: true,
                 resizable: true,
-                columns: [{
-                    title: "Ledger",
-                    columns: [
+                columns:  [
                         { field: "TxnDate", title: "Date", format: "{0: yyyy-MM-dd}" },
                         { field: "Description", title: "Description" },
                         { field: "Reference", title: "Reference" },
                         { field: "PolicyNumber", title: "Policy" },
                         { field: "Amount", title: "Amount" },
-                        { field: "Balance", title: "Balance" }]
-                }]
+                        { field: "Balance", title: "Balance" }]                
             });
         }
     }

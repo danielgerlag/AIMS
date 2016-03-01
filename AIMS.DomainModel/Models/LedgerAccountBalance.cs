@@ -54,6 +54,8 @@ namespace AIMS.DomainModel.Models
         public int ReportingEntityID { get; set; }
         public string ReportingEntityName { get; set; }
 
+        public string LedgerAccountType { get; set; }
+
         public int PublicID { get; set; }
         public string PublicName { get; set; }
 

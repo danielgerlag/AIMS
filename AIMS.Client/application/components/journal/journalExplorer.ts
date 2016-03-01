@@ -18,7 +18,7 @@ export class JournalExplorer implements AfterContentInit {
         this.elementRef = elementRef;
         this.configService = configService;
         this.servicePath = configService.getSettings().api + "Data.svc";
-        this.queryOptions = "?$expand=JournalType,ReportingEntity/Public&$select=*,ReportingEntity/Public/Name,JournalType/Name";
+        this.queryOptions = "?$expand=JournalType,ReportingEntity/Public&$select=*,ReportingEntity/Public/Name,JournalType/Name&$orderby=TxnDate desc";
     }
 
     ngAfterContentInit() {
@@ -59,13 +59,14 @@ export class JournalExplorer implements AfterContentInit {
                 serverFiltering: true,
                 serverSorting: true
             },
-            
-            //pageSize: 20,
+
+            pageable: true,
             height: 400,            
             sortable: true,
             filterable: true,
             toolbar: ["excel"],
             groupable: true,
+            scrollable: true,
             resizable: true,
             detailInit: txnDetailInit,
             columns: [

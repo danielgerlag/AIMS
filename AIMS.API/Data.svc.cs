@@ -152,6 +152,7 @@ namespace AIMS.DomainModel.Entities
                                 Balance = x.Sum(t => t.Amount),
                                 LedgerAccountID = x.Key.LedgerAccount.ID,
                                 LedgerAccountName = x.Key.LedgerAccount.Name,
+                                LedgerAccountType = x.Key.LedgerAccount.LedgerAccountType.Name,
                                 ReportingEntityID = x.Key.ReportingEntity.ID,
                                 ReportingEntityName = x.Key.ReportingEntity.Public.Name
                             }).ToList()
@@ -160,6 +161,7 @@ namespace AIMS.DomainModel.Entities
                                 Balance = x.Balance,
                                 LedgerAccountID = x.LedgerAccountID,
                                 LedgerAccountName = x.LedgerAccountName,
+                                LedgerAccountType = x.LedgerAccountType,
                                 ReportingEntityID = x.ReportingEntityID,
                                 ReportingEntityName = x.ReportingEntityName,
                                 EffectiveDate = effDate
@@ -180,6 +182,7 @@ namespace AIMS.DomainModel.Entities
                                 Balance = x.Sum(t => t.Amount),
                                 LedgerAccountID = x.Key.LedgerAccount.ID,
                                 LedgerAccountName = x.Key.LedgerAccount.Name,
+                                LedgerAccountType = x.Key.LedgerAccount.LedgerAccountType.Name,
                                 ReportingEntityID = x.Key.ReportingEntity.ID,
                                 ReportingEntityName = x.Key.ReportingEntity.Public.Name
                             }).ToList()
@@ -188,6 +191,7 @@ namespace AIMS.DomainModel.Entities
                                 Balance = x.Balance,
                                 LedgerAccountID = x.LedgerAccountID,
                                 LedgerAccountName = x.LedgerAccountName,
+                                LedgerAccountType = x.LedgerAccountType,
                                 ReportingEntityID = x.ReportingEntityID,
                                 ReportingEntityName = x.ReportingEntityName,
                                 EffectiveDate = effDate
@@ -203,6 +207,7 @@ namespace AIMS.DomainModel.Entities
                     Balance = x.Sum(t => t.Amount),
                     LedgerAccountID = x.Key.LedgerAccount.ID,
                     LedgerAccountName = x.Key.LedgerAccount.Name,
+                    LedgerAccountType = x.Key.LedgerAccount.LedgerAccountType.Name,
                     ReportingEntityID = x.Key.ReportingEntity.ID,
                     ReportingEntityName = x.Key.ReportingEntity.Public.Name,
                     Policy = x.Key.Policy,
@@ -213,6 +218,7 @@ namespace AIMS.DomainModel.Entities
                     Balance = x.Balance,
                     LedgerAccountID = x.LedgerAccountID,
                     LedgerAccountName = x.LedgerAccountName,
+                    LedgerAccountType = x.LedgerAccountType,
                     ReportingEntityID = x.ReportingEntityID,
                     ReportingEntityName = x.ReportingEntityName,
                     EffectiveDate = effDate
