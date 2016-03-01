@@ -90,7 +90,7 @@ namespace AIMS.DomainModel.Services
                             totalPerc += sp.Percentage;
                             
                         }
-                        if (totalPerc != 1)
+                        if ((totalPerc != 1) && (totalPerc != 0))
                             throw new Exception("Service Provider split does not add up to 100%");
                     }
 
@@ -108,7 +108,7 @@ namespace AIMS.DomainModel.Services
                             totalPerc += agent.Percentage;
 
                         }
-                        if (totalPerc != 1)
+                        if ((totalPerc != 1) && (totalPerc != 0))
                             throw new Exception("Agent split does not add up to 100%");
                     }
 
@@ -216,23 +216,33 @@ namespace AIMS.DomainModel.Services
 
         private decimal ResolveAmount(IDataContext db, TransactionTrigger transactionTrigger, Public resolvedPublic, JournalTemplateTxn templateTxn)
         {
+            decimal? result = null;
+
             if (templateTxn.Amount.HasValue)
             {
-                return templateTxn.Amount.Value;
+                result = templateTxn.Amount.Value;
             }
 
             if (templateTxn.AmountInputID.HasValue)
             {
                 var amountInput = transactionTrigger.Inputs.First(x => x.JournalTemplateInputID == templateTxn.AmountInputID);
-                return Convert.ToDecimal(amountInput.Value);
+                result = Convert.ToDecimal(amountInput.Value);
             }
 
             if (templateTxn.AmountContextParameterID.HasValue)
             {
-                return ResolveContextParameter(db, transactionTrigger, templateTxn, resolvedPublic);
+                result = ResolveContextParameter(db, transactionTrigger, templateTxn, resolvedPublic);
             }
 
-            throw new Exception("Unable to resolve amount");
+            if (!result.HasValue)
+                throw new Exception("Unable to resolve amount");
+
+            if (templateTxn.InvertPercentage)
+            {
+                result = (1 - result.Value);
+            }
+
+            return result.Value;
         }
 
         private string ResolveReference(IDataContext db, TransactionTrigger transactionTrigger)

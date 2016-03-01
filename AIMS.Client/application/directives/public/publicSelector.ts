@@ -252,7 +252,7 @@ class SearchPopup implements ICustomModalComponent {
     }
 
     select(item) {
-        if (item.ID > 1)
+        if (item.ID > 0)
             this.caller.dataService.getEntity(this, this.caller.path, item.ID, "", false, this.onAttachResponse, this.onAttachFailure);
         else
             this.dialog.close(item);

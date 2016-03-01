@@ -42,6 +42,9 @@ namespace AIMS.DomainModel.Entities
         [Required]
         public bool ReconRequired { get; set; }
 
+        [Required]
+        public bool InvertPercentage { get; set; }
+
 
         public virtual ICollection<JournalTemplateTxnPosting> Postings { get; set; } = new HashSet<JournalTemplateTxnPosting>();
     }

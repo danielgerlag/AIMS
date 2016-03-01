@@ -261,6 +261,14 @@
     <Compile Include="Migrations\201602292111143_n2.Designer.cs">
       <DependentUpon>201602292111143_n2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602292321382_n3.cs" />
+    <Compile Include="Migrations\201602292321382_n3.Designer.cs">
+      <DependentUpon>201602292321382_n3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603010019215_n4.cs" />
+    <Compile Include="Migrations\201603010019215_n4.Designer.cs">
+      <DependentUpon>201603010019215_n4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -387,6 +395,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602292111143_n2.resx">
       <DependentUpon>201602292111143_n2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602292321382_n3.resx">
+      <DependentUpon>201602292321382_n3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603010019215_n4.resx">
+      <DependentUpon>201603010019215_n4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
