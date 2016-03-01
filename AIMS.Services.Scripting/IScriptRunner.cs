@@ -10,6 +10,8 @@ namespace AIMS.Services.Scripting
         ScriptResult Run(Dictionary<string, object> parameters, IDbContext db, string code, string language);
 
         object ResolveExpression<TContext>(TContext context, string contextName, IDbContext db, string code, string language);
+
+        TResult ResolveExpression<TResult>(Dictionary<string, object> parameters, IDbContext db, string code, string language);
     }
 
     

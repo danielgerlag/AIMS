@@ -73,7 +73,7 @@
                                     <entity-dropdown 
                                                      [(value)]="attribute.AttributeLookupListID"
                                                      name="AttributeLookupListID"
-                                                     query="AttributeLookupLists"
+                                                     query="AttributeLookupLists?$orderby=Name"
                                                      keyField="ID"
                                                      displayField="Name"
                                                      nullable="true">

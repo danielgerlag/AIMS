@@ -59,6 +59,7 @@ export class DebtorCreditorBalances implements OnInit {
             scrollable: true,
             sortable: true,
             filterable: true,
+            resizable: true,
             detailInit: ledgerTxnDetail,
             columns: self.buildColumns()
         });
@@ -195,8 +196,8 @@ export class DebtorCreditorBalances implements OnInit {
                 scrollable: {
                     virtual: true
                 },
-                sortable: true,
-
+                filterable: true,
+                resizable: true,
                 columns: [{
                     title: "Ledger",
                     columns: [

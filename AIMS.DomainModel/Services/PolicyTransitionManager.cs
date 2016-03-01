@@ -33,6 +33,15 @@ namespace AIMS.DomainModel.Services
 
                     foreach (var entity in targetEntities)
                     {
+                        if (!String.IsNullOrEmpty(journal.Condition))
+                        {
+                            Dictionary<string, object> exprParameters = new Dictionary<string, object>();
+                            exprParameters.Add("policy", policy);
+                            exprParameters.Add("request", request);
+                            if (!_scriptEngine.ResolveExpression<bool>(exprParameters, db, journal.Condition, "Python"))
+                                continue;
+                        }
+
                         TransactionTrigger txnTrigger = new TransactionTrigger();
                         PolicyTransactionTrigger ptxTrigger = new PolicyTransactionTrigger();
                         ptxTrigger.TransactionTrigger = txnTrigger;

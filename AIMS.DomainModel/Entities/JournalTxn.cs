@@ -15,7 +15,7 @@ namespace AIMS.DomainModel.Entities
         public virtual Journal Journal { get; set; }
 
         [Required]
-        [MaxLength(300)]
+        [MaxLength(500)]
         public string Description { get; set; }
 
         //[Required]

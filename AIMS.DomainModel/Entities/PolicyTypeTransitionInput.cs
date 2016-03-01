@@ -29,6 +29,10 @@ namespace AIMS.DomainModel.Entities
 
         public bool Required { get; set; }
 
+        public int? AttributeLookupListID { get; set; }
+        public virtual AttributeLookupList AttributeLookupList { get; set; }
+
+
 
         public override string GetLookupText()
         {

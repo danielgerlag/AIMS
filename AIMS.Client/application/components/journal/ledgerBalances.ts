@@ -78,6 +78,7 @@ export class LedgerBalances implements OnInit {
             scrollable: true,
             sortable: true,
             filterable: true,
+            resizable: true,
             detailInit: ledgerTxnDetail,
             columns: self.buildColumns()
         });
@@ -222,6 +223,7 @@ export class LedgerBalances implements OnInit {
                     virtual: true
                 },
                 sortable: true,
+                resizable: true,
 
                 columns: [{
                     title: "Ledger",

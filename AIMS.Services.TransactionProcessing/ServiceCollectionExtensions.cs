@@ -36,7 +36,7 @@ namespace AIMS.Services.TransactionProcessing
             //    .SingleInstance();
 
             services.RegisterType<MemoryQueue>()
-                .Keyed<IQueueManager>("TransactionTriggerQueue")                
+                .Keyed<IQueueManager>("TransactionTriggerQueue")
                 .SingleInstance();
 
             return services;

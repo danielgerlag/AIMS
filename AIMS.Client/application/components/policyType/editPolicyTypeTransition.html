@@ -68,6 +68,7 @@
                         <th>Name</th>
                         <th>Prompt</th>
                         <th>Type</th>
+                        <th>List</th>
                         <th>Required</th>
                         <th></th>
                         <th>
@@ -88,6 +89,15 @@
                                              keyField="ID"
                                              displayField="Description"
                                              nullable="false">
+                            </entity-dropdown>
+                        </td>
+                        <td>
+                            <entity-dropdown [(value)]="input.AttributeLookupListID"
+                                             name="AttributeLookupListID"
+                                             query="AttributeLookupLists?$orderby=Name"
+                                             keyField="ID"
+                                             displayField="Name"
+                                             nullable="true">
                             </entity-dropdown>
                         </td>
                         <td>

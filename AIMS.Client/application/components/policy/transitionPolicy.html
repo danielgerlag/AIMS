@@ -31,7 +31,12 @@
 
 
                     <p *ngSwitchWhen="'YEA'">year...</p>
-                    <input *ngSwitchWhen="'BLN'" [(ngModel)]="findInput(srcInput.ID).Value" type="checkbox" class="form-control">
+
+                    <select *ngSwitchWhen="'BLN'" [(ngModel)]="findInput(srcInput.ID).Value" type="checkbox" class="form-control">
+                        <option value="true">Yes</option>
+                        <option value="false">No</option>
+                    </select>
+
                     <p *ngSwitchWhen="'CLS'">csio list...</p>
                 </div>
             </form-input>

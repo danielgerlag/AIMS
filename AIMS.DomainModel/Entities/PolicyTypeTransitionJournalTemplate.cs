@@ -21,7 +21,9 @@ namespace AIMS.DomainModel.Entities
 
         public int JournalTemplateID { get; set; }
         public virtual JournalTemplate JournalTemplate { get; set; }
-        
+
+        public string Condition { get; set; }
+
         public string Script { get; set; }
 
         public int? TxnDateInputID { get; set; }

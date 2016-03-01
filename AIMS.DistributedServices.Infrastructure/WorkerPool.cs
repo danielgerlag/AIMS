@@ -125,6 +125,7 @@ namespace AIMS.DistributedServices.Infrastructure
                                 _queue.Ack(item);
                                 worker.EndLog(false, false, true);
                                 worker.Dispose();
+                                //_queue.Requeue(item);
                             }
                         }
                         catch (Exception ex)

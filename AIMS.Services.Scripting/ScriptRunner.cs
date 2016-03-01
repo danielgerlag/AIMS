@@ -56,6 +56,18 @@ namespace AIMS.Services.Scripting
             return engine.Execute(PrepareScript(code, language), scope);
         }
 
+        public TResult ResolveExpression<TResult>(Dictionary<string, object> parameters, IDbContext db, string code, string language)
+        {
+            var engine = IoC.Container.ResolveKeyed<ScriptEngine>(language);
+            var scope = engine.CreateScope();
+            foreach (var param in parameters)
+                scope.SetVariable(param.Key, param.Value);
+            scope.SetVariable("db", db);
+            scope.SetVariable("ioc", new IoC.Adaptor());
+
+            return engine.Execute<TResult>(PrepareScript(code, language), scope);
+        }
+
         private string PrepareScript(string script, string language)
         {
             StringBuilder sb = new StringBuilder();

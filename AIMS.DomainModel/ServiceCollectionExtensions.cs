@@ -23,7 +23,7 @@ namespace AIMS.DomainModel
             services.RegisterType<PolicyTransitionManager>().As<IPolicyTransitionManager>().InstancePerDependency();
             services.RegisterType<PolicyCommandBuilder>().As<IPolicyCommandBuilder>().InstancePerDependency();
 
-            
+            services.RegisterType<TransactionPollManager>().As<ITransactionPollManager>().SingleInstance();
 
             return services;
         }

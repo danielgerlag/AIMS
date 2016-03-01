@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AIMS.DomainModel.Services;
 
 namespace AIMS.API
 {
@@ -31,13 +32,15 @@ namespace AIMS.API
             ConfigureIoC();
 
             Services.IoC.Container.Resolve<IIndexWorker>().Start();
-            Services.IoC.Container.ResolveKeyed<IWorkerPool>("TransactionTrigger").Start();
+            Services.IoC.Container.Resolve<ITransactionPollManager>().Start(TimeSpan.FromSeconds(10));
+            Services.IoC.Container.ResolveKeyed<IWorkerPool>("TransactionTrigger").Start();            
         }
 
         protected void Application_End(object sender, EventArgs e)
         {
             Services.IoC.Container.Resolve<IIndexWorker>().Stop();
             Services.IoC.Container.ResolveKeyed<IWorkerPool>("TransactionTrigger").Stop();
+            Services.IoC.Container.Resolve<ITransactionPollManager>().Stop();
         }
 
         public void ConfigureIoC()

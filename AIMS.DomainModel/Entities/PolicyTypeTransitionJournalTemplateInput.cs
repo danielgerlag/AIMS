@@ -18,8 +18,7 @@ namespace AIMS.DomainModel.Entities
         public virtual JournalTemplateInput JournalTemplateInput { get; set; }
 
         public int? PolicyTypeTransitionInputID { get; set; }
-        public virtual PolicyTypeTransitionInput PolicyTypeTransitionInput { get; set; }
-
+        public virtual PolicyTypeTransitionInput PolicyTypeTransitionInput { get; set; }                
 
         public string Expression { get; set; }
 

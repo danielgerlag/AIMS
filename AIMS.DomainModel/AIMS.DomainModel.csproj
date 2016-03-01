@@ -269,6 +269,18 @@
     <Compile Include="Migrations\201603010019215_n4.Designer.cs">
       <DependentUpon>201603010019215_n4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603011716595_c1.cs" />
+    <Compile Include="Migrations\201603011716595_c1.Designer.cs">
+      <DependentUpon>201603011716595_c1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603011811369_c2.cs" />
+    <Compile Include="Migrations\201603011811369_c2.Designer.cs">
+      <DependentUpon>201603011811369_c2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603011819148_c3.cs" />
+    <Compile Include="Migrations\201603011819148_c3.Designer.cs">
+      <DependentUpon>201603011819148_c3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LedgerAccountBalance.cs" />
     <Compile Include="Models\LedgerTxnBalance.cs" />
@@ -291,12 +303,14 @@
     <Compile Include="Services\IPolicyRater.cs" />
     <Compile Include="Services\IPolicyTransitionManager.cs" />
     <Compile Include="Services\ISequenceNumberGeneator.cs" />
+    <Compile Include="Services\ITransactionPollManager.cs" />
     <Compile Include="Services\PolicyCommandBuilder.cs" />
     <Compile Include="Services\PolicyRater.cs" />
     <Compile Include="Services\JournalPoster.cs" />
     <Compile Include="Services\JournalGenerator.cs" />
     <Compile Include="Services\PolicyTransitionManager.cs" />
     <Compile Include="Services\SequenceNumberGeneator.cs" />
+    <Compile Include="Services\TransactionPollManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AIMS.DistributedServices.Infrastructure\AIMS.DistributedServices.Infrastructure.csproj">
@@ -401,6 +415,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603010019215_n4.resx">
       <DependentUpon>201603010019215_n4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603011716595_c1.resx">
+      <DependentUpon>201603011716595_c1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603011811369_c2.resx">
+      <DependentUpon>201603011811369_c2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603011819148_c3.resx">
+      <DependentUpon>201603011819148_c3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
