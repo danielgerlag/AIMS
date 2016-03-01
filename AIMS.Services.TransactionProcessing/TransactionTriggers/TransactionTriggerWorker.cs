@@ -164,7 +164,7 @@ namespace AIMS.Services.TransactionProcessing.TransactionTriggers
             if (trigger.NextExecutionDate.Value > DateTime.Now)
                 return false;
 
-            if (trigger.Status != null)
+            if (trigger.Status == null)
                 return false;
 
             if (trigger.Status.Code != "A")

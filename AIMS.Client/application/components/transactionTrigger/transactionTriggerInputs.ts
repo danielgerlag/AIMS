@@ -7,6 +7,7 @@ import { ACCORDION_DIRECTIVES, TAB_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstra
 import {EntityDropdown} from '../../directives/input/entityDropdown';
 import {LookupText} from '../../directives/input/lookupText';
 import {FormInput} from '../../directives/input/formInput';
+import {NumericInput} from '../../directives/input/numericInput';
 
 import {IDataService} from '../../services/dataService';
 import {ODataWrapper} from '../../core/interfaces'
@@ -21,7 +22,7 @@ import {ICustomModal, ModalDialogInstance, ModalConfig, Modal} from 'angular2-mo
 })
 @View({
     templateUrl: './application/components/transactionTrigger/transactionTriggerInputs.html',
-    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ACCORDION_DIRECTIVES, EntityDropdown, FormInput, LookupText]
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass, ACCORDION_DIRECTIVES, EntityDropdown, FormInput, LookupText, NumericInput]
 })
 export class TransactionTriggerInputs implements OnInit {
 

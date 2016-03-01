@@ -1,11 +1,15 @@
 ﻿<table class="table">
     <tr>
-        <th>Description</th>        
+        <th>Entity</th>
+        <th>Description</th>
         <th>
             <button type="button" class="btn" (click)="add(null)">Add</button>
         </th>
     </tr>
     <tr *ngFor="#item of entity.JournalTemplates">
+        <td>
+            {{ getEntityName(item) }}
+        </td>        
         <td>
             {{ item.Description }}
         </td>        

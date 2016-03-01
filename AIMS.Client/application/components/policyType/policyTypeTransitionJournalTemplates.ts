@@ -49,7 +49,12 @@ export class PolicyTypeTransitionJournalTemplates extends SubViewList {
         this.entity['JournalTemplates'].push(item);
     }
 
-    
+
+    protected getEntityName(item) {
+        if (item.EntityRequirement)
+            return item.EntityRequirement.Name;
+        return "";            
+    }
      
 }
 

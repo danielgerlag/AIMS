@@ -18,7 +18,7 @@ export class JournalExplorer implements AfterContentInit {
         this.elementRef = elementRef;
         this.configService = configService;
         this.servicePath = configService.getSettings().api + "Data.svc";
-        this.queryOptions = "?$expand=JournalType,ReportingEntity/Public&$select=ID,Description,Reference,ReportingEntity/Public/Name,JournalType/Name";
+        this.queryOptions = "?$expand=JournalType,ReportingEntity/Public&$select=*,ReportingEntity/Public/Name,JournalType/Name";
     }
 
     ngAfterContentInit() {
@@ -42,6 +42,8 @@ export class JournalExplorer implements AfterContentInit {
                             'ReportingEntity.Public.Name': { type: "string" },
                             'JournalType.Name': { type: "string" },
                             'Reference': { type: "string" },
+                            'TxnDate': { type: "date" },
+                            'Amount': { type: "number" },
                             'Description': { type: "string" }
                         }
                     },
@@ -59,17 +61,20 @@ export class JournalExplorer implements AfterContentInit {
             },
             
             //pageSize: 20,
-            height: 350,            
+            height: 400,            
             sortable: true,
             filterable: true,
             toolbar: ["excel"],
             groupable: true,
+            resizable: true,
             detailInit: txnDetailInit,
             columns: [
                 { field: "ReportingEntity.Public.Name", title: "Reporting Entity" },
+                { field: "TxnDate", title: "Date", format: "{0: yyyy-MM-dd}" },
                 { field: "JournalType.Name", title: "Type" },
                 { field: "Reference", title: "Reference" },
-                { field: "Description", title: "Description" }
+                { field: "Description", title: "Description" },
+                { field: "Amount", title: "Amount" }
             ]
         });
     }
@@ -109,18 +114,13 @@ export class JournalExplorer implements AfterContentInit {
                     serverFiltering: true,
                     serverSorting: true
                 },
-
-                scrollable: {
-                    virtual: true
-                },
+                scrollable: true,
                 sortable: true,                
                 detailInit: ledgerTxnDetail,                    
-                columns: [{
-                        title: "Transactions",
-                        columns: [
+                columns: [
                             { field: "Description", title: "Description" },
-                            { field: "Amount", title: "Amount" }]
-                    }]                
+                            { field: "Amount", title: "Amount" }
+                    ]                
             });
         }
     }
@@ -162,18 +162,14 @@ export class JournalExplorer implements AfterContentInit {
                     serverSorting: true
                 },
 
-                scrollable: {
-                    virtual: true
-                },
+                scrollable: true,
                 sortable: true,                
 
-                columns: [{
-                    title: "Ledger",
-                    columns: [
+                columns: [                
                         { field: "Description", title: "Type" },
                         { field: "LedgerAccount.Name", title: "Account" },
-                        { field: "AbsAmount", title: "Amount" }]
-                }]                
+                        { field: "AbsAmount", title: "Amount" }
+                ]                
             });
         }
     }
