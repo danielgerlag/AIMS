@@ -97,7 +97,7 @@ export namespace EntityExts {
             else {
                 if (!self._statusLoading) {
                     self._statusLoading = true;
-                    entity.entityAspect.loadNavigationProperty("Status");
+                    entity.entityAspect.loadNavigationProperty("Status");                    
                 }
             }
 

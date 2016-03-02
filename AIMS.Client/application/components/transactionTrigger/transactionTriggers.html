@@ -32,7 +32,7 @@
         </tr>
         <tr *ngFor="#item of entity.TransactionTriggers">
             <td>
-                {{ item.TransactionTrigger.ReportingEntity.Public.Name }}
+                {{ getReportingEntityName(item) }}
             </td>
             <td>
                 {{ item.TransactionTrigger.Description }}

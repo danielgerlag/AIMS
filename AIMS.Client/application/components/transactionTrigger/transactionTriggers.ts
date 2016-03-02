@@ -62,6 +62,21 @@ export class TransactionTriggers extends SubViewList {
         this.loadNavigationGraph("TransactionTriggers", "TransactionTrigger, TransactionTrigger.ReportingEntity.Public, TransactionTrigger.JournalTemplate, TransactionTrigger.Inputs");
     }
     
+
+    protected getReportingEntityName(item) {
+        if (item.TransactionTrigger) {
+            if (item.TransactionTrigger.ReportingEntity) {
+                if (item.TransactionTrigger.ReportingEntity.Public) {
+                    return item.TransactionTrigger.ReportingEntity.Public.Name;
+                }
+                else {
+                    var np = item.TransactionTrigger.ReportingEntity.entityType.getNavigationProperty("Public");
+                    this.dataService.loadNavigationGraph(this, item.TransactionTrigger.ReportingEntity, np, "", this.navFail);
+                }
+            }
+        }
+        return "";        
+    }
      
 }
 

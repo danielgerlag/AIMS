@@ -25,6 +25,11 @@ namespace AIMS.DomainModel.Indexers
                 }
             }
 
+            foreach (var addr in entity.RiskLocations)
+            {
+                result.Add(new SearchKeyword(addr.StreetAddressLine1, typeof(PolicyRiskLocation), addr.ID));
+            }
+
             foreach (var item in entity.InsurableItems)
             {
                 foreach (var group in item.InsurableItemClass.Groups)
